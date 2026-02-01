@@ -208,7 +208,7 @@
                     {% else %}
                       href="{{ block.settings.button_link_1 }}"
                     {% endif %}
-                    class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+                    class="{% if block.settings.mm_style_button_1 %}mm-style-btn-parallax-{{ section.id }}-{{ block.id }}{% else %}button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}{% endif %}"
                   >
                     {{- block.settings.button_label_1 | escape -}}
                   </a>
@@ -220,7 +220,7 @@
                     {% else %}
                       href="{{ block.settings.button_link_2 }}"
                     {% endif %}
-                    class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                    class="{% if block.settings.mm_style_button_2 %}mm-style-btn-parallax-{{ section.id }}-{{ block.id }}{% else %}button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}{% endif %}"
                   >
                     {{- block.settings.button_label_2 | escape -}}
                   </a>
