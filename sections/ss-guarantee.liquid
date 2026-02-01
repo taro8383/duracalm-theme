@@ -2499,13 +2499,35 @@ For inquiries or permissions, contact daniel@section.store
             "id": "button_shadow_color",
             "default": "#000000",
             "visible_if": "{{ block.settings.button_style != 'link' and block.settings.button_custom_styling }}"
+          }
+        ]
+      },
+      {
+        "type": "button_magic_mind",
+        "name": "Magic Mind Button",
+        "settings": [
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label",
+            "default": "Shop now"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
           },
           {
             "type": "checkbox",
-            "id": "mm_style_button",
-            "label": "Magic Mind style button",
-            "default": false,
-            "info": "Outlined button with gradient fill on hover using brand colors (#7B92C8, #f3dfc1, #ddbea8)"
+            "id": "open_in_new_tab",
+            "label": "Open link in new tab",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "full_width_mobile",
+            "label": "Full width on mobile",
+            "default": true
           }
         ]
       },
