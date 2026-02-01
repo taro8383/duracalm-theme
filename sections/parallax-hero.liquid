@@ -66,7 +66,7 @@
   }
 
   /* Magic Mind style button */
-  .mm-style-btn-parallax-{{ section.id }} {
+  .mm-btn-parallax-{{ section.id }} {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -86,7 +86,7 @@
     overflow: hidden;
     z-index: 1;
   }
-  .mm-style-btn-parallax-{{ section.id }}::before {
+  .mm-btn-parallax-{{ section.id }}::before {
     content: '';
     position: absolute;
     top: 0;
@@ -99,12 +99,12 @@
     transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: -1;
   }
-  .mm-style-btn-parallax-{{ section.id }}:hover::before {
+  .mm-btn-parallax-{{ section.id }}:hover::before {
     opacity: 1;
     background-position: 100% 0;
     animation: gradientShiftParallax{{ section.id }} 0.6s ease forwards;
   }
-  .mm-style-btn-parallax-{{ section.id }}:hover {
+  .mm-btn-parallax-{{ section.id }}:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px);
@@ -115,7 +115,7 @@
     100% { background-position: 100% 50%; }
   }
   @media screen and (max-width: 749px) {
-    .mm-style-btn-parallax-{{ section.id }} {
+    .mm-btn-parallax-{{ section.id }} {
       padding: 12px 24px;
       font-size: 14px;
     }
