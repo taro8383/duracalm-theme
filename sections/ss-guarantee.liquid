@@ -1010,19 +1010,18 @@ For inquiries or permissions, contact daniel@section.store
                   </{% if block.settings.url != blank %}a{% else %}div{% endif %}>
               {% endif %}
             {% when 'button_magic_mind' %}
-              {% if block.settings.button_label != blank %}
-                {% if block.settings.button_link != blank %}
-<a href="{{ block.settings.button_link }}" {% if block.settings.open_in_new_tab %}target="_blank"{% endif %} class="mm-style-btn-guarantee-{{ block.id }}">
-                {% else %}
-<div class="mm-style-btn-guarantee-{{ block.id }}">
-                {% endif %}
-                  {{ block.settings.button_label }}
-                {% if block.settings.button_link != blank %}
-</a>
-                {% else %}
-</div>
-                {% endif %}
-              {% endif %}
+              {% render 'magic-mind-button',
+                unique_id: block.id,
+                button_label: block.settings.button_label,
+                button_link: block.settings.button_link,
+                open_in_new_tab: block.settings.open_in_new_tab,
+                text_alignment: block.settings.text_alignment,
+                padding_horizontal: block.settings.padding_horizontal,
+                padding_vertical: block.settings.padding_vertical,
+                margin_top: block.settings.margin_top,
+                margin_bottom: block.settings.margin_bottom,
+                full_width_mobile: block.settings.full_width_mobile
+              %}
 
           {% endcase %}
         {% endfor %}
