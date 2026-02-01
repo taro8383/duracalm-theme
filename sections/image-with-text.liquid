@@ -16,36 +16,6 @@
     #image-with-text-{{ section.id }} .image-with-text__text-item {
       width: {{ 100 | minus: section.settings.desktop_media_width }}%;
     }
-
-    /* Scrollable text to match image height */
-    #image-with-text-{{ section.id }} .image-with-text__grid {
-      align-items: stretch;
-    }
-    #image-with-text-{{ section.id }} .image-with-text__media-item,
-    #image-with-text-{{ section.id }} .image-with-text__text-item {
-      display: flex;
-      align-items: stretch;
-    }
-    #image-with-text-{{ section.id }} .image-with-text__content {
-      max-height: 100%;
-      overflow-y: auto;
-      padding-right: 1rem;
-    }
-    /* Custom scrollbar styling */
-    #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar {
-      width: 6px;
-    }
-    #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
-      border-radius: 3px;
-    }
-    #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 3px;
-    }
-    #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.3);
-    }
   }
 
   .color-scheme-{{ section.id }}.color-custom {
