@@ -20,28 +20,25 @@
 
   {%- if section.settings.scrollable_text -%}
     @media screen and (min-width: 750px) {
-      #image-with-text-{{ section.id }} .image-with-text__text-item {
-        display: flex;
-        flex-direction: column;
-      }
-      #image-with-text-{{ section.id }} .image-with-text__content {
+      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text {
         overflow-y: auto;
         overflow-x: visible;
         padding-right: 12px;
-        max-height: 600px;
+        max-height: 500px;
+        display: block;
       }
-      #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar {
+      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar {
         width: 6px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar-track {
+      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-track {
         background: rgba(0, 0, 0, 0.05);
         border-radius: 3px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar-thumb {
+      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-thumb {
         background: rgba(0, 0, 0, 0.2);
         border-radius: 3px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__content::-webkit-scrollbar-thumb:hover {
+      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-thumb:hover {
         background: rgba(0, 0, 0, 0.3);
       }
     }
