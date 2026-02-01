@@ -2440,6 +2440,13 @@ For inquiries or permissions, contact daniel@section.store
             "id": "button_shadow_color",
             "default": "#000000",
             "visible_if": "{{ block.settings.button_style != 'link' and block.settings.button_custom_styling }}"
+          },
+          {
+            "type": "checkbox",
+            "id": "mm_style_button",
+            "label": "Magic Mind style button",
+            "default": false,
+            "info": "Outlined button with gradient fill on hover using brand colors (#7B92C8, #f3dfc1, #ddbea8)"
           }
         ]
       },
