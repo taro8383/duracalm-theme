@@ -740,7 +740,7 @@ For inquiries or permissions, contact daniel@section.store
           }
           @media screen and (max-width: 749px) {
             .mm-style-btn-guarantee-{{ block.id }} {
-              padding: 12px 24px;
+              padding: {{ block.settings.padding_vertical | times: 0.85 }}px {{ block.settings.padding_horizontal | times: 0.75 }}px;
               font-size: 14px;
             }
           }
