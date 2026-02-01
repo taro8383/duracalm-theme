@@ -1074,8 +1074,16 @@ For inquiries or permissions, contact daniel@section.store
               {% endif %}
             {% when 'button_magic_mind' %}
               {% if block.settings.button_label != blank %}
-                {% if block.settings.button_link != blank %}a href="{{ block.settings.button_link }}" {% if block.settings.open_in_new_tab %}target="_blank"{% endif %}{% else %}div{% endif %} class="mm-style-btn-guarantee-{{ block.id }}">
+                {% if block.settings.button_link != blank %}
+<a href="{{ block.settings.button_link }}" {% if block.settings.open_in_new_tab %}target="_blank"{% endif %} class="mm-style-btn-guarantee-{{ block.id }}">
+                {% else %}
+<div class="mm-style-btn-guarantee-{{ block.id }}">
+                {% endif %}
                   {{ block.settings.button_label }}
+                {% if block.settings.button_link != blank %}
+</a>
+                {% else %}
+</div>
                 {% endif %}
               {% endif %}
 
