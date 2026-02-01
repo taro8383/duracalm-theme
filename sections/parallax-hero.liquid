@@ -229,6 +229,35 @@
             {% endunless %}
           </div>
         </div>
+      {% when 'button_magic_mind' %}
+        <div
+          class='parallax-hero__layer hero-slide__content-container page-width{% if block.settings.full_page_width %} page-width--full{% endif %} section-{{ section.id }}-padding'
+          style="--content-max-width:{{ block.settings.content_max_width }}px;
+          --content-vertical-position:{{ block.settings.content_vertical_position }};
+          --content-horizontal-position:{{ block.settings.content_horizontal_position }};
+          --content-text-alignment:{{ block.settings.content_text_alignment }};
+          --mobile-content-vertical-position:{{ block.settings.mobile_content_vertical_position }};
+          --mobile-content-text-alignment:{{ block.settings.mobile_content_text_alignment }};
+          --z-index:{{ block.settings.z_index }};"
+          data-scroll-y="{{ block.settings.vertical_scrollng_speed }}"
+          data-scroll-x="{{ block.settings.horizontal_scrollng_speed }}"
+          data-zoom="{{ block.settings.zoom_level }}"
+          data-rotation="{{ block.settings.rotation }}"
+          {{ block.shopify_attributes }}
+        >
+          {% render 'magic-mind-button',
+            unique_id: section.id | append: '-' | append: block.id,
+            button_label: block.settings.button_label,
+            button_link: block.settings.button_link,
+            open_in_new_tab: block.settings.open_in_new_tab,
+            text_alignment: 'center',
+            padding_horizontal: block.settings.padding_horizontal,
+            padding_vertical: block.settings.padding_vertical,
+            margin_top: block.settings.margin_top,
+            margin_bottom: block.settings.margin_bottom,
+            full_width_mobile: block.settings.full_width_mobile
+          %}
+        </div>
       {% when 'image' %}
         {% liquid
           assign has_mobile_img = false
