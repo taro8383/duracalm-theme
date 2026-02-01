@@ -688,8 +688,8 @@ For inquiries or permissions, contact daniel@section.store
             position: relative;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 14px 32px;
+            justify-content: {{ block.settings.text_alignment }};
+            padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
             font-size: 15px;
             font-weight: 600;
             letter-spacing: 0.02em;
@@ -703,6 +703,7 @@ For inquiries or permissions, contact daniel@section.store
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             z-index: 1;
+            margin-top: {{ block.settings.margin_top }}px;
             {% if block.settings.full_width_mobile %}
               width: 100%;
             {% else %}
