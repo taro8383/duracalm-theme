@@ -257,6 +257,19 @@
                   </div>
                 {% endif %}
               </div>
+            {% when 'button_magic_mind' %}
+              {% render 'magic-mind-button',
+                unique_id: block.id,
+                button_label: block.settings.button_label,
+                button_link: block.settings.button_link,
+                open_in_new_tab: block.settings.open_in_new_tab,
+                text_alignment: block.settings.text_alignment,
+                padding_horizontal: block.settings.padding_horizontal,
+                padding_vertical: block.settings.padding_vertical,
+                margin_top: block.settings.margin_top,
+                margin_bottom: block.settings.margin_bottom,
+                full_width_mobile: block.settings.full_width_mobile
+              %}
           {% endcase %}
         {% endfor %}
       </div>
