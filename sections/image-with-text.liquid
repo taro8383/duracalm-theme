@@ -44,6 +44,38 @@
     }
   {%- endif -%}
 
+  {%- if section.settings.enable_rotating_images -%}
+    .rotating-images-container-{{ section.id }} {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .rotating-images-container-{{ section.id }} .rotating-images-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .rotating-images-container-{{ section.id }} .rotating-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity {{ section.settings.rotation_interval | divided_by: 3.0 }}s ease-in-out;
+      pointer-events: none;
+    }
+    .rotating-images-container-{{ section.id }} .rotating-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .rotating-images-container-{{ section.id }} .rotating-image--active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  {%- endif -%}
+
   .color-scheme-{{ section.id }}.color-custom {
     --color-background: {{ section.settings.custom_colors_background.red }}, {{ section.settings.custom_colors_background.green }}, {{ section.settings.custom_colors_background.blue }};
     --gradient-background: {% if section.settings.custom_gradient_background != blank %}{{ section.settings.custom_gradient_background }}{% else %}{{ section.settings.custom_colors_background }}{% endif %};
