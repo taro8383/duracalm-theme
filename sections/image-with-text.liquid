@@ -134,7 +134,7 @@
               (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
               (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / {{ section.settings.mobile_image_quanlity }})
             {%- endcapture -%}
-            <div class="rotating-images-container" data-section-id="{{ section.id }}" data-interval="{{ section.settings.rotation_interval | times: 1000 }}">
+            <div class="rotating-images-container-{{ section.id }}" data-section-id="{{ section.id }}" data-interval="{{ section.settings.rotation_interval | times: 1000 }}">
               <div class="rotating-images-wrapper">
                 {%- if section.settings.image != blank -%}
                   <div class="rotating-image rotating-image--active">
