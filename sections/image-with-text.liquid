@@ -97,7 +97,41 @@
             style="padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"
           {% endif %}
         >
-          {%- if section.settings.video != blank -%}
+          {%- if section.settings.enable_rotating_images -%}
+            {%- capture sizes -%}
+              (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+              (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / {{ section.settings.mobile_image_quanlity }})
+            {%- endcapture -%}
+            <div class="rotating-images-container" data-section-id="{{ section.id }}" data-interval="{{ section.settings.rotation_interval | times: 1000 }}">
+              <div class="rotating-images-wrapper">
+                {%- if section.settings.image != blank -%}
+                  <div class="rotating-image rotating-image--active">
+                    {{ section.settings.image | image_url: width: 1500 | image_tag: loading: 'lazy', sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500' }}
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.image_2 != blank -%}
+                  <div class="rotating-image">
+                    {{ section.settings.image_2 | image_url: width: 1500 | image_tag: loading: 'lazy', sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500' }}
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.image_3 != blank -%}
+                  <div class="rotating-image">
+                    {{ section.settings.image_3 | image_url: width: 1500 | image_tag: loading: 'lazy', sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500' }}
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.image_4 != blank -%}
+                  <div class="rotating-image">
+                    {{ section.settings.image_4 | image_url: width: 1500 | image_tag: loading: 'lazy', sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500' }}
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.image_5 != blank -%}
+                  <div class="rotating-image">
+                    {{ section.settings.image_5 | image_url: width: 1500 | image_tag: loading: 'lazy', sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- elsif section.settings.video != blank -%}
             <internal-video{% if section.settings.video_autoplay %} data-autoplay="true" data-no-play-btn="true"{% endif %}>
               <video
                 poster="{{ section.settings.video.preview_image | image_url }}"
