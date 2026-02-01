@@ -303,6 +303,29 @@
   </div>
 </div>
 
+{%- if section.settings.enable_rotating_images -%}
+<script>
+  (function() {
+    const container = document.querySelector('.rotating-images-container-{{ section.id }}');
+    if (!container) return;
+
+    const images = container.querySelectorAll('.rotating-image');
+    if (images.length <= 1) return;
+
+    const interval = parseInt(container.dataset.interval) || 3000;
+    let currentIndex = 0;
+
+    function showNextImage() {
+      images[currentIndex].classList.remove('rotating-image--active');
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.add('rotating-image--active');
+    }
+
+    setInterval(showNextImage, interval);
+  })();
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "t:sections.image-with-text.name",
