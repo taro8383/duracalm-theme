@@ -115,6 +115,33 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  {% if section.settings.enable_custom_colors %}
+    .header-wrapper {
+      --color-foreground: {{ section.settings.custom_text_color.red }}, {{ section.settings.custom_text_color.green }}, {{ section.settings.custom_text_color.blue }};
+    }
+    .header-wrapper .header__menu-item,
+    .header-wrapper .h2,
+    .header-wrapper a.link--text {
+      color: {{ section.settings.custom_text_color }};
+    }
+    .header-wrapper .icon {
+      color: {{ section.settings.custom_icon_color }};
+    }
+    .header-wrapper .header__icon::after {
+      background-color: {{ section.settings.custom_icon_color }};
+    }
+  {% endif %}
+
+  {% if section.settings.enable_custom_drawer_bg %}
+    .menu-drawer,
+    .menu-drawer__submenu {
+      background-color: {{ section.settings.custom_drawer_bg_color }} !important;
+    }
+    .cart-drawer .drawer__inner {
+      background-color: {{ section.settings.custom_cart_drawer_bg_color | default: section.settings.custom_drawer_bg_color }} !important;
+    }
+  {% endif %}
 {%- endstyle -%}
 
 {% if settings.cart_type == 'notification' %}
@@ -823,6 +850,49 @@
       ],
       "default": "background-1",
       "label": "Color scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_colors",
+      "label": "Enable custom text and icon colors",
+      "default": false,
+      "info": "Override the color scheme with custom colors below"
+    },
+    {
+      "type": "color",
+      "id": "custom_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "custom_icon_color",
+      "label": "Icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Drawer backgrounds"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_drawer_bg",
+      "label": "Enable custom drawer backgrounds",
+      "default": false,
+      "info": "Match mobile menu and cart drawer backgrounds to header"
+    },
+    {
+      "type": "color",
+      "id": "custom_drawer_bg_color",
+      "label": "Mobile menu drawer background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "custom_cart_drawer_bg_color",
+      "label": "Cart drawer background",
+      "default": "#ffffff",
+      "info": "Leave empty to use the same as mobile menu drawer"
     },
     {
       "type": "header",

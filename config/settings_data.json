@@ -333,8 +333,8 @@
           "097b7b4f-c0b8-4073-a06b-e6d49a5aad20": {
             "type": "cart_items",
             "settings": {
-              "image_size": "20",
-              "image_link": false,
+              "image_size": "17",
+              "image_link": true,
               "title_size": "1.5",
               "title_link": false,
               "displayed_variants": "compact",
@@ -350,14 +350,14 @@
               "quantity_container_padding": 0,
               "quantity_corner_radius": 6,
               "quantity_border_width": 1,
-              "quantity_border_color": "#787878",
-              "quantity_container_color_scheme": "background-2",
+              "quantity_border_color": "#f3dfc1",
+              "quantity_container_color_scheme": "accent-1",
               "quantity_input_padding": 0.7,
               "quantity_separators_opacity": 20,
               "quantity_padding": 0.4,
-              "quantity_btns_color_scheme": "background-2",
+              "quantity_btns_color_scheme": "accent-1",
               "quantity_round_btns": true,
-              "quantity_outline_btns": false,
+              "quantity_outline_btns": true,
               "quantity_btns_icon_size": 70,
               "margin_top": 21,
               "margin_bottom": 21
@@ -415,7 +415,7 @@
           "68fdc0a0-cd7c-40b9-97b3-a76eb7917a47": {
             "type": "payment_badges",
             "settings": {
-              "enabled_payment_types": "",
+              "enabled_payment_types": "afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, facebook_pay, forbrugsforeningen, google_pay, ideal, jcb, klarna, litecoin, maestro, master, paypal, shopify_pay, sofort, unionpay, visa",
               "margin_top": 12,
               "margin_bottom": 12
             }
@@ -434,15 +434,15 @@
         "settings": {
           "test_mode": false,
           "heading_text": "Cart • [count] items",
-          "heading_alignment": "flex-start",
+          "heading_alignment": "center",
           "desktop_width": "normal",
           "mobile_width": "full",
-          "enable_header_bg": false,
-          "header_bg_color": "#f3f3f3",
-          "enable_body_bg": false,
-          "body_bg_color": "#f3f3f3",
-          "enable_footer_bg": false,
-          "footer_bg_color": "#f3f3f3"
+          "enable_header_bg": true,
+          "header_bg_color": "#ddbea8",
+          "enable_body_bg": true,
+          "body_bg_color": "#f3dfc1",
+          "enable_footer_bg": true,
+          "footer_bg_color": "#ddbea8"
         }
       },
       "header": {
