@@ -54,6 +54,37 @@
       order: 0;
     }
   {% endif %}
+
+  {% if section.settings.enable_percentage_animation %}
+    .results__percentage {
+      position: relative;
+      background: conic-gradient(
+        {{ section.settings.percentage_fill_color }} calc(var(--fill-percentage, 0) * 1%),
+        {{ section.settings.percentage_bg_color }} calc(var(--fill-percentage, 0) * 1%)
+      );
+      border-radius: 50%;
+      transition: --fill-percentage {{ section.settings.animation_duration }}s ease-out;
+    }
+
+    .results__percentage::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      background: {{ section.settings.percentage_bg_color }};
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .results__percentage p {
+      position: relative;
+      z-index: 2;
+      margin: 0;
+    }
+
+    .results__percentage.animate-fill {
+      --fill-percentage: var(--target-percentage);
+    }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
@@ -141,8 +172,8 @@
           <div class="results__rows-container">
             {%- for row in section.blocks -%}
               <div class="results__row">
-                <div class="results__percentage" style="--percentage: {{ row.settings.percentage }}%">
-                  <p>{{ row.settings.percentage }}%</p>
+                <div class="results__percentage{% if section.settings.enable_percentage_animation %} percentage-animated{% endif %}" style="--percentage: {{ row.settings.percentage }}%;{% if section.settings.enable_percentage_animation %} --target-percentage: {{ row.settings.percentage }};{% endif %}" data-percentage="{{ row.settings.percentage }}">
+                  <p class="percentage-number{% if section.settings.enable_percentage_animation %} animate-number{% endif %}" data-target="{{ row.settings.percentage }}">{% if section.settings.enable_percentage_animation %}0{% else %}{{ row.settings.percentage }}{% endif %}%</p>
                 </div>
                 <div class="results__text">
                   {{ row.settings.row_text }}
@@ -208,6 +239,70 @@
     </div>
   </div>
 </div>
+
+{% if section.settings.enable_percentage_animation %}
+<script>
+(function() {
+  const animationDuration = {{ section.settings.animation_duration | times: 1000 }};
+
+  function animateNumber(element, target, duration) {
+    const startTime = performance.now();
+    const startValue = 0;
+
+    function updateNumber(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function (ease-out)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.round(startValue + (target - startValue) * easeOut);
+
+      element.textContent = currentValue + '%';
+
+      if (progress < 1) {
+        requestAnimationFrame(updateNumber);
+      }
+    }
+
+    requestAnimationFrame(updateNumber);
+  }
+
+  function initPercentageAnimations() {
+    const percentageElements = document.querySelectorAll('#shopify-section-{{ section.id }} .percentage-animated');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const circle = entry.target;
+          const numberEl = circle.querySelector('.animate-number');
+          const targetPercentage = parseInt(numberEl.dataset.target, 10);
+
+          // Animate the fill
+          circle.classList.add('animate-fill');
+
+          // Animate the number
+          if (numberEl) {
+            animateNumber(numberEl, targetPercentage, animationDuration);
+          }
+
+          observer.unobserve(circle);
+        }
+      });
+    }, {
+      threshold: 0.5
+    });
+
+    percentageElements.forEach(el => observer.observe(el));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPercentageAnimations);
+  } else {
+    initPercentageAnimations();
+  }
+})();
+</script>
+{% endif %}
 
 {% schema %}
 {
@@ -341,6 +436,35 @@
     {
       "type": "header",
       "content": "Results"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_percentage_animation",
+      "label": "Enable percentage circle animation",
+      "default": true,
+      "info": "Animates the circles filling from 0 to their percentage value"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s",
+      "label": "Animation duration",
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "percentage_fill_color",
+      "label": "Percentage fill color",
+      "default": "#dd1d1d"
+    },
+    {
+      "type": "color",
+      "id": "percentage_bg_color",
+      "label": "Percentage background color",
+      "default": "#f0f0f0"
     },
     {
       "type": "select",
