@@ -86,6 +86,79 @@
       order: 0;
     }
   {% endif %}
+
+  /* Checkmark Animations */
+  {% if section.settings.checkmark_animation == 'pulse' %}
+    .comparison-table-{{ section.id }} .comparison-table__icon svg {
+      animation: checkmarkPulse 2s ease-in-out infinite;
+    }
+    @keyframes checkmarkPulse {
+      0%, 100% {
+        filter: drop-shadow(0 0 0 currentColor);
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 8px currentColor);
+        transform: scale(1.1);
+      }
+    }
+  {% elsif section.settings.checkmark_animation == 'bounce' %}
+    .comparison-table-{{ section.id }} .comparison-table__icon svg {
+      animation: checkmarkBounce 1.5s ease-in-out infinite;
+    }
+    @keyframes checkmarkBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+  {% elsif section.settings.checkmark_animation == 'glow' %}
+    .comparison-table-{{ section.id }} .comparison-table__icon svg {
+      animation: checkmarkGlow 2s ease-in-out infinite;
+    }
+    @keyframes checkmarkGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 2px currentColor);
+      }
+      50% {
+        filter: drop-shadow(0 0 12px currentColor) drop-shadow(0 0 20px currentColor);
+      }
+    }
+  {% elsif section.settings.checkmark_animation == 'scale_on_hover' %}
+    .comparison-table-{{ section.id }} tr:hover .comparison-table__icon svg {
+      transform: scale(1.25);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .comparison-table-{{ section.id }} .comparison-table__icon svg {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  {% elsif section.settings.checkmark_animation == 'wiggle' %}
+    .comparison-table-{{ section.id }} .comparison-table__icon svg {
+      animation: checkmarkWiggle 2s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes checkmarkWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+    }
+  {% elsif section.settings.checkmark_animation == 'draw' %}
+    .comparison-table-{{ section.id }} .comparison-table__icon svg path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: checkmarkDraw 1.5s ease-out forwards;
+    }
+    @keyframes checkmarkDraw {
+      to { stroke-dashoffset: 0; }
+    }
+  {% endif %}
+
+  /* Staggered animation delay based on row position */
+  {% if section.settings.checkmark_animation != 'none' and section.settings.checkmark_animation != 'scale_on_hover' %}
+    {% for i in (1..20) %}
+      .comparison-table-{{ section.id }} tbody tr:nth-child({{ i }}) .comparison-table__icon svg {
+        animation-delay: {{ i | times: 0.15 }}s;
+      }
+    {% endfor %}
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient content-for-grouping animate-section animate--hidden isolate {{ section.settings.visibility }}">
@@ -747,6 +820,38 @@
       "default": "regular",
       "label": "Checkmark style",
       "info": "Solid is automatically selected if style is set to Minimalistic."
+    },
+    {
+      "type": "select",
+      "id": "checkmark_animation",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "pulse",
+          "label": "Pulse glow"
+        },
+        {
+          "value": "bounce",
+          "label": "Gentle bounce"
+        },
+        {
+          "value": "glow",
+          "label": "Continuous glow"
+        },
+        {
+          "value": "scale_on_hover",
+          "label": "Scale on row hover"
+        },
+        {
+          "value": "wiggle",
+          "label": "Wiggle"
+        }
+      ],
+      "default": "none",
+      "label": "Checkmark animation"
     },
     {
       "type": "color",
