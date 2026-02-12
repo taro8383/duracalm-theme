@@ -128,11 +128,13 @@
                       <div class="drawer__cart-items-wrapper">
                         <ul class="cart-items list-unstyled">
                           {%- for item in cart.items -%}
-                            <li 
-                              id="CartDrawer-Item-{{ item.index | plus: 1 }}" 
-                              class="cart-drawer-item cart-item cart-item--product-{{ item.product.handle }}" 
+                            <li
+                              id="CartDrawer-Item-{{ item.index | plus: 1 }}"
+                              class="cart-drawer-item cart-item cart-item--product-{{ item.product.handle }}"
                               role="row" data-index="{{ item.index | plus: 1 }}"
                               data-quantity="{{ item.quantity }}"
+                              data-variant-id="{{ item.variant_id }}"
+                              data-key="{{ item.key }}"
                             >
                               <div class="loading-overlay hidden">
                                 <div class="loading-overlay__spinner">
@@ -537,19 +539,19 @@
                 </cart-note>
               </details>
             {% when 'subtotals' %}
-              <div class="cart-drawer__footer" style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;" {{ block.shopify_attributes }}>
+              <div id="CartDrawer-Footer-{{ block.id }}" class="cart-drawer__footer" style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;" {{ block.shopify_attributes }} data-total-price="{{ cart.total_price }}">
                 <div class="cart-drawer__totals{% if block.settings.savings_position == 'bellow' %} cart-drawer__totals--reverse{% endif %}" role="status" style='--spacing:{{ block.settings.savings_spacing | divided_by: 10.0 }}rem;'>
                   {% if block.settings.display_total_savings %}
                     {% assign total_savings = total_compare_price | minus: cart.total_price %}
                     {% if total_savings > 0 %}
-                      {% capture savings_money %}<span class='cart-drawer__totals__row__money'>{{ total_savings | money }}</span>{% endcapture %}
+                      {% capture savings_money %}<span class='cart-drawer__totals__row__money' data-savings-amount="{{ total_savings }}">{{ total_savings | money }}</span>{% endcapture %}
                       <p class='cart-drawer__totals__row cart-drawer__totals__row--{{ block.settings.savings_alignment }} text-color-{{ block.settings.savings_text_color }}' style='--text-size:{{ block.settings.savings_text_size | divided_by: 10.0 }}rem;'>
                         <span>{{ block.settings.savings_left_text | replace: '[savings]', savings_money }}</span><span>{{ block.settings.savings_right_text | replace: '[savings]', savings_money }}</span>
                       </p>
                     {% endif %}
                   {% endif %}
                   {% if block.settings.display_subtotal %}
-                    {% capture subtotal_money %}<span class='cart-drawer__totals__row__money'>{{ cart.total_price | money }}</span>{% endcapture %}
+                    {% capture subtotal_money %}<span class='cart-drawer__totals__row__money cart-drawer__subtotal-amount' data-total-price="{{ cart.total_price }}">{{ cart.total_price | money }}</span>{% endcapture %}
                     <p class='cart-drawer__totals__row cart-drawer__totals__row--{{ block.settings.subtotal_alignment }} text-color-{{ block.settings.subtotal_text_color }}' style='--text-size:{{ block.settings.subtotal_text_size | divided_by: 10.0 }}rem;'>
                       <span>{{ block.settings.subtotal_left_text | replace: '[subtotal]', subtotal_money }}</span><span>{{ block.settings.subtotal_right_text | replace: '[subtotal]', subtotal_money }}</span>
                     </p>
@@ -788,4 +790,125 @@
       document.querySelector('#cart').submit();
     });
   });
+
+  // Fix for subtotal and line item prices not updating when quantity changes
+  (function() {
+    // Helper to format money
+    function formatMoney(cents) {
+      const value = (cents / 100).toFixed(2).replace('.', ',');
+      return '€' + value;
+    }
+
+    // Main function to update cart prices
+    function updateCartPrices() {
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          // Update subtotal in footer
+          const subtotalEl = document.querySelector('.cart-drawer__subtotal-amount');
+          if (subtotalEl) {
+            subtotalEl.textContent = formatMoney(cart.total_price);
+          }
+
+          // Update each line item price
+          cart.items.forEach(function(item) {
+            // Find the item by variant_id
+            const lineItems = document.querySelectorAll('.cart-drawer-item[data-variant-id="' + item.variant_id + '"]');
+            lineItems.forEach(function(lineItem) {
+              // Update line total price - look for the price--end element
+              const priceWrapper = lineItem.querySelector('.cart-item__totals');
+              if (priceWrapper) {
+                const priceEl = priceWrapper.querySelector('.price--end.regular-price');
+                if (priceEl) {
+                  priceEl.textContent = formatMoney(item.final_line_price);
+                }
+
+                // Update compare price if exists
+                const compareEl = priceWrapper.querySelector('.cart-item__old-price');
+                if (compareEl && item.original_price > item.final_price) {
+                  compareEl.textContent = formatMoney(item.original_line_price);
+                }
+              }
+
+              // Update data-quantity
+              lineItem.setAttribute('data-quantity', item.quantity);
+            });
+          });
+
+          // Update cart heading count
+          const heading = document.querySelector('.drawer__heading');
+          if (heading) {
+            const nonUpsellCount = cart.items.reduce(function(sum, item) {
+              const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
+              return isHidden ? sum : sum + item.quantity;
+            }, 0);
+            heading.textContent = heading.textContent.replace(/\d+/, nonUpsellCount);
+          }
+
+          // Update checkout button price
+          const checkoutBtn = document.getElementById('CartDrawer-Checkout');
+          if (checkoutBtn) {
+            const btnText = checkoutBtn.querySelector('.button__label');
+            if (btnText) {
+              const label = btnText.textContent.split('•')[0] || 'Checkout';
+              btnText.textContent = label.trim() + ' • ' + formatMoney(cart.total_price);
+            }
+          }
+        })
+        .catch(function(err) {
+          console.error('Cart update error:', err);
+        });
+    }
+
+    // Listen for quantity changes on the quantity inputs
+    document.addEventListener('change', function(e) {
+      if (e.target.matches('.quantity__input[name="updates[]"]')) {
+        // Wait a moment for the cart to update on the server
+        setTimeout(updateCartPrices, 300);
+        // Try again after a longer delay as a fallback
+        setTimeout(updateCartPrices, 800);
+      }
+    });
+
+    // Listen for clicks on the plus/minus buttons
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.quantity__button')) {
+        // Wait for the cart to update
+        setTimeout(updateCartPrices, 300);
+        setTimeout(updateCartPrices, 800);
+      }
+    });
+
+    // Also listen for custom cart events that the theme might fire
+    document.addEventListener('cart:updated', function(e) {
+      updateCartPrices();
+    });
+
+    document.addEventListener('cart:refresh', function(e) {
+      updateCartPrices();
+    });
+
+    // Listen for the cart drawer opening
+    const cartDrawer = document.querySelector('cart-drawer');
+    if (cartDrawer) {
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            const isOpen = !cartDrawer.classList.contains('is-empty') || cartDrawer.hasAttribute('open');
+            if (isOpen) {
+              setTimeout(updateCartPrices, 100);
+            }
+          }
+        });
+      });
+      observer.observe(cartDrawer, { attributes: true });
+    }
+  })();
+
+  // Helper function to format money
+  function formatMoney(cents) {
+    const moneyFormat = {{ shop.money_format | json }};
+    const value = (cents / 100).toFixed(2);
+    return moneyFormat.replace(/\{\{\s*amount\s*\}\}/g, value).replace(/\{\{\s*amount_no_decimals\s*\}\}/g, Math.round(cents/100));
+  }
 </script>
