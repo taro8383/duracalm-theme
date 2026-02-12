@@ -56,14 +56,18 @@
   {% endif %}
 
   {% if section.settings.enable_percentage_animation %}
+    @property --fill-percent {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0;
+    }
+
     .results__percentage {
       position: relative;
-      background: conic-gradient(
-        {{ section.settings.percentage_fill_color }} calc(var(--fill-percentage, 0) * 1%),
-        {{ section.settings.percentage_bg_color }} calc(var(--fill-percentage, 0) * 1%)
-      );
+      background: {{ section.settings.percentage_bg_color }};
       border-radius: 50%;
-      transition: --fill-percentage {{ section.settings.animation_duration }}s ease-out;
+      overflow: hidden;
+      --fill-percent: 0;
     }
 
     .results__percentage::before {
@@ -75,14 +79,29 @@
       z-index: 1;
     }
 
+    .results__percentage-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: conic-gradient(
+        {{ section.settings.percentage_fill_color }} calc(var(--fill-percent) * 1%),
+        transparent calc(var(--fill-percent) * 1%)
+      );
+      z-index: 0;
+      transition: --fill-percent {{ section.settings.animation_duration }}s ease-out;
+    }
+
     .results__percentage p {
       position: relative;
       z-index: 2;
       margin: 0;
     }
 
-    .results__percentage.animate-fill {
-      --fill-percentage: var(--target-percentage);
+    .results__percentage.animate-fill .results__percentage-fill {
+      --fill-percent: var(--target-percent);
     }
   {% endif %}
 {%- endstyle -%}
@@ -172,7 +191,8 @@
           <div class="results__rows-container">
             {%- for row in section.blocks -%}
               <div class="results__row">
-                <div class="results__percentage{% if section.settings.enable_percentage_animation %} percentage-animated{% endif %}" style="--percentage: {{ row.settings.percentage }}%;{% if section.settings.enable_percentage_animation %} --target-percentage: {{ row.settings.percentage }};{% endif %}" data-percentage="{{ row.settings.percentage }}">
+                <div class="results__percentage{% if section.settings.enable_percentage_animation %} percentage-animated{% endif %}" style="--percentage: {{ row.settings.percentage }}%;{% if section.settings.enable_percentage_animation %} --target-percent: {{ row.settings.percentage }};{% endif %}" data-percentage="{{ row.settings.percentage }}">
+                  {% if section.settings.enable_percentage_animation %}<div class="results__percentage-fill"></div>{% endif %}
                   <p class="percentage-number{% if section.settings.enable_percentage_animation %} animate-number{% endif %}" data-target="{{ row.settings.percentage }}">{% if section.settings.enable_percentage_animation %}0{% else %}{{ row.settings.percentage }}{% endif %}%</p>
                 </div>
                 <div class="results__text">
