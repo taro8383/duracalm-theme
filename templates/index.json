@@ -18,7 +18,7 @@
         "wave_animation": true,
         "wave_rotate": false,
         "wave_color": "#7b92c8",
-        "background_color": "#ffffff",
+        "background_color": "#ddbea8",
         "background_gradient": "",
         "border_color": "#7b92c8",
         "margin_top": 0,
@@ -54,9 +54,11 @@
             "button_label_1": "Fix it now",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": false,
+            "mm_style_button_1": true,
             "button_label_2": "",
             "button_link_2": "",
             "button_style_secondary_2": false,
+            "mm_style_button_2": false,
             "color_scheme": "background-1",
             "full_page_width": false,
             "content_max_width": "unlimited",
@@ -137,110 +139,186 @@
         "padding_bottom": 50
       }
     },
-    "rich_text_8iy4cg": {
-      "type": "rich-text",
+    "image_with_text_LjDeGJ": {
+      "type": "image-with-text",
       "blocks": {
-        "heading_yX9eBJ": {
+        "heading_kCBKGf": {
           "type": "heading",
           "settings": {
             "title": "<strong>For anyone who has ever wanted to drill a hole in the head just to let the pressure out</strong>",
             "title_highlight_color": "#121212",
-            "heading_size": "h1"
+            "heading_size": "h2"
           }
         },
-        "text_8ixqFq": {
+        "text_JkmU3F": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>If you are sick and tired of playing \"Russian Roulette\" with painkillers, or wondering why your headache treatment never seems to stick... this might be the most important message you ever read.</strong></p>"
-          }
-        },
-        "text_QPeNBd": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>Dear fellow sufferer,</strong></p><p>Let’s be honest.</p><p>There is nothing \"mild\" about a headache.</p><p>Whether it’s the <strong>band-like vise grip</strong> of a Tension Headache squeezing your skull until you can’t think... or the <strong>one-sided, pulsating explosion</strong> of a Migraine that makes you want to hide in a dark closet... the pain is real. And it is stealing your life.</p><p>But here is the ugly truth that the pharmaceutical companies don’t want you to dwell on: </p><p><strong>The pills you are taking might be making it worse.</strong></p><p>It sounds crazy, but it’s a documented medical fact. It’s called <strong>Medication Overuse Headache (MOH)</strong>. Research shows that frequent use of acute painkillers can actually lower your brain's pain threshold, guaranteeing you’ll need <em>another</em> pill tomorrow<br/></p><p>It’s a trap. And at <strong>Duracalm</strong>, we are here to help you break out of it.</p><p><strong>The \"biological secret\" locked inside your skull</strong></p><p>My name is Tom Collins, and I founded Duracalm because I discovered a fatal flaw in how we treat head pain: <strong>We treat the hardware, but ignore the software.</strong></p><p>You see, a headache isn't just a physical knot. It is a <strong>neurological loop</strong>.</p><p>• <strong>If you have Migraines:</strong> Your nervous system is stuck in \"high alert,\" typically involving the trigeminal nerve and vascular inflammation.</p><p>• <strong>If you have Tension Headaches:</strong> Your neck muscles are weak and shortening due to posture, constantly pulling on the base of your skull.</p><p>You cannot fix a \"software problem\" with a pill. You need to <strong>reprogram the system.</strong></p>"
+            "text": "<p><strong>Dear fellow sufferer,</strong></p><p>Let’s be honest.</p><p>There is nothing \"mild\" about a headache.</p><p>Whether it’s the <strong>band-like vise grip</strong> of a Tension Headache squeezing your skull until you can’t think... or the <strong>one-sided, pulsating explosion</strong> of a Migraine that makes you want to hide in a dark closet... the pain is real. And it is stealing your life.</p><p>But here is the ugly truth that the pharmaceutical companies don’t want you to dwell on: </p><p><strong>The pills you are taking might be making it worse.</strong></p><p>It sounds crazy, but it’s a documented medical fact. It’s called <strong>Medication Overuse Headache (MOH)</strong>. Research shows that frequent use of acute painkillers can actually lower your brain's pain threshold, guaranteeing you’ll need <em>another</em> pill tomorrow<br/></p><p>It’s a trap. And at <strong>Duracalm</strong>, we are here to help you break out of it.</p><p><strong>The \"biological secret\" locked inside your skull</strong></p><p>My name is Tom Collins, and I founded Duracalm because I discovered a fatal flaw in how we treat head pain: <strong>We treat the hardware, but ignore the software.</strong></p><p>You see, a headache isn't just a physical knot. It is a <strong>neurological loop</strong>.</p><p>• <strong>If you have Migraines:</strong> Your nervous system is stuck in \"high alert,\" typically involving the trigeminal nerve and vascular inflammation.</p><p>• <strong>If you have Tension Headaches:</strong> Your neck muscles are weak and shortening due to posture, constantly pulling on the base of your skull.</p><p>You cannot fix a \"software problem\" with a pill. You need to <strong>reprogram the system.</strong></p>",
+            "text_style": "body"
           }
         }
       },
       "block_order": [
-        "heading_yX9eBJ",
-        "text_8ixqFq",
-        "text_QPeNBd"
+        "heading_kCBKGf",
+        "text_JkmU3F"
       ],
-      "name": "t:sections.rich-text.presets.name",
+      "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "full_width": true,
+        "image": "shopify://shop_images/generated_image_20260129_093227_628f1ee9.jpg",
+        "video_autoplay": true,
+        "video_loop": true,
+        "height": "adapt",
+        "enable_rotating_images": true,
+        "image_2": "shopify://shop_images/generated_image_20260129_093400_f5de0703.jpg",
+        "rotation_interval": 5,
         "color_scheme": "custom",
-        "padding_top": 40,
-        "padding_bottom": 52,
-        "custom_colors_background": "#ffffff",
+        "section_color_scheme": "accent-2",
+        "scrollable_text": true,
+        "full_desktop_width": false,
+        "content_layout": "no-overlap",
+        "desktop_media_width": 50,
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_full_media_width": false,
+        "mobile_direction": "normal",
+        "mobile_image_quanlity": "2",
+        "mobile_content_alignment": "left",
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 16,
+        "desktop_padding_top": 36,
+        "desktop_padding_bottom": 36,
+        "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
-        "custom_colors_text": "#2e2a39",
-        "custom_colors_solid_button_background": "#555555",
-        "custom_colors_solid_button_text": "#555555",
-        "custom_colors_outline_button": "#555555"
+        "custom_colors_text": "#121212",
+        "custom_colors_solid_button_background": "#121212",
+        "custom_colors_solid_button_text": "#121212",
+        "custom_colors_outline_button": "#121212",
+        "custom_section_colors_background": "#f3dfc1",
+        "custom_section_gradient_background": ""
       }
     },
-    "rich_text_ztX4yM": {
-      "type": "rich-text",
+    "image_with_text_UaAiJ7": {
+      "type": "image-with-text",
       "blocks": {
-        "heading_qWJxU9": {
+        "heading_wAqWyg": {
           "type": "heading",
           "settings": {
             "title": "<strong>Introducing the Duracalm protocol: The only </strong>pharmaceutically free <strong>\"hardware + software\" solution</strong>",
             "title_highlight_color": "#121212",
-            "heading_size": "h1"
+            "heading_size": "h2"
           }
         },
-        "text_hmcpPd": {
+        "text_BNFeVC": {
           "type": "text",
           "settings": {
-            "text": "<p>We don’t sell \"magic gadgets.\" We provide <strong>complete physiological systems</strong>. We have engineered three specific protocols that combine <strong>clinical-grade physical devices</strong> (The Hardware) with <strong>neuro-behavioral digital therapies</strong> (The Software) to target the <em>exact</em> biological mechanism driving your agony.<br/><br/></p>"
-          }
-        },
-        "text_L34dMt": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>1. The Neuro-Cool System™ (For the \"Sensory Storm\")</strong></p><p>• <strong>The Target:</strong> Neurovascular Inflammation & Sensory Overload.</p><p>• <strong>The Hardware (Mechanism):Precision Thermal Modulation.</strong>   </p><p>◦ This physical system applies targeted cryotherapy to the cranial vascular network. It is engineered to mechanically constrict dilated blood vessels and numb the inflamed nerve endings that cause that throbbing sensation.</p><p>• <strong>The Software (Digital):The Sensory Reset Protocol</strong>.    </p><p>◦ This isn't just a \"guide.\" It is a digital course based on <strong>Cognitive Behavioral Therapy (CBT)</strong> techniques proven to reduce headache frequency. We teach you how to \"turn down the volume\" on your brain's light sensitivity and identify triggers before they launch an attack.</p><p></p><p><strong>2. The Myo-Release System™ (For the \"Physical Vise\")</strong></p><p>• <strong>The Target:</strong> Myofascial Trigger Points & \"Tech-Neck.\"</p><p>• <strong>The Hardware (Mechanism):Suboccipital Decompression.</strong>    </p><p>◦ A pill cannot untie a knot. This physical device uses gravity and leverage to provide deep-tissue inhibition to the suboccipital muscles at the base of your skull—mechanically releasing the tension that is strangling your nerves.</p><p>• <strong>The Software (Digital):The \"Neck Armor\" Video Series</strong>.    </p><p>◦ Releasing the knot is temporary; strengthening the muscle is permanent. This video library guides you through the specific <strong>deep neck flexor exercises</strong> that research shows can reduce tension headache frequency by treating the root cause: muscle weakness.</p><p><strong>3. The Rebound Breaker System™ (For the \"Chronic Cycle\")</strong></p><p>• <strong>The Target:</strong> Central Sensitization & Medication Overuse.</p><p>• <strong>The Hardware (Mechanism):Neural Gating Stimulation.</strong>    </p><p>◦ You need a bridge to safety. This physical system utilizes thousands of micro-contact points to flood your nervous system with safe sensory signals. This activates the \"Gate Control Theory\" of pain, helping to override the pain loop without drugs.</p><p>• <strong>The Software (Digital):The Deep Sleep & Detox Audio Protocol</strong>.    </p><p>◦ This is the critical piece. Studies prove that <strong>Behavioral Sleep Modification</strong> can actually <strong>revert chronic migraine back to episodic migraine</strong> in nearly 50% of patients. We give you the exact audio tracks and sleep hygiene protocols to reset your pain threshold while you detox from the pills.<br/></p><p><strong>Stop Guessing. Start Treating.</strong></p><p></p><p>I don’t want you to buy a single product yet.</p><p>I want you to find out exactly what is happening inside your nervous system. Because if you use the <strong>Myo-Release</strong> tools on a <strong>Migraine</strong>, it won't work. And if you use the <strong>Neuro-Cool</strong> system on a <strong>Rebound Headache</strong>, you're missing the root cause.</p><p>We have built a comprehensive <strong>Assessment Tool</strong> based on the International Classification of Headache Disorders (ICHD-3). It will analyze your symptoms—whether it’s the nausea, the \"band-like\" pressure, or the pill usage—and tell you exactly which System fits your physiology.It is free. It takes 2 minutes. And it could save you from years of misery.</p><p><strong>Click the button below. Your brain will thank you.</strong><br/></p>"
-          }
-        },
-        "button_wBaEa4": {
-          "type": "button",
-          "settings": {
-            "button_label": "TAKE THE PAIN ASSESSMENT NOW",
-            "button_link": "",
-            "button_style_secondary": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "text": "<p>We don’t sell \"magic gadgets.\" We provide <strong>complete physiological systems</strong>. We have engineered three specific protocols that combine <strong>clinical-grade physical devices</strong> (The Hardware) with <strong>neuro-behavioral digital therapies</strong> (The Software) to target the <em>exact</em> biological mechanism driving your agony.<br/></p><p><strong>1. The Neuro-Cool System™ (For the \"Sensory Storm\")</strong></p><p>• <strong>The Target:</strong> Neurovascular Inflammation & Sensory Overload.</p><p>• <strong>The Hardware (Mechanism):Precision Thermal Modulation.</strong>   </p><p>◦ This physical system applies targeted cryotherapy to the cranial vascular network. It is engineered to mechanically constrict dilated blood vessels and numb the inflamed nerve endings that cause that throbbing sensation.</p><p>• <strong>The Software (Digital):The Sensory Reset Protocol</strong>.    </p><p>◦ This isn't just a \"guide.\" It is a digital course based on <strong>Cognitive Behavioral Therapy (CBT)</strong> techniques proven to reduce headache frequency. We teach you how to \"turn down the volume\" on your brain's light sensitivity and identify triggers before they launch an attack.</p><p></p><p><strong>2. The Myo-Release System™ (For the \"Physical Vise\")</strong></p><p>• <strong>The Target:</strong> Myofascial Trigger Points & \"Tech-Neck.\"</p><p>• <strong>The Hardware (Mechanism):Suboccipital Decompression.</strong>    </p><p>◦ A pill cannot untie a knot. This physical device uses gravity and leverage to provide deep-tissue inhibition to the suboccipital muscles at the base of your skull—mechanically releasing the tension that is strangling your nerves.</p><p>• <strong>The Software (Digital):The \"Neck Armor\" Video Series</strong>.    </p><p>◦ Releasing the knot is temporary; strengthening the muscle is permanent. This video library guides you through the specific <strong>deep neck flexor exercises</strong> that research shows can reduce tension headache frequency by treating the root cause: muscle weakness.</p><p><strong>3. The Rebound Breaker System™ (For the \"Chronic Cycle\")</strong></p><p>• <strong>The Target:</strong> Central Sensitization & Medication Overuse.</p><p>• <strong>The Hardware (Mechanism):Neural Gating Stimulation.</strong>    </p><p>◦ You need a bridge to safety. This physical system utilizes thousands of micro-contact points to flood your nervous system with safe sensory signals. This activates the \"Gate Control Theory\" of pain, helping to override the pain loop without drugs.</p><p>• <strong>The Software (Digital):The Deep Sleep & Detox Audio Protocol</strong>.    </p><p>◦ This is the critical piece. Studies prove that <strong>Behavioral Sleep Modification</strong> can actually <strong>revert chronic migraine back to episodic migraine</strong> in nearly 50% of patients. We give you the exact audio tracks and sleep hygiene protocols to reset your pain threshold while you detox from the pills.<br/></p><p><strong>Stop Guessing. Start Treating.</strong></p><p></p><p>I don’t want you to buy a single product yet.</p><p>I want you to find out exactly what is happening inside your nervous system. Because if you use the <strong>Myo-Release</strong> tools on a <strong>Migraine</strong>, it won't work. And if you use the <strong>Neuro-Cool</strong> system on a <strong>Rebound Headache</strong>, you're missing the root cause.</p><p>We have built a comprehensive <strong>Assessment Tool</strong> based on the International Classification of Headache Disorders (ICHD-3). It will analyze your symptoms—whether it’s the nausea, the \"band-like\" pressure, or the pill usage—and tell you exactly which System fits your physiology.It is free. It takes 2 minutes. And it could save you from years of misery.</p><p><strong>Click the button below. Your brain will thank you.</strong><br/><br/></p>",
+            "text_style": "body"
           }
         }
       },
       "block_order": [
-        "heading_qWJxU9",
-        "text_hmcpPd",
-        "text_L34dMt",
-        "button_wBaEa4"
+        "heading_wAqWyg",
+        "text_BNFeVC"
       ],
-      "name": "t:sections.rich-text.presets.name",
+      "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "full_width": true,
-        "color_scheme": "custom",
-        "padding_top": 40,
-        "padding_bottom": 52,
-        "custom_colors_background": "#ffffff",
+        "image": "shopify://shop_images/generated_image_20260129_094338_6a514b13.jpg",
+        "video_autoplay": true,
+        "video_loop": true,
+        "height": "adapt",
+        "enable_rotating_images": true,
+        "image_2": "shopify://shop_images/generated_image_20260129_094043_b0f6c997.jpg",
+        "rotation_interval": 5,
+        "color_scheme": "background-2",
+        "section_color_scheme": "custom",
+        "scrollable_text": true,
+        "full_desktop_width": true,
+        "content_layout": "no-overlap",
+        "desktop_media_width": 50,
+        "layout": "text_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_full_media_width": false,
+        "mobile_direction": "normal",
+        "mobile_image_quanlity": "2",
+        "mobile_content_alignment": "left",
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 16,
+        "desktop_padding_top": 36,
+        "desktop_padding_bottom": 36,
+        "custom_colors_background": "#2e2a39",
         "custom_gradient_background": "",
-        "custom_colors_text": "#2e2a39",
-        "custom_colors_solid_button_background": "#555555",
-        "custom_colors_solid_button_text": "#555555",
-        "custom_colors_outline_button": "#555555"
+        "custom_colors_text": "#ffffff",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d",
+        "custom_section_colors_background": "#ddbea8",
+        "custom_section_gradient_background": ""
+      }
+    },
+    "featured_collection_f9BQdr": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Duracalm Kits",
+        "title_highlight_color": "#121212",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "color_scheme": "custom",
+        "collection": "boxes",
+        "products_to_show": 3,
+        "stretch_cards": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "cards_color_scheme": "accent-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "badges": "disabled",
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": true,
+        "swatches_option_name": "",
+        "swatches_position": "top",
+        "swatches_desktop_size": 36,
+        "swatches_mobile_size": 24,
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "accent-1",
+        "transparent_arrows": false,
+        "dots_color_scheme": "accent-1",
+        "desktop_full_page": false,
+        "columns_desktop": 3,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 40,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "columns_mobile": "1",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#f3dfc1",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#121212",
+        "custom_colors_solid_button_background": "#121212",
+        "custom_colors_solid_button_text": "#121212"
       }
     },
     "d2d3417b-e92f-428c-b221-5bceffb552be": {
@@ -319,13 +397,14 @@
         "atc_skip_cart": false,
         "desktop_alignment": "center",
         "mobile_alignment": "center",
-        "color_scheme": "accent-2",
+        "color_scheme": "background-2",
         "layout": "table_second",
         "style": "centered",
         "corner_radius": 20,
         "number_of_competitors": 1,
         "us_label": "[shop_name]",
         "us_label_size": 18,
+        "logo": "shopify://shop_images/Duracalm_Logo_Vertical.png",
         "logo_width": 90,
         "mobile_logo_width": 60,
         "others_label": "Others",
@@ -340,17 +419,17 @@
         "others_3_label_size": 18,
         "others_3_logo_width": 90,
         "others_3_mobile_logo_width": 60,
-        "checkmark_style": "regular",
-        "checkmark_color": "#ffffff",
-        "checkmark_bg_color": "#53af01",
+        "checkmark_style": "solid",
+        "checkmark_color": "#f3dfc1",
+        "checkmark_bg_color": "#7b92c8",
         "x_style": "regular",
         "x_color": "#121212",
         "x_bg_color": "#dbdbdb",
         "opposite_icon_colors": "original",
-        "highlighted_color_scheme": "accent-1",
+        "highlighted_color_scheme": "accent-2",
         "highlighted_separator_opacity": 0,
         "highlighted_overlay_opacity": 0,
-        "other_cells_color_scheme": "background-1",
+        "other_cells_color_scheme": "background-2",
         "regular_separator_opacity": 10,
         "regular_overlay_opacity": 0,
         "minimalistic_border_opacity": 16,
@@ -420,9 +499,9 @@
         "title": "Did you know?",
         "title_highlight_color": "#6d388b",
         "heading_size": "h1",
-        "text": "<p>Science based reasons why you are stuck in a painful loop.</p>",
+        "text": "<p>Science insight of why you have not escaped the painful loop.</p>",
         "video_muted_autoplay": true,
-        "color_scheme": "background-1",
+        "color_scheme": "custom",
         "layout": "results_second",
         "results_headline": "",
         "results_title_highlight_color": "#6d388b",
@@ -438,11 +517,11 @@
         "atc_skip_cart": false,
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
-        "custom_colors_accent": "#dd1d1d",
-        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_accent": "#7b92c8",
+        "custom_colors_solid_button_background": "#7b92c8",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d"
       }
@@ -500,17 +579,17 @@
         "title_highlight_color": "#6d388b",
         "heading_size": "h1",
         "text": "",
-        "color_scheme": "background-1",
+        "color_scheme": "background-2",
         "icon_layout": "vertical",
         "icon_size": "medium",
         "icon_color": "accent-1",
-        "cards_color_scheme": "background-1",
-        "type": "slide",
+        "cards_color_scheme": "bg-overlay",
+        "type": "loop",
         "autoplay": false,
         "autoplay_speed": 5,
-        "arrows_color_scheme": "inverse",
-        "transparent_arrows": true,
-        "dots_color_scheme": "inverse",
+        "arrows_color_scheme": "accent-1",
+        "transparent_arrows": false,
+        "dots_color_scheme": "accent-1",
         "desktop_full_page": false,
         "columns_desktop": 4,
         "slider_desktop": false,
@@ -540,44 +619,114 @@
     "testimonials_4nytbq": {
       "type": "testimonials",
       "blocks": {
+        "column_erJW6k": {
+          "type": "column",
+          "settings": {
+            "star_rating": 4,
+            "title": "Good tool for the toolkit",
+            "text": "<p>Don't expect a miracle cure. You still get headaches. But this helps you manage them without feeling like a zombie on meds. I use the neuro cool hat with my ubrelvy and it works way faster together.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_051400_78720696.jpg",
+            "author": "<strong>Sam1975</strong>"
+          }
+        },
+        "column_cixHDb": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Cheaper than my chiro",
+            "text": "<p>I spend a fortune on adjustments and massages. This kit costs less than one visit. It’s effective. The packaging was a little banged up when it arrived but everything inside was fine.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_051550_1fa0e83b.jpg",
+            "author": "<strong>Tom B</strong>"
+          }
+        },
+        "column_wPTVXg": {
+          "type": "column",
+          "settings": {
+            "star_rating": 4,
+            "title": "Sleep tracks are surprisingly good",
+            "text": "<p>Bought the Rebound kit mostly for the mat, didn't think I'd use the digital 'software' part. But the sleep audio is actually really helpful. I didn't realize how much my insomnia was triggering my headaches. Mat is a bit intense for me but the system works.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052659_f930ecfc.jpg",
+            "author": "<strong>Karen W</strong>"
+          }
+        },
+        "column_mmdFLg": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Hardest week of my life but it worked",
+            "text": "<p>I was taking excedrin daily for years. Didn't know about 'rebound headaches' until I read your site. The detox week was rough, not gonna lie. The acupressure mat is sharp but it distracts your brain from the pain. 30 days pill free now. thanks guys.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_051719_3b6c5cd1.jpg",
+            "author": "<strong> Dave_R</strong>"
+          }
+        },
+        "column_aLHVRU": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Better than ice packs",
+            "text": "<p>Used to strap bags of peas to my head lol. This is way better. hits the exact spot over the eye that throbs. Expensive for what it is but honestly worth it to not feel like my head is exploding.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_050806_79d03818.jpg",
+            "author": "<strong>L.T</strong>"
+          }
+        },
+        "column_fbfWXR": {
+          "type": "column",
+          "settings": {
+            "star_rating": 4,
+            "title": "Hat is great, wish it stayed cold longer",
+            "text": "<p>The cold cap feels amazing when an attack starts. Numbs the throbbing instantly. Knocking off one star because it only stays ice cold for about 40 mins, I ended up buying a second one so I can rotate them in the freezer. essential if you get hemiplegic migraines.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052028_ad84823e.jpg",
+            "author": "<strong>Chris P</strong>"
+          }
+        },
         "column_GjTHjP": {
           "type": "column",
           "settings": {
             "star_rating": 5,
-            "title": "Heading",
-            "text": "<p>Share positive thoughts and feedback from your customer..</p>",
-            "author": "<em><strong>Author</strong></em>"
+            "title": "Finally popped that knot",
+            "text": "<p>I sit at a computer for 10 hours a day and my neck usually feels like concrete by 3pm. The traction tool in the Myo-Release kit is intense... kinda hurts at first but in a 'good pain' way? Felt the pressure release at the base of my skull immediately. Wish the shipping was faster but the kit is legit.<br/><br/></p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_050615_38eb37ab.jpg",
+            "author": "<strong>Mike_D</strong>"
           }
         },
         "column_6qy4Hc": {
           "type": "column",
           "settings": {
-            "star_rating": 5,
-            "title": "Heading",
-            "text": "<p>Share positive thoughts and feedback from your customer..</p>",
-            "author": "<em><strong>Author</strong></em>"
+            "star_rating": 4,
+            "title": "Works if you actually follow the plan",
+            "text": "<p>Honest review: the neck hammock thing feels nice but the results didn't stick until I actually watched the digital vids and did the strengthening stuff. Its not a magic fix, you gotta do the work. But I haven't taken advil in 2 weeks so I guess it works.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052520_f0a94972.jpg",
+            "author": "<strong>Sarah J</strong>"
           }
         },
         "column_ACqzUT": {
           "type": "column",
           "settings": {
             "star_rating": 5,
-            "title": "Customer Reviews",
-            "text": "<p>Share positive thoughts and feedback from your customer..</p>",
-            "author": "<em><strong>Author</strong></em>"
+            "title": "Quiz was right, thought it was migraine",
+            "text": "<p>I always thought I had migraines cause they were so bad. Took the quiz and it said tension/muscle related. Was skeptical but bought the Myo kit. Turns out treating my neck fixed the headache. crazy. The posture strap is kinda itchy so wear a tshirt under it.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_050946_a27b6615.jpg",
+            "author": "<strong>Jen22</strong>"
           }
         },
         "column_UnrfQ3": {
           "type": "column",
           "settings": {
             "star_rating": 5,
-            "title": "Heading",
-            "text": "<p>Share positive thoughts and feedback from your customer..</p>",
-            "author": "<em><strong>Author</strong></em>"
+            "title": "Lifesaver during pregnancy",
+            "text": "<p>Since I cant take my usual triptans right now this kit has been the only thing getting me through. The compression on the hat is perfect. It doesnt stop the migraine 100% but it numbs it enough so I can sleep. Green light helps too when I cant stand to look at my phone.<br/><br/></p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052947_2072c1a8.jpg",
+            "author": "<strong>Ashlee M.</strong>"
           }
         }
       },
       "block_order": [
+        "column_erJW6k",
+        "column_cixHDb",
+        "column_wPTVXg",
+        "column_mmdFLg",
+        "column_aLHVRU",
+        "column_fbfWXR",
         "column_GjTHjP",
         "column_6qy4Hc",
         "column_ACqzUT",
@@ -591,7 +740,7 @@
         "title_highlight_color": "#6d388b",
         "heading_size": "h1",
         "text": "",
-        "color_scheme": "background-1",
+        "color_scheme": "custom",
         "image_width": "full",
         "image_ratio": "square",
         "column_alignment": "center",
@@ -599,17 +748,17 @@
         "inactive_stars_style": "solid",
         "star_color": "#ffcc00",
         "bg_star_color": "#ececec",
-        "show_quotes": true,
+        "show_quotes": false,
         "quotes_color_scheme": "accent-2",
-        "cards_color_scheme": "bg-overlay",
-        "type": "slide",
+        "cards_color_scheme": "accent-1",
+        "type": "loop",
         "autoplay": false,
         "autoplay_speed": 5,
-        "arrows_color_scheme": "inverse",
-        "transparent_arrows": true,
-        "dots_color_scheme": "inverse",
+        "arrows_color_scheme": "accent-1",
+        "transparent_arrows": false,
+        "dots_color_scheme": "accent-1",
         "desktop_full_page": false,
-        "columns_desktop": 3,
+        "columns_desktop": 2,
         "slider_desktop": false,
         "per_move_desktop": 1,
         "desktop_spacing": 40,
@@ -625,10 +774,10 @@
         "mobile_arrows_position": "under",
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
-        "custom_cards_colors_background": "#f3f3f3",
+        "custom_cards_colors_background": "#f3dfc1",
         "custom_cards_gradient_background": "",
         "custom_cards_colors_text": "#2e2a39"
       }
@@ -682,12 +831,12 @@
       "name": "SS - FAQ #1",
       "settings": {
         "heading": "Frequently Asked Questions",
-        "icon_color": "#ffffff",
-        "hover_color": "#efefef",
-        "question_color": "#ffffff",
-        "background_color": "#d5caa6",
+        "icon_color": "#7b92c8",
+        "hover_color": "#121212",
+        "question_color": "#7b92c8",
+        "background_color": "#f3dfc1",
         "answer_color": "#000000",
-        "answer_bg_color": "#ffffff",
+        "answer_bg_color": "#ddbea8",
         "questions-font-size": 1.5
       }
     },
@@ -743,38 +892,6 @@
             "text_color": "#121212"
           }
         },
-        "button_WapGnX": {
-          "type": "button",
-          "settings": {
-            "button": "Shop now",
-            "url": "",
-            "open_in_new_tab": false,
-            "button_style": "non_outline",
-            "button_custom": false,
-            "button_font": "josefin_sans_n4",
-            "button_size": 14,
-            "button_size_mobile": 14,
-            "button_advanced": false,
-            "button_height": 100,
-            "button_padding_horizontal": 40,
-            "button_padding_horizontal_mobile": 32,
-            "button_padding_vertical": 20,
-            "button_padding_vertical_mobile": 20,
-            "button_radius": 100,
-            "button_border_thickness": 1,
-            "button_mt": 24,
-            "button_mt_mobile": 24,
-            "button_custom_styling": true,
-            "button_full_width_mobile": true,
-            "button_color": "#ffffff",
-            "button_hover_color": "#ffffff",
-            "button_bg_color": "#2d2d2d",
-            "button_bg_hover_color": "#2d2d2d",
-            "button_border_color": "#1a1a1a",
-            "button_border_hover_color": "#1a1a1a",
-            "button_shadow_color": "#000000"
-          }
-        },
         "guarantee_iV8jmw": {
           "type": "guarantee",
           "settings": {
@@ -789,6 +906,20 @@
             "text": "<p><strong>100% Physiology Match Guarantee</strong></p>"
           }
         },
+        "button_magic_mind_xUpbU7": {
+          "type": "button_magic_mind",
+          "settings": {
+            "button_label": "Shop now",
+            "button_link": "shopify://collections",
+            "open_in_new_tab": false,
+            "full_width_mobile": false,
+            "text_alignment": "center",
+            "padding_horizontal": 32,
+            "padding_vertical": 14,
+            "margin_top": 24,
+            "margin_bottom": 0
+          }
+        },
         "guarantee_3rYFfA": {
           "type": "guarantee",
           "settings": {
@@ -801,6 +932,7 @@
           "settings": {
             "rotate": 10,
             "rotate_mobile": -5,
+            "image": "shopify://shop_images/generated_image_20260202_041854_20c4e68b.jpg",
             "image_hide_mobile": false
           }
         },
@@ -809,6 +941,7 @@
           "settings": {
             "rotate": -10,
             "rotate_mobile": 5,
+            "image": "shopify://shop_images/generated_image_20260202_042616_bad8a3a6.jpg",
             "image_hide_mobile": false
           }
         },
@@ -817,6 +950,7 @@
           "settings": {
             "rotate": -10,
             "rotate_mobile": 10,
+            "image": "shopify://shop_images/generated_image_20260202_041441_bdb7ab61.jpg",
             "image_hide_mobile": false
           }
         },
@@ -825,6 +959,7 @@
           "settings": {
             "rotate": 10,
             "rotate_mobile": 10,
+            "image": "shopify://shop_images/generated_image_20260202_040108_08213bef.jpg",
             "image_hide_mobile": true
           }
         }
@@ -833,9 +968,9 @@
         "icon_FEyHxf",
         "heading_k9wGhQ",
         "text_NyibQA",
-        "button_WapGnX",
         "guarantee_iV8jmw",
         "guarantee_htQQCe",
+        "button_magic_mind_xUpbU7",
         "guarantee_3rYFfA",
         "image_kpQFtb",
         "image_BmbJcf",
@@ -870,17 +1005,17 @@
         "images_gap_mobile": 0,
         "images_ratio": "portrait",
         "images_ratio_mobile": "portrait",
-        "images_radius": 2,
+        "images_radius": 0,
         "images_border_thickness": 8,
         "guarantee_text_color": "#121212",
-        "guarantee_icon_color": "#121212",
+        "guarantee_icon_color": "#7b92c8",
         "guarantee_icon_bg": "rgba(0,0,0,0)",
-        "guarantee_icon_border_color": "#121212",
-        "images_border_color": "#ffffff",
+        "guarantee_icon_border_color": "#7b92c8",
+        "images_border_color": "#7b92c8",
         "background_style": "solid",
-        "background_color": "#ffffff",
+        "background_color": "#f3dfc1",
         "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
-        "border_color": "#121212",
+        "border_color": "#7b92c8",
         "margin_top": 0,
         "margin_bottom": 0,
         "margin_horizontal": 0,
@@ -895,134 +1030,19 @@
         "section_radius": 0,
         "lazy": true
       }
-    },
-    "image_with_text_LjDeGJ": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_kCBKGf": {
-          "type": "heading",
-          "settings": {
-            "title": "<strong>For anyone who has ever wanted to drill a hole in the head just to let the pressure out</strong>",
-            "title_highlight_color": "#121212",
-            "heading_size": "h2"
-          }
-        },
-        "text_JkmU3F": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>Dear fellow sufferer,</strong></p><p>Let’s be honest.</p><p>There is nothing \"mild\" about a headache.</p><p>Whether it’s the <strong>band-like vise grip</strong> of a Tension Headache squeezing your skull until you can’t think... or the <strong>one-sided, pulsating explosion</strong> of a Migraine that makes you want to hide in a dark closet... the pain is real. And it is stealing your life.</p><p>But here is the ugly truth that the pharmaceutical companies don’t want you to dwell on: </p><p><strong>The pills you are taking might be making it worse.</strong></p><p>It sounds crazy, but it’s a documented medical fact. It’s called <strong>Medication Overuse Headache (MOH)</strong>. Research shows that frequent use of acute painkillers can actually lower your brain's pain threshold, guaranteeing you’ll need <em>another</em> pill tomorrow<br/></p><p>It’s a trap. And at <strong>Duracalm</strong>, we are here to help you break out of it.</p><p><strong>The \"biological secret\" locked inside your skull</strong></p><p>My name is Tom Collins, and I founded Duracalm because I discovered a fatal flaw in how we treat head pain: <strong>We treat the hardware, but ignore the software.</strong></p><p>You see, a headache isn't just a physical knot. It is a <strong>neurological loop</strong>.</p><p>• <strong>If you have Migraines:</strong> Your nervous system is stuck in \"high alert,\" typically involving the trigeminal nerve and vascular inflammation.</p><p>• <strong>If you have Tension Headaches:</strong> Your neck muscles are weak and shortening due to posture, constantly pulling on the base of your skull.</p><p>You cannot fix a \"software problem\" with a pill. You need to <strong>reprogram the system.</strong></p>",
-            "text_style": "body"
-          }
-        }
-      },
-      "block_order": [
-        "heading_kCBKGf",
-        "text_JkmU3F"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "display_id": false,
-        "visibility": "always-display",
-        "image": "shopify://shop_images/generated_image_20260129_084621_8464ca5a.jpg",
-        "video_autoplay": true,
-        "video_loop": true,
-        "height": "adapt",
-        "color_scheme": "background-1",
-        "section_color_scheme": "background-1",
-        "full_desktop_width": false,
-        "content_layout": "no-overlap",
-        "desktop_media_width": 50,
-        "layout": "image_first",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_full_media_width": false,
-        "mobile_direction": "normal",
-        "mobile_image_quanlity": "2",
-        "mobile_content_alignment": "left",
-        "mobile_padding_top": 0,
-        "mobile_padding_bottom": 16,
-        "desktop_padding_top": 36,
-        "desktop_padding_bottom": 36,
-        "custom_colors_background": "#2E2A39",
-        "custom_gradient_background": "",
-        "custom_colors_text": "#FFFFFF",
-        "custom_colors_solid_button_background": "#dd1d1d",
-        "custom_colors_solid_button_text": "#ffffff",
-        "custom_colors_outline_button": "#dd1d1d",
-        "custom_section_colors_background": "#FFFFFF",
-        "custom_section_gradient_background": ""
-      }
-    },
-    "image_with_text_UaAiJ7": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_wAqWyg": {
-          "type": "heading",
-          "settings": {
-            "title": "<strong>Introducing the Duracalm protocol: The only </strong>pharmaceutically free <strong>\"hardware + software\" solution</strong>",
-            "title_highlight_color": "#121212",
-            "heading_size": "h2"
-          }
-        },
-        "text_BNFeVC": {
-          "type": "text",
-          "settings": {
-            "text": "<p>We don’t sell \"magic gadgets.\" We provide <strong>complete physiological systems</strong>. We have engineered three specific protocols that combine <strong>clinical-grade physical devices</strong> (The Hardware) with <strong>neuro-behavioral digital therapies</strong> (The Software) to target the <em>exact</em> biological mechanism driving your agony.<br/></p><p><strong>1. The Neuro-Cool System™ (For the \"Sensory Storm\")</strong></p><p>• <strong>The Target:</strong> Neurovascular Inflammation & Sensory Overload.</p><p>• <strong>The Hardware (Mechanism):Precision Thermal Modulation.</strong>   </p><p>◦ This physical system applies targeted cryotherapy to the cranial vascular network. It is engineered to mechanically constrict dilated blood vessels and numb the inflamed nerve endings that cause that throbbing sensation.</p><p>• <strong>The Software (Digital):The Sensory Reset Protocol</strong>.    </p><p>◦ This isn't just a \"guide.\" It is a digital course based on <strong>Cognitive Behavioral Therapy (CBT)</strong> techniques proven to reduce headache frequency. We teach you how to \"turn down the volume\" on your brain's light sensitivity and identify triggers before they launch an attack.</p><p></p><p><strong>2. The Myo-Release System™ (For the \"Physical Vise\")</strong></p><p>• <strong>The Target:</strong> Myofascial Trigger Points & \"Tech-Neck.\"</p><p>• <strong>The Hardware (Mechanism):Suboccipital Decompression.</strong>    </p><p>◦ A pill cannot untie a knot. This physical device uses gravity and leverage to provide deep-tissue inhibition to the suboccipital muscles at the base of your skull—mechanically releasing the tension that is strangling your nerves.</p><p>• <strong>The Software (Digital):The \"Neck Armor\" Video Series</strong>.    </p><p>◦ Releasing the knot is temporary; strengthening the muscle is permanent. This video library guides you through the specific <strong>deep neck flexor exercises</strong> that research shows can reduce tension headache frequency by treating the root cause: muscle weakness.</p><p><strong>3. The Rebound Breaker System™ (For the \"Chronic Cycle\")</strong></p><p>• <strong>The Target:</strong> Central Sensitization & Medication Overuse.</p><p>• <strong>The Hardware (Mechanism):Neural Gating Stimulation.</strong>    </p><p>◦ You need a bridge to safety. This physical system utilizes thousands of micro-contact points to flood your nervous system with safe sensory signals. This activates the \"Gate Control Theory\" of pain, helping to override the pain loop without drugs.</p><p>• <strong>The Software (Digital):The Deep Sleep & Detox Audio Protocol</strong>.    </p><p>◦ This is the critical piece. Studies prove that <strong>Behavioral Sleep Modification</strong> can actually <strong>revert chronic migraine back to episodic migraine</strong> in nearly 50% of patients. We give you the exact audio tracks and sleep hygiene protocols to reset your pain threshold while you detox from the pills.<br/></p><p><strong>Stop Guessing. Start Treating.</strong></p><p></p><p>I don’t want you to buy a single product yet.</p><p>I want you to find out exactly what is happening inside your nervous system. Because if you use the <strong>Myo-Release</strong> tools on a <strong>Migraine</strong>, it won't work. And if you use the <strong>Neuro-Cool</strong> system on a <strong>Rebound Headache</strong>, you're missing the root cause.</p><p>We have built a comprehensive <strong>Assessment Tool</strong> based on the International Classification of Headache Disorders (ICHD-3). It will analyze your symptoms—whether it’s the nausea, the \"band-like\" pressure, or the pill usage—and tell you exactly which System fits your physiology.It is free. It takes 2 minutes. And it could save you from years of misery.</p><p><strong>Click the button below. Your brain will thank you.</strong><br/><br/></p>",
-            "text_style": "body"
-          }
-        }
-      },
-      "block_order": [
-        "heading_wAqWyg",
-        "text_BNFeVC"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "display_id": false,
-        "visibility": "always-display",
-        "image": "shopify://shop_images/generated_image_20260129_084621_8464ca5a.jpg",
-        "video_autoplay": true,
-        "video_loop": true,
-        "height": "adapt",
-        "color_scheme": "background-1",
-        "section_color_scheme": "background-1",
-        "full_desktop_width": true,
-        "content_layout": "no-overlap",
-        "desktop_media_width": 50,
-        "layout": "text_first",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_full_media_width": false,
-        "mobile_direction": "normal",
-        "mobile_image_quanlity": "2",
-        "mobile_content_alignment": "left",
-        "mobile_padding_top": 0,
-        "mobile_padding_bottom": 16,
-        "desktop_padding_top": 36,
-        "desktop_padding_bottom": 36,
-        "custom_colors_background": "#2E2A39",
-        "custom_gradient_background": "",
-        "custom_colors_text": "#FFFFFF",
-        "custom_colors_solid_button_background": "#dd1d1d",
-        "custom_colors_solid_button_text": "#ffffff",
-        "custom_colors_outline_button": "#dd1d1d",
-        "custom_section_colors_background": "#FFFFFF",
-        "custom_section_gradient_background": ""
-      }
     }
   },
   "order": [
     "ss_wave_2_qXWU79",
     "parallax_hero_ByfbBU",
-    "rich_text_8iy4cg",
-    "rich_text_ztX4yM",
+    "image_with_text_LjDeGJ",
+    "image_with_text_UaAiJ7",
+    "featured_collection_f9BQdr",
     "d2d3417b-e92f-428c-b221-5bceffb552be",
     "0f1fc9e4-bc4c-4052-9747-62d1f8472caa",
     "6aa09428-a417-429d-9159-a4e8afd49590",
     "testimonials_4nytbq",
     "ss_simple_faq_bfdgyV",
-    "ss_guarantee_f3HaNX",
-    "image_with_text_LjDeGJ",
-    "image_with_text_UaAiJ7"
+    "ss_guarantee_f3HaNX"
   ]
 }
