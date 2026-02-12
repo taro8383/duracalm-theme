@@ -18,6 +18,10 @@
     .cart-drawer__body, .cart-drawer-item {
       background: {{ section.settings.body_bg_color }};
     }
+    /* Empty state background */
+    .drawer__inner-empty {
+      background: {{ section.settings.body_bg_color }};
+    }
   {% endif %}
   {% if section.settings.enable_footer_bg %}
     .cart-drawer .drawer__footer {
