@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git --version)",
+      "Bash(shopify auth status:*)",
+      "Bash(shopify auth:*)",
+      "Bash(shopify theme list:*)",
+      "Bash(shopify theme pull:*)",
+      "Bash(dir:*)",
+      "Bash(git init:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(shopify theme dev:*)",
+      "Bash(npm install:*)",
+      "Bash(shopify theme push:*)",
+      "mcp__zai-mcp-server__analyze_image",
+      "Bash(grep:*)",
+      "Bash(while read f)",
+      "Bash(do if ! grep -q \"button_magic_mind\" \"$f\")",
+      "Bash([[ \"$f\" != \"parallax-hero.liquid\" ]])",
+      "Bash([[ \"$f\" != \"image-with-text.liquid\" ]])",
+      "Bash(then echo \"$f\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(for:*)",
+      "Bash(do if grep -q '\"\"blocks\"\":' \"$f\")",
+      "Bash(! grep -q \"button_magic_mind\" \"$f\")",
+      "Bash(python -c:*)",
+      "Bash(shopify theme:*)"
+    ]
+  }
+}
