@@ -1,4 +1,4 @@
-<div class="rb-faq-shopify-section">
+<div class="rb-faq-shopify-section" style="background-color: {{ section.settings.section_background_color }};">
     <h1 style="text-align: center; padding: 20px 20px 0px 20px;"> {{ section.settings.heading }} </h1>
     <div class="rb-faq-container">
         {%for block in section.blocks %}
@@ -49,6 +49,12 @@
             "label":"Heading",
             "id":"heading",
             "default":"Frequently Asked Questions"
+        },
+        {
+            "type": "color",
+            "label": "Section background color",
+            "id": "section_background_color",
+            "default": "#ffffff"
         },
         {
             "type":"color",
@@ -146,9 +152,8 @@
     }
 
     .rb-faq-shopify-section {
-      padding-right:30px;
-      padding-left:30px;
-      margin-bottom:50px
+      padding: 50px 30px;
+      margin-bottom: 0;
     }
 
     .rb-faq-container {

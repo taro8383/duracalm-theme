@@ -34,6 +34,26 @@
       }
     }
   {% endif %}
+
+  {% if section.settings.layout == 'title_above' %}
+    .content-and-results--title-above {
+      grid-template-columns: 1fr !important;
+      gap: 3rem;
+    }
+    .content-and-results--title-above .content-container {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .content-and-results--title-above .results-container {
+      order: 1;
+      width: 100%;
+      max-width: 100%;
+    }
+    .content-and-results--title-above .content-container {
+      order: 0;
+    }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
@@ -44,9 +64,9 @@
     </copy-button>
   {% endif %}
   <div class="page-width section-{{ section.id }}-padding">
-    <div class="content-and-results section-group__container__child-grid{% if section.settings.layout == 'results_first' %} content-and-results--results-first{% endif %}{% if section.settings.title == blank and section.settings.text == blank and section.settings.image == blank and section.settings.video == blank %} content-and-results--no-content{% endif %}">
+    <div class="content-and-results section-group__container__child-grid{% if section.settings.layout == 'results_first' %} content-and-results--results-first{% elsif section.settings.layout == 'title_above' %} content-and-results--title-above{% endif %}{% if section.settings.title == blank and section.settings.text == blank and section.settings.image == blank and section.settings.video == blank %} content-and-results--no-content{% endif %}">
       {% assign content_index = 0 %}
-      <div class="content-container content-rte center animate-item animate-item--child index-0{% if section.settings.layout == 'results_first' %} desktop-index-1{% endif %}">
+      <div class="content-container content-rte center animate-item animate-item--child index-0{% if section.settings.layout == 'results_first' %} desktop-index-1{% elsif section.settings.layout == 'title_above' %} title-above{% endif %}">
         {%- unless section.settings.title == blank -%}
           {% assign content_index = 1 %}
           <h2 class="{{ section.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ section.settings.title_highlight_color }}'>
@@ -328,11 +348,15 @@
       "options": [
         {
           "value": "results_first",
-          "label": "Results first"
+          "label": "Results first (side by side)"
         },
         {
           "value": "results_second",
-          "label": "Results second"
+          "label": "Results second (side by side)"
+        },
+        {
+          "value": "title_above",
+          "label": "Title above results (stacked)"
         }
       ],
       "default": "results_second",

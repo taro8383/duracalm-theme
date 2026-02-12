@@ -66,6 +66,26 @@
     --color-background: {{ section.settings.custom_colors_others_background.red }}, {{ section.settings.custom_colors_others_background.green }}, {{ section.settings.custom_colors_others_background.blue }};
     --color-foreground: {{ section.settings.custom_colors_others_text.red }}, {{ section.settings.custom_colors_others_text.green }}, {{ section.settings.custom_colors_others_text.blue }};
   }
+
+  {% if section.settings.layout == 'title_above' %}
+    .content-and-comparison-table--title-above {
+      grid-template-columns: 1fr !important;
+      gap: 3rem;
+    }
+    .content-and-comparison-table--title-above .content-container {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .content-and-comparison-table--title-above .comparison-table-container {
+      order: 1;
+      width: 100%;
+      max-width: 100%;
+    }
+    .content-and-comparison-table--title-above .content-container {
+      order: 0;
+    }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient content-for-grouping animate-section animate--hidden isolate {{ section.settings.visibility }}">
@@ -76,9 +96,9 @@
     </copy-button>
   {% endif %}
   <div class="page-width section-{{ section.id }}-padding">
-    <div class="content-and-comparison-table section-group__container__child-grid{% if section.settings.layout == 'table_first' %} content-and-comparison-table--table-first{% endif %}{% if section.settings.title == blank and section.settings.text == blank %} content-and-comparison-table--no-content{% endif %}">
+    <div class="content-and-comparison-table section-group__container__child-grid{% if section.settings.layout == 'table_first' %} content-and-comparison-table--table-first{% elsif section.settings.layout == 'title_above' %} content-and-comparison-table--title-above{% endif %}{% if section.settings.title == blank and section.settings.text == blank %} content-and-comparison-table--no-content{% endif %}">
       {% assign content_index = 0 %}
-      <div class="content-container content-rte desktop-{{ section.settings.desktop_alignment }} mobile-{{ section.settings.mobile_alignment }} animate-item animate-item--child index-0{% if section.settings.layout == 'table_first' %} desktop-index-1{% endif %}">
+      <div class="content-container content-rte desktop-{{ section.settings.desktop_alignment }} mobile-{{ section.settings.mobile_alignment }} animate-item animate-item--child index-0{% if section.settings.layout == 'table_first' %} desktop-index-1{% elsif section.settings.layout == 'title_above' %} title-above{% endif %}">
         {%- unless section.settings.title == blank -%}
           {% assign content_index = 1 %}
           <h2 class="{{ section.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ section.settings.title_highlight_color }}'>
@@ -469,11 +489,15 @@
       "options": [
         {
           "value": "table_first",
-          "label": "Table first"
+          "label": "Table first (side by side)"
         },
         {
           "value": "table_second",
-          "label": "Table second"
+          "label": "Table second (side by side)"
+        },
+        {
+          "value": "title_above",
+          "label": "Title above table (stacked)"
         }
       ],
       "default": "table_second",

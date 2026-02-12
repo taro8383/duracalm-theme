@@ -322,18 +322,21 @@
                   </a>
                 {%- endif -%}
               {% when 'button_magic_mind' %}
-                {% render 'magic-mind-button',
-                  unique_id: section.id | append: '-' | append: block.id,
-                  button_label: block.settings.button_label,
-                  button_link: block.settings.button_link,
-                  open_in_new_tab: block.settings.open_in_new_tab,
-                  text_alignment: block.settings.text_alignment,
-                  padding_horizontal: block.settings.padding_horizontal,
-                  padding_vertical: block.settings.padding_vertical,
-                  margin_top: block.settings.margin_top,
-                  margin_bottom: block.settings.margin_bottom,
-                  full_width_mobile: block.settings.full_width_mobile
-                %}
+                {%- assign btn_align = block.settings.button_alignment | default: 'left' -%}
+                <div class="magic-mind-btn-wrapper" style="width: 100%; display: flex; justify-content: {% if btn_align == 'left' %}flex-start{% elsif btn_align == 'center' %}center{% else %}flex-end{% endif %};" {{ block.shopify_attributes }}>
+                  {% render 'magic-mind-button',
+                    unique_id: section.id | append: '-' | append: block.id,
+                    button_label: block.settings.button_label,
+                    button_link: block.settings.button_link,
+                    open_in_new_tab: block.settings.open_in_new_tab,
+                    text_alignment: block.settings.text_alignment,
+                    padding_horizontal: block.settings.padding_horizontal,
+                    padding_vertical: block.settings.padding_vertical,
+                    margin_top: block.settings.margin_top,
+                    margin_bottom: block.settings.margin_bottom,
+                    full_width_mobile: block.settings.full_width_mobile
+                  %}
+                </div>
               {% when 'atc_button' %}
                 {% if block.settings.atc_product == blank %}
                   <button
@@ -1523,8 +1526,19 @@
         },
         {
           "type": "select",
+          "id": "button_alignment",
+          "label": "Button alignment",
+          "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+          ],
+          "default": "left"
+        },
+        {
+          "type": "select",
           "id": "text_alignment",
-          "label": "Text alignment",
+          "label": "Text alignment (inside button)",
           "options": [
             {"value": "left", "label": "Left"},
             {"value": "center", "label": "Center"},
