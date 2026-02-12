@@ -156,11 +156,27 @@
             "text": "<p><strong>Dear fellow sufferer,</strong></p><p>Let’s be honest.</p><p>There is nothing \"mild\" about a headache.</p><p>Whether it’s the <strong>band-like vise grip</strong> of a Tension Headache squeezing your skull until you can’t think... or the <strong>one-sided, pulsating explosion</strong> of a Migraine that makes you want to hide in a dark closet... the pain is real. And it is stealing your life.</p><p>But here is the ugly truth that the pharmaceutical companies don’t want you to dwell on: </p><p><strong>The pills you are taking might be making it worse.</strong></p><p>It sounds crazy, but it’s a documented medical fact. It’s called <strong>Medication Overuse Headache (MOH)</strong>. Research shows that frequent use of acute painkillers can actually lower your brain's pain threshold, guaranteeing you’ll need <em>another</em> pill tomorrow<br/></p><p>It’s a trap. And at <strong>Duracalm</strong>, we are here to help you break out of it.</p><p><strong>The \"biological secret\" locked inside your skull</strong></p><p>My name is Tom Collins, and I founded Duracalm because I discovered a fatal flaw in how we treat head pain: <strong>We treat the hardware, but ignore the software.</strong></p><p>You see, a headache isn't just a physical knot. It is a <strong>neurological loop</strong>.</p><p>• <strong>If you have Migraines:</strong> Your nervous system is stuck in \"high alert,\" typically involving the trigeminal nerve and vascular inflammation.</p><p>• <strong>If you have Tension Headaches:</strong> Your neck muscles are weak and shortening due to posture, constantly pulling on the base of your skull.</p><p>You cannot fix a \"software problem\" with a pill. You need to <strong>reprogram the system.</strong></p>",
             "text_style": "body"
           }
+        },
+        "button_magic_mind_FCqhxf": {
+          "type": "button_magic_mind",
+          "settings": {
+            "button_label": "Take the quiz",
+            "button_link": "",
+            "open_in_new_tab": false,
+            "button_alignment": "center",
+            "text_alignment": "left",
+            "padding_horizontal": 32,
+            "padding_vertical": 14,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "full_width_mobile": false
+          }
         }
       },
       "block_order": [
         "heading_kCBKGf",
-        "text_JkmU3F"
+        "text_JkmU3F",
+        "button_magic_mind_FCqhxf"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
@@ -200,6 +216,23 @@
         "custom_section_gradient_background": ""
       }
     },
+    "section_divider_nqD7aH": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#f3dfc1",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "image_with_text_UaAiJ7": {
       "type": "image-with-text",
       "blocks": {
@@ -217,11 +250,27 @@
             "text": "<p>We don’t sell \"magic gadgets.\" We provide <strong>complete physiological systems</strong>. We have engineered three specific protocols that combine <strong>clinical-grade physical devices</strong> (The Hardware) with <strong>neuro-behavioral digital therapies</strong> (The Software) to target the <em>exact</em> biological mechanism driving your agony.<br/></p><p><strong>1. The Neuro-Cool System™ (For the \"Sensory Storm\")</strong></p><p>• <strong>The Target:</strong> Neurovascular Inflammation & Sensory Overload.</p><p>• <strong>The Hardware (Mechanism):Precision Thermal Modulation.</strong>   </p><p>◦ This physical system applies targeted cryotherapy to the cranial vascular network. It is engineered to mechanically constrict dilated blood vessels and numb the inflamed nerve endings that cause that throbbing sensation.</p><p>• <strong>The Software (Digital):The Sensory Reset Protocol</strong>.    </p><p>◦ This isn't just a \"guide.\" It is a digital course based on <strong>Cognitive Behavioral Therapy (CBT)</strong> techniques proven to reduce headache frequency. We teach you how to \"turn down the volume\" on your brain's light sensitivity and identify triggers before they launch an attack.</p><p></p><p><strong>2. The Myo-Release System™ (For the \"Physical Vise\")</strong></p><p>• <strong>The Target:</strong> Myofascial Trigger Points & \"Tech-Neck.\"</p><p>• <strong>The Hardware (Mechanism):Suboccipital Decompression.</strong>    </p><p>◦ A pill cannot untie a knot. This physical device uses gravity and leverage to provide deep-tissue inhibition to the suboccipital muscles at the base of your skull—mechanically releasing the tension that is strangling your nerves.</p><p>• <strong>The Software (Digital):The \"Neck Armor\" Video Series</strong>.    </p><p>◦ Releasing the knot is temporary; strengthening the muscle is permanent. This video library guides you through the specific <strong>deep neck flexor exercises</strong> that research shows can reduce tension headache frequency by treating the root cause: muscle weakness.</p><p><strong>3. The Rebound Breaker System™ (For the \"Chronic Cycle\")</strong></p><p>• <strong>The Target:</strong> Central Sensitization & Medication Overuse.</p><p>• <strong>The Hardware (Mechanism):Neural Gating Stimulation.</strong>    </p><p>◦ You need a bridge to safety. This physical system utilizes thousands of micro-contact points to flood your nervous system with safe sensory signals. This activates the \"Gate Control Theory\" of pain, helping to override the pain loop without drugs.</p><p>• <strong>The Software (Digital):The Deep Sleep & Detox Audio Protocol</strong>.    </p><p>◦ This is the critical piece. Studies prove that <strong>Behavioral Sleep Modification</strong> can actually <strong>revert chronic migraine back to episodic migraine</strong> in nearly 50% of patients. We give you the exact audio tracks and sleep hygiene protocols to reset your pain threshold while you detox from the pills.<br/></p><p><strong>Stop Guessing. Start Treating.</strong></p><p></p><p>I don’t want you to buy a single product yet.</p><p>I want you to find out exactly what is happening inside your nervous system. Because if you use the <strong>Myo-Release</strong> tools on a <strong>Migraine</strong>, it won't work. And if you use the <strong>Neuro-Cool</strong> system on a <strong>Rebound Headache</strong>, you're missing the root cause.</p><p>We have built a comprehensive <strong>Assessment Tool</strong> based on the International Classification of Headache Disorders (ICHD-3). It will analyze your symptoms—whether it’s the nausea, the \"band-like\" pressure, or the pill usage—and tell you exactly which System fits your physiology.It is free. It takes 2 minutes. And it could save you from years of misery.</p><p><strong>Click the button below. Your brain will thank you.</strong><br/><br/></p>",
             "text_style": "body"
           }
+        },
+        "button_magic_mind_ipREiL": {
+          "type": "button_magic_mind",
+          "settings": {
+            "button_label": "Take the quiz",
+            "button_link": "",
+            "open_in_new_tab": false,
+            "button_alignment": "center",
+            "text_alignment": "left",
+            "padding_horizontal": 32,
+            "padding_vertical": 14,
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "full_width_mobile": false
+          }
         }
       },
       "block_order": [
         "heading_wAqWyg",
-        "text_BNFeVC"
+        "text_BNFeVC",
+        "button_magic_mind_ipREiL"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
@@ -234,7 +283,7 @@
         "enable_rotating_images": true,
         "image_2": "shopify://shop_images/generated_image_20260129_094043_b0f6c997.jpg",
         "rotation_interval": 5,
-        "color_scheme": "background-2",
+        "color_scheme": "custom",
         "section_color_scheme": "custom",
         "scrollable_text": true,
         "full_desktop_width": true,
@@ -251,14 +300,31 @@
         "mobile_padding_bottom": 16,
         "desktop_padding_top": 36,
         "desktop_padding_bottom": 36,
-        "custom_colors_background": "#2e2a39",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
-        "custom_colors_text": "#ffffff",
+        "custom_colors_text": "#121212",
         "custom_colors_solid_button_background": "#dd1d1d",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d",
         "custom_section_colors_background": "#ddbea8",
         "custom_section_gradient_background": ""
+      }
+    },
+    "section_divider_RUNaLw": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "featured_collection_f9BQdr": {
@@ -286,6 +352,7 @@
         "show_vendor": false,
         "show_rating": false,
         "enable_quick_add": true,
+        "enable_magic_mind_style": true,
         "swatches_option_name": "",
         "swatches_position": "top",
         "swatches_desktop_size": 36,
@@ -319,6 +386,23 @@
         "custom_colors_text": "#121212",
         "custom_colors_solid_button_background": "#121212",
         "custom_colors_solid_button_text": "#121212"
+      }
+    },
+    "section_divider_R8jWtY": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#f3dfc1",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "d2d3417b-e92f-428c-b221-5bceffb552be": {
@@ -397,8 +481,8 @@
         "atc_skip_cart": false,
         "desktop_alignment": "center",
         "mobile_alignment": "center",
-        "color_scheme": "background-2",
-        "layout": "table_second",
+        "color_scheme": "custom",
+        "layout": "title_above",
         "style": "centered",
         "corner_radius": 20,
         "number_of_competitors": 1,
@@ -429,22 +513,39 @@
         "highlighted_color_scheme": "accent-2",
         "highlighted_separator_opacity": 0,
         "highlighted_overlay_opacity": 0,
-        "other_cells_color_scheme": "background-2",
+        "other_cells_color_scheme": "custom",
         "regular_separator_opacity": 10,
         "regular_overlay_opacity": 0,
         "minimalistic_border_opacity": 16,
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
         "custom_colors_solid_button_background": "#dd1d1d",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d",
-        "custom_colors_highlighted_background": "#2e2a39",
+        "custom_colors_highlighted_background": "#ddbea8",
         "custom_colors_highlighted_text": "#ffffff",
-        "custom_colors_others_background": "#ffffff",
+        "custom_colors_others_background": "#ddbea8",
         "custom_colors_others_text": "#2e2a39"
+      }
+    },
+    "section_divider_CDnnig": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "0f1fc9e4-bc4c-4052-9747-62d1f8472caa": {
@@ -502,7 +603,7 @@
         "text": "<p>Science insight of why you have not escaped the painful loop.</p>",
         "video_muted_autoplay": true,
         "color_scheme": "custom",
-        "layout": "results_second",
+        "layout": "title_above",
         "results_headline": "",
         "results_title_highlight_color": "#6d388b",
         "results_headline_size": "h2",
@@ -524,6 +625,23 @@
         "custom_colors_solid_button_background": "#7b92c8",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d"
+      }
+    },
+    "section_divider_tnnJ7p": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#f3dfc1",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "6aa09428-a417-429d-9159-a4e8afd49590": {
@@ -579,7 +697,7 @@
         "title_highlight_color": "#6d388b",
         "heading_size": "h1",
         "text": "",
-        "color_scheme": "background-2",
+        "color_scheme": "custom",
         "icon_layout": "vertical",
         "icon_size": "medium",
         "icon_color": "accent-1",
@@ -608,12 +726,29 @@
         "mobile_arrows_position": "under",
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
-        "custom_cards_colors_background": "#f3f3f3",
+        "custom_cards_colors_background": "#ddbea8",
         "custom_cards_gradient_background": "",
         "custom_cards_colors_text": "#2e2a39"
+      }
+    },
+    "section_divider_MXjBHm": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "testimonials_4nytbq": {
@@ -782,6 +917,23 @@
         "custom_cards_colors_text": "#2e2a39"
       }
     },
+    "section_divider_GqeUgi": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#f3dfc1",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "ss_simple_faq_bfdgyV": {
       "type": "ss-simple-faq",
       "blocks": {
@@ -831,6 +983,7 @@
       "name": "SS - FAQ #1",
       "settings": {
         "heading": "Frequently Asked Questions",
+        "section_background_color": "#ddbea8",
         "icon_color": "#7b92c8",
         "hover_color": "#121212",
         "question_color": "#7b92c8",
@@ -838,6 +991,23 @@
         "answer_color": "#000000",
         "answer_bg_color": "#ddbea8",
         "questions-font-size": 1.5
+      }
+    },
+    "section_divider_Q73fbM": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "ss_guarantee_f3HaNX": {
@@ -1030,19 +1200,51 @@
         "section_radius": 0,
         "lazy": true
       }
+    },
+    "ss_wave_2_X7Pgn7": {
+      "type": "ss-wave-2",
+      "name": "SS - Wave #2",
+      "settings": {
+        "wave_height": 60,
+        "wave_height_mobile": 40,
+        "wave_animation": true,
+        "wave_rotate": true,
+        "wave_color": "#7b92c8",
+        "background_color": "#ddbea8",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0
+      }
     }
   },
   "order": [
     "ss_wave_2_qXWU79",
     "parallax_hero_ByfbBU",
     "image_with_text_LjDeGJ",
+    "section_divider_nqD7aH",
     "image_with_text_UaAiJ7",
+    "section_divider_RUNaLw",
     "featured_collection_f9BQdr",
+    "section_divider_R8jWtY",
     "d2d3417b-e92f-428c-b221-5bceffb552be",
+    "section_divider_CDnnig",
     "0f1fc9e4-bc4c-4052-9747-62d1f8472caa",
+    "section_divider_tnnJ7p",
     "6aa09428-a417-429d-9159-a4e8afd49590",
+    "section_divider_MXjBHm",
     "testimonials_4nytbq",
+    "section_divider_GqeUgi",
     "ss_simple_faq_bfdgyV",
-    "ss_guarantee_f3HaNX"
+    "section_divider_Q73fbM",
+    "ss_guarantee_f3HaNX",
+    "ss_wave_2_X7Pgn7"
   ]
 }

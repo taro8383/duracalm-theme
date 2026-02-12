@@ -72,7 +72,7 @@
       "settings": {
         "sticky_header_type": "none",
         "show_line_separator": true,
-        "color_scheme": "background-1",
+        "color_scheme": "accent-2",
         "logo_link": "/",
         "logo_position": "top-center",
         "menu": "main-menu",
