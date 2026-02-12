@@ -5,7 +5,11 @@
         <div class="rb-faq-container-item">
             <input style="display:none!important;" type="checkbox" id="tab{{forloop.index}}" class="tab-toggle">
             <label for="tab{{forloop.index}}" class="rb-faq-question">{{block.settings.question}}</label>
-            <div class="rb-faq-answer">{{block.settings.answer}}</div>
+            <div class="rb-faq-answer-wrapper">
+                <div class="rb-faq-answer-inner">
+                    <div class="rb-faq-answer">{{block.settings.answer}}</div>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -100,6 +104,26 @@
             "min":0.8,
             "max":3.0,
             "step":0.1
+        },
+        {
+            "type": "select",
+            "id": "accordion_animation",
+            "label": "Accordion animation style",
+            "options": [
+                {
+                    "value": "smooth",
+                    "label": "Smooth fade"
+                },
+                {
+                    "value": "bounce",
+                    "label": "Bouncy spring"
+                },
+                {
+                    "value": "slide",
+                    "label": "Slide down"
+                }
+            ],
+            "default": "bounce"
         }
     ],
     "blocks":	[
@@ -171,7 +195,8 @@
     .rb-faq-question::after{
           color: {{section.settings.icon_color}};
           content: '\276F';
-          transition: all 0.2s ease;
+          transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          display: inline-block;
       }
 
     .rb-faq-question {
@@ -183,39 +208,85 @@
         font-weight: bold;
         color: {{section.settings.question_color}};
         font-size: {{section.settings.questions-font-size}}rem;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .rb-faq-question:hover {
           color: {{section.settings.hover_color}};
       }
-    .rb-faq-answer {
-          padding: 0px 20px;
-          position: relative;
-          width: 100%;
-          height: 0;
-          opacity: 0;
-          overflow: hidden;
-          visibility: hidden;
-          will-change: height;
-          transform: translateY(25px);
-          transition: all .2s ease;
-          -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+
+    /* Modern Accordion Animation using Grid */
+    .rb-faq-answer-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .tab-toggle:checked ~ .rb-faq-answer {
-      transform: translateY(0);
-      padding: 15px 20px;
-      height:auto;
-      opacity: 1;
-      overflow: unset;
-      visibility: visible;
-      transition: all .3s ease,opacity 1s ease,height .3s ease;
+
+    .rb-faq-answer-inner {
+      overflow: hidden;
+    }
+
+    .rb-faq-answer {
+      padding: 0 20px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease, padding 0.4s ease;
       color: {{section.settings.answer_color}};
       background-color: {{section.settings.answer_bg_color}};
     }
+
+    /* Animation Styles */
+    {% case section.settings.accordion_animation %}
+      {% when 'bounce' %}
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper {
+          grid-template-rows: 1fr;
+        }
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper .rb-faq-answer {
+          opacity: 1;
+          transform: translateY(0);
+          padding: 20px;
+          animation: faqBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes faqBounce {
+          0% { transform: translateY(-10px) scale(0.98); }
+          50% { transform: translateY(2px) scale(1.01); }
+          100% { transform: translateY(0) scale(1); }
+        }
+
+      {% when 'slide' %}
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper {
+          grid-template-rows: 1fr;
+        }
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper .rb-faq-answer {
+          opacity: 1;
+          transform: translateY(0);
+          padding: 20px;
+          animation: faqSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes faqSlide {
+          0% { transform: translateY(-20px); opacity: 0; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+
+      {% when 'smooth' %}
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper {
+          grid-template-rows: 1fr;
+        }
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper .rb-faq-answer {
+          opacity: 1;
+          transform: translateY(0);
+          padding: 20px;
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    {% endcase %}
+
+    /* Icon rotation */
     .tab-toggle:checked ~ .rb-faq-question::after {
           transform: rotate(90deg);
     }
+
     .tab-toggle{
           display:none;
     }
