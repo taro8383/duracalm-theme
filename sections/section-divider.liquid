@@ -16,6 +16,9 @@
   .section-divider-{{ section.id }} {
     transform: {{ scaleX }} {{ scaleY }};
   }
+  .section-divider-{{ section.id }} .section-divider__svg svg {
+    height: {{ section.settings.divider_height }}px;
+  }
   .section-{{ section.id }}-top-padding {
     height: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
   }
@@ -49,7 +52,6 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 360 32"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -59,10 +61,8 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 64 1440 256"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
-          style="--max-height: 200px;"
         >
           <path fill="currentColor" fill-opacity="1" d="M0,288L1440,64L1440,320L0,320Z"></path>
         </svg>
@@ -70,10 +70,8 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 360 74.65"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
-          style="--max-height: 130px;"
         >
           <path fill="currentColor" fill-opacity="1" d="M0,20.29,12,23.6A474.72,474.72,0,0,0,72,37c24,3.31,48,3.31,72-6.69S192,.29,216,7c24,6.43,48,40.18,72,50,24,10.18,48-3.57,60-10l12-6.69v40H0Z" transform="translate(0 -5.64)"/>
         </svg>
@@ -81,10 +79,8 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
-          style="--max-height: 120px;"
         >
           <path fill="currentColor" fill-opacity="1" d="M0,192L48,181.3C96,171,192,149,288,144C384,139,480,149,576,149.3C672,149,768,139,864,144C960,149,1056,171,1152,154.7C1248,139,1344,85,1392,58.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #007acc;"></path>
         </svg>
@@ -92,7 +88,6 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 195"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -102,10 +97,8 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 226.97"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
-          style="--max-height: 120px;"
         >
           <path fill="currentColor" fill-opacity="1" d="M0,81,21.8,70.3C43.6,60,87,38,131,27.7,174.5,17,218,17,262,49c43.5,32,87,96,131,106.7C436.4,166,480,124,524,97c43.3-27,87-37,131-26.7,43.2,10.7,87,42.7,130,64C829.1,156,873,166,916,161c44-5,88-27,131-58.7C1090.9,70,1135,28,1178,17c43.8-11,87,11,131,26.7,43.7,16.3,87,26.3,109,32l22,5.3V241H0Z" transform="translate(0 -14.03)"/>
         </svg>
@@ -113,7 +106,6 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -123,10 +115,8 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
-          style="--max-height: 170px;"
         >
           <path fill="currentColor" fill-opacity="1" d="M0,32L240,32L480,224L720,192L960,224L1200,192L1440,96L1440,320L1200,320L960,320L720,320L480,320L240,320L0,320Z" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #007acc;"></path>
         </svg>
@@ -134,7 +124,6 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -144,7 +133,6 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -155,7 +143,6 @@
           class="section-divider"
           viewBox="0 0 1920 60"
           aria-hidden="true"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -168,7 +155,6 @@
           viewBox="0 0 1440 250"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -182,7 +168,6 @@
           viewBox="0 0 1440 250"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
-          height="200"
           width="100%"
           preserveAspectRatio="none"
         >
@@ -403,6 +388,16 @@
       "default": "#FFFFFF",
       "label": "Custom background color",
       "info": "Applied of Background color setting is set to Custom."
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "min": 50,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Divider height",
+      "default": 200
     },
     {
       "type": "header",
