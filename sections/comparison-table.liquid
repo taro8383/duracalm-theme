@@ -141,13 +141,29 @@
       75% { transform: rotate(5deg); }
     }
   {% elsif section.settings.checkmark_animation == 'draw' %}
-    .comparison-table-{{ section.id }} .comparison-table__icon svg path {
-      stroke-dasharray: 100;
-      stroke-dashoffset: 100;
-      animation: checkmarkDraw 1.5s ease-out forwards;
+    .comparison-table-{{ section.id }} .comparison-table__icon svg {
+      animation: checkmarkDraw 1.5s ease-in-out infinite;
     }
     @keyframes checkmarkDraw {
-      to { stroke-dashoffset: 0; }
+      0% {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0;
+      }
+      40% {
+        opacity: 1;
+      }
+      60% {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+      }
+      80% {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+      }
+      100% {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0;
+      }
     }
   {% endif %}
 
@@ -848,6 +864,10 @@
         {
           "value": "wiggle",
           "label": "Wiggle"
+        },
+        {
+          "value": "draw",
+          "label": "Draw (self-drawing stroke)"
         }
       ],
       "default": "none",

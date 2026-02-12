@@ -56,38 +56,30 @@
   {% endif %}
 
   {% if section.settings.enable_percentage_animation %}
-    .results__percentage {
+    .results__percentage.percentage-animated {
       position: relative;
-      background: {{ section.settings.percentage_bg_color }};
-      border-radius: 50%;
+      overflow: hidden;
+      background: {{ section.settings.percentage_bg_color }} !important;
     }
 
-    .results__percentage svg {
+    .results__percentage.percentage-animated::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      transform: rotate(-90deg);
-      pointer-events: none;
-    }
-
-    .results__percentage svg circle {
-      fill: none;
-      stroke: {{ section.settings.percentage_fill_color }};
-      stroke-width: 100;
-      stroke-dasharray: 0 314.16;
-      transition: stroke-dasharray {{ section.settings.animation_duration }}s ease-out;
-    }
-
-    .results__percentage.animate-fill svg circle {
-      stroke-dasharray: calc(3.1416 * var(--target-percent)) 314.16;
-    }
-
-    .results__percentage p {
-      position: relative;
+      background: conic-gradient(
+        from 0deg,
+        {{ section.settings.percentage_fill_color }} calc(var(--anim-percentage, 0) * 3.6deg),
+        transparent calc(var(--anim-percentage, 0) * 3.6deg)
+      );
       z-index: 1;
-      margin: 0;
+    }
+
+    .results__percentage.percentage-animated p {
+      position: relative;
+      z-index: 2;
     }
   {% endif %}
 {%- endstyle -%}
@@ -177,12 +169,7 @@
           <div class="results__rows-container">
             {%- for row in section.blocks -%}
               <div class="results__row">
-                <div class="results__percentage{% if section.settings.enable_percentage_animation %} percentage-animated{% endif %}" style="--percentage: {{ row.settings.percentage }}%;{% if section.settings.enable_percentage_animation %} --target-percent: {{ row.settings.percentage }};{% endif %}" data-percentage="{{ row.settings.percentage }}">
-                  {% if section.settings.enable_percentage_animation %}
-                    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-                      <circle cx="50" cy="50" r="50"/>
-                    </svg>
-                  {% endif %}
+                <div class="results__percentage{% if section.settings.enable_percentage_animation %} percentage-animated{% endif %}" style="--percentage: {{ row.settings.percentage }}%;" data-percentage="{{ row.settings.percentage }}">
                   <p class="percentage-number{% if section.settings.enable_percentage_animation %} animate-number{% endif %}" data-target="{{ row.settings.percentage }}">{% if section.settings.enable_percentage_animation %}0{% else %}{{ row.settings.percentage }}{% endif %}%</p>
                 </div>
                 <div class="results__text">
@@ -277,6 +264,27 @@
     requestAnimationFrame(updateNumber);
   }
 
+  function animateFill(element, target, duration) {
+    const startTime = performance.now();
+
+    function updateFill(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Easing function (ease-out)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentPercentage = target * easeOut;
+
+      element.style.setProperty('--anim-percentage', currentPercentage);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateFill);
+      }
+    }
+
+    requestAnimationFrame(updateFill);
+  }
+
   function initPercentageAnimations() {
     const percentageElements = document.querySelectorAll('#shopify-section-{{ section.id }} .percentage-animated');
 
@@ -287,8 +295,8 @@
           const numberEl = circle.querySelector('.animate-number');
           const targetPercentage = parseInt(numberEl.dataset.target, 10);
 
-          // Animate the fill
-          circle.classList.add('animate-fill');
+          // Animate the fill using CSS custom property
+          animateFill(circle, targetPercentage, animationDuration);
 
           // Animate the number
           if (numberEl) {

@@ -483,7 +483,7 @@
         "visibility": "always-display",
         "title": "Comparison table",
         "title_highlight_color": "#7b92c8",
-        "heading_size": "h0",
+        "heading_size": "h1",
         "text": "",
         "button_label": "",
         "link": "",
@@ -516,6 +516,7 @@
         "others_3_logo_width": 90,
         "others_3_mobile_logo_width": 60,
         "checkmark_style": "solid",
+        "checkmark_animation": "draw",
         "checkmark_color": "#f3dfc1",
         "checkmark_bg_color": "#7b92c8",
         "x_style": "regular",
@@ -588,7 +589,7 @@
           "type": "row",
           "settings": {
             "percentage": 60,
-            "row_text": "<p><strong>of female migraineurs suffer from \"estrogen withdrawal,\" </strong><em><strong>⁴</strong></em></p>"
+            "row_text": "<p><strong>of female migraineurs suffer from \"estrogen withdrawal\" </strong><em><strong>⁴</strong></em></p>"
           }
         },
         "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-2": {
@@ -615,6 +616,10 @@
         "text": "<p>Science insight of why you have not escaped the painful loop.</p>",
         "video_muted_autoplay": true,
         "color_scheme": "custom",
+        "enable_percentage_animation": true,
+        "animation_duration": 3,
+        "percentage_fill_color": "#7b92c8",
+        "percentage_bg_color": "#f0f0f0",
         "layout": "title_above",
         "results_headline": "",
         "results_title_highlight_color": "#6d388b",
@@ -633,7 +638,7 @@
         "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
-        "custom_colors_accent": "#7b92c8",
+        "custom_colors_accent": "#ffffff",
         "custom_colors_solid_button_background": "#7b92c8",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d"
