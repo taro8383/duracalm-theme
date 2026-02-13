@@ -2720,6 +2720,11 @@
         "type": "image_picker",
         "id": "custom_cursor",
         "label": "Custom cursor"
+      },
+      {
+        "type": "image_picker",
+        "id": "custom_cursor_hover",
+        "label": "Custom cursor on hover (buttons & links)"
       }
     ]
   },

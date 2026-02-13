@@ -325,6 +325,47 @@
         {% endif %}
       }
 
+      {% if settings.custom_cursor_hover != blank %}
+        /* Custom cursor for interactive elements */
+        button,
+        .button,
+        a,
+        .link,
+        [role="button"],
+        input[type="submit"],
+        input[type="button"],
+        .field__button,
+        .newsletter-form__button,
+        .slider-button,
+        .drawer__close,
+        .modal__close-button,
+        .quantity__button,
+        .predictive-search__item--link,
+        .header__icon,
+        .header__menu-item,
+        .list-menu__item--link,
+        .pagination__item,
+        .facets__summary,
+        .facet-checkbox,
+        .product-form__submit,
+        .shopify-payment-button__button,
+        .cart__checkout-button,
+        .card__inner,
+        .card__media,
+        .media > img,
+        .media > svg,
+        .global-media-settings img,
+        .article-card__image-wrapper,
+        .slideshow__autoplay,
+        .slideshow__control,
+        .slider-counter__link,
+        .thumbnail-list__item,
+        .variant-input__input + label,
+        .product__media-toggle {
+          cursor: url({{ settings.custom_cursor_hover | image_url: width: 32 }}), pointer;
+        }
+      {% endif %}
+
       {% if settings.enable_load_animations %}
         .animate-section {
           --animation-duration: {{ settings.animation_duration }}ms;
