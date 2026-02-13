@@ -523,38 +523,14 @@
           <div class="footer__trust-badges">
             <span class="visually-hidden">Trust badges</span>
             <ul class="list list-trust-badges" role="list">
-              {%- if section.settings.show_free_shipping -%}
-                <li class="trust-badge__item" title="Free Shipping">
-                  <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="4" y="18" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-                    <path d="M32 24H38L44 30V36H32V24Z" stroke="currentColor" stroke-width="2"/>
-                    <circle cx="12" cy="36" r="4" stroke="currentColor" stroke-width="2"/>
-                    <circle cx="36" cy="36" r="4" stroke="currentColor" stroke-width="2"/>
-                    <path d="M20 24H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  <span class="trust-badge__label">Free Shipping</span>
+              {%- if section.settings.show_free_shipping_returns -%}
+                <li class="trust-badge__item trust-badge__item--custom" title="Free Shipping and Returns">
+                  <img src="{{ 'free-shipping-returns.svg' | asset_url }}" alt="Free Shipping and Returns" class="icon" loading="lazy" width="100" height="40"/>
                 </li>
               {%- endif -%}
-              {%- if section.settings.show_guarantee -%}
-                <li class="trust-badge__item" title="30 Days Guarantee">
-                  <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24 4L6 12V22C6 34 14 42 24 44C34 42 42 34 42 22V12L24 4Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M16 24L22 30L32 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  <span class="trust-badge__label">30 Days Guarantee</span>
-                </li>
-              {%- endif -%}
-              {%- if section.settings.show_easy_returns -%}
-                <li class="trust-badge__item" title="Easy Returns">
-                  <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="8" y="16" width="32" height="26" rx="2" stroke="currentColor" stroke-width="2"/>
-                    <path d="M8 22H40" stroke="currentColor" stroke-width="2"/>
-                    <path d="M20 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M28 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M30 32L24 38L18 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M24 28V38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  <span class="trust-badge__label">Easy Returns</span>
+              {%- if section.settings.show_30_days -%}
+                <li class="trust-badge__item trust-badge__item--custom" title="30 Days Guarantee">
+                  <img src="{{ '30-days.svg' | asset_url }}" alt="30 Days Guarantee" class="icon" loading="lazy" width="100" height="40"/>
                 </li>
               {%- endif -%}
               {%- if section.settings.show_norton -%}
@@ -1307,42 +1283,33 @@
     },
     {
       "type": "checkbox",
-      "id": "show_free_shipping",
+      "id": "show_free_shipping_returns",
       "default": true,
-      "label": "Show Free Shipping badge"
+      "label": "Show Free Shipping and Returns badge"
     },
     {
       "type": "checkbox",
-      "id": "show_guarantee",
+      "id": "show_30_days",
       "default": true,
       "label": "Show 30 Days Guarantee badge"
     },
     {
       "type": "checkbox",
-      "id": "show_easy_returns",
-      "default": true,
-      "label": "Show Easy Returns badge"
-    },
-    {
-      "type": "checkbox",
       "id": "show_norton",
       "default": false,
-      "label": "Show Norton Secured badge",
-      "info": "Requires Norton Secured.svg file in the Files section"
+      "label": "Show Norton Secured badge"
     },
     {
       "type": "checkbox",
       "id": "show_shopify_secure",
       "default": false,
-      "label": "Show Shopify Secure badge",
-      "info": "Requires shopify-secure-badge-white.svg file in the Files section"
+      "label": "Show Shopify Secure badge"
     },
     {
       "type": "checkbox",
       "id": "show_google_safe",
       "default": false,
-      "label": "Show Google Safe Browsing badge",
-      "info": "Requires Google_Safe_Browsing.svg file in the Files section"
+      "label": "Show Google Safe Browsing badge"
     },
     {
       "type": "header",
