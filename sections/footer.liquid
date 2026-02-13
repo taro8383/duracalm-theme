@@ -34,6 +34,18 @@
     --color-button-text: {{ section.settings.custom_colors_solid_button_text.red }}, {{ section.settings.custom_colors_solid_button_text.green }}, {{ section.settings.custom_colors_solid_button_text.blue }};
     --color-base-outline-button-labels: {{ section.settings.custom_colors_outline_button.red }}, {{ section.settings.custom_colors_outline_button.green }}, {{ section.settings.custom_colors_outline_button.blue }};
   }
+
+  {% if section.settings.payment_greyscale %}
+    .footer__payment .list-payment__item .icon {
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+    .footer__payment .list-payment__item:hover .icon {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  {% endif %}
   {% if section.settings.custom_mobile_image_background != blank %}
     @media screen and (max-width: 740px) {
       .color-scheme-{{ section.id }}.color-custom {
@@ -1121,6 +1133,13 @@
       "id": "payment_enable",
       "default": true,
       "label": "t:sections.footer.settings.payment_enable.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_greyscale",
+      "default": false,
+      "label": "Display payment icons in greyscale",
+      "info": "Converts colorful payment icons to greyscale for a cleaner look"
     },
     {
       "type": "text",
