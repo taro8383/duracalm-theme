@@ -14,6 +14,18 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "brand_information_pRtcAQ": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true,
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "heading_color": "",
+            "text_color": "#7b92c8",
+            "width_desktop": 3,
+            "width_mobile": "2"
+          }
+        },
         "24f208fd-0898-43eb-af23-d74f8420ab37": {
           "type": "email_signup",
           "settings": {
@@ -22,15 +34,16 @@
             "button_type": "arrow",
             "button_label": "Sign up",
             "button_style_secondary": false,
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "heading_color": "#7b92c8",
+            "text_color": "#7b92c8",
+            "input_background_color": "#ddbea8",
+            "input_border_color": "#ddbea8",
+            "input_text_color": "#ddbea8",
+            "button_background_color": "#ddbea8",
+            "button_text_color": "#7b92c8",
             "width_desktop": 5,
-            "width_mobile": "2"
-          }
-        },
-        "brand_information_pRtcAQ": {
-          "type": "brand_information",
-          "settings": {
-            "show_social": true,
-            "width_desktop": 3,
             "width_mobile": "2"
           }
         },
@@ -39,14 +52,18 @@
           "settings": {
             "heading": "Quick links",
             "menu": "footer",
+            "two_columns": true,
+            "text_alignment": "right",
+            "text_alignment_mobile": "center",
+            "text_color": "#7b92c8",
             "width_desktop": 4,
-            "width_mobile": "1"
+            "width_mobile": "2"
           }
         }
       },
       "block_order": [
-        "24f208fd-0898-43eb-af23-d74f8420ab37",
         "brand_information_pRtcAQ",
+        "24f208fd-0898-43eb-af23-d74f8420ab37",
         "1c647602-cc00-4009-a058-976435c8ee9e"
       ],
       "settings": {
