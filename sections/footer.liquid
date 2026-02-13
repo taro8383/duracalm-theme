@@ -59,6 +59,140 @@
     }
   {% endif %}
 
+  /* Two-column layout for link list blocks */
+  {% for block in section.blocks %}
+    {% if block.type == 'link_list' and block.settings.two_columns %}
+      .footer-block--menu[data-block-id="{{ block.id }}"] .footer-block__details-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem 1.5rem;
+      }
+      @media screen and (max-width: 749px) {
+        .footer-block--menu[data-block-id="{{ block.id }}"] .footer-block__details-content {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    {% endif %}
+  {% endfor %}
+
+  /* Block-specific custom styles */
+  {% for block in section.blocks %}
+    {% assign block_id = block.id %}
+
+    /* Link List (Menu) Block Styles */
+    {% if block.type == 'link_list' %}
+      {% if block.settings.text_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__heading,
+        .footer-block[data-block-id="{{ block_id }}"] .list-menu__item--link {
+          color: {{ block.settings.text_color }};
+        }
+      {% endif %}
+      {% if block.settings.text_alignment == 'center' %}
+        .footer-block[data-block-id="{{ block_id }}"] {
+          text-align: center;
+        }
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__details-content {
+          justify-content: center;
+        }
+      {% elsif block.settings.text_alignment == 'right' %}
+        .footer-block[data-block-id="{{ block_id }}"] {
+          text-align: right;
+        }
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__details-content {
+          justify-content: flex-end;
+        }
+      {% endif %}
+    {% endif %}
+
+    /* Email Signup Block Styles */
+    {% if block.type == 'email_signup' %}
+      {% if block.settings.heading_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__heading {
+          color: {{ block.settings.heading_color }};
+        }
+      {% endif %}
+      {% if block.settings.text_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__details-content-mb,
+        .footer-block[data-block-id="{{ block_id }}"] .field__label {
+          color: {{ block.settings.text_color }};
+        }
+      {% endif %}
+      {% if block.settings.input_background_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .field__input {
+          background-color: {{ block.settings.input_background_color }};
+          border-color: {{ block.settings.input_border_color | default: block.settings.input_background_color }};
+        }
+      {% endif %}
+      {% if block.settings.input_text_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .field__input {
+          color: {{ block.settings.input_text_color }};
+        }
+      {% endif %}
+      {% if block.settings.button_background_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .button {
+          background-color: {{ block.settings.button_background_color }};
+        }
+      {% endif %}
+      {% if block.settings.button_text_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .button {
+          color: {{ block.settings.button_text_color }};
+          --color-button-text: {{ block.settings.button_text_color | color_to_rgb | replace: 'rgb', '' | replace: '(', '' | replace: ')', '' }};
+        }
+        .footer-block[data-block-id="{{ block_id }}"] .newsletter-form__button {
+          color: {{ block.settings.button_text_color }};
+        }
+      {% endif %}
+      {% if block.settings.text_alignment == 'center' %}
+        .footer-block[data-block-id="{{ block_id }}"] {
+          text-align: center;
+        }
+        .footer-block[data-block-id="{{ block_id }}"] .newsletter-form {
+          align-items: center;
+        }
+      {% elsif block.settings.text_alignment == 'right' %}
+        .footer-block[data-block-id="{{ block_id }}"] {
+          text-align: right;
+        }
+        .footer-block[data-block-id="{{ block_id }}"] .newsletter-form {
+          align-items: flex-end;
+        }
+      {% endif %}
+    {% endif %}
+
+    /* Brand Information Block Styles */
+    {% if block.type == 'brand_information' %}
+      {% if block.settings.heading_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__heading {
+          color: {{ block.settings.heading_color }};
+        }
+      {% endif %}
+      {% if block.settings.text_color != blank %}
+        .footer-block[data-block-id="{{ block_id }}"] .rte,
+        .footer-block[data-block-id="{{ block_id }}"] .rte p {
+          color: {{ block.settings.text_color }};
+        }
+      {% endif %}
+      {% if block.settings.text_alignment == 'center' %}
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__brand-info {
+          text-align: center;
+          align-items: center;
+        }
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__image-wrapper {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      {% elsif block.settings.text_alignment == 'right' %}
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__brand-info {
+          text-align: right;
+          align-items: flex-end;
+        }
+        .footer-block[data-block-id="{{ block_id }}"] .footer-block__image-wrapper {
+          margin-left: auto;
+        }
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
   /* Trust badges styling */
   .footer__trust-badges {
     margin-bottom: 1.5rem;
@@ -169,6 +303,7 @@
               <div
                 class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %} footer-block--desktop-{{ block.settings.width_desktop }} footer-block--mobile-{{ block.settings.width_mobile }} animate-item animate-item--child"
                 style="--index: {{ forloop.index0 }};" {{ block.shopify_attributes }}
+                data-block-id="{{ block.id }}"
               >
                 {%- if block.settings.heading != blank -%}
                   <h2 class="footer-block__heading">{{- block.settings.heading | escape -}}</h2>
@@ -680,6 +815,46 @@
           "content": "Layout"
         },
         {
+          "type": "checkbox",
+          "id": "two_columns",
+          "default": false,
+          "label": "Display links in two columns",
+          "info": "Arranges menu links in a 2-column grid layout for better space usage"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text alignment"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Heading and links color"
+        },
+        {
+          "type": "header",
+          "content": "Column width"
+        },
+        {
           "type": "range",
           "id": "width_desktop",
           "max": 12,
@@ -728,6 +903,44 @@
         {
           "type": "header",
           "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text alignment"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Description text color"
+        },
+        {
+          "type": "header",
+          "content": "Column width"
         },
         {
           "type": "range",
@@ -929,6 +1142,69 @@
         {
           "type": "header",
           "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text alignment"
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Description text color"
+        },
+        {
+          "type": "color",
+          "id": "input_background_color",
+          "label": "Input field background"
+        },
+        {
+          "type": "color",
+          "id": "input_border_color",
+          "label": "Input field border"
+        },
+        {
+          "type": "color",
+          "id": "input_text_color",
+          "label": "Input text color"
+        },
+        {
+          "type": "color",
+          "id": "button_background_color",
+          "label": "Button background"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text color"
+        },
+        {
+          "type": "header",
+          "content": "Column width"
         },
         {
           "type": "range",
