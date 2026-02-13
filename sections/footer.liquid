@@ -46,6 +46,19 @@
       opacity: 1;
     }
   {% endif %}
+
+  /* Fix brand logo image - remove rounded corners and cropping */
+  .footer-block__brand-info .footer-block__image-wrapper {
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+
+  .footer-block__brand-info .footer-block__image-wrapper img {
+    border-radius: 0 !important;
+    object-fit: contain !important;
+    width: 100%;
+    height: auto;
+  }
   {% if section.settings.custom_mobile_image_background != blank %}
     @media screen and (max-width: 740px) {
       .color-scheme-{{ section.id }}.color-custom {
