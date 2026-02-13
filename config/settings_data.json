@@ -178,6 +178,7 @@
     "scrollbar_track_color": "#f3dfc1",
     "scrollbar_width": 9,
     "custom_cursor": "shopify://shop_images/cursor-16.png",
+    "custom_cursor_hover": "shopify://shop_images/handcursor.png",
     "cart_type": "drawer",
     "cart_icon": "cart_2",
     "show_vendor": false,
