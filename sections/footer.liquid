@@ -102,6 +102,24 @@
           justify-content: flex-end;
         }
       {% endif %}
+      /* Mobile alignment for link_list */
+      @media screen and (max-width: 749px) {
+        {% if block.settings.text_alignment_mobile == 'center' %}
+          .footer-block[data-block-id="{{ block_id }}"] {
+            text-align: center;
+          }
+          .footer-block[data-block-id="{{ block_id }}"] .footer-block__details-content {
+            justify-content: center;
+          }
+        {% elsif block.settings.text_alignment_mobile == 'right' %}
+          .footer-block[data-block-id="{{ block_id }}"] {
+            text-align: right;
+          }
+          .footer-block[data-block-id="{{ block_id }}"] .footer-block__details-content {
+            justify-content: flex-end;
+          }
+        {% endif %}
+      }
     {% endif %}
 
     /* Email Signup Block Styles */
@@ -157,6 +175,24 @@
           align-items: flex-end;
         }
       {% endif %}
+      /* Mobile alignment for email_signup */
+      @media screen and (max-width: 749px) {
+        {% if block.settings.text_alignment_mobile == 'center' %}
+          .footer-block[data-block-id="{{ block_id }}"] {
+            text-align: center;
+          }
+          .footer-block[data-block-id="{{ block_id }}"] .newsletter-form {
+            align-items: center;
+          }
+        {% elsif block.settings.text_alignment_mobile == 'right' %}
+          .footer-block[data-block-id="{{ block_id }}"] {
+            text-align: right;
+          }
+          .footer-block[data-block-id="{{ block_id }}"] .newsletter-form {
+            align-items: flex-end;
+          }
+        {% endif %}
+      }
     {% endif %}
 
     /* Brand Information Block Styles */
@@ -190,6 +226,28 @@
           margin-left: auto;
         }
       {% endif %}
+      /* Mobile alignment for brand_information */
+      @media screen and (max-width: 749px) {
+        {% if block.settings.text_alignment_mobile == 'center' %}
+          .footer-block[data-block-id="{{ block_id }}"] .footer-block__brand-info {
+            text-align: center;
+            align-items: center;
+          }
+          .footer-block[data-block-id="{{ block_id }}"] .footer-block__image-wrapper {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        {% elsif block.settings.text_alignment_mobile == 'right' %}
+          .footer-block[data-block-id="{{ block_id }}"] .footer-block__brand-info {
+            text-align: right;
+            align-items: flex-end;
+          }
+          .footer-block[data-block-id="{{ block_id }}"] .footer-block__image-wrapper {
+            margin-left: auto;
+            margin-right: 0;
+          }
+        {% endif %}
+      }
     {% endif %}
   {% endfor %}
 
@@ -839,7 +897,27 @@
             }
           ],
           "default": "left",
-          "label": "Text alignment"
+          "label": "Text alignment (desktop)"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment_mobile",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text alignment (mobile)"
         },
         {
           "type": "header",
@@ -922,7 +1000,27 @@
             }
           ],
           "default": "left",
-          "label": "Text alignment"
+          "label": "Text alignment (desktop)"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment_mobile",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text alignment (mobile)"
         },
         {
           "type": "header",
@@ -1161,7 +1259,27 @@
             }
           ],
           "default": "left",
-          "label": "Text alignment"
+          "label": "Text alignment (desktop)"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment_mobile",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left",
+          "label": "Text alignment (mobile)"
         },
         {
           "type": "header",
