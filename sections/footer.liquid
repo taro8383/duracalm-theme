@@ -47,6 +47,77 @@
     }
   {% endif %}
 
+  {% if section.settings.trust_badges_greyscale %}
+    .footer__trust-badges .trust-badge__item .icon {
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+    }
+    .footer__trust-badges .trust-badge__item:hover .icon {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  {% endif %}
+
+  /* Trust badges styling */
+  .footer__trust-badges {
+    margin-bottom: 1.5rem;
+  }
+
+  .list-trust-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .trust-badge__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .trust-badge__item .icon {
+    width: 40px;
+    height: 40px;
+    color: rgb(var(--color-foreground));
+  }
+
+  .trust-badge__item--custom .icon {
+    width: auto;
+    height: 36px;
+    max-width: 100px;
+    object-fit: contain;
+  }
+
+  .trust-badge__label {
+    font-size: 1rem;
+    color: rgb(var(--color-foreground));
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .list-trust-badges {
+      gap: 1rem;
+    }
+    .trust-badge__item .icon {
+      width: 32px;
+      height: 32px;
+    }
+    .trust-badge__item--custom .icon {
+      height: 28px;
+    }
+    .trust-badge__label {
+      font-size: 0.875rem;
+    }
+  }
+
   /* Fix brand logo image - remove rounded corners and cropping */
   .footer-block__brand-info .footer-block__image-wrapper {
     border-radius: 0 !important;
@@ -448,6 +519,64 @@
         {%- endif -%}
       </div>
       <div class="footer__column footer__column--info">
+        {%- if section.settings.trust_badges_enable -%}
+          <div class="footer__trust-badges">
+            <span class="visually-hidden">Trust badges</span>
+            <ul class="list list-trust-badges" role="list">
+              {%- if section.settings.show_free_shipping -%}
+                <li class="trust-badge__item" title="Free Shipping">
+                  <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 36C8 38.2091 9.79086 40 12 40H36C38.2091 40 40 38.2091 40 36V18H8V36Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M4 18H44L38 8H10L4 18Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 40V44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M32 40V44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="36" cy="26" r="2" fill="currentColor"/>
+                  </svg>
+                  <span class="trust-badge__label">Free Shipping</span>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.show_guarantee -%}
+                <li class="trust-badge__item" title="30 Days Guarantee">
+                  <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/>
+                    <path d="M24 14V24L30 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 10L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M36 10L32 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M24 6V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  <span class="trust-badge__label">30 Days Guarantee</span>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.show_easy_returns -%}
+                <li class="trust-badge__item" title="Easy Returns">
+                  <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 20H36C38.2091 20 40 21.7909 40 24V36C40 38.2091 38.2091 40 36 40H12C9.79086 40 8 38.2091 8 36V24C8 21.7909 9.79086 20 12 20Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 20V14C16 10.6863 18.6863 8 22 8H26C29.3137 8 32 10.6863 32 14V20" stroke="currentColor" stroke-width="2"/>
+                    <path d="M24 28V32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="24" cy="28" r="2" fill="currentColor"/>
+                  </svg>
+                  <span class="trust-badge__label">Easy Returns</span>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.show_norton -%}
+                <li class="trust-badge__item trust-badge__item--custom" title="Norton Secured">
+                  <img src="{{ 'norton-secured.svg' | asset_url }}" alt="Norton Secured" class="icon" loading="lazy" width="40" height="40"/>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.show_shopify_secure -%}
+                <li class="trust-badge__item trust-badge__item--custom" title="Shopify Secure">
+                  <img src="{{ 'shopify-secure.svg' | asset_url }}" alt="Shopify Secure" class="icon" loading="lazy" width="40" height="40"/>
+                </li>
+              {%- endif -%}
+              {%- if section.settings.show_google_safe -%}
+                <li class="trust-badge__item trust-badge__item--custom" title="Google Safe Browsing">
+                  <img src="{{ 'google-safe-browsing.svg' | asset_url }}" alt="Google Safe Browsing" class="icon" loading="lazy" width="40" height="40"/>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
         {%- if section.settings.payment_enable -%}
           <div class="footer__payment">
             <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
@@ -1159,6 +1288,62 @@
       "id": "enabled_payment_types",
       "label": "Custom payment icons to show",
       "info": "List of payments you want to show, split with a comma (without spacing). Options are: afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, facebook_pay, forbrugsforeningen, google_pay, ideal, jcb, klarna, klarna-pay-later, litecoin, maestro, master, paypal, shopify_pay, sofort, unionpay, visa"
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "trust_badges_enable",
+      "default": false,
+      "label": "Show trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "trust_badges_greyscale",
+      "default": false,
+      "label": "Display trust badges in greyscale",
+      "info": "Converts colorful trust badges to greyscale for a cleaner look"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_free_shipping",
+      "default": true,
+      "label": "Show Free Shipping badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "default": true,
+      "label": "Show 30 Days Guarantee badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_easy_returns",
+      "default": true,
+      "label": "Show Easy Returns badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_norton",
+      "default": false,
+      "label": "Show Norton Secured badge",
+      "info": "Requires Norton Secured.svg file in the Files section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shopify_secure",
+      "default": false,
+      "label": "Show Shopify Secure badge",
+      "info": "Requires shopify-secure-badge-white.svg file in the Files section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_google_safe",
+      "default": false,
+      "label": "Show Google Safe Browsing badge",
+      "info": "Requires Google_Safe_Browsing.svg file in the Files section"
     },
     {
       "type": "header",
