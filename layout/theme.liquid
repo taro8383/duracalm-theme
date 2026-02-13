@@ -321,7 +321,7 @@
         font-style: var(--font-body-style);
         font-weight: var(--font-body-weight);
         {% if settings.custom_cursor != blank %}
-          cursor: url({{ settings.custom_cursor | image_url: width: 32 }}), auto;
+          cursor: url({{ settings.custom_cursor | image_url: width: 32, height: 32 }}), auto !important;
         {% endif %}
       }
 
@@ -361,8 +361,12 @@
         .slider-counter__link,
         .thumbnail-list__item,
         .variant-input__input + label,
-        .product__media-toggle {
-          cursor: url({{ settings.custom_cursor_hover | image_url: width: 32 }}), pointer;
+        .product__media-toggle,
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-tertiary {
+          cursor: url({{ settings.custom_cursor_hover | image_url: width: 32, height: 32 }}), auto !important;
         }
       {% endif %}
 
