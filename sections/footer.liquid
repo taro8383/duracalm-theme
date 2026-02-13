@@ -526,11 +526,11 @@
               {%- if section.settings.show_free_shipping -%}
                 <li class="trust-badge__item" title="Free Shipping">
                   <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8 36C8 38.2091 9.79086 40 12 40H36C38.2091 40 40 38.2091 40 36V18H8V36Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M4 18H44L38 8H10L4 18Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M16 40V44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M32 40V44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="36" cy="26" r="2" fill="currentColor"/>
+                    <rect x="4" y="18" width="28" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M32 24H38L44 30V36H32V24Z" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="36" r="4" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="36" cy="36" r="4" stroke="currentColor" stroke-width="2"/>
+                    <path d="M20 24H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                   <span class="trust-badge__label">Free Shipping</span>
                 </li>
@@ -538,11 +538,8 @@
               {%- if section.settings.show_guarantee -%}
                 <li class="trust-badge__item" title="30 Days Guarantee">
                   <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/>
-                    <path d="M24 14V24L30 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 10L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M36 10L32 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M24 6V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M24 4L6 12V22C6 34 14 42 24 44C34 42 42 34 42 22V12L24 4Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 24L22 30L32 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                   <span class="trust-badge__label">30 Days Guarantee</span>
                 </li>
@@ -550,10 +547,12 @@
               {%- if section.settings.show_easy_returns -%}
                 <li class="trust-badge__item" title="Easy Returns">
                   <svg class="icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 20H36C38.2091 20 40 21.7909 40 24V36C40 38.2091 38.2091 40 36 40H12C9.79086 40 8 38.2091 8 36V24C8 21.7909 9.79086 20 12 20Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M16 20V14C16 10.6863 18.6863 8 22 8H26C29.3137 8 32 10.6863 32 14V20" stroke="currentColor" stroke-width="2"/>
-                    <path d="M24 28V32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="24" cy="28" r="2" fill="currentColor"/>
+                    <rect x="8" y="16" width="32" height="26" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 22H40" stroke="currentColor" stroke-width="2"/>
+                    <path d="M20 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M28 8V16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M30 32L24 38L18 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M24 28V38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                   <span class="trust-badge__label">Easy Returns</span>
                 </li>
