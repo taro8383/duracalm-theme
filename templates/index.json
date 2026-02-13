@@ -116,6 +116,7 @@
           "type": "image",
           "settings": {
             "desktop_image": "shopify://shop_images/Airbrush-OBJECT-REMOVER-1769248899447.jpg",
+            "mobile_image": "shopify://shop_images/image-892c0a1a-5088-49ce-8b1c-3ae3f9f49075.jpg",
             "hide_on_mobile": false,
             "vertical_scrollng_speed": 0,
             "horizontal_scrollng_speed": 0,
