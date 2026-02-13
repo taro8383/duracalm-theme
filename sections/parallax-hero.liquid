@@ -129,6 +129,22 @@
     font-size: calc(var(--custom-font-size-scale) * 1em);
     display: inline;
   }
+
+  /* Parallax hero image layers - show full image without zoom/cropping */
+  .parallax-hero__image-layer .hero-slide__background__desktop-media,
+  .parallax-hero__image-layer .hero-slide__background__mobile-media {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    scale: none !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Remove any zoom effect from parallax layers */
+  .parallax-hero__layer[data-zoom] {
+    --zoom-level: 1 !important;
+  }
 {%- endstyle -%}
 
 {% liquid
