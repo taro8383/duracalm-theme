@@ -14,6 +14,18 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "24f208fd-0898-43eb-af23-d74f8420ab37": {
+          "type": "email_signup",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "subtext": "<p>Join our email list for exclusive offers and the latest news.</p>",
+            "button_type": "arrow",
+            "button_label": "Sign up",
+            "button_style_secondary": false,
+            "width_desktop": 5,
+            "width_mobile": "2"
+          }
+        },
         "brand_information_pRtcAQ": {
           "type": "brand_information",
           "settings": {
@@ -30,24 +42,12 @@
             "width_desktop": 4,
             "width_mobile": "1"
           }
-        },
-        "24f208fd-0898-43eb-af23-d74f8420ab37": {
-          "type": "email_signup",
-          "settings": {
-            "heading": "Subscribe to our emails",
-            "subtext": "<p>Join our email list for exclusive offers and the latest news.</p>",
-            "button_type": "arrow",
-            "button_label": "Sign up",
-            "button_style_secondary": false,
-            "width_desktop": 3,
-            "width_mobile": "2"
-          }
         }
       },
       "block_order": [
+        "24f208fd-0898-43eb-af23-d74f8420ab37",
         "brand_information_pRtcAQ",
-        "1c647602-cc00-4009-a058-976435c8ee9e",
-        "24f208fd-0898-43eb-af23-d74f8420ab37"
+        "1c647602-cc00-4009-a058-976435c8ee9e"
       ],
       "settings": {
         "color_scheme": "custom",
@@ -60,9 +60,8 @@
         "enabled_payment_types": "apple_pay, google_pay, master, visa, american_express, paypal, shopify_pay,afterpay, klarna",
         "trust_badges_enable": true,
         "trust_badges_greyscale": true,
-        "show_free_shipping": true,
-        "show_guarantee": true,
-        "show_easy_returns": true,
+        "show_free_shipping_returns": true,
+        "show_30_days": true,
         "show_norton": true,
         "show_shopify_secure": true,
         "show_google_safe": true,
