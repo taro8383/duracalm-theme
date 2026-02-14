@@ -1565,11 +1565,13 @@
         const upsellContainer = checkbox.closest('.cart-drawer__in-cart-upsell');
         const variantId = checkbox.dataset.variantId;
 
-        if (checkbox.checked && variantId) {
-          // Add loading state
-          upsellContainer.classList.add('is-loading');
+        if (!variantId) return;
 
-          // Add the upsell product to cart
+        // Add loading state
+        upsellContainer.classList.add('is-loading');
+
+        if (checkbox.checked) {
+          // ADD the upsell product to cart
           fetch('/cart/add.js', {
             method: 'POST',
             headers: {
@@ -1586,68 +1588,116 @@
             // Show success state
             upsellContainer.classList.remove('is-loading');
             upsellContainer.classList.add('is-added');
-
-            // Fetch full cart data to update totals
             return fetch('/cart.js');
           })
           .then(response => response.json())
-          .then(cart => {
-            // Update cart heading count
-            const heading = document.querySelector('.drawer__heading');
-            if (heading) {
-              const nonUpsellCount = cart.items.reduce(function(sum, item) {
-                const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
-                return isHidden ? sum : sum + item.quantity;
-              }, 0);
-              let newText = heading.textContent.replace(/\d+/, nonUpsellCount);
-              if (nonUpsellCount === 1) {
-                newText = newText.replace(/\bitems\b/, 'item');
-              } else {
-                newText = newText.replace(/\bitem\b(?!s)/, 'items');
-              }
-              heading.textContent = newText;
-            }
-
-            // Update subtotal amount
-            const subtotalAmount = document.querySelector('.cart-drawer__subtotal-amount');
-            if (subtotalAmount) {
-              subtotalAmount.textContent = formatCartMoney(cart.total_price);
-              subtotalAmount.setAttribute('data-total-price', cart.total_price);
-            }
-
-            // Also update any other price displays
-            const totalMoneyElements = document.querySelectorAll('.cart-drawer__totals__row__money[data-total-price]');
-            totalMoneyElements.forEach(function(el) {
-              el.textContent = formatCartMoney(cart.total_price);
-              el.setAttribute('data-total-price', cart.total_price);
-            });
-
-            // Update cart icon bubble
-            const cartIconBubble = document.getElementById('cart-icon-bubble');
-            if (cartIconBubble) {
-              const bubble = cartIconBubble.querySelector('.cart-count-bubble');
-              if (bubble) {
-                if (cart.item_count > 0) {
-                  bubble.textContent = cart.item_count;
-                  bubble.style.display = 'flex';
-                } else {
-                  bubble.style.display = 'none';
-                }
-              }
-            }
-
-            // Dispatch cart update event
-            document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
-          })
+          .then(cart => updateCartAfterUpsell(cart, upsellContainer))
           .catch(err => {
-            console.error('In-cart upsell error:', err);
+            console.error('In-cart upsell add error:', err);
             upsellContainer.classList.remove('is-loading');
             checkbox.checked = false;
             alert('Sorry, we could not add this item to your cart. Please try again.');
           });
+        } else {
+          // REMOVE the upsell product from cart
+          // First, find the line item for this variant
+          fetch('/cart.js')
+            .then(response => response.json())
+            .then(cart => {
+              // Find the line item for this variant
+              let lineItem = null;
+              for (let i = 0; i < cart.items.length; i++) {
+                if (cart.items[i].variant_id == variantId) {
+                  lineItem = cart.items[i];
+                  lineItem.line = i + 1; // Line numbers are 1-indexed
+                  break;
+                }
+              }
+
+              if (lineItem) {
+                // Remove the item via AJAX
+                return fetch('/cart/change.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    line: lineItem.line,
+                    quantity: 0
+                  })
+                });
+              } else {
+                throw new Error('Item not found in cart');
+              }
+            })
+            .then(response => response.json())
+            .then(cart => {
+              // Remove success state
+              upsellContainer.classList.remove('is-loading', 'is-added');
+              return updateCartAfterUpsell(cart, upsellContainer);
+            })
+            .catch(err => {
+              console.error('In-cart upsell remove error:', err);
+              upsellContainer.classList.remove('is-loading');
+              checkbox.checked = true; // Re-check since removal failed
+              alert('Sorry, we could not remove this item. Please try again.');
+            });
         }
       }
     });
+
+    // Helper function to update cart UI after upsell change
+    function updateCartAfterUpsell(cart, upsellContainer) {
+      // Update cart heading count
+      const heading = document.querySelector('.drawer__heading');
+      if (heading) {
+        const nonUpsellCount = cart.items.reduce(function(sum, item) {
+          const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
+          return isHidden ? sum : sum + item.quantity;
+        }, 0);
+        let newText = heading.textContent.replace(/\d+/, nonUpsellCount);
+        if (nonUpsellCount === 1) {
+          newText = newText.replace(/\bitems\b/, 'item');
+        } else {
+          newText = newText.replace(/\bitem\b(?!s)/, 'items');
+        }
+        heading.textContent = newText;
+      }
+
+      // Update subtotal amount
+      const subtotalAmount = document.querySelector('.cart-drawer__subtotal-amount');
+      if (subtotalAmount) {
+        subtotalAmount.textContent = formatCartMoney(cart.total_price);
+        subtotalAmount.setAttribute('data-total-price', cart.total_price);
+      }
+
+      // Also update any other price displays
+      const totalMoneyElements = document.querySelectorAll('.cart-drawer__totals__row__money[data-total-price]');
+      totalMoneyElements.forEach(function(el) {
+        el.textContent = formatCartMoney(cart.total_price);
+        el.setAttribute('data-total-price', cart.total_price);
+      });
+
+      // Update cart icon bubble
+      const cartIconBubble = document.getElementById('cart-icon-bubble');
+      if (cartIconBubble) {
+        const bubble = cartIconBubble.querySelector('.cart-count-bubble');
+        if (bubble) {
+          if (cart.item_count > 0) {
+            bubble.textContent = cart.item_count;
+            bubble.style.display = 'flex';
+          } else {
+            bubble.style.display = 'none';
+          }
+        }
+      }
+
+      // Dispatch cart update event
+      document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+
+      return cart;
+    }
 
     // Function to refresh cart sections
     function refreshCartSections() {
