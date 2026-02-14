@@ -28,6 +28,208 @@
       background: {{ section.settings.footer_bg_color }};
     }
   {% endif %}
+
+  /* Aesthetic Enhancements */
+  {% if section.settings.enable_typography_enhancements %}
+    /* Enhanced Typography */
+    .cart-drawer .drawer__heading {
+      font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+      font-weight: {{ section.settings.heading_font.weight }};
+      font-style: {{ section.settings.heading_font.style }};
+      letter-spacing: {{ section.settings.heading_letter_spacing }}em;
+      font-size: {{ section.settings.heading_font_size }}rem;
+    }
+
+    .cart-timer {
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    .cart-drawer__totals__row__money {
+      font-weight: 700;
+      font-size: 1.1em;
+    }
+
+    .cart-item__name {
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+  {% endif %}
+
+  {% if section.settings.enable_product_card_polish %}
+    /* Product Card Polish */
+    .cart-drawer-item {
+      border-radius: {{ section.settings.product_card_radius }}px;
+      box-shadow: {{ section.settings.product_card_shadow }};
+      padding: {{ section.settings.product_card_padding }}px;
+      margin-bottom: {{ section.settings.product_card_margin }}px;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    .cart-drawer-item:hover {
+      box-shadow: {{ section.settings.product_card_shadow_hover }};
+      transform: translateY(-2px);
+    }
+
+    .cart-item__image {
+      border-radius: {{ section.settings.product_image_radius }}px;
+    }
+  {% endif %}
+
+  {% if section.settings.enable_visual_dividers %}
+    /* Visual Dividers */
+    .cart-drawer-item:not(:last-child) {
+      border-bottom: {{ section.settings.divider_thickness }}px solid {{ section.settings.divider_color }};
+      padding-bottom: {{ section.settings.divider_padding }}px;
+    }
+
+    .drawer__footer::before {
+      content: '';
+      display: block;
+      height: {{ section.settings.divider_thickness }}px;
+      background: linear-gradient(90deg, transparent, {{ section.settings.divider_color }}, transparent);
+      margin: -{{ section.settings.divider_padding }}px 0 {{ section.settings.divider_padding }}px;
+      opacity: 0.5;
+    }
+  {% endif %}
+
+  /* Countdown Timer Pulse Animation */
+  {% if section.settings.enable_timer_pulse %}
+    .cart-timer {
+      animation: cartTimerPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes cartTimerPulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+      }
+      50% {
+        box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
+      }
+    }
+  {% endif %}
+
+  /* Sticky Footer on Mobile */
+  {% if section.settings.enable_sticky_footer_mobile %}
+    @media screen and (max-width: 749px) {
+      .cart-drawer .drawer__footer {
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      }
+    }
+  {% endif %}
+
+  /* Enhanced Empty Cart State */
+  {% if section.settings.enable_enhanced_empty_cart %}
+    .drawer__inner-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .cart-drawer__empty-content {
+      max-width: 280px;
+    }
+
+    .cart__empty-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: {{ section.settings.empty_cart_text_color }};
+    }
+
+    .cart-drawer__empty-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .cart-drawer__empty-cta {
+      margin-top: 20px;
+    }
+
+    .cart-drawer__featured-products {
+      margin-top: 30px;
+      width: 100%;
+    }
+
+    .cart-drawer__featured-products-title {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: {{ section.settings.empty_cart_text_color }};
+    }
+  {% endif %}
+
+  /* Trust Signals Styling */
+  {% if section.settings.enable_trust_signals %}
+    .cart-drawer__trust-signals {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 15px;
+      background: {{ section.settings.trust_signals_bg | default: 'rgba(0,0,0,0.03)' }};
+      border-radius: 8px;
+      margin-top: var(--margin-top, 0);
+      margin-bottom: var(--margin-bottom, 0);
+    }
+
+    .cart-drawer__trust-signal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: {{ section.settings.trust_signals_text_color | default: 'inherit' }};
+    }
+
+    .cart-drawer__trust-signal svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: {{ section.settings.trust_signals_icon_color | default: '#7B92C8' }};
+    }
+
+    @media screen and (min-width: 750px) {
+      .cart-drawer__trust-signals {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+    }
+  {% endif %}
+
+  /* Trust Badges Styling */
+  {% if section.settings.enable_trust_badges_footer %}
+    .cart-drawer__trust-badges {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .cart-drawer__trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: {{ section.settings.trust_badge_text_color }};
+    }
+
+    .cart-drawer__trust-badge svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+  {% endif %}
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}{% if section.settings.test_mode %} active{% endif %} cart-drawer--desktop-width-{{ section.settings.desktop_width }} cart-drawer--mobile-width-{{ section.settings.mobile_width }}" data-type='modal'>
@@ -44,7 +246,42 @@
         <div class="drawer__inner-empty">
           <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
             <div class="cart-drawer__empty-content">
-              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+              {% if section.settings.enable_enhanced_empty_cart %}
+                <div class="cart-drawer__empty-icon">
+                  {% render 'icon-cart-empty' %}
+                </div>
+                <h2 class="cart__empty-text">{{ section.settings.empty_cart_heading | default: 'Your cart is empty' }}</h2>
+                <p class="cart-drawer__empty-subtext">{{ section.settings.empty_cart_subtext | default: 'Discover our products and find something you love!' }}</p>
+                <div class="cart-drawer__empty-cta">
+                  <a href="{% if section.settings.empty_cart_cta_url != blank %}{{ section.settings.empty_cart_cta_url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="button button--primary">
+                    {{ section.settings.empty_cart_cta_text | default: 'Start Shopping' }}
+                  </a>
+                </div>
+                {% if section.settings.empty_cart_featured_collection != blank %}
+                  <div class="cart-drawer__featured-products">
+                    <p class="cart-drawer__featured-products-title">{{ section.settings.empty_cart_featured_title | default: 'Popular products' }}</p>
+                    <div class="cart-drawer__featured-grid">
+                      {% for product in section.settings.empty_cart_featured_collection.products limit: 2 %}
+                        {% render 'card-product', card_product: product, media_aspect_ratio: 'adapt', show_secondary_image: false, show_vendor: false, show_rating: false %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+              {% else %}
+                <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+                {% if settings.display_continue_shopping %}
+                  <a href="{% if settings.continue_shopping_url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ settings.continue_shopping_url }}{% endif %}" class="button">
+                    {{ 'general.continue_shopping' | t }}
+                  </a>
+                {% endif %}
+
+                {%- if shop.customer_accounts_enabled and customer == null -%}
+                  <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
+                  <p class="cart__login-paragraph">
+                    {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
+                  </p>
+                {%- endif -%}
+              {% endif %}
               <button
                 class="drawer__close"
                 type="button"
@@ -53,18 +290,6 @@
               >
                 {% render 'icon-close' %}
               </button>
-              {% if settings.display_continue_shopping %}
-                <a href="{% if settings.continue_shopping_url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ settings.continue_shopping_url }}{% endif %}" class="button">
-                  {{ 'general.continue_shopping' | t }}
-                </a>
-              {% endif %}
-
-              {%- if shop.customer_accounts_enabled and customer == null -%}
-                <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
-                <p class="cart__login-paragraph">
-                  {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-                </p>
-              {%- endif -%}
             </div>
           </div>
           {%- if settings.cart_drawer_collection != blank -%}
@@ -775,6 +1000,37 @@
                 </tnc-chekcbox>
                 <div class='tnc-checkbox-warning tnc-checkbox-warning--under-checkbox hidden' style='margin-top: 0.4em;'></div>
               </div>
+            {%- when 'trust_signals' -%}
+              {% if section.settings.enable_trust_signals %}
+                <div class="cart-drawer__trust-signals" style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;" {{ block.shopify_attributes }}>
+                  {% if block.settings.show_secure_checkout %}
+                    <div class="cart-drawer__trust-signal">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                      <span>{{ block.settings.secure_checkout_text | default: 'Secure checkout' }}</span>
+                    </div>
+                  {% endif %}
+                  {% if block.settings.show_guarantee %}
+                    <div class="cart-drawer__trust-signal">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                      </svg>
+                      <span>{{ block.settings.guarantee_text | default: '30-day money back guarantee' }}</span>
+                    </div>
+                  {% endif %}
+                  {% if block.settings.show_free_returns %}
+                    <div class="cart-drawer__trust-signal">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 14 4 9 9 4"></polyline>
+                        <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+                      </svg>
+                      <span>{{ block.settings.free_returns_text | default: 'Free returns' }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
             {% when 'product_upsells' %}
               {% if block.settings.position == 'footer' %}
                 {% liquid

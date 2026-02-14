@@ -132,6 +132,226 @@
       "id": "footer_bg_color",
       "label": "Custom background color",
       "default": "#F3F3F3"
+    },
+    {
+      "type": "header",
+      "content": "Aesthetic Enhancements"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_typography_enhancements",
+      "label": "Enable typography enhancements",
+      "default": true,
+      "info": "Enhances heading, timer and price typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading font size",
+      "min": 1.0,
+      "max": 3.0,
+      "step": 0.1,
+      "default": 1.5,
+      "unit": "rem"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Heading letter spacing",
+      "min": -0.1,
+      "max": 0.2,
+      "step": 0.1,
+      "default": 0,
+      "unit": "em"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_product_card_polish",
+      "label": "Enable product card polish",
+      "default": true,
+      "info": "Adds shadows, rounded corners and hover effects to product cards"
+    },
+    {
+      "type": "range",
+      "id": "product_card_radius",
+      "label": "Product card border radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "product_image_radius",
+      "label": "Product image border radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "product_card_shadow",
+      "label": "Product card shadow",
+      "default": "0 2px 8px rgba(0,0,0,0.08)",
+      "info": "CSS box-shadow value"
+    },
+    {
+      "type": "text",
+      "id": "product_card_shadow_hover",
+      "label": "Product card shadow on hover",
+      "default": "0 4px 16px rgba(0,0,0,0.12)",
+      "info": "CSS box-shadow value for hover state"
+    },
+    {
+      "type": "range",
+      "id": "product_card_padding",
+      "label": "Product card padding",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "product_card_margin",
+      "label": "Product card bottom margin",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_visual_dividers",
+      "label": "Enable visual dividers",
+      "default": true,
+      "info": "Adds subtle dividers between cart items and before footer"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "label": "Divider thickness",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "divider_padding",
+      "label": "Divider spacing",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Conversion Optimizations"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_timer_pulse",
+      "label": "Enable countdown timer pulse animation",
+      "default": true,
+      "info": "Adds subtle pulsing glow to the countdown timer"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_footer_mobile",
+      "label": "Enable sticky footer on mobile",
+      "default": true,
+      "info": "Keeps checkout button visible while scrolling on mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_trust_signals",
+      "label": "Enable trust signals block",
+      "default": true,
+      "info": "Allows adding trust signals (secure checkout, guarantee, free returns) via blocks"
+    },
+    {
+      "type": "color",
+      "id": "trust_signals_bg",
+      "label": "Trust signals background",
+      "default": "rgba(0,0,0,0.03)"
+    },
+    {
+      "type": "color",
+      "id": "trust_signals_text_color",
+      "label": "Trust signals text color"
+    },
+    {
+      "type": "color",
+      "id": "trust_signals_icon_color",
+      "label": "Trust signals icon color",
+      "default": "#7B92C8"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_enhanced_empty_cart",
+      "label": "Enable enhanced empty cart state",
+      "default": true,
+      "info": "Shows icon, custom message, CTA and featured products when cart is empty"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_heading",
+      "label": "Empty cart heading",
+      "default": "Your cart is empty"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_subtext",
+      "label": "Empty cart subtext",
+      "default": "Discover our products and find something you love!"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_cta_text",
+      "label": "Empty cart CTA button text",
+      "default": "Start Shopping"
+    },
+    {
+      "type": "url",
+      "id": "empty_cart_cta_url",
+      "label": "Empty cart CTA button link"
+    },
+    {
+      "type": "collection",
+      "id": "empty_cart_featured_collection",
+      "label": "Empty cart featured products collection",
+      "info": "Shows 2 products from this collection when cart is empty"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_featured_title",
+      "label": "Empty cart featured products title",
+      "default": "Popular products"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_text_color",
+      "label": "Empty cart text color"
     }
   ],
   "blocks": [
@@ -3352,6 +3572,77 @@
           "unit": "px",
           "label": "Bottom margin",
           "default": 15
+        }
+      ]
+    },
+    {
+      "type": "trust_signals",
+      "name": "Trust signals",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Display trust signals like secure checkout, money-back guarantee, and free returns. Requires 'Enable trust signals block' to be enabled in section settings."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_secure_checkout",
+          "label": "Show secure checkout",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "secure_checkout_text",
+          "label": "Secure checkout text",
+          "default": "Secure checkout"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_guarantee",
+          "label": "Show money-back guarantee",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "guarantee_text",
+          "label": "Guarantee text",
+          "default": "30-day money back guarantee"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_free_returns",
+          "label": "Show free returns",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "free_returns_text",
+          "label": "Free returns text",
+          "default": "Free returns"
+        },
+        {
+          "type": "header",
+          "content": "Block margin"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 45,
+          "step": 3,
+          "unit": "px",
+          "label": "Top margin",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 45,
+          "step": 3,
+          "unit": "px",
+          "label": "Bottom margin",
+          "default": 12
         }
       ]
     },
