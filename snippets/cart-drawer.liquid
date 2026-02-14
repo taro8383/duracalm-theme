@@ -1546,6 +1546,18 @@
       }
     });
 
+    // Helper function to format money
+    function formatCartMoney(cents) {
+      const shopCurrency = window.Shopify?.currency?.active || 'EUR';
+      const value = (cents / 100).toFixed(2);
+      if (shopCurrency === 'EUR') {
+        return '€' + value.replace('.', ',');
+      } else if (shopCurrency === 'USD' || shopCurrency === 'GBP') {
+        return (shopCurrency === 'USD' ? '$' : '£') + value;
+      }
+      return value + ' ' + shopCurrency;
+    }
+
     // In-Cart Upsell functionality
     document.addEventListener('change', function(e) {
       const checkbox = e.target.closest('.cart-drawer__in-cart-upsell__checkbox');
@@ -1575,14 +1587,57 @@
             upsellContainer.classList.remove('is-loading');
             upsellContainer.classList.add('is-added');
 
-            // Update cart prices and totals
-            updateCartPrices();
+            // Fetch full cart data to update totals
+            return fetch('/cart.js');
+          })
+          .then(response => response.json())
+          .then(cart => {
+            // Update cart heading count
+            const heading = document.querySelector('.drawer__heading');
+            if (heading) {
+              const nonUpsellCount = cart.items.reduce(function(sum, item) {
+                const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
+                return isHidden ? sum : sum + item.quantity;
+              }, 0);
+              let newText = heading.textContent.replace(/\d+/, nonUpsellCount);
+              if (nonUpsellCount === 1) {
+                newText = newText.replace(/\bitems\b/, 'item');
+              } else {
+                newText = newText.replace(/\bitem\b(?!s)/, 'items');
+              }
+              heading.textContent = newText;
+            }
 
-            // Refresh cart sections
-            refreshCartSections();
+            // Update subtotal amount
+            const subtotalAmount = document.querySelector('.cart-drawer__subtotal-amount');
+            if (subtotalAmount) {
+              subtotalAmount.textContent = formatCartMoney(cart.total_price);
+              subtotalAmount.setAttribute('data-total-price', cart.total_price);
+            }
+
+            // Also update any other price displays
+            const totalMoneyElements = document.querySelectorAll('.cart-drawer__totals__row__money[data-total-price]');
+            totalMoneyElements.forEach(function(el) {
+              el.textContent = formatCartMoney(cart.total_price);
+              el.setAttribute('data-total-price', cart.total_price);
+            });
+
+            // Update cart icon bubble
+            const cartIconBubble = document.getElementById('cart-icon-bubble');
+            if (cartIconBubble) {
+              const bubble = cartIconBubble.querySelector('.cart-count-bubble');
+              if (bubble) {
+                if (cart.item_count > 0) {
+                  bubble.textContent = cart.item_count;
+                  bubble.style.display = 'flex';
+                } else {
+                  bubble.style.display = 'none';
+                }
+              }
+            }
 
             // Dispatch cart update event
-            document.dispatchEvent(new CustomEvent('cart:updated', { detail: data }));
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
           })
           .catch(err => {
             console.error('In-cart upsell error:', err);
