@@ -96,15 +96,16 @@
   /* Countdown Timer Pulse Animation */
   {% if section.settings.enable_timer_pulse %}
     .cart-timer {
-      animation: cartTimerPulse 2s ease-in-out infinite;
+      animation: cartTimerPulse 1.5s ease-in-out infinite;
+      background-color: #7B92C8 !important;
     }
 
     @keyframes cartTimerPulse {
       0%, 100% {
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 0 0 rgba(123, 146, 200, 0.6);
       }
       50% {
-        box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 25px 8px rgba(123, 146, 200, 0.8), 0 0 40px 15px rgba(123, 146, 200, 0.4);
       }
     }
   {% endif %}
