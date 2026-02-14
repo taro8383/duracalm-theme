@@ -333,7 +333,7 @@
               {% render 'cart-checkpoints-bar', block: block, items_count: non_upsell_count %}
             {% when 'countdown_timer' %}
               {% capture timer %}
-                <countdown-timer data-duration="{{ block.settings.timer_duration }}"></countdown-timer>
+                <countdown-timer data-duration="{{ block.settings.timer_duration }}" data-auto-play="true"></countdown-timer>
               {% endcapture %}
               <div class='cart-timer color-{{ block.settings.color_scheme }}' style="--font-size:{{ block.settings.font_size }}rem;--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;" {{ block.shopify_attributes }}>
                 {{ block.settings.timer_text | replace: '[timer]', timer }}
