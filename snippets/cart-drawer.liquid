@@ -1207,7 +1207,15 @@
               const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
               return isHidden ? sum : sum + item.quantity;
             }, 0);
-            heading.textContent = heading.textContent.replace(/\d+/, nonUpsellCount);
+            // Replace the count number
+            let newText = heading.textContent.replace(/\d+/, nonUpsellCount);
+            // Handle pluralization: replace 'items' with 'item' if count is 1, or 'item' with 'items' if count > 1
+            if (nonUpsellCount === 1) {
+              newText = newText.replace(/\bitems\b/, 'item');
+            } else {
+              newText = newText.replace(/\bitem\b(?!s)/, 'items');
+            }
+            heading.textContent = newText;
           }
 
           // Update checkout button price
