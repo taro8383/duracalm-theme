@@ -93,11 +93,16 @@
     }
   {% endif %}
 
-  /* Countdown Timer Pulse Animation */
+  /* Countdown Timer Styles */
+  .cart-timer {
+    background-color: var(--timer-bg, #7B92C8) !important;
+    padding: var(--timer-padding-y, 12px) var(--timer-padding-x, 15px) !important;
+    text-align: var(--timer-align, center) !important;
+  }
+
   {% if section.settings.enable_timer_pulse %}
     .cart-timer {
       animation: cartTimerPulse 1.5s ease-in-out infinite;
-      background-color: #7B92C8 !important;
     }
 
     @keyframes cartTimerPulse {
@@ -336,7 +341,7 @@
               {% capture timer %}
                 <countdown-timer data-duration="{{ block.settings.timer_duration }}" data-auto-play="true"></countdown-timer>
               {% endcapture %}
-              <div class='cart-timer color-{{ block.settings.color_scheme }}' style="--font-size:{{ block.settings.font_size }}rem;--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;" {{ block.shopify_attributes }}>
+              <div class='cart-timer color-{{ block.settings.color_scheme }}' style="--font-size:{{ block.settings.font_size }}rem;--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;--timer-bg:{{ block.settings.background_color }};--timer-padding-y:{{ block.settings.padding_vertical }}px;--timer-padding-x:{{ block.settings.padding_horizontal }}px;--timer-align:{{ block.settings.text_alignment }};" {{ block.shopify_attributes }}>
                 {{ block.settings.timer_text | replace: '[timer]', timer }}
               </div>
             {% when 'cart_items' %}

@@ -1521,6 +1521,47 @@
         },
         {
           "type": "header",
+          "content": "Background & Alignment"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#7B92C8"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "padding_vertical",
+          "label": "Vertical padding",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "default": 12,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "padding_horizontal",
+          "label": "Horizontal padding",
+          "min": 0,
+          "max": 30,
+          "step": 3,
+          "default": 15,
+          "unit": "px"
+        },
+        {
+          "type": "header",
           "content": "Block margin"
         },
         {
