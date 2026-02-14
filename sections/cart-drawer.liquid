@@ -30,8 +30,8 @@
       "type": "text",
       "id": "heading_text",
       "label": "Text",
-      "default": "Cart • [count] items",
-      "info": "Use [count] to display total amount of items in the cart."
+      "default": "Cart • [count] [items]",
+      "info": "Use [count] for item count and [items] for 'item'/'items' (auto-pluralized)."
     },
     {
       "type": "select",
@@ -1509,7 +1509,14 @@
           "type": "number",
           "id": "timer_duration",
           "label": "Timer duration (in seconds)",
-          "default": 300
+          "default": 900
+        },
+        {
+          "type": "checkbox",
+          "id": "clear_cart_on_expire",
+          "label": "Clear cart when timer expires",
+          "default": true,
+          "info": "If enabled, the cart will be emptied when the countdown reaches zero."
         },
         {
           "type": "select",

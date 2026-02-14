@@ -47,7 +47,7 @@
 
     .cart-drawer__totals__row__money {
       font-weight: 700;
-      font-size: 1.1em;
+      font-size: 0.95em;
     }
 
     .cart-item__name {
@@ -317,7 +317,13 @@
               endif
             endfor
           %}
-          {{ section.settings.heading_text | replace: '[count]', non_upsell_count }}
+          {% liquid
+            assign item_text = 'items'
+            if non_upsell_count == 1
+              assign item_text = 'item'
+            endif
+          %}
+          {{ section.settings.heading_text | replace: '[count]', non_upsell_count | replace: '[items]', item_text }}
         </h2>
         <button
           class="drawer__close"
@@ -341,7 +347,7 @@
               {% render 'cart-checkpoints-bar', block: block, items_count: non_upsell_count %}
             {% when 'countdown_timer' %}
               {% capture timer %}
-                <countdown-timer data-duration="{{ block.settings.timer_duration }}" data-auto-play="true"></countdown-timer>
+                <countdown-timer data-duration="{{ block.settings.timer_duration }}" data-auto-play="true" data-clear-cart="{{ block.settings.clear_cart_on_expire }}"></countdown-timer>
               {% endcapture %}
               <div class='cart-timer color-{{ block.settings.color_scheme }}' style="--font-size:{{ block.settings.font_size }}rem;--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;--timer-bg:{{ block.settings.background_color }};--timer-padding-y:{{ block.settings.padding_vertical }}px;--timer-padding-x:{{ block.settings.padding_horizontal }}px;--timer-align:{{ block.settings.text_alignment }};" {{ block.shopify_attributes }}>
                 {{ block.settings.timer_text | replace: '[timer]', timer }}
@@ -850,8 +856,8 @@
                   text-transform: none;
                   border: 2px solid #7B92C8;
                   border-radius: 8px;
-                  color: #7B92C8;
-                  background: transparent;
+                  color: #ffffff;
+                  background: #7B92C8;
                   cursor: pointer;
                   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
                   overflow: hidden;
@@ -948,13 +954,24 @@
                 <div class='tnc-checkbox-warning tnc-checkbox-warning--under-button hidden' style='margin-top: 0.6em;'></div>
               </div>
             {%- when 'payment_badges' -%}
+              <style>
+                .payment-badges .list-payment__item svg {
+                  filter: grayscale(100%);
+                  opacity: 0.7;
+                  transition: filter 0.3s ease, opacity 0.3s ease;
+                }
+                .payment-badges .list-payment__item:hover svg {
+                  filter: grayscale(0%);
+                  opacity: 1;
+                }
+              </style>
               <div class='payment-badges-block' style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;" {{ block.shopify_attributes }}>
                 <ul class="payment-badges" role="list">
                   {% assign enabled_payment_types = shop.enabled_payment_types %}
                   {% if block.settings.enabled_payment_types != blank %}
                     {% assign enabled_payment_types = block.settings.enabled_payment_types | remove: ' ' | split: ',' %}
                   {% endif %}
-            
+
                   {%- for type in enabled_payment_types -%}
                     {% assign payment_type = type | strip %}
                     <li class="list-payment__item">
