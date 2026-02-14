@@ -91,6 +91,7 @@
     }
   }
 
+  {% if section.settings.enable_logo_reveal %}
   /* Header Enhancements - Logo Scroll Reveal */
   .header__heading-link {
     opacity: 0;
@@ -111,7 +112,9 @@
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+  {% endif %}
 
+  {% if section.settings.enable_blur_backdrop %}
   /* Blur Backdrop when Scrolled */
   .header-wrapper.scrolled-past-header {
     backdrop-filter: blur(20px);
@@ -120,7 +123,9 @@
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: backdrop-filter 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   }
+  {% endif %}
 
+  {% if section.settings.enable_active_pill %}
   /* Active State Pill */
   .header__menu-item--main {
     position: relative;
@@ -154,7 +159,9 @@
   .header__menu-item--main:hover {
     color: rgb(var(--color-foreground));
   }
+  {% endif %}
 
+  {% if section.settings.enable_icon_hover %}
   /* Icon Hover Effects */
   .header__icon {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease;
@@ -163,7 +170,9 @@
   .header__icon:hover {
     transform: scale(1.15);
   }
+  {% endif %}
 
+  {% if section.settings.enable_cart_bounce %}
   /* Cart Bounce Animation */
   @keyframes cartBounce {
     0%, 100% { transform: scale(1); }
@@ -185,6 +194,7 @@
   .cart-count-bubble.updated {
     animation: badgePulse 0.4s ease;
   }
+  {% endif %}
 
   /* Account Dropdown Animation */
   .header__icon--account + .header__dropdown,
@@ -745,6 +755,7 @@
   {%- render 'cart-notification', color_scheme: section.settings.color_scheme -%}
 {%- endif -%}
 
+{% if section.settings.enable_cart_bounce %}
 <script>
   // Cart Bounce Animation
   document.addEventListener('DOMContentLoaded', function() {
@@ -809,6 +820,7 @@
     };
   });
 </script>
+{% endif %}
 
 {% javascript %}
   class StickyHeader extends HTMLElement {
@@ -1337,6 +1349,45 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Animations & Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_logo_reveal",
+      "label": "Enable logo scroll-reveal animation",
+      "default": true,
+      "info": "Logo animates in on page load with fade and scale effect"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_active_pill",
+      "label": "Enable active menu pill",
+      "default": true,
+      "info": "Shows a rounded pill background behind active and hovered menu items"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cart_bounce",
+      "label": "Enable cart bounce on add",
+      "default": true,
+      "info": "Cart icon bounces when items are added to cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_icon_hover",
+      "label": "Enable icon hover scale",
+      "default": true,
+      "info": "Account and cart icons scale up on hover"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_blur_backdrop",
+      "label": "Enable blur backdrop when scrolled",
+      "default": true,
+      "info": "Header gets frosted glass effect when scrolled past"
     }
   ]
 }
