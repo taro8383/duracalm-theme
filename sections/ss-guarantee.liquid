@@ -83,6 +83,10 @@ For inquiries or permissions, contact daniel@section.store
   assign images_ratio_mobile = section.settings.images_ratio_mobile
   assign images_ratio = section.settings.images_ratio
 
+  assign enable_polaroid_float = section.settings.enable_polaroid_float
+  assign enable_guarantee_stagger = section.settings.enable_guarantee_stagger
+  assign enable_shield_pulse = section.settings.enable_shield_pulse
+
   assign lazy_load_setting = 'lazy'
   unless lazy
     assign lazy_load_setting = 'eager'
@@ -277,7 +281,75 @@ For inquiries or permissions, contact daniel@section.store
       max-width: calc({{ content_max_width }}% / 3 - {{ content_gap }}px);
     }
   }
-  
+
+  {% if enable_polaroid_float %}
+    /* Floating Polaroid Images Animation - Desktop only */
+    @media(min-width: 1024px) {
+      .guarantee-guarantees-image-desktop-{{ section.id }} .guarantee-image-{{ section.id }} {
+        animation: polaroidFloat-{{ section.id }} 6s ease-in-out infinite;
+      }
+
+      /* Stagger the animations for each image */
+      .guarantee-guarantees-image-desktop-{{ section.id }} .guarantee-image-{{ section.id }}:nth-child(1) { animation-delay: 0s; }
+      .guarantee-guarantees-image-desktop-{{ section.id }} .guarantee-image-{{ section.id }}:nth-child(2) { animation-delay: 1.5s; }
+      .guarantee-guarantees-image-desktop-{{ section.id }} .guarantee-image-{{ section.id }}:nth-child(3) { animation-delay: 3s; }
+      .guarantee-guarantees-image-desktop-{{ section.id }} .guarantee-image-{{ section.id }}:nth-child(4) { animation-delay: 4.5s; }
+    }
+
+    @keyframes polaroidFloat-{{ section.id }} {
+      0%, 100% {
+        transform: translateY(0px) rotate(var(--rotation, 0deg));
+      }
+      50% {
+        transform: translateY(-15px) rotate(var(--rotation, 0deg));
+      }
+    }
+  {% endif %}
+
+  {% if enable_guarantee_stagger %}
+    /* Staggered entrance animation for guarantee items */
+    .guarantee-guarantees-item-{{ section.id }} {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: guaranteeSlideIn-{{ section.id }} 0.6s ease-out forwards;
+    }
+
+    .guarantee-guarantees-item-{{ section.id }}:nth-child(1) { animation-delay: 0.1s; }
+    .guarantee-guarantees-item-{{ section.id }}:nth-child(2) { animation-delay: 0.25s; }
+    .guarantee-guarantees-item-{{ section.id }}:nth-child(3) { animation-delay: 0.4s; }
+    .guarantee-guarantees-item-{{ section.id }}:nth-child(4) { animation-delay: 0.55s; }
+    .guarantee-guarantees-item-{{ section.id }}:nth-child(5) { animation-delay: 0.7s; }
+
+    @keyframes guaranteeSlideIn-{{ section.id }} {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  {% endif %}
+
+  {% if enable_shield_pulse %}
+    /* Gentle pulse animation for shield/icon */
+    .guarantee-card-icon-{{ section.id }} {
+      animation: shieldPulse-{{ section.id }} 3s ease-in-out infinite;
+    }
+
+    @keyframes shieldPulse-{{ section.id }} {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 transparent);
+      }
+      50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 8px {{ guarantee_icon_color | default: '#121212' | append: '40' }});
+      }
+    }
+  {% endif %}
+
 {%- endstyle -%}
 
 {% if width == 'custom' %}
@@ -685,11 +757,13 @@ For inquiries or permissions, contact daniel@section.store
      {% when 'image' %}
         <style>
           .guarantee-image-{{ block.id }} {
+            --rotation: {{ block.settings.rotate_mobile }}deg;
             transform: rotate({{ block.settings.rotate_mobile }}deg);
           }
 
           @media(min-width: 1024px) {
             .guarantee-image-{{ block.id }} {
+              --rotation: {{ block.settings.rotate }}deg;
               transform: rotate({{ block.settings.rotate }}deg);
             }
           }
@@ -1647,6 +1721,31 @@ For inquiries or permissions, contact daniel@section.store
         "unit": "rem",
         "label": "Sides - mobile",
         "default": 1.5
+      },
+      {
+        "type": "header",
+        "content": "Animations"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_polaroid_float",
+        "default": true,
+        "label": "Enable floating polaroid images",
+        "info": "Adds a gentle floating animation to the corner images"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_guarantee_stagger",
+        "default": true,
+        "label": "Enable staggered guarantee items",
+        "info": "Adds a slide-in animation to guarantee items when section loads"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_shield_pulse",
+        "default": true,
+        "label": "Enable shield/icon pulse",
+        "info": "Adds a gentle pulsing glow effect to the icon"
       },
       {
         "type": "header",
