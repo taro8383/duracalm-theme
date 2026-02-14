@@ -283,10 +283,31 @@ For inquiries or permissions, contact daniel@section.store
   }
 
   {% if enable_polaroid_float %}
-    /* Floating Polaroid Images Animation - Desktop only */
+    /* Floating Polaroid Images Animation - Mobile */
+    .guarantee-guarantees-image-mobile-{{ section.id }} .guarantee-image-{{ section.id }} {
+      animation: polaroidFloatMobile-{{ section.id }} 5s ease-in-out infinite;
+    }
+
+    .guarantee-guarantees-image-mobile-{{ section.id }} .guarantee-image-{{ section.id }}:nth-child(1) { animation-delay: 0s; }
+    .guarantee-guarantees-image-mobile-{{ section.id }} .guarantee-image-{{ section.id }}:nth-child(2) { animation-delay: 1.25s; }
+
+    @keyframes polaroidFloatMobile-{{ section.id }} {
+      0%, 100% {
+        transform: translateY(0px) rotate(var(--rotation, 0deg));
+      }
+      50% {
+        transform: translateY(-8px) rotate(var(--rotation, 0deg));
+      }
+    }
+
+    /* Floating Polaroid Images Animation - Desktop */
     @media(min-width: 1024px) {
       .guarantee-guarantees-image-desktop-{{ section.id }} .guarantee-image-{{ section.id }} {
         animation: polaroidFloat-{{ section.id }} 6s ease-in-out infinite;
+      }
+
+      .guarantee-guarantees-image-mobile-{{ section.id }} .guarantee-image-{{ section.id }} {
+        animation: none;
       }
 
       /* Stagger the animations for each image */
@@ -328,6 +349,15 @@ For inquiries or permissions, contact daniel@section.store
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    /* Ensure visibility on mobile with reduced motion preference support */
+    @media (prefers-reduced-motion: reduce) {
+      .guarantee-guarantees-item-{{ section.id }} {
+        opacity: 1;
+        transform: none;
+        animation: none;
       }
     }
   {% endif %}
