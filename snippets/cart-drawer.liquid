@@ -101,16 +101,18 @@
   }
 
   {% if section.settings.enable_timer_pulse %}
+    {% assign pulse_intensity = section.settings.timer_pulse_intensity | default: 25 %}
+    {% assign pulse_speed = section.settings.timer_pulse_speed | default: 1.5 %}
     .cart-timer {
-      animation: cartTimerPulse 1.5s ease-in-out infinite;
+      animation: cartTimerPulse {{ pulse_speed }}s ease-in-out infinite;
     }
 
     @keyframes cartTimerPulse {
       0%, 100% {
-        box-shadow: 0 0 0 0 rgba(123, 146, 200, 0.6);
+        box-shadow: 0 0 0 0 {{ section.settings.timer_pulse_color | default: '#7B92C8' | append: '99' }};
       }
       50% {
-        box-shadow: 0 0 25px 8px rgba(123, 146, 200, 0.8), 0 0 40px 15px rgba(123, 146, 200, 0.4);
+        box-shadow: 0 0 {{ pulse_intensity }}px {{ pulse_intensity | divided_by: 3 }}px {{ section.settings.timer_pulse_color | default: '#7B92C8' | append: 'CC' }}, 0 0 {{ pulse_intensity | times: 1.6 }}px {{ pulse_intensity | divided_by: 1.6 }}px {{ section.settings.timer_pulse_color | default: '#7B92C8' | append: '66' }};
       }
     }
   {% endif %}
