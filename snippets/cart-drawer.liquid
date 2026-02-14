@@ -1567,8 +1567,15 @@
 
         if (!variantId) return;
 
+        // Prevent double submission
+        if (upsellContainer.dataset.processing === 'true') {
+          e.preventDefault();
+          return;
+        }
+
         // Add loading state
         upsellContainer.classList.add('is-loading');
+        upsellContainer.dataset.processing = 'true';
 
         if (checkbox.checked) {
           // ADD the upsell product to cart
@@ -1588,6 +1595,7 @@
             // Show success state
             upsellContainer.classList.remove('is-loading');
             upsellContainer.classList.add('is-added');
+            upsellContainer.dataset.processing = 'false';
             return fetch('/cart.js');
           })
           .then(response => response.json())
@@ -1595,6 +1603,7 @@
           .catch(err => {
             console.error('In-cart upsell add error:', err);
             upsellContainer.classList.remove('is-loading');
+            upsellContainer.dataset.processing = 'false';
             checkbox.checked = false;
             alert('Sorry, we could not add this item to your cart. Please try again.');
           });
@@ -1635,11 +1644,13 @@
             .then(cart => {
               // Remove success state
               upsellContainer.classList.remove('is-loading', 'is-added');
+              upsellContainer.dataset.processing = 'false';
               return updateCartAfterUpsell(cart, upsellContainer);
             })
             .catch(err => {
               console.error('In-cart upsell remove error:', err);
               upsellContainer.classList.remove('is-loading');
+              upsellContainer.dataset.processing = 'false';
               checkbox.checked = true; // Re-check since removal failed
               alert('Sorry, we could not remove this item. Please try again.');
             });
