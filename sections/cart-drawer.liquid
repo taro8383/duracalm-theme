@@ -386,6 +386,179 @@
   ],
   "blocks": [
     {
+      "type": "in_cart_upsell",
+      "name": "In-Cart Upsell",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Offer Settings"
+        },
+        {
+          "type": "text",
+          "id": "offer_text",
+          "label": "Offer text",
+          "default": "Add 1-Year Extended Warranty for",
+          "info": "Text before the price (e.g., 'Add 1-Year Extended Warranty for')"
+        },
+        {
+          "type": "text",
+          "id": "offer_price",
+          "label": "Offer price",
+          "default": "€15",
+          "info": "Price to display (e.g., '€15', '$20')"
+        },
+        {
+          "type": "product",
+          "id": "upsell_product",
+          "label": "Upsell product",
+          "info": "Product to add when checkbox is checked (e.g., warranty product)"
+        },
+        {
+          "type": "text",
+          "id": "upsell_variant_id",
+          "label": "Variant ID (optional)",
+          "info": "Specific variant ID if the product has multiple variants. Leave empty to use first variant."
+        },
+        {
+          "type": "header",
+          "content": "Display Rules"
+        },
+        {
+          "type": "select",
+          "id": "display_rule",
+          "label": "Display rule",
+          "options": [
+            {
+              "value": "always",
+              "label": "Always show"
+            },
+            {
+              "value": "product_specific",
+              "label": "Show for specific products only"
+            },
+            {
+              "value": "collection_specific",
+              "label": "Show for products in specific collections"
+            },
+            {
+              "value": "cart_value",
+              "label": "Show when cart value exceeds"
+            }
+          ],
+          "default": "always"
+        },
+        {
+          "type": "text",
+          "id": "target_product_handles",
+          "label": "Target product handles",
+          "info": "Comma-separated product handles (e.g., product-1, product-2). Only used when 'Show for specific products' is selected."
+        },
+        {
+          "type": "collection",
+          "id": "target_collection",
+          "label": "Target collection",
+          "info": "Only used when 'Show for products in specific collections' is selected."
+        },
+        {
+          "type": "range",
+          "id": "min_cart_value",
+          "label": "Minimum cart value",
+          "min": 0,
+          "max": 500,
+          "step": 10,
+          "default": 100,
+          "unit": "€"
+        },
+        {
+          "type": "header",
+          "content": "Appearance"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#F8F8F8"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border color",
+          "default": "#E0E0E0"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#333333"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Price/Accent color",
+          "default": "#7B92C8"
+        },
+        {
+          "type": "color",
+          "id": "checkbox_color",
+          "label": "Checkbox color",
+          "default": "#7B92C8"
+        },
+        {
+          "type": "range",
+          "id": "border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "default": 8,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "padding",
+          "label": "Padding",
+          "min": 10,
+          "max": 30,
+          "step": 2,
+          "default": 16,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Top margin",
+          "min": 0,
+          "max": 30,
+          "step": 2,
+          "default": 16,
+          "unit": "px"
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Bottom margin",
+          "min": 0,
+          "max": 30,
+          "step": 2,
+          "default": 16,
+          "unit": "px"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show shield/warranty icon",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "auto_check",
+          "label": "Auto-check the box",
+          "default": false,
+          "info": "Warning: Use with caution as it may reduce trust if customers don't notice."
+        }
+      ]
+    },
+    {
       "type": "cart_items",
       "name": "Cart items",
       "limit": 1,

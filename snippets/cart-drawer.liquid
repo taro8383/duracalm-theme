@@ -238,6 +238,128 @@
       flex-shrink: 0;
     }
   {% endif %}
+
+  /* In-Cart Upsell Styling */
+  .cart-drawer__in-cart-upsell {
+    background: var(--icup-bg, #F8F8F8);
+    border: 1px solid var(--icup-border, #E0E0E0);
+    border-radius: var(--icup-radius, 8px);
+    padding: var(--icup-padding, 16px);
+    margin-top: var(--icup-margin-top, 16px);
+    margin-bottom: var(--icup-margin-bottom, 16px);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .cart-drawer__in-cart-upsell:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-color: var(--icup-accent, #7B92C8);
+  }
+
+  .cart-drawer__in-cart-upsell__label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .cart-drawer__in-cart-upsell__checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border: 2px solid var(--icup-checkbox, #7B92C8);
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    margin-top: 2px;
+  }
+
+  .cart-drawer__in-cart-upsell__checkbox:checked {
+    background: var(--icup-checkbox, #7B92C8);
+  }
+
+  .cart-drawer__in-cart-upsell__checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .cart-drawer__in-cart-upsell__checkbox:focus {
+    outline: 2px solid var(--icup-accent, #7B92C8);
+    outline-offset: 2px;
+  }
+
+  .cart-drawer__in-cart-upsell__content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .cart-drawer__in-cart-upsell__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--icup-accent, #7B92C8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-drawer__in-cart-upsell__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .cart-drawer__in-cart-upsell__text {
+    font-size: 0.95rem;
+    color: var(--icup-text, #333333);
+    line-height: 1.4;
+  }
+
+  .cart-drawer__in-cart-upsell__price {
+    font-weight: 700;
+    color: var(--icup-accent, #7B92C8);
+    margin-left: 4px;
+  }
+
+  /* Loading state for upsell */
+  .cart-drawer__in-cart-upsell.is-loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .cart-drawer__in-cart-upsell.is-loading .cart-drawer__in-cart-upsell__checkbox {
+    animation: checkboxPulse 1s ease-in-out infinite;
+  }
+
+  @keyframes checkboxPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* Success state */
+  .cart-drawer__in-cart-upsell.is-added {
+    background: #e8f5e9;
+    border-color: #4caf50;
+  }
+
+  .cart-drawer__in-cart-upsell.is-added .cart-drawer__in-cart-upsell__text::after {
+    content: ' ✓ Added';
+    color: #4caf50;
+    font-weight: 600;
+    font-size: 0.85em;
+  }
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}{% if section.settings.test_mode %} active{% endif %} cart-drawer--desktop-width-{{ section.settings.desktop_width }} cart-drawer--mobile-width-{{ section.settings.mobile_width }}" data-type='modal'>
@@ -683,12 +805,101 @@
                   <div id="CartDrawer-CartErrors" role="alert"></div>
                 </form>
               </cart-drawer-items>
+            {% when 'in_cart_upsell' %}
+              {% liquid
+                assign show_upsell = false
+
+                # Check display rules
+                if block.settings.display_rule == 'always'
+                  assign show_upsell = true
+                elsif block.settings.display_rule == 'product_specific'
+                  assign target_handles = block.settings.target_product_handles | replace: ' ', '' | split: ','
+                  for item in cart.items
+                    if target_handles contains item.product.handle
+                      assign show_upsell = true
+                      break
+                    endif
+                  endfor
+                elsif block.settings.display_rule == 'collection_specific'
+                  for item in cart.items
+                    for collection in item.product.collections
+                      if collection.id == block.settings.target_collection.id
+                        assign show_upsell = true
+                        break
+                      endif
+                    endfor
+                    if show_upsell
+                      break
+                    endif
+                  endfor
+                elsif block.settings.display_rule == 'cart_value'
+                  if cart.total_price >= block.settings.min_cart_value
+                    assign show_upsell = true
+                  endif
+                endif
+
+                # Check if upsell product is already in cart
+                assign upsell_in_cart = false
+                if block.settings.upsell_product != blank
+                  for item in cart.items
+                    if item.product.id == block.settings.upsell_product.id
+                      assign upsell_in_cart = true
+                      break
+                    endif
+                  endfor
+                endif
+              %}
+
+              {% if show_upsell and upsell_in_cart == false and block.settings.upsell_product != blank %}
+                {% assign upsell_variant = block.settings.upsell_product.selected_or_first_available_variant %}
+                {% if block.settings.upsell_variant_id != blank %}
+                  {% for variant in block.settings.upsell_product.variants %}
+                    {% if variant.id == block.settings.upsell_variant_id %}
+                      {% assign upsell_variant = variant %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+
+                <div class="cart-drawer__in-cart-upsell"
+                     style="--icup-bg: {{ block.settings.background_color }};
+                            --icup-border: {{ block.settings.border_color }};
+                            --icup-text: {{ block.settings.text_color }};
+                            --icup-accent: {{ block.settings.accent_color }};
+                            --icup-checkbox: {{ block.settings.checkbox_color }};
+                            --icup-radius: {{ block.settings.border_radius }}px;
+                            --icup-padding: {{ block.settings.padding }}px;
+                            --icup-margin-top: {{ block.settings.margin_top }}px;
+                            --icup-margin-bottom: {{ block.settings.margin_bottom }}px;"
+                     {{ block.shopify_attributes }}>
+                  <label class="cart-drawer__in-cart-upsell__label{% if block.settings.auto_check %} is-auto-checked{% endif %}">
+                    <input type="checkbox"
+                           class="cart-drawer__in-cart-upsell__checkbox"
+                           data-variant-id="{{ upsell_variant.id }}"
+                           data-product-id="{{ block.settings.upsell_product.id }}"
+                           {% if block.settings.auto_check %}checked{% endif %}>
+                    <span class="cart-drawer__in-cart-upsell__content">
+                      {% if block.settings.show_icon %}
+                        <span class="cart-drawer__in-cart-upsell__icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+                          </svg>
+                        </span>
+                      {% endif %}
+                      <span class="cart-drawer__in-cart-upsell__text">
+                        {{ block.settings.offer_text }}
+                        <span class="cart-drawer__in-cart-upsell__price">{{ block.settings.offer_price }}</span>
+                      </span>
+                    </span>
+                  </label>
+                </div>
+              {% endif %}
+
             {% when 'product_upsells' %}
               {% if block.settings.position == 'body' %}
                 {% liquid
                   if block.settings.display == 'globally'
                     assign display = true
-                  else 
+                  else
                     assign display = false
                     assign handles_array = block.settings.display_product_handles | replace: ' ', '' | split: ','
                     if handles_array contains product.handle
@@ -1330,6 +1541,54 @@
             lineItem.style.opacity = '1';
             removeButton.style.pointerEvents = '';
             removeButton.dataset.removing = 'false';
+          });
+        }
+      }
+    });
+
+    // In-Cart Upsell functionality
+    document.addEventListener('change', function(e) {
+      const checkbox = e.target.closest('.cart-drawer__in-cart-upsell__checkbox');
+      if (checkbox) {
+        const upsellContainer = checkbox.closest('.cart-drawer__in-cart-upsell');
+        const variantId = checkbox.dataset.variantId;
+
+        if (checkbox.checked && variantId) {
+          // Add loading state
+          upsellContainer.classList.add('is-loading');
+
+          // Add the upsell product to cart
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              id: variantId,
+              quantity: 1
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            // Show success state
+            upsellContainer.classList.remove('is-loading');
+            upsellContainer.classList.add('is-added');
+
+            // Update cart prices and totals
+            updateCartPrices();
+
+            // Refresh cart sections
+            refreshCartSections();
+
+            // Dispatch cart update event
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: data }));
+          })
+          .catch(err => {
+            console.error('In-cart upsell error:', err);
+            upsellContainer.classList.remove('is-loading');
+            checkbox.checked = false;
+            alert('Sorry, we could not add this item to your cart. Please try again.');
           });
         }
       }
