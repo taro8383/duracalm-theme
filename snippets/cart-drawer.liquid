@@ -1244,6 +1244,121 @@
       }
     });
 
+    // Listen for cart item removal
+    document.addEventListener('click', function(e) {
+      const removeButton = e.target.closest('cart-remove-button');
+      if (removeButton) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Prevent double-clicking
+        if (removeButton.dataset.removing === 'true') return;
+        removeButton.dataset.removing = 'true';
+
+        const lineItem = removeButton.closest('.cart-drawer-item');
+        const index = removeButton.dataset.index;
+
+        if (lineItem && index) {
+          // Show loading state
+          lineItem.style.opacity = '0.5';
+          removeButton.style.pointerEvents = 'none';
+
+          // Remove the item via AJAX
+          fetch('/cart/change.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              line: parseInt(index),
+              quantity: 0
+            })
+          })
+          .then(response => response.json())
+          .then(cart => {
+            // Remove the item from DOM immediately with animation
+            lineItem.style.transition = 'all 0.3s ease';
+            lineItem.style.height = lineItem.offsetHeight + 'px';
+            lineItem.style.opacity = '0';
+            lineItem.style.transform = 'translateX(100%)';
+
+            setTimeout(() => {
+              lineItem.style.height = '0';
+              lineItem.style.margin = '0';
+              lineItem.style.padding = '0';
+              lineItem.style.overflow = 'hidden';
+
+              setTimeout(() => {
+                lineItem.remove();
+
+                // Update cart prices and totals
+                updateCartPrices();
+
+                // Refresh cart sections to ensure sync
+                refreshCartSections();
+
+                // Check if cart is empty
+                if (cart.item_count === 0) {
+                  // Show empty cart state without reload
+                  const cartDrawer = document.querySelector('cart-drawer');
+                  if (cartDrawer) {
+                    cartDrawer.classList.add('is-empty');
+                    const emptyContent = document.querySelector('.drawer__inner-empty');
+                    if (emptyContent) {
+                      emptyContent.style.display = 'flex';
+                    }
+                  }
+                  window.location.reload();
+                } else {
+                  // Dispatch custom event for cart update
+                  document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+                }
+              }, 300);
+            }, 300);
+          })
+          .catch(function(err) {
+            console.error('Cart remove error:', err);
+            lineItem.style.opacity = '1';
+            removeButton.style.pointerEvents = '';
+            removeButton.dataset.removing = 'false';
+          });
+        }
+      }
+    });
+
+    // Function to refresh cart sections
+    function refreshCartSections() {
+      // Fetch updated cart drawer HTML
+      fetch(window.location.pathname + '?section_id=cart-drawer')
+        .then(response => response.text())
+        .then(html => {
+          // Parse the new cart content
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+
+          // Update cart items count in header
+          const cartIconBubble = document.getElementById('cart-icon-bubble');
+          if (cartIconBubble) {
+            fetch('/cart.js')
+              .then(r => r.json())
+              .then(cart => {
+                const count = cart.item_count;
+                const bubble = cartIconBubble.querySelector('.cart-count-bubble');
+                if (bubble) {
+                  if (count > 0) {
+                    bubble.textContent = count;
+                    bubble.style.display = 'flex';
+                  } else {
+                    bubble.style.display = 'none';
+                  }
+                }
+              });
+          }
+        })
+        .catch(err => console.error('Cart refresh error:', err));
+    }
+
     // Also listen for custom cart events that the theme might fire
     document.addEventListener('cart:updated', function(e) {
       updateCartPrices();
