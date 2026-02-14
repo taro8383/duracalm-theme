@@ -861,6 +861,7 @@
                 {% endif %}
 
                 <div class="cart-drawer__in-cart-upsell"
+                     data-processing="false"
                      style="--icup-bg: {{ block.settings.background_color }};
                             --icup-border: {{ block.settings.border_color }};
                             --icup-text: {{ block.settings.text_color }};
@@ -1760,11 +1761,40 @@
             const isOpen = !cartDrawer.classList.contains('is-empty') || cartDrawer.hasAttribute('open');
             if (isOpen) {
               setTimeout(updateCartPrices, 100);
+              // Sync in-cart upsell checkboxes with actual cart state
+              setTimeout(syncInCartUpsellCheckboxes, 150);
             }
           }
         });
       });
       observer.observe(cartDrawer, { attributes: true });
+    }
+
+    // Helper function to sync in-cart upsell checkboxes with cart state
+    function syncInCartUpsellCheckboxes() {
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          const upsellCheckboxes = document.querySelectorAll('.cart-drawer__in-cart-upsell__checkbox');
+          upsellCheckboxes.forEach(function(checkbox) {
+            const variantId = checkbox.dataset.variantId;
+            const upsellContainer = checkbox.closest('.cart-drawer__in-cart-upsell');
+            if (variantId && upsellContainer) {
+              // Check if this variant is in the cart
+              const inCart = cart.items.some(function(item) {
+                return item.variant_id == variantId;
+              });
+              // Update checkbox and visual state to match cart
+              checkbox.checked = inCart;
+              if (inCart) {
+                upsellContainer.classList.add('is-added');
+              } else {
+                upsellContainer.classList.remove('is-added');
+              }
+            }
+          });
+        })
+        .catch(err => console.error('Error syncing upsell checkboxes:', err));
     }
   })();
 
