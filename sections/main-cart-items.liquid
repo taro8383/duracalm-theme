@@ -67,6 +67,7 @@
                   class="cart-item cart-item--product-{{ item.product.handle }}"
                   id="CartItem-{{ item.index | plus: 1 }}"
                   data-quantity="{{ item.quantity }}"
+                  data-key="{{ item.key }}"
                 >
                   <td class="cart-item__media">
                     {% if item.image %}
@@ -243,6 +244,7 @@
                           aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
                           id="Quantity-{{ item.index | plus: 1 }}"
                           data-index="{{ item.index | plus: 1 }}"
+                          data-line-item-key="{{ item.key }}"
                         >
                         <button class="quantity__button no-js-hidden" name="plus" type="button">
                           <span class="visually-hidden">
@@ -255,6 +257,7 @@
                       <cart-remove-button
                         id="Remove-{{ item.index | plus: 1 }}"
                         data-index="{{ item.index | plus: 1 }}"
+                        data-line-item-key="{{ item.key }}"
                       >
                         <a
                           href="{{ item.url_to_remove }}"

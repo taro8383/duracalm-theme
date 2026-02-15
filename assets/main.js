@@ -3320,3 +3320,351 @@ class CardVariantSelects extends VariantSelects {
 }
 customElements[a0_0x5cI9e6f(0x418)](a0_0x5cI9e6f(0x321), CardVariantSelects);
 
+// PATCH: Fix cart update to use line item key instead of line number
+// This fixes the "line parameter is invalid" error when cart items change position
+(function() {
+    // Wait for CartItems to be defined
+    const originalCartItems = customElements.get('cart-items') || window.CartItems;
+    if (!originalCartItems) return;
+
+    // Helper function to get line item key
+    function getLineItemKey(index) {
+        const input = document.getElementById('Drawer-quantity-' + index) || document.getElementById('Quantity-' + index);
+        if (input?.dataset?.lineItemKey) return input.dataset.lineItemKey;
+
+        const cartItem = input?.closest('[data-key]') || document.getElementById('CartDrawer-Item-' + index) || document.getElementById('CartItem-' + index);
+        return cartItem?.dataset?.key;
+    }
+
+    // Helper function to refresh cart drawer
+    async function refreshCartDrawer() {
+        try {
+            const response = await fetch('/cart?view=drawer');
+            const html = await response.text();
+
+            // Parse and update cart drawer
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Update cart-drawer-items
+            const cartDrawerItems = document.querySelector('cart-drawer-items');
+            const newCartDrawerItems = doc.querySelector('cart-drawer-items');
+            if (cartDrawerItems && newCartDrawerItems) {
+                cartDrawerItems.innerHTML = newCartDrawerItems.innerHTML;
+            }
+
+            // Also update cart-icon-bubble
+            const cartBubble = document.getElementById('cart-icon-bubble');
+            const newCartBubble = doc.getElementById('cart-icon-bubble');
+            if (cartBubble && newCartBubble) {
+                cartBubble.innerHTML = newCartBubble.innerHTML;
+            }
+
+            // Update main cart if it exists
+            const mainCart = document.getElementById('main-cart-items');
+            const newMainCart = doc.getElementById('main-cart-items');
+            if (mainCart && newMainCart) {
+                mainCart.innerHTML = newMainCart.innerHTML;
+            }
+
+            // Dispatch event for other components
+            document.dispatchEvent(new CustomEvent('cart:updated'));
+        } catch (err) {
+            console.error('Cart refresh error:', err);
+        }
+    }
+
+    // Patch cart-remove-button to use line item key
+    document.addEventListener('click', function(e) {
+        const removeButton = e.target.closest('cart-remove-button');
+        if (!removeButton) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const index = removeButton.dataset.index;
+        const lineItemKey = removeButton.dataset.lineItemKey || getLineItemKey(index);
+
+        if (!lineItemKey) {
+            console.warn('No line item key found for remove');
+            return;
+        }
+
+        // Show loading state
+        removeButton.classList.add('loading');
+
+        // Update quantity to 0
+        fetch(routes.cart_change_url, {
+            ...fetchConfig(),
+            body: JSON.stringify({
+                id: lineItemKey,
+                quantity: 0,
+                sections: ['cart-drawer', 'cart-icon-bubble', 'main-cart-items'],
+                sections_url: window.location.pathname
+            })
+        })
+        .then(r => r.json())
+        .then(async () => {
+            await refreshCartDrawer();
+
+            // Update subtotal and other cart totals after removal
+            try {
+                const cartResponse = await fetch('/cart.js');
+                const cart = await cartResponse.json();
+
+                // Helper to format money
+                const shopCurrency = window.Shopify?.currency?.active || 'EUR';
+                const formatMoney = (cents) => {
+                    const value = (cents / 100).toFixed(2);
+                    if (shopCurrency === 'EUR') {
+                        return '€' + value.replace('.', ',');
+                    } else if (shopCurrency === 'USD') {
+                        return '$' + value;
+                    } else if (shopCurrency === 'GBP') {
+                        return '£' + value;
+                    }
+                    return value + ' ' + shopCurrency;
+                };
+
+                // Update subtotal in cart drawer
+                const subtotalAmount = document.querySelector('.cart-drawer__subtotal-amount');
+                if (subtotalAmount) {
+                    subtotalAmount.textContent = formatMoney(cart.total_price);
+                    subtotalAmount.setAttribute('data-total-price', cart.total_price);
+                }
+
+                // Update any other total price displays
+                const totalMoneyElements = document.querySelectorAll('.cart-drawer__totals__row__money[data-total-price]');
+                totalMoneyElements.forEach(el => {
+                    el.textContent = formatMoney(cart.total_price);
+                    el.setAttribute('data-total-price', cart.total_price);
+                });
+
+                // Update cart icon bubble
+                const cartIconBubble = document.getElementById('cart-icon-bubble');
+                if (cartIconBubble) {
+                    const bubble = cartIconBubble.querySelector('.cart-count-bubble');
+                    if (bubble) {
+                        if (cart.item_count > 0) {
+                            bubble.textContent = cart.item_count;
+                            bubble.style.display = 'flex';
+                        } else {
+                            bubble.style.display = 'none';
+                        }
+                    }
+                }
+
+                // Update heading with new item count
+                const heading = document.querySelector('.drawer__heading');
+                if (heading) {
+                    const headingText = heading.textContent;
+                    // Replace any number with the new item count
+                    let newText = headingText.replace(/\d+/, cart.item_count);
+                    // Handle singular/plural
+                    if (cart.item_count === 1) {
+                        newText = newText.replace(/items/i, 'item');
+                    } else {
+                        newText = newText.replace(/item(?!s)/i, 'items');
+                    }
+                    heading.textContent = newText;
+                }
+
+                // Handle empty cart state
+                if (cart.item_count === 0) {
+                    // Add is-empty class to cart-drawer
+                    const cartDrawer = document.querySelector('cart-drawer');
+                    if (cartDrawer) {
+                        cartDrawer.classList.add('is-empty');
+                    }
+
+                    // Reload cart drawer to show empty state
+                    try {
+                        const response = await fetch('/cart?view=drawer');
+                        const html = await response.text();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const newDrawer = doc.querySelector('#CartDrawer');
+                        const currentDrawer = document.getElementById('CartDrawer');
+                        if (newDrawer && currentDrawer) {
+                            currentDrawer.innerHTML = newDrawer.innerHTML;
+                        }
+                    } catch (e) {
+                        console.error('Error refreshing empty cart drawer:', e);
+                    }
+                }
+
+                // Dispatch cart update event for other components
+                document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+            } catch (e) {
+                console.error('Error updating cart totals after removal:', e);
+            }
+        })
+        .catch(err => {
+            console.error('Remove error:', err);
+            removeButton.classList.remove('loading');
+        });
+    }, true);
+
+    // Patch the quantity update to use line item key
+    document.addEventListener('change', function(e) {
+        const input = e.target.closest('.quantity__input');
+        if (!input) return;
+
+        const cartItem = input.closest('[data-key]');
+        if (!cartItem) return;
+
+        // Store the line item key on the input for later use
+        input.dataset.lineItemKey = cartItem.dataset.key;
+    }, true);
+
+    // Override CartItems updateQuantity to use key instead of line
+    const CartItemsClass = customElements.get('cart-items');
+    if (CartItemsClass) {
+        const originalPrototype = CartItemsClass.prototype;
+        const originalUpdateQuantity = originalPrototype.updateQuantity || originalPrototype[a0_0x5cI9e6f(0x3c1)];
+
+        originalPrototype.updateQuantity = async function(index, quantity, name) {
+            const input = document.getElementById('Drawer-quantity-' + index) || document.getElementById('Quantity-' + index);
+            const lineItemKey = input?.dataset?.lineItemKey || input?.closest('[data-key]')?.dataset?.key;
+
+            if (!lineItemKey) {
+                console.warn('No line item key found, falling back to index');
+                return originalUpdateQuantity.call(this, index, quantity, name);
+            }
+
+            this.enableLoading(index);
+
+            const body = JSON.stringify({
+                id: lineItemKey,  // Use stable key instead of line number
+                quantity: quantity,
+                sections: this.getSectionsToRender().map(s => s.section),
+                sections_url: window.location.pathname
+            });
+
+            try {
+                const response = await fetch(routes.cart_change_url, {
+                    ...fetchConfig(),
+                    body: body
+                });
+
+                const parsedState = await response.json();
+
+                // Handle errors
+                const quantityElement = document.getElementById('Quantity-' + index) || document.getElementById('Drawer-quantity-' + index);
+
+                if (parsedState.errors) {
+                    if (quantityElement) quantityElement.value = quantityElement.getAttribute('value');
+                    this.updateLiveRegions(index, parsedState.errors);
+                    return;
+                }
+
+                // Refresh cart drawer
+                await refreshCartDrawer();
+
+                // Update live regions - clear any errors (pass empty string to avoid 'undefined')
+                this.updateLiveRegions(index, '');
+
+                // Update subtotal and other cart totals
+                try {
+                    const cartResponse = await fetch('/cart.js');
+                    const cart = await cartResponse.json();
+
+                    // Helper to format money
+                    const shopCurrency = window.Shopify?.currency?.active || 'EUR';
+                    const formatMoney = (cents) => {
+                        const value = (cents / 100).toFixed(2);
+                        if (shopCurrency === 'EUR') {
+                            return '€' + value.replace('.', ',');
+                        } else if (shopCurrency === 'USD') {
+                            return '$' + value;
+                        } else if (shopCurrency === 'GBP') {
+                            return '£' + value;
+                        }
+                        return value + ' ' + shopCurrency;
+                    };
+
+                    // Update subtotal in cart drawer
+                    const subtotalAmount = document.querySelector('.cart-drawer__subtotal-amount');
+                    if (subtotalAmount) {
+                        subtotalAmount.textContent = formatMoney(cart.total_price);
+                        subtotalAmount.setAttribute('data-total-price', cart.total_price);
+                    }
+
+                    // Update any other total price displays
+                    const totalMoneyElements = document.querySelectorAll('.cart-drawer__totals__row__money[data-total-price]');
+                    totalMoneyElements.forEach(el => {
+                        el.textContent = formatMoney(cart.total_price);
+                        el.setAttribute('data-total-price', cart.total_price);
+                    });
+
+                    // Update cart icon bubble
+                    const cartIconBubble = document.getElementById('cart-icon-bubble');
+                    if (cartIconBubble) {
+                        const bubble = cartIconBubble.querySelector('.cart-count-bubble');
+                        if (bubble) {
+                            if (cart.item_count > 0) {
+                                bubble.textContent = cart.item_count;
+                                bubble.style.display = 'flex';
+                            } else {
+                                bubble.style.display = 'none';
+                            }
+                        }
+                    }
+
+                    // Update heading with new item count
+                    const heading = document.querySelector('.drawer__heading');
+                    if (heading) {
+                        const headingText = heading.textContent;
+                        // Replace any number with the new item count
+                        let newText = headingText.replace(/\d+/, cart.item_count);
+                        // Handle singular/plural
+                        if (cart.item_count === 1) {
+                            newText = newText.replace(/items/i, 'item');
+                        } else {
+                            newText = newText.replace(/item(?!s)/i, 'items');
+                        }
+                        heading.textContent = newText;
+                    }
+
+                    // Handle empty cart state
+                    if (cart.item_count === 0) {
+                        // Add is-empty class to cart-drawer
+                        const cartDrawer = document.querySelector('cart-drawer');
+                        if (cartDrawer) {
+                            cartDrawer.classList.add('is-empty');
+                        }
+
+                        // Reload cart drawer to show empty state
+                        try {
+                            const drawerResponse = await fetch('/cart?view=drawer');
+                            const html = await drawerResponse.text();
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const newDrawer = doc.querySelector('#CartDrawer');
+                            const currentDrawer = document.getElementById('CartDrawer');
+                            if (newDrawer && currentDrawer) {
+                                currentDrawer.innerHTML = newDrawer.innerHTML;
+                            }
+                        } catch (e) {
+                            console.error('Error refreshing empty cart drawer:', e);
+                        }
+                    }
+
+                    // Dispatch cart update event for other components
+                    document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
+                } catch (e) {
+                    console.error('Error updating cart totals:', e);
+                }
+
+                publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items' });
+
+            } catch (error) {
+                this.querySelectorAll('.loading-overlay').forEach(el => el.classList.add('hidden'));
+                const errors = document.getElementById('CartDrawer-CartErrors') || document.getElementById('cart-errors');
+                if (errors) errors.textContent = window.cartStrings.error;
+            } finally {
+                this.disableLoading(index);
+            }
+        };
+    }
+})();

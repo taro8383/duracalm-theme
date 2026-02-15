@@ -654,6 +654,7 @@
                                     class='cart-drawer-item__cart-remove-button'
                                     id="CartDrawer-Remove-{{ item.index | plus: 1 }}"
                                     data-index="{{ item.index | plus: 1 }}"
+                                    data-line-item-key="{{ item.key }}"
                                   >
                                     <button
                                       type="button"
@@ -711,6 +712,7 @@
                                           aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
                                           id="Drawer-quantity-{{ item.index | plus: 1 }}"
                                           data-index="{{ item.index | plus: 1 }}"
+                                          data-line-item-key="{{ item.key }}"
                                         >
                                         <button class="quantity__button quantity__button--plus no-js-hidden color-{{ block.settings.quantity_btns_color_scheme }}" name="plus" type="button">
                                           <span class="visually-hidden">
@@ -1486,8 +1488,10 @@
           })
           .then(cart => {
             if (cart) {
-              // Reload to show warranty line items
-              window.location.reload();
+              // Refresh cart UI dynamically instead of page reload
+              updateCartAfterUpsell(cart, upsellContainer);
+              // Dispatch event for other components
+              document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
             }
           })
           .catch(err => {
@@ -1514,15 +1518,17 @@
             }
 
             if (lineItem) {
-              return fetch('/cart/change.js', {
+              // Use updates object with variant ID instead of line parameter (line becomes invalid when cart changes)
+              const updates = {};
+              updates[variantId] = 0;
+              return fetch('/cart/update.js', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                  line: lineItem.line,
-                  quantity: 0
+                  updates: updates
                 })
               });
             } else {
@@ -1540,8 +1546,10 @@
           })
           .then(cart => {
             if (!cart) return;
-            // Reload to remove warranty line items
-            window.location.reload();
+            // Refresh cart UI dynamically instead of page reload
+            updateCartAfterUpsell(cart, upsellContainer);
+            // Dispatch event for other components
+            document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
           })
           .catch(err => {
             console.error('In-cart upsell remove error:', err);
