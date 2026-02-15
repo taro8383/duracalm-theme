@@ -1448,105 +1448,10 @@
         });
     }
 
-    // Listen for quantity changes on the quantity inputs
-    document.addEventListener('change', function(e) {
-      if (e.target.matches('.quantity__input[name="updates[]"]')) {
-        // Wait a moment for the cart to update on the server
-        setTimeout(updateCartPrices, 300);
-        // Try again after a longer delay as a fallback
-        setTimeout(updateCartPrices, 800);
-      }
-    });
-
-    // Listen for clicks on the plus/minus buttons
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.quantity__button')) {
-        // Wait for the cart to update
-        setTimeout(updateCartPrices, 300);
-        setTimeout(updateCartPrices, 800);
-      }
-    });
-
-    // Listen for cart item removal
-    document.addEventListener('click', function(e) {
-      const removeButton = e.target.closest('cart-remove-button');
-      if (removeButton) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Prevent double-clicking
-        if (removeButton.dataset.removing === 'true') return;
-        removeButton.dataset.removing = 'true';
-
-        const lineItem = removeButton.closest('.cart-drawer-item');
-        const index = removeButton.dataset.index;
-
-        if (lineItem && index) {
-          // Show loading state
-          lineItem.style.opacity = '0.5';
-          removeButton.style.pointerEvents = 'none';
-
-          // Remove the item via AJAX
-          fetch('/cart/change.js', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-              line: parseInt(index),
-              quantity: 0
-            })
-          })
-          .then(response => response.json())
-          .then(cart => {
-            // Remove the item from DOM immediately with animation
-            lineItem.style.transition = 'all 0.3s ease';
-            lineItem.style.height = lineItem.offsetHeight + 'px';
-            lineItem.style.opacity = '0';
-            lineItem.style.transform = 'translateX(100%)';
-
-            setTimeout(() => {
-              lineItem.style.height = '0';
-              lineItem.style.margin = '0';
-              lineItem.style.padding = '0';
-              lineItem.style.overflow = 'hidden';
-
-              setTimeout(() => {
-                lineItem.remove();
-
-                // Update cart prices and totals
-                updateCartPrices();
-
-                // Refresh cart sections to ensure sync
-                refreshCartSections();
-
-                // Check if cart is empty
-                if (cart.item_count === 0) {
-                  // Show empty cart state without reload
-                  const cartDrawer = document.querySelector('cart-drawer');
-                  if (cartDrawer) {
-                    cartDrawer.classList.add('is-empty');
-                    const emptyContent = document.querySelector('.drawer__inner-empty');
-                    if (emptyContent) {
-                      emptyContent.style.display = 'flex';
-                    }
-                  }
-                  window.location.reload();
-                } else {
-                  // Dispatch custom event for cart update
-                  document.dispatchEvent(new CustomEvent('cart:updated', { detail: cart }));
-                }
-              }, 300);
-            }, 300);
-          })
-          .catch(function(err) {
-            console.error('Cart remove error:', err);
-            lineItem.style.opacity = '1';
-            removeButton.style.pointerEvents = '';
-            removeButton.dataset.removing = 'false';
-          });
-        }
+    // Listen for Shopify's native cart updates
+    document.addEventListener('cart:updated', function(e) {
+      if (e.detail && e.detail.total_price) {
+        updateCartPrices();
       }
     });
 
