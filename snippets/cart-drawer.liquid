@@ -1590,14 +1590,22 @@
 
       if (checkbox.checked) {
         // ADD the upsell product to cart
-        // First check if it's already in cart to avoid duplicates
+        // Calculate quantity needed based on non-hidden items in cart
         fetch('/cart.js')
           .then(response => response.json())
           .then(cart => {
-            const alreadyInCart = cart.items.some(item => item.variant_id == variantId);
-            if (alreadyInCart) {
-              console.log('Upsell item already in cart, skipping add');
-              // Just update UI to match
+            // Count non-hidden items (main products) in cart
+            const mainProductQuantity = cart.items.reduce((sum, item) => {
+              const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
+              return isHidden ? sum : sum + item.quantity;
+            }, 0);
+
+            // Check how many warranties are already in cart
+            const existingWarranty = cart.items.find(item => item.variant_id == variantId);
+            const existingWarrantyQty = existingWarranty ? existingWarranty.quantity : 0;
+
+            if (existingWarrantyQty >= mainProductQuantity) {
+              console.log('Warranty quantity already matches product quantity');
               upsellContainer.classList.remove('is-loading');
               upsellContainer.classList.add('is-added');
               checkbox.disabled = false;
@@ -1606,7 +1614,11 @@
               return updateCartAfterUpsell(cart, upsellContainer);
             }
 
-            // Not in cart, proceed with add
+            // Calculate how many more warranties to add
+            const quantityToAdd = mainProductQuantity - existingWarrantyQty;
+            console.log(`Adding ${quantityToAdd} warranty(s) to match ${mainProductQuantity} product(s)`);
+
+            // Add the calculated quantity
             return fetch('/cart/add.js', {
               method: 'POST',
               headers: {
@@ -1615,7 +1627,7 @@
               },
               body: JSON.stringify({
                 id: variantId,
-                quantity: 1
+                quantity: quantityToAdd
               })
             });
           })
@@ -1625,7 +1637,7 @@
           })
           .then(data => {
             if (!data) return; // Already handled above
-            console.log('Upsell item added successfully:', data);
+            console.log('Upsell item(s) added successfully:', data);
             upsellContainer.classList.remove('is-loading');
             upsellContainer.classList.add('is-added');
             checkbox.disabled = false;
