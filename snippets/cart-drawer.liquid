@@ -1381,79 +1381,6 @@
       return '€' + value;
     }
 
-    // Main function to update cart prices
-    function updateCartPrices() {
-      fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-          // Update subtotal in footer
-          const subtotalEl = document.querySelector('.cart-drawer__subtotal-amount');
-          if (subtotalEl) {
-            subtotalEl.textContent = formatMoney(cart.total_price);
-          }
-
-          // Don't update line item prices from JS - let Shopify render them correctly
-          // The issue is that final_line_price format may differ from the display format
-          // Only update the subtotal and item count
-
-          // Update each line item price
-          // cart.items.forEach(function(item) {
-          //   const lineItems = document.querySelectorAll('.cart-drawer-item[data-variant-id="' + item.variant_id + '"]');
-          //   lineItems.forEach(function(lineItem) {
-          //     const priceWrapper = lineItem.querySelector('.cart-item__totals');
-          //     if (priceWrapper) {
-          //       const priceEl = priceWrapper.querySelector('.price--end.regular-price');
-          //       if (priceEl) {
-          //         priceEl.textContent = formatMoney(item.final_line_price);
-          //       }
-          //       const compareEl = priceWrapper.querySelector('.cart-item__old-price');
-          //       if (compareEl && item.original_price > item.final_price) {
-          //         compareEl.textContent = formatMoney(item.original_line_price);
-          //       }
-          //     }
-          //     lineItem.setAttribute('data-quantity', item.quantity);
-          //   });
-          // });
-
-          // Update cart heading count
-          const heading = document.querySelector('.drawer__heading');
-          if (heading) {
-            const nonUpsellCount = cart.items.reduce(function(sum, item) {
-              const isHidden = item.tags && item.tags.includes('cart-hidden');
-              return isHidden ? sum : sum + item.quantity;
-            }, 0);
-            // Replace the count number
-            let newText = heading.textContent.replace(/\d+/, nonUpsellCount);
-            // Handle pluralization: replace 'items' with 'item' if count is 1, or 'item' with 'items' if count > 1
-            if (nonUpsellCount === 1) {
-              newText = newText.replace(/\bitems\b/, 'item');
-            } else {
-              newText = newText.replace(/\bitem\b(?!s)/, 'items');
-            }
-            heading.textContent = newText;
-          }
-
-          // Update checkout button price
-          const checkoutBtn = document.getElementById('CartDrawer-Checkout');
-          if (checkoutBtn) {
-            const btnText = checkoutBtn.querySelector('.button__label');
-            if (btnText) {
-              const label = btnText.textContent.split('•')[0] || 'Checkout';
-              btnText.textContent = label.trim() + ' • ' + formatMoney(cart.total_price);
-            }
-          }
-        })
-        .catch(function(err) {
-          console.error('Cart update error:', err);
-        });
-    }
-
-    // Listen for Shopify's native cart updates
-    document.addEventListener('cart:updated', function(e) {
-      if (e.detail && e.detail.total_price) {
-        updateCartPrices();
-      }
-    });
 
     // Helper function to format money
     function formatCartMoney(cents) {
@@ -1559,7 +1486,6 @@
           })
           .then(cart => {
             if (cart) {
-              updateCartAfterUpsell(cart, upsellContainer);
               // Reload to show warranty line items
               window.location.reload();
             }
@@ -1614,11 +1540,6 @@
           })
           .then(cart => {
             if (!cart) return;
-            upsellContainer.classList.remove('is-loading', 'is-added');
-            checkbox.disabled = false;
-            upsellContainer.dataset.processing = 'false';
-            inFlightUpsellRequests.delete(variantId);
-            updateCartAfterUpsell(cart, upsellContainer);
             // Reload to remove warranty line items
             window.location.reload();
           })
@@ -1718,15 +1639,6 @@
         .catch(err => console.error('Cart refresh error:', err));
     }
 
-    // Also listen for custom cart events that the theme might fire
-    document.addEventListener('cart:updated', function(e) {
-      updateCartPrices();
-    });
-
-    document.addEventListener('cart:refresh', function(e) {
-      updateCartPrices();
-    });
-
     // Listen for the cart drawer opening
     const cartDrawer = document.querySelector('cart-drawer');
     if (cartDrawer) {
@@ -1735,7 +1647,6 @@
           if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
             const isOpen = !cartDrawer.classList.contains('is-empty') || cartDrawer.hasAttribute('open');
             if (isOpen) {
-              setTimeout(updateCartPrices, 100);
               // Sync in-cart upsell checkboxes with actual cart state
               setTimeout(syncInCartUpsellCheckboxes, 150);
             }
