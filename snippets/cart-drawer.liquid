@@ -1701,15 +1701,24 @@
       const cart = e.detail;
       if (!cart) return;
 
-      // Find the warranty checkbox
-      const checkbox = document.querySelector('.cart-drawer__in-cart-upsell__checkbox');
-      if (!checkbox) return;
+      // Find all upsell checkboxes
+      const checkboxes = document.querySelectorAll('.cart-drawer__in-cart-upsell__checkbox');
+      if (!checkboxes.length) return;
 
-      const upsellContainer = checkbox.closest('.cart-drawer__in-cart-upsell');
-      const variantId = checkbox.dataset.variantId;
+      // Process each checkbox - only apply auto-adjust to warranty/guarantee upsells
+      checkboxes.forEach(function(checkbox) {
+        const upsellContainer = checkbox.closest('.cart-drawer__in-cart-upsell');
+        const variantId = checkbox.dataset.variantId;
 
-      // Only proceed if warranty is already added (checkbox is checked)
-      if (!checkbox.checked || !upsellContainer || !variantId) return;
+        // Only proceed if checkbox is checked
+        if (!checkbox.checked || !upsellContainer || !variantId) return;
+
+        // Check if this is a warranty-type upsell by looking at the offer text
+        const offerText = upsellContainer.querySelector('.cart-drawer__in-cart-upsell__text')?.textContent?.toLowerCase() || '';
+        const isWarranty = offerText.includes('warranty') || offerText.includes('guarantee') || offerText.includes('protección') || offerText.includes('garantía');
+
+        // Only auto-adjust for warranty-type upsells
+        if (!isWarranty) return;
 
       // Calculate required warranty quantity based on main products
       let mainProductQuantity = 0;
@@ -1920,7 +1929,8 @@
           inFlightUpsellRequests.delete(variantId);
         });
       }
-    });
+      }); // End forEach
+    }); // End event listener
   })();
 
   // Helper function to format money
