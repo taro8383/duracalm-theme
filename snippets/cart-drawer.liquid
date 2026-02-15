@@ -1386,6 +1386,15 @@
       fetch('/cart.js')
         .then(response => response.json())
         .then(cart => {
+          console.log('Cart data received:', cart);
+          console.log('Cart items:', cart.items.map(i => ({
+            title: i.title,
+            variant_id: i.variant_id,
+            quantity: i.quantity,
+            final_line_price: i.final_line_price,
+            final_price: i.final_price
+          })));
+
           // Update subtotal in footer
           const subtotalEl = document.querySelector('.cart-drawer__subtotal-amount');
           if (subtotalEl) {
@@ -1394,14 +1403,18 @@
 
           // Update each line item price
           cart.items.forEach(function(item) {
+            console.log('Processing item:', item.title, 'variant_id:', item.variant_id, 'final_line_price:', item.final_line_price);
             // Find the item by variant_id
             const lineItems = document.querySelectorAll('.cart-drawer-item[data-variant-id="' + item.variant_id + '"]');
+            console.log('Found', lineItems.length, 'DOM elements for variant', item.variant_id);
+
             lineItems.forEach(function(lineItem) {
               // Update line total price - look for the price--end element
               const priceWrapper = lineItem.querySelector('.cart-item__totals');
               if (priceWrapper) {
                 const priceEl = priceWrapper.querySelector('.price--end.regular-price');
                 if (priceEl) {
+                  console.log('Updating price element from', priceEl.textContent, 'to', formatMoney(item.final_line_price));
                   priceEl.textContent = formatMoney(item.final_line_price);
                 }
 
