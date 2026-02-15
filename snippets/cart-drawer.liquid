@@ -1592,25 +1592,28 @@
         fetch('/cart.js')
           .then(response => response.json())
           .then(cart => {
-            console.log('Cart items for warranty calculation:', cart.items.map(i => ({title: i.title, qty: i.quantity, tags: i.tags, variant_id: i.variant_id})));
-
-            // Count non-hidden items (main products) in cart
-            const mainProductQuantity = cart.items.reduce((sum, item) => {
-              const isHidden = item.tags && item.tags.includes('cart-hidden');
-              console.log(`Item: ${item.title}, qty: ${item.quantity}, tags: ${item.tags}, isHidden: ${isHidden}`);
-              return isHidden ? sum : sum + item.quantity;
-            }, 0);
-
-            console.log('Total main product quantity:', mainProductQuantity);
+            // Count all items (for warranties, we add 1 per item in cart)
+            let mainProductQuantity = 0;
+            cart.items.forEach(item => {
+              // Skip the warranty itself when counting
+              if (item.variant_id != variantId) {
+                mainProductQuantity += item.quantity;
+              }
+            });
 
             // Check how many warranties are already in cart
-            const existingWarranty = cart.items.find(item => item.variant_id == variantId);
-            const existingWarrantyQty = existingWarranty ? existingWarranty.quantity : 0;
+            let existingWarrantyQty = 0;
+            cart.items.forEach(item => {
+              if (item.variant_id == variantId) {
+                existingWarrantyQty = item.quantity;
+              }
+            });
 
-            console.log('Existing warranty quantity:', existingWarrantyQty);
+            // Calculate how many more warranties to add
+            const quantityToAdd = mainProductQuantity - existingWarrantyQty;
 
-            if (existingWarrantyQty >= mainProductQuantity) {
-              console.log('Warranty quantity already matches product quantity');
+            if (quantityToAdd <= 0) {
+              // Already have enough warranties
               upsellContainer.classList.remove('is-loading');
               upsellContainer.classList.add('is-added');
               checkbox.disabled = false;
@@ -1618,10 +1621,6 @@
               inFlightUpsellRequests.delete(variantId);
               return updateCartAfterUpsell(cart, upsellContainer);
             }
-
-            // Calculate how many more warranties to add
-            const quantityToAdd = mainProductQuantity - existingWarrantyQty;
-            console.log(`Adding ${quantityToAdd} warranty(s) to match ${mainProductQuantity} product(s)`);
 
             // Add the calculated quantity
             return fetch('/cart/add.js', {
@@ -1642,7 +1641,6 @@
           })
           .then(data => {
             if (!data) return; // Already handled above
-            console.log('Upsell item(s) added successfully:', data);
             upsellContainer.classList.remove('is-loading');
             upsellContainer.classList.add('is-added');
             checkbox.disabled = false;
@@ -1693,7 +1691,7 @@
                 })
               });
             } else {
-              console.log('Upsell item not in cart, skipping remove');
+              // Item not in cart, just update UI
               upsellContainer.classList.remove('is-loading', 'is-added');
               checkbox.disabled = false;
               upsellContainer.dataset.processing = 'false';
@@ -1707,7 +1705,6 @@
           })
           .then(cart => {
             if (!cart) return;
-            console.log('Upsell item removed successfully');
             upsellContainer.classList.remove('is-loading', 'is-added');
             checkbox.disabled = false;
             upsellContainer.dataset.processing = 'false';
