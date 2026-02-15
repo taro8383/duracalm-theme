@@ -1695,6 +1695,232 @@
         })
         .catch(err => console.error('Error syncing upsell checkboxes:', err));
     }
+
+    // Listen for cart updates to auto-adjust warranty quantities
+    document.addEventListener('cart:updated', function(e) {
+      const cart = e.detail;
+      if (!cart) return;
+
+      // Find the warranty checkbox
+      const checkbox = document.querySelector('.cart-drawer__in-cart-upsell__checkbox');
+      if (!checkbox) return;
+
+      const upsellContainer = checkbox.closest('.cart-drawer__in-cart-upsell');
+      const variantId = checkbox.dataset.variantId;
+
+      // Only proceed if warranty is already added (checkbox is checked)
+      if (!checkbox.checked || !upsellContainer || !variantId) return;
+
+      // Calculate required warranty quantity based on main products
+      let mainProductQuantity = 0;
+      cart.items.forEach(item => {
+        // Skip the warranty itself when counting
+        if (item.variant_id != variantId) {
+          mainProductQuantity += item.quantity;
+        }
+      });
+
+      // Check how many warranties are currently in cart
+      let existingWarrantyQty = 0;
+      cart.items.forEach(item => {
+        if (item.variant_id == variantId) {
+          existingWarrantyQty = item.quantity;
+        }
+      });
+
+      // Calculate how many more warranties are needed
+      const quantityDifference = mainProductQuantity - existingWarrantyQty;
+
+      // If we need more warranties, add them
+      if (quantityDifference > 0) {
+        // Prevent concurrent updates
+        if (upsellContainer.dataset.processing === 'true' || inFlightUpsellRequests.has(variantId)) {
+          return;
+        }
+
+        upsellContainer.classList.add('is-loading');
+        upsellContainer.dataset.processing = 'true';
+        inFlightUpsellRequests.add(variantId);
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: quantityDifference
+          })
+        })
+        .then(response => response.json())
+        .then(() => {
+          return fetch('/cart.js');
+        })
+        .then(response => response.json())
+        .then(updatedCart => {
+          upsellContainer.classList.remove('is-loading');
+          upsellContainer.dataset.processing = 'false';
+          inFlightUpsellRequests.delete(variantId);
+          // Refresh the cart UI
+          updateCartAfterUpsell(updatedCart, upsellContainer);
+
+          // Update warranty line item display in cart
+          const warrantyItem = updatedCart.items.find(item => item.variant_id == variantId);
+          if (warrantyItem) {
+            // Find warranty cart item by variant ID
+            const warrantyCartItem = document.querySelector(`[data-variant-id="${variantId}"]`)?.closest('.cart-item');
+            if (warrantyCartItem) {
+              // Update quantity input
+              const qtyInput = warrantyCartItem.querySelector('.quantity__input');
+              if (qtyInput) {
+                qtyInput.value = warrantyItem.quantity;
+                qtyInput.setAttribute('value', warrantyItem.quantity);
+                qtyInput.setAttribute('data-cart-quantity', warrantyItem.quantity);
+              }
+
+              // Calculate the correct line item price (unit price * quantity)
+              const unitPrice = warrantyItem.final_price || warrantyItem.original_price;
+              const linePrice = unitPrice * warrantyItem.quantity;
+
+              // Update line item price - try multiple selectors
+              const priceSelectors = [
+                '.cart-item__price-wrapper .price--end',
+                '.cart-item__price-wrapper .regular-price',
+                '.cart-item__totals .price--end',
+                '.cart-item__totals .price'
+              ];
+              let priceDisplay = null;
+              for (const selector of priceSelectors) {
+                priceDisplay = warrantyCartItem.querySelector(selector);
+                if (priceDisplay) break;
+              }
+
+              if (priceDisplay) {
+                const shopCurrency = window.Shopify?.currency?.active || 'EUR';
+                const formatMoney = (cents) => {
+                  const value = (cents / 100).toFixed(2);
+                  if (shopCurrency === 'EUR') {
+                    return '€' + value.replace('.', ',');
+                  } else if (shopCurrency === 'USD') {
+                    return '$' + value;
+                  } else if (shopCurrency === 'GBP') {
+                    return '£' + value;
+                  }
+                  return value + ' ' + shopCurrency;
+                };
+                priceDisplay.textContent = formatMoney(linePrice);
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.error('Error auto-adding warranty:', err);
+          upsellContainer.classList.remove('is-loading');
+          upsellContainer.dataset.processing = 'false';
+          inFlightUpsellRequests.delete(variantId);
+        });
+      }
+      // If we have too many warranties, remove the excess
+      else if (quantityDifference < 0) {
+        const quantityToRemove = Math.abs(quantityDifference);
+
+        // Prevent concurrent updates
+        if (upsellContainer.dataset.processing === 'true' || inFlightUpsellRequests.has(variantId)) {
+          return;
+        }
+
+        upsellContainer.classList.add('is-loading');
+        upsellContainer.dataset.processing = 'true';
+        inFlightUpsellRequests.add(variantId);
+
+        // Calculate new warranty quantity
+        const newWarrantyQty = existingWarrantyQty - quantityToRemove;
+
+        // Use cart/change.js to update warranty quantity
+        fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: newWarrantyQty
+          })
+        })
+        .then(response => response.json())
+        .then(() => {
+          return fetch('/cart.js');
+        })
+        .then(response => response.json())
+        .then(updatedCart => {
+          upsellContainer.classList.remove('is-loading');
+          upsellContainer.dataset.processing = 'false';
+          inFlightUpsellRequests.delete(variantId);
+
+          // If no warranties left, uncheck the checkbox
+          if (newWarrantyQty <= 0) {
+            checkbox.checked = false;
+            upsellContainer.classList.remove('is-added');
+          }
+
+          // Refresh the cart UI
+          updateCartAfterUpsell(updatedCart, upsellContainer);
+
+          // Update warranty line item display in cart
+          const warrantyItem = updatedCart.items.find(item => item.variant_id == variantId);
+          if (warrantyItem) {
+            const warrantyCartItem = document.querySelector(`[data-variant-id="${variantId}"]`)?.closest('.cart-item');
+            if (warrantyCartItem) {
+              const qtyInput = warrantyCartItem.querySelector('.quantity__input');
+              if (qtyInput) {
+                qtyInput.value = warrantyItem.quantity;
+                qtyInput.setAttribute('value', warrantyItem.quantity);
+                qtyInput.setAttribute('data-cart-quantity', warrantyItem.quantity);
+              }
+
+              const unitPrice = warrantyItem.final_price || warrantyItem.original_price;
+              const linePrice = unitPrice * warrantyItem.quantity;
+
+              const priceSelectors = [
+                '.cart-item__price-wrapper .price--end',
+                '.cart-item__price-wrapper .regular-price',
+                '.cart-item__totals .price--end',
+                '.cart-item__totals .price'
+              ];
+              let priceDisplay = null;
+              for (const selector of priceSelectors) {
+                priceDisplay = warrantyCartItem.querySelector(selector);
+                if (priceDisplay) break;
+              }
+
+              if (priceDisplay) {
+                const shopCurrency = window.Shopify?.currency?.active || 'EUR';
+                const formatMoney = (cents) => {
+                  const value = (cents / 100).toFixed(2);
+                  if (shopCurrency === 'EUR') {
+                    return '€' + value.replace('.', ',');
+                  } else if (shopCurrency === 'USD') {
+                    return '$' + value;
+                  } else if (shopCurrency === 'GBP') {
+                    return '£' + value;
+                  }
+                  return value + ' ' + shopCurrency;
+                };
+                priceDisplay.textContent = formatMoney(linePrice);
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.error('Error auto-removing warranty:', err);
+          upsellContainer.classList.remove('is-loading');
+          upsellContainer.dataset.processing = 'false';
+          inFlightUpsellRequests.delete(variantId);
+        });
+      }
+    });
   })();
 
   // Helper function to format money
