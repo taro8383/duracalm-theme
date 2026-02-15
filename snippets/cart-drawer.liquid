@@ -1558,7 +1558,11 @@
             return response.json();
           })
           .then(cart => {
-            if (cart) updateCartAfterUpsell(cart, upsellContainer);
+            if (cart) {
+              updateCartAfterUpsell(cart, upsellContainer);
+              // Reload to show warranty line items
+              window.location.reload();
+            }
           })
           .catch(err => {
             console.error('In-cart upsell add error:', err);
@@ -1614,7 +1618,9 @@
             checkbox.disabled = false;
             upsellContainer.dataset.processing = 'false';
             inFlightUpsellRequests.delete(variantId);
-            return updateCartAfterUpsell(cart, upsellContainer);
+            updateCartAfterUpsell(cart, upsellContainer);
+            // Reload to remove warranty line items
+            window.location.reload();
           })
           .catch(err => {
             console.error('In-cart upsell remove error:', err);
