@@ -1419,7 +1419,7 @@
           const heading = document.querySelector('.drawer__heading');
           if (heading) {
             const nonUpsellCount = cart.items.reduce(function(sum, item) {
-              const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
+              const isHidden = item.tags && item.tags.includes('cart-hidden');
               return isHidden ? sum : sum + item.quantity;
             }, 0);
             // Replace the count number
@@ -1592,15 +1592,22 @@
         fetch('/cart.js')
           .then(response => response.json())
           .then(cart => {
+            console.log('Cart items for warranty calculation:', cart.items.map(i => ({title: i.title, qty: i.quantity, tags: i.tags, variant_id: i.variant_id})));
+
             // Count non-hidden items (main products) in cart
             const mainProductQuantity = cart.items.reduce((sum, item) => {
-              const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
+              const isHidden = item.tags && item.tags.includes('cart-hidden');
+              console.log(`Item: ${item.title}, qty: ${item.quantity}, tags: ${item.tags}, isHidden: ${isHidden}`);
               return isHidden ? sum : sum + item.quantity;
             }, 0);
+
+            console.log('Total main product quantity:', mainProductQuantity);
 
             // Check how many warranties are already in cart
             const existingWarranty = cart.items.find(item => item.variant_id == variantId);
             const existingWarrantyQty = existingWarranty ? existingWarranty.quantity : 0;
+
+            console.log('Existing warranty quantity:', existingWarrantyQty);
 
             if (existingWarrantyQty >= mainProductQuantity) {
               console.log('Warranty quantity already matches product quantity');
@@ -1725,7 +1732,7 @@
       const heading = document.querySelector('.drawer__heading');
       if (heading) {
         const nonUpsellCount = cart.items.reduce(function(sum, item) {
-          const isHidden = item.product_tags && item.product_tags.includes('cart-hidden');
+          const isHidden = item.tags && item.tags.includes('cart-hidden');
           return isHidden ? sum : sum + item.quantity;
         }, 0);
         let newText = heading.textContent.replace(/\d+/, nonUpsellCount);
