@@ -1386,49 +1386,34 @@
       fetch('/cart.js')
         .then(response => response.json())
         .then(cart => {
-          console.log('Cart data received:', cart);
-          console.log('Cart items:', cart.items.map(i => ({
-            title: i.title,
-            variant_id: i.variant_id,
-            quantity: i.quantity,
-            final_line_price: i.final_line_price,
-            final_price: i.final_price
-          })));
-
           // Update subtotal in footer
           const subtotalEl = document.querySelector('.cart-drawer__subtotal-amount');
           if (subtotalEl) {
             subtotalEl.textContent = formatMoney(cart.total_price);
           }
 
+          // Don't update line item prices from JS - let Shopify render them correctly
+          // The issue is that final_line_price format may differ from the display format
+          // Only update the subtotal and item count
+
           // Update each line item price
-          cart.items.forEach(function(item) {
-            console.log('Processing item:', item.title, 'variant_id:', item.variant_id, 'final_line_price:', item.final_line_price);
-            // Find the item by variant_id
-            const lineItems = document.querySelectorAll('.cart-drawer-item[data-variant-id="' + item.variant_id + '"]');
-            console.log('Found', lineItems.length, 'DOM elements for variant', item.variant_id);
-
-            lineItems.forEach(function(lineItem) {
-              // Update line total price - look for the price--end element
-              const priceWrapper = lineItem.querySelector('.cart-item__totals');
-              if (priceWrapper) {
-                const priceEl = priceWrapper.querySelector('.price--end.regular-price');
-                if (priceEl) {
-                  console.log('Updating price element from', priceEl.textContent, 'to', formatMoney(item.final_line_price));
-                  priceEl.textContent = formatMoney(item.final_line_price);
-                }
-
-                // Update compare price if exists
-                const compareEl = priceWrapper.querySelector('.cart-item__old-price');
-                if (compareEl && item.original_price > item.final_price) {
-                  compareEl.textContent = formatMoney(item.original_line_price);
-                }
-              }
-
-              // Update data-quantity
-              lineItem.setAttribute('data-quantity', item.quantity);
-            });
-          });
+          // cart.items.forEach(function(item) {
+          //   const lineItems = document.querySelectorAll('.cart-drawer-item[data-variant-id="' + item.variant_id + '"]');
+          //   lineItems.forEach(function(lineItem) {
+          //     const priceWrapper = lineItem.querySelector('.cart-item__totals');
+          //     if (priceWrapper) {
+          //       const priceEl = priceWrapper.querySelector('.price--end.regular-price');
+          //       if (priceEl) {
+          //         priceEl.textContent = formatMoney(item.final_line_price);
+          //       }
+          //       const compareEl = priceWrapper.querySelector('.cart-item__old-price');
+          //       if (compareEl && item.original_price > item.final_price) {
+          //         compareEl.textContent = formatMoney(item.original_line_price);
+          //       }
+          //     }
+          //     lineItem.setAttribute('data-quantity', item.quantity);
+          //   });
+          // });
 
           // Update cart heading count
           const heading = document.querySelector('.drawer__heading');
