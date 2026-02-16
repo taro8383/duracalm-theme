@@ -38,6 +38,31 @@
     --color-button-text: {{ section.settings.custom_colors_solid_button_text.red }}, {{ section.settings.custom_colors_solid_button_text.green }}, {{ section.settings.custom_colors_solid_button_text.blue }};
   }
 
+  /* Magic Mind Section Styling */
+  {% if section.settings.enable_magic_mind_bg %}
+  .color-scheme-{{ section.id }} .collection-{{ section.id }} {
+    background-color: {{ section.settings.magic_mind_bg_color }};
+  }
+  {% endif %}
+
+  /* Magic Mind Card Styling */
+  {% if section.settings.enable_magic_mind_cards %}
+  .collection-{{ section.id }} .card {
+    background-color: {{ section.settings.magic_mind_card_bg_color }} !important;
+    border-radius: {{ section.settings.magic_mind_card_radius }}px;
+    overflow: hidden;
+  }
+
+  .collection-{{ section.id }} .card__content {
+    background-color: {{ section.settings.magic_mind_card_bg_color }} !important;
+  }
+
+  .collection-{{ section.id }} .card__information {
+    background-color: {{ section.settings.magic_mind_card_bg_color }} !important;
+    padding: {{ section.settings.magic_mind_card_padding }}px !important;
+  }
+  {% endif %}
+
   {% if section.settings.enable_magic_mind_style %}
   .collection-{{ section.id }} .quick-add .quick-add__submit.button {
     position: relative !important;
@@ -464,6 +489,54 @@
         }
       ],
       "default": "solid"
+    },
+    {
+      "type": "header",
+      "content": "Magic Mind Styling"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_magic_mind_bg",
+      "label": "Enable Magic Mind background color",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "magic_mind_bg_color",
+      "label": "Section background color",
+      "default": "#ddbea8"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_magic_mind_cards",
+      "label": "Enable Magic Mind card styling",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "magic_mind_card_bg_color",
+      "label": "Card background color",
+      "default": "#f3dfc1"
+    },
+    {
+      "type": "range",
+      "id": "magic_mind_card_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "magic_mind_card_padding",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Card content padding",
+      "default": 16
     },
     {
       "type": "header",
