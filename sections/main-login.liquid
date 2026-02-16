@@ -1,4 +1,5 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'login-custom.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -15,6 +16,15 @@
 {%- endstyle -%}
 
 <div class="customer login section-{{ section.id }}-padding">
+  <div class="login-logo">
+    <a href="{{ routes.root_url }}">
+      {%- if settings.logo != blank -%}
+        <img src="{{ settings.logo | image_url: width: 180 }}" alt="{{ shop.name }}" loading="eager">
+      {%- else -%}
+        <span class="h2">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+  </div>
   <h1 id="recover" tabindex="-1">
     {{ 'customer.recover_password.title' | t }}
   </h1>
