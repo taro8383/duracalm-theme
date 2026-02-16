@@ -48,17 +48,20 @@
   /* Magic Mind Card Styling */
   {% if section.settings.enable_magic_mind_cards %}
   .collection-{{ section.id }} .card {
-    background-color: {{ section.settings.magic_mind_card_bg_color }} !important;
     border-radius: {{ section.settings.magic_mind_card_radius }}px;
     overflow: hidden;
   }
 
+  .collection-{{ section.id }} .card__inner {
+    background-color: {{ section.settings.magic_mind_card_bg_color }};
+  }
+
   .collection-{{ section.id }} .card__content {
-    background-color: {{ section.settings.magic_mind_card_bg_color }} !important;
+    background-color: {{ section.settings.magic_mind_card_bg_color }};
   }
 
   .collection-{{ section.id }} .card__information {
-    background-color: {{ section.settings.magic_mind_card_bg_color }} !important;
+    background-color: {{ section.settings.magic_mind_card_bg_color }};
     padding: {{ section.settings.magic_mind_card_padding }}px !important;
   }
   {% endif %}
