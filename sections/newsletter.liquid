@@ -41,8 +41,7 @@
   }
   {% endif %}
 
-  /* Magic Mind Sign Up Button */
-  {% if section.settings.enable_magic_mind_button %}
+  /* Magic Mind Sign Up Button - Always apply */
   #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button,
   #shopify-section-{{ section.id }} .newsletter__solid-btn.button {
     position: relative !important;
@@ -97,7 +96,6 @@
     background: transparent !important;
     background-color: transparent !important;
   }
-  {% endif %}
 {%- endstyle -%}
 
 <div class="newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %} content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">

@@ -11,10 +11,11 @@
     }
   }
 
-  /* Magic Mind Continue Shopping Button */
-  {% if section.settings.enable_magic_mind_continue_button %}
+  /* Magic Mind Continue Shopping Button - Always apply for now */
   #shopify-section-{{ section.id }} .title-wrapper-with-link a.underlined-link,
-  #shopify-section-{{ section.id }} .cart__warnings a.button {
+  #shopify-section-{{ section.id }} .cart__warnings a.button,
+  .title-wrapper-with-link a.underlined-link[href*="collection"],
+  .cart__warnings .button {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -66,7 +67,6 @@
     box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
     text-decoration: none !important;
   }
-  {% endif %}
 {%- endstyle -%}
 
 <cart-items class="page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
