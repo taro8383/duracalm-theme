@@ -11,13 +11,11 @@
     }
   }
 
-  /* Magic Mind Continue Shopping Button - Always apply for now */
-  .cart__warnings a.button,
-  .cart__warnings .button,
-  main a.underlined-link[href*="collection"],
-  .title-wrapper-with-link a.underlined-link,
-  #main-cart-items ~ .cart__warnings a.button,
-  cart-items .cart__warnings a.button {
+  {% if section.settings.enable_magic_mind_continue_button %}
+  /* Magic Mind Continue Shopping Button */
+  .title-wrapper-with-link .magic-mind-cart-btn,
+  .title-wrapper-with-link .magic-mind-cart-btn.button,
+  .title-wrapper-with-link .magic-mind-cart-btn.button--secondary {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -38,12 +36,10 @@
     overflow: hidden !important;
     z-index: 1 !important;
     min-width: auto !important;
+    box-shadow: none !important;
   }
 
-  .cart__warnings a.button::before,
-  .cart__warnings .button::before,
-  main a.underlined-link[href*="collection"]::before,
-  .title-wrapper-with-link a.underlined-link::before,
+  .title-wrapper-with-link .magic-mind-cart-btn::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -57,30 +53,36 @@
     z-index: -1 !important;
   }
 
-  .cart__warnings a.button:hover::before,
-  .cart__warnings .button:hover::before,
-  main a.underlined-link[href*="collection"]:hover::before,
-  .title-wrapper-with-link a.underlined-link:hover::before,
+  .title-wrapper-with-link .magic-mind-cart-btn:hover::before {
     opacity: 1 !important;
     background-position: 100% 0 !important;
   }
 
-  .cart__warnings a.button:hover,
-  .cart__warnings .button:hover,
-  main a.underlined-link[href*="collection"]:hover,
-  .title-wrapper-with-link a.underlined-link:hover,
+  .title-wrapper-with-link .magic-mind-cart-btn:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
     text-decoration: none !important;
+    background: transparent !important;
   }
+
+  /* Remove arrow from button */
+  .title-wrapper-with-link .magic-mind-cart-btn::after,
+  .title-wrapper-with-link .magic-mind-cart-btn .icon-arrow,
+  .title-wrapper-with-link .magic-mind-cart-btn .icon {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    background-image: none !important;
+  }
+  {% endif %}
 {%- endstyle -%}
 
 <cart-items class="page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="title-wrapper-with-link title-wrapper-with-link--spacing">
     <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-    <a href="{% if settings.continue_shopping_url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ settings.continue_shopping_url }}{% endif %}" class="underlined-link">
+    <a href="{% if settings.continue_shopping_url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ settings.continue_shopping_url }}{% endif %}" class="button button--secondary{% if section.settings.enable_magic_mind_continue_button %} magic-mind-cart-btn{% endif %}">
       {{ 'general.continue_shopping' | t }}
     </a>
   </div>
