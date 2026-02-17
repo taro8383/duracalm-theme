@@ -27,7 +27,32 @@
       "Bash(do if grep -q '\"\"blocks\"\":' \"$f\")",
       "Bash(! grep -q \"button_magic_mind\" \"$f\")",
       "Bash(python -c:*)",
-      "Bash(shopify theme:*)"
+      "Bash(shopify theme:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(findstr:*)",
+      "Bash(npx shopify theme push:*)",
+      "Bash(xxd -r:*)",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\" add assets/main.js sections/main-cart-items.liquid snippets/cart-drawer.liquid)",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\" commit -m \"$\\(cat <<''EOF''\nFix cart real-time updates and empty cart state handling\n\n- Fix cart to use stable line item keys instead of positional line numbers\n- Add real-time subtotal updates when changing quantities or removing items\n- Fix empty cart state to show when all items are removed\n- Update cart heading count dynamically for all operations\n- Fix undefined error message when modifying quantities\nEOF\n\\)\")",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\" push origin master)",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\" status)",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\" add snippets/cart-drawer.liquid)",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\" commit -m \"$\\(cat <<''EOF''\nAdd warranty auto-decrease when product quantities are reduced\n\n- Warranty quantity now decreases automatically when products are removed\n- Warranty quantity decreases when product quantities are reduced\n- Warranty checkbox unchecks itself when all warranties are removed\n- Updates warranty line item display \\(quantity and price\\) in real-time\nEOF\n\\)\")",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\" commit -m \"$\\(cat <<''EOF''\nRestrict warranty auto-adjust to warranty-type upsells only\n\n- Auto-adjust logic now only applies to upsells with warranty/guarantee text\n- Checks offer text for: warranty, guarantee, protección, garantía\n- Other upsells \\(gift boxes, accessories\\) are not affected by auto-adjust\n- Processes all upsell checkboxes individually instead of just the first one\nEOF\n\\)\")",
+      "Bash(tr:*)",
+      "mcp__web-reader__webReader",
+      "WebSearch",
+      "WebFetch(domain:porongas-2.myshopify.com)",
+      "WebFetch(domain:shopify.com)",
+      "Bash(shopify --version:*)",
+      "mcp__context7__query-docs",
+      "Bash(Select-String:*)",
+      "Bash(theme deploy:*)",
+      "Bash(cd:*)",
+      "Bash(git -C:*)",
+      "Bash(git -C \"D:\\\\Duracalm-front\\\\Duracalm-Developement\\\\duracalm-theme\" commit -m \"Fix Continue Shopping button - change class to magic-mind-cart-btn to remove arrow\")",
+      "Bash(git stash:*)",
+      "Bash(git pull:*)"
     ]
   }
 }
