@@ -160,7 +160,65 @@
 
     .cart-drawer__empty-cta {
       margin-top: 20px;
+      display: flex;
+      flex-direction: {{ section.settings.empty_cart_buttons_layout | default: 'stacked' }};
+      gap: {{ section.settings.empty_cart_buttons_gap | default: 10 }}px;
+      justify-content: center;
     }
+
+    .cart-drawer__empty-cta .button {
+      margin: 0;
+    }
+
+    {% if section.settings.enable_empty_cart_secondary_btn %}
+    /* Magic Mind Secondary Button */
+    .cart-drawer__empty-cta .button--secondary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: {{ section.settings.empty_cart_secondary_btn_padding_y | default: 16 }}px {{ section.settings.empty_cart_secondary_btn_padding_x | default: 30 }}px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      text-transform: none;
+      border: 2px solid {{ section.settings.empty_cart_secondary_btn_border | default: '#7B92C8' }};
+      border-radius: 8px;
+      color: {{ section.settings.empty_cart_secondary_btn_text_color | default: '#7B92C8' }};
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cart-drawer__empty-cta .button--secondary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%);
+      background-size: 200% 200%;
+      opacity: 0;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    .cart-drawer__empty-cta .button--secondary:hover::before {
+      opacity: 1;
+      background-position: 100% 0;
+    }
+
+    .cart-drawer__empty-cta .button--secondary:hover {
+      color: #ffffff;
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3);
+    }
+    {% endif %}
 
     .cart-drawer__featured-products {
       margin-top: 30px;
@@ -391,6 +449,11 @@
                   <a href="{% if section.settings.empty_cart_cta_url != blank %}{{ section.settings.empty_cart_cta_url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="button button--primary">
                     {{ section.settings.empty_cart_cta_text | default: 'Start Shopping' }}
                   </a>
+                  {% if section.settings.enable_empty_cart_secondary_btn %}
+                    <a href="{% if section.settings.empty_cart_secondary_btn_url != blank %}{{ section.settings.empty_cart_secondary_btn_url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="button button--secondary">
+                      {{ section.settings.empty_cart_secondary_btn_text | default: 'Take the Quiz' }}
+                    </a>
+                  {% endif %}
                 </div>
                 {% if section.settings.empty_cart_featured_collection != blank %}
                   <div class="cart-drawer__featured-products">
