@@ -42,8 +42,10 @@
   {% endif %}
 
   /* Magic Mind Sign Up Button - Always apply */
-  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button,
-  #shopify-section-{{ section.id }} .newsletter__solid-btn.button {
+  .newsletter__wrapper .newsletter__solid-btn.button,
+  .newsletter__solid-btn.button,
+  button.newsletter__solid-btn,
+  .newsletter button.button[type="submit"] {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -66,8 +68,10 @@
     box-shadow: none !important;
   }
 
-  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button::before,
-  #shopify-section-{{ section.id }} .newsletter__solid-btn.button::before {
+  .newsletter__wrapper .newsletter__solid-btn.button::before,
+  .newsletter__solid-btn.button::before,
+  button.newsletter__solid-btn::before,
+  .newsletter button.button[type="submit"]::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -81,14 +85,18 @@
     z-index: -1 !important;
   }
 
-  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button:hover::before,
-  #shopify-section-{{ section.id }} .newsletter__solid-btn.button:hover::before {
+  .newsletter__wrapper .newsletter__solid-btn.button:hover::before,
+  .newsletter__solid-btn.button:hover::before,
+  button.newsletter__solid-btn:hover::before,
+  .newsletter button.button[type="submit"]:hover::before {
     opacity: 1 !important;
     background-position: 100% 0 !important;
   }
 
-  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button:hover,
-  #shopify-section-{{ section.id }} .newsletter__solid-btn.button:hover {
+  .newsletter__wrapper .newsletter__solid-btn.button:hover,
+  .newsletter__solid-btn.button:hover,
+  button.newsletter__solid-btn:hover,
+  .newsletter button.button[type="submit"]:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;

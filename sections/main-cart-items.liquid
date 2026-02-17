@@ -12,10 +12,12 @@
   }
 
   /* Magic Mind Continue Shopping Button - Always apply for now */
-  #shopify-section-{{ section.id }} .title-wrapper-with-link a.underlined-link,
-  #shopify-section-{{ section.id }} .cart__warnings a.button,
-  .title-wrapper-with-link a.underlined-link[href*="collection"],
-  .cart__warnings .button {
+  .cart__warnings a.button,
+  .cart__warnings .button,
+  main a.underlined-link[href*="collection"],
+  .title-wrapper-with-link a.underlined-link,
+  #main-cart-items ~ .cart__warnings a.button,
+  cart-items .cart__warnings a.button {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -38,8 +40,10 @@
     min-width: auto !important;
   }
 
-  #shopify-section-{{ section.id }} .title-wrapper-with-link a.underlined-link::before,
-  #shopify-section-{{ section.id }} .cart__warnings a.button::before {
+  .cart__warnings a.button::before,
+  .cart__warnings .button::before,
+  main a.underlined-link[href*="collection"]::before,
+  .title-wrapper-with-link a.underlined-link::before,
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -53,14 +57,18 @@
     z-index: -1 !important;
   }
 
-  #shopify-section-{{ section.id }} .title-wrapper-with-link a.underlined-link:hover::before,
-  #shopify-section-{{ section.id }} .cart__warnings a.button:hover::before {
+  .cart__warnings a.button:hover::before,
+  .cart__warnings .button:hover::before,
+  main a.underlined-link[href*="collection"]:hover::before,
+  .title-wrapper-with-link a.underlined-link:hover::before,
     opacity: 1 !important;
     background-position: 100% 0 !important;
   }
 
-  #shopify-section-{{ section.id }} .title-wrapper-with-link a.underlined-link:hover,
-  #shopify-section-{{ section.id }} .cart__warnings a.button:hover {
+  .cart__warnings a.button:hover,
+  .cart__warnings .button:hover,
+  main a.underlined-link[href*="collection"]:hover,
+  .title-wrapper-with-link a.underlined-link:hover,
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;
