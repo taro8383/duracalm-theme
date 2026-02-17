@@ -43,7 +43,8 @@
 
   /* Magic Mind Sign Up Button */
   {% if section.settings.enable_magic_mind_button %}
-  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button {
+  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button,
+  #shopify-section-{{ section.id }} .newsletter__solid-btn.button {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -66,26 +67,29 @@
     box-shadow: none !important;
   }
 
-  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%);
-    background-size: 200% 200%;
-    opacity: 0;
-    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: -1;
+  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button::before,
+  #shopify-section-{{ section.id }} .newsletter__solid-btn.button::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%) !important;
+    background-size: 200% 200% !important;
+    opacity: 0 !important;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: -1 !important;
   }
 
-  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button:hover::before {
-    opacity: 1;
-    background-position: 100% 0;
+  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button:hover::before,
+  #shopify-section-{{ section.id }} .newsletter__solid-btn.button:hover::before {
+    opacity: 1 !important;
+    background-position: 100% 0 !important;
   }
 
-  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button:hover {
+  #shopify-section-{{ section.id }} .newsletter__wrapper .newsletter__solid-btn.button:hover,
+  #shopify-section-{{ section.id }} .newsletter__solid-btn.button:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;
