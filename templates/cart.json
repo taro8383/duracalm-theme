@@ -13,8 +13,7 @@
       "type": "main-cart-items",
       "settings": {
         "padding_top": 36,
-        "padding_bottom": 36,
-        "section_bg_color": "#f3dfc1"
+        "padding_bottom": 36
       }
     },
     "cart-footer": {
