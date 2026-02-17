@@ -1,16 +1,7 @@
 {%- comment -%} Magic Mind Cart Items with Theme Editor Controls {%- endcomment -%}
 
 {%- style -%}
-  /* Parent container targeting to eliminate white space */
-  #MainContent,
-  main#MainContent,
-  .page-width,
-  main {
-    background-color: {{ section.settings.section_bg_color }} !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
+  /* Cart section specific styling */
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
