@@ -382,6 +382,407 @@
       "type": "color",
       "id": "empty_cart_text_color",
       "label": "Empty cart text color"
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Layout & Spacing"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_background_color",
+      "label": "Empty cart background color",
+      "info": "Leave empty for default transparent background"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_padding_horizontal",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding left/right",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_content_max_width",
+      "min": 280,
+      "max": 500,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 360
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Alignment"
+    },
+    {
+      "type": "select",
+      "id": "empty_cart_icon_alignment",
+      "label": "Icon alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "empty_cart_heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "empty_cart_subtext_alignment",
+      "label": "Subtext alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "empty_cart_buttons_alignment",
+      "label": "Buttons alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Icon"
+    },
+    {
+      "type": "select",
+      "id": "empty_cart_icon_style",
+      "label": "Icon style",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default cart icon"
+        },
+        {
+          "value": "shopping_bag",
+          "label": "Shopping bag"
+        },
+        {
+          "value": "box",
+          "label": "Box/package"
+        },
+        {
+          "value": "heart",
+          "label": "Heart"
+        },
+        {
+          "value": "sparkles",
+          "label": "Sparkles"
+        },
+        {
+          "value": "none",
+          "label": "No icon"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_icon_size",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 65
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_icon_color",
+      "label": "Icon color",
+      "default": "#7B92C8"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_icon_margin_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon margin bottom",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Typography"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_heading_size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading font size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_heading_margin_bottom",
+      "min": 0,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "label": "Heading margin bottom",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_subtext_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtext font size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_subtext_margin_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Subtext margin bottom",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Primary Button (Start Shopping)"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_primary_btn_bg",
+      "label": "Primary button background",
+      "default": "#7B92C8"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_primary_btn_text",
+      "label": "Primary button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_primary_btn_bg_hover",
+      "label": "Primary button background (hover)",
+      "default": "#6A7FB0"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_primary_btn_padding_y",
+      "min": 10,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Primary button padding vertical",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_primary_btn_padding_x",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Primary button padding horizontal",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_primary_btn_margin_bottom",
+      "min": 0,
+      "max": 20,
+      "step": 5,
+      "unit": "px",
+      "label": "Primary button margin bottom",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Secondary Button (Take the Quiz)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_empty_cart_secondary_btn",
+      "label": "Enable secondary button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_secondary_btn_text",
+      "label": "Secondary button text",
+      "default": "Take the Quiz"
+    },
+    {
+      "type": "url",
+      "id": "empty_cart_secondary_btn_url",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_secondary_btn_bg",
+      "label": "Secondary button background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_secondary_btn_text_color",
+      "label": "Secondary button text color",
+      "default": "#7B92C8"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_secondary_btn_border",
+      "label": "Secondary button border color",
+      "default": "#7B92C8"
+    },
+    {
+      "type": "color",
+      "id": "empty_cart_secondary_btn_bg_hover",
+      "label": "Secondary button background (hover)",
+      "default": "#F0F4FA"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_secondary_btn_padding_y",
+      "min": 10,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Secondary button padding vertical",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_secondary_btn_padding_x",
+      "min": 20,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Secondary button padding horizontal",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Buttons Layout"
+    },
+    {
+      "type": "select",
+      "id": "empty_cart_buttons_layout",
+      "label": "Buttons layout",
+      "options": [
+        {
+          "value": "stacked",
+          "label": "Stacked (vertical)"
+        },
+        {
+          "value": "horizontal",
+          "label": "Side by side (horizontal)"
+        }
+      ],
+      "default": "stacked"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_buttons_gap",
+      "min": 0,
+      "max": 20,
+      "step": 5,
+      "unit": "px",
+      "label": "Space between buttons",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Empty Cart Featured Products"
+    },
+    {
+      "type": "range",
+      "id": "empty_cart_featured_margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Featured products margin top",
+      "default": 30
     }
   ],
   "blocks": [
