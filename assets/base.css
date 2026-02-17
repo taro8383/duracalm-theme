@@ -71,9 +71,9 @@ html {scroll-behavior: smooth;}img, video {max-width: 100%;height: auto;vertical
   text-transform: none !important;
   border: 2px solid #7B92C8 !important;
   border-radius: 8px !important;
-  color: #7B92C8 !important;
-  background: transparent !important;
-  background-color: transparent !important;
+  color: #ffffff !important;
+  background: #7B92C8 !important;
+  background-color: #7B92C8 !important;
   cursor: pointer !important;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
   overflow: hidden !important;
@@ -108,6 +108,28 @@ html {scroll-behavior: smooth;}img, video {max-width: 100%;height: auto;vertical
   border-color: transparent !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Fix Continue Shopping button - remove underline and conflicting styles */
+.title-wrapper-with-link a.underlined-link {
+  text-underline-offset: 0 !important;
+  text-decoration-thickness: 0 !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  background-image: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.title-wrapper-with-link a.underlined-link:hover,
+.title-wrapper-with-link a.underlined-link:focus {
+  text-underline-offset: 0 !important;
+  text-decoration-thickness: 0 !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  background-image: none !important;
   background: transparent !important;
   background-color: transparent !important;
 }
