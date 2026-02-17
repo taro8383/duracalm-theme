@@ -113,7 +113,8 @@ html {scroll-behavior: smooth;}img, video {max-width: 100%;height: auto;vertical
 }
 
 /* Fix Continue Shopping button - remove underline and conflicting styles */
-.title-wrapper-with-link a.underlined-link {
+.title-wrapper-with-link a.underlined-link,
+a.underlined-link[href*="collection"] {
   text-underline-offset: 0 !important;
   text-decoration-thickness: 0 !important;
   text-decoration: none !important;
@@ -121,10 +122,13 @@ html {scroll-behavior: smooth;}img, video {max-width: 100%;height: auto;vertical
   background-image: none !important;
   background: transparent !important;
   background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .title-wrapper-with-link a.underlined-link:hover,
-.title-wrapper-with-link a.underlined-link:focus {
+.title-wrapper-with-link a.underlined-link:focus,
+a.underlined-link[href*="collection"]:hover,
+a.underlined-link[href*="collection"]:focus {
   text-underline-offset: 0 !important;
   text-decoration-thickness: 0 !important;
   text-decoration: none !important;
@@ -132,4 +136,14 @@ html {scroll-behavior: smooth;}img, video {max-width: 100%;height: auto;vertical
   background-image: none !important;
   background: transparent !important;
   background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Extra fix for Continue Shopping - override any link underline styles */
+main cart-items .title-wrapper-with-link a,
+main cart-items .title-wrapper-with-link a:link,
+main cart-items .title-wrapper-with-link a:visited {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  background-image: none !important;
 }
