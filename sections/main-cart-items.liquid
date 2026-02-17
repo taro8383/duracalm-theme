@@ -10,6 +10,71 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Magic Mind Continue Shopping Button - Always apply for now */
+  .cart__warnings a.button,
+  .cart__warnings .button,
+  main a.underlined-link[href*="collection"],
+  .title-wrapper-with-link a.underlined-link,
+  #main-cart-items ~ .cart__warnings a.button,
+  cart-items .cart__warnings a.button {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.8rem 2rem !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    border: 2px solid #7B92C8 !important;
+    border-radius: 8px !important;
+    color: #7B92C8 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    cursor: pointer !important;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    min-width: auto !important;
+  }
+
+  .cart__warnings a.button::before,
+  .cart__warnings .button::before,
+  main a.underlined-link[href*="collection"]::before,
+  .title-wrapper-with-link a.underlined-link::before,
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%) !important;
+    background-size: 200% 200% !important;
+    opacity: 0 !important;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: -1 !important;
+  }
+
+  .cart__warnings a.button:hover::before,
+  .cart__warnings .button:hover::before,
+  main a.underlined-link[href*="collection"]:hover::before,
+  .title-wrapper-with-link a.underlined-link:hover::before,
+    opacity: 1 !important;
+    background-position: 100% 0 !important;
+  }
+
+  .cart__warnings a.button:hover,
+  .cart__warnings .button:hover,
+  main a.underlined-link[href*="collection"]:hover,
+  .title-wrapper-with-link a.underlined-link:hover,
+    color: #ffffff !important;
+    border-color: transparent !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
+    text-decoration: none !important;
+  }
 {%- endstyle -%}
 
 <cart-items class="page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
@@ -355,6 +420,17 @@
 {
   "name": "t:sections.main-cart-items.name",
   "settings": [
+    {
+      "type": "header",
+      "content": "Magic Mind Styling"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_magic_mind_continue_button",
+      "label": "Enable Magic Mind style for Continue Shopping button",
+      "default": true,
+      "info": "Applies the Magic Mind gradient hover animation to the Continue Shopping button"
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
