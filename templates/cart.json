@@ -12,10 +12,8 @@
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "section_bg_color": "#ddbea8",
-        "section_padding_bottom": 0
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "cart-footer": {
@@ -41,10 +39,8 @@
         "buttons"
       ],
       "settings": {
-        "footer_bg_color": "#ddbea8",
-        "footer_padding_top": 0,
-        "footer_padding_bottom": 0,
-        "footer_margin_top": 0
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "featured-collection": {
