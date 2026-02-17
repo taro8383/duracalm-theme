@@ -47,13 +47,35 @@
 
   /* Magic Mind Card Styling */
   {% if section.settings.enable_magic_mind_cards %}
+  .collection-{{ section.id }} .card-wrapper {
+    background: transparent !important;
+  }
+
   .collection-{{ section.id }} .card {
     border-radius: {{ section.settings.magic_mind_card_radius }}px;
     overflow: hidden;
+    background: transparent !important;
   }
 
   .collection-{{ section.id }} .card__inner {
-    background-color: {{ section.settings.magic_mind_card_bg_color }};
+    background: transparent !important;
+  }
+
+  .collection-{{ section.id }} .card__media {
+    background: transparent !important;
+    z-index: 1;
+  }
+
+  .collection-{{ section.id }} .card__media .media {
+    background: transparent !important;
+  }
+
+  .collection-{{ section.id }} .card__media img {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    position: relative !important;
+    z-index: 2;
   }
 
   .collection-{{ section.id }} .card__content {

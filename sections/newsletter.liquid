@@ -11,6 +11,13 @@
     }
   }
 
+  {% if section.settings.enable_magic_mind_bg %}
+  .newsletter__wrapper.color-scheme-{{ section.id }} {
+    --color-background: {{ section.settings.magic_mind_bg_color.red }}, {{ section.settings.magic_mind_bg_color.green }}, {{ section.settings.magic_mind_bg_color.blue }};
+    --gradient-background: {{ section.settings.magic_mind_bg_color }};
+  }
+  {% endif %}
+
   .color-scheme-{{ section.id }}.color-custom {
     --color-background: {{ section.settings.custom_colors_background.red }}, {{ section.settings.custom_colors_background.green }}, {{ section.settings.custom_colors_background.blue }};
     --gradient-background: {% if section.settings.custom_gradient_background != blank %}{{ section.settings.custom_gradient_background }}{% else %}{{ section.settings.custom_colors_background }}{% endif %};
@@ -245,6 +252,22 @@
       "default": "background-1",
       "label": "Color scheme",
       "info": "Custom color scheme is edited at the bottom of section settings."
+    },
+    {
+      "type": "header",
+      "content": "Magic Mind Styling"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_magic_mind_bg",
+      "label": "Enable Magic Mind background color",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "magic_mind_bg_color",
+      "label": "Background color",
+      "default": "#ddbea8"
     },
     {
       "type": "checkbox",
