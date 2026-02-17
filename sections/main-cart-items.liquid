@@ -11,6 +11,7 @@
     }
   }
 
+  {% if section.settings.enable_magic_mind_continue_button %}
   /* Magic Mind Continue Shopping Button */
   .title-wrapper-with-link .magic-mind-cart-btn,
   .title-wrapper-with-link .magic-mind-cart-btn.button,
@@ -66,17 +67,22 @@
     background: transparent !important;
   }
 
-  /* Remove any arrow from underlined-link styles */
-  .title-wrapper-with-link .magic-mind-cart-btn::after {
+  /* Remove arrow from button--secondary */
+  .title-wrapper-with-link .magic-mind-cart-btn::after,
+  .title-wrapper-with-link .magic-mind-cart-btn .icon-arrow,
+  .title-wrapper-with-link .magic-mind-cart-btn .icon {
     display: none !important;
     content: none !important;
+    background: none !important;
+    background-image: none !important;
   }
+  {% endif %}
 {%- endstyle -%}
 
 <cart-items class="page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="title-wrapper-with-link title-wrapper-with-link--spacing">
     <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-    <a href="{% if settings.continue_shopping_url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ settings.continue_shopping_url }}{% endif %}" class="button button--secondary magic-mind-cart-btn">
+    <a href="{% if settings.continue_shopping_url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ settings.continue_shopping_url }}{% endif %}" class="button button--secondary{% if section.settings.enable_magic_mind_continue_button %} magic-mind-cart-btn{% endif %}">
       {{ 'general.continue_shopping' | t }}
     </a>
   </div>
