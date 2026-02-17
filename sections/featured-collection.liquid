@@ -59,22 +59,34 @@
 
   .collection-{{ section.id }} .card__inner {
     background: transparent !important;
+    background-color: transparent !important;
   }
 
   .collection-{{ section.id }} .card__media {
-    background: transparent !important;
+    background-color: transparent !important;
     z-index: 1;
+    display: block !important;
+    position: relative !important;
+    overflow: hidden;
   }
 
   .collection-{{ section.id }} .card__media .media {
-    background: transparent !important;
+    background-color: transparent !important;
+    display: block !important;
+    position: relative !important;
+    padding-bottom: var(--ratio-percent, 100%);
   }
 
-  .collection-{{ section.id }} .card__media img {
+  .collection-{{ section.id }} .card__media .media img {
     opacity: 1 !important;
     visibility: visible !important;
     display: block !important;
-    position: relative !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
     z-index: 2;
   }
 
@@ -85,6 +97,26 @@
   .collection-{{ section.id }} .card__information {
     background-color: {{ section.settings.magic_mind_card_bg_color }};
     padding: {{ section.settings.magic_mind_card_padding }}px !important;
+  }
+
+  /* Force card with media to show properly */
+  .collection-{{ section.id }} .card--media .card__inner {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  .collection-{{ section.id }} .card--media .card__media {
+    display: block !important;
+    position: relative !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Remove any overlay that might be hiding images */
+  .collection-{{ section.id }} .card__media::before,
+  .collection-{{ section.id }} .card__media::after {
+    display: none !important;
+    background: transparent !important;
   }
   {% endif %}
 
