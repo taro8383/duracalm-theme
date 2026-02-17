@@ -12,15 +12,17 @@
   }
 
   {% if section.settings.enable_magic_mind_continue_button %}
-  /* Magic Mind Continue Shopping Button */
-  .title-wrapper-with-link .magic-mind-cart-btn,
-  .title-wrapper-with-link .magic-mind-cart-btn.button,
-  .title-wrapper-with-link .magic-mind-cart-btn.button--secondary {
+  /* Magic Mind Continue Shopping Button - Ultra Specific */
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn.button--secondary,
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn,
+  #main-cart-items .title-wrapper-with-link a.magic-mind-cart-btn,
+  .title-wrapper-with-link a.magic-mind-cart-btn.button--secondary,
+  .title-wrapper-with-link a.magic-mind-cart-btn {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0.8rem 2rem !important;
+    padding: 14px 32px !important;
     font-size: 15px !important;
     font-weight: 600 !important;
     letter-spacing: 0.02em !important;
@@ -32,14 +34,20 @@
     background: transparent !important;
     background-color: transparent !important;
     cursor: pointer !important;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
     overflow: hidden !important;
     z-index: 1 !important;
     min-width: auto !important;
     box-shadow: none !important;
+    transform: translateY(0) !important;
   }
 
-  .title-wrapper-with-link .magic-mind-cart-btn::before {
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn::before,
+  #main-cart-items .title-wrapper-with-link a.magic-mind-cart-btn::before,
+  .title-wrapper-with-link a.magic-mind-cart-btn::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -48,29 +56,36 @@
     height: 100% !important;
     background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%) !important;
     background-size: 200% 200% !important;
+    background-position: 0% 0% !important;
     opacity: 0 !important;
-    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                background-position 0.5s ease !important;
     z-index: -1 !important;
   }
 
-  .title-wrapper-with-link .magic-mind-cart-btn:hover::before {
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn:hover::before,
+  #main-cart-items .title-wrapper-with-link a.magic-mind-cart-btn:hover::before,
+  .title-wrapper-with-link a.magic-mind-cart-btn:hover::before {
     opacity: 1 !important;
-    background-position: 100% 0 !important;
+    background-position: 100% 100% !important;
   }
 
-  .title-wrapper-with-link .magic-mind-cart-btn:hover {
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn:hover,
+  #main-cart-items .title-wrapper-with-link a.magic-mind-cart-btn:hover,
+  .title-wrapper-with-link a.magic-mind-cart-btn:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
     text-decoration: none !important;
     background: transparent !important;
+    background-color: transparent !important;
   }
 
   /* Remove arrow from button--secondary */
-  .title-wrapper-with-link .magic-mind-cart-btn::after,
-  .title-wrapper-with-link .magic-mind-cart-btn .icon-arrow,
-  .title-wrapper-with-link .magic-mind-cart-btn .icon {
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn::after,
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn .icon-arrow,
+  #shopify-section-{{ section.id }} .title-wrapper-with-link a.magic-mind-cart-btn .icon {
     display: none !important;
     content: none !important;
     background: none !important;
