@@ -32,6 +32,68 @@
       }
     }
   {% endif %}
+
+  /* Magic Mind Background */
+  {% if section.settings.enable_magic_mind_bg %}
+  .newsletter__wrapper.color-scheme-{{ section.id }} {
+    --color-background: {{ section.settings.magic_mind_bg_color.red }}, {{ section.settings.magic_mind_bg_color.green }}, {{ section.settings.magic_mind_bg_color.blue }};
+    --gradient-background: {{ section.settings.magic_mind_bg_color }};
+  }
+  {% endif %}
+
+  /* Magic Mind Sign Up Button */
+  {% if section.settings.enable_magic_mind_button %}
+  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.8rem 2rem !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    border: 2px solid #7B92C8 !important;
+    border-radius: 8px !important;
+    color: #7B92C8 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    cursor: pointer !important;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    box-shadow: none !important;
+  }
+
+  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%);
+    background-size: 200% 200%;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button:hover::before {
+    opacity: 1;
+    background-position: 100% 0;
+  }
+
+  .newsletter__wrapper.color-scheme-{{ section.id }} .newsletter__solid-btn.button:hover {
+    color: #ffffff !important;
+    border-color: transparent !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="newsletter center {% if section.settings.full_width == false %}newsletter--narrow page-width{% endif %} content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
@@ -212,6 +274,13 @@
       "id": "button_style_secondary",
       "label": "t:sections.slideshow.blocks.slide.settings.secondary_style.label",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_magic_mind_button",
+      "label": "Enable Magic Mind button style",
+      "default": true,
+      "info": "Applies the Magic Mind gradient hover animation to the Sign Up button"
     },
     {
       "type": "select",
