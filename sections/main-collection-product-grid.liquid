@@ -15,6 +15,128 @@
     --swatch-size: {{ section.settings.swatches_mobile_size | divided_by: 10.0 }}rem;
   }
 
+  /* Product Card Styling */
+  #ProductGridContainer .grid__item {
+    margin-bottom: {{ section.settings.card_margin_bottom }}px;
+  }
+
+  #ProductGridContainer .card-wrapper {
+    padding: {{ section.settings.card_padding }}px;
+    {% if section.settings.show_card_border %}
+      border: 1px solid {{ section.settings.card_border_color }};
+    {% endif %}
+    {% if section.settings.show_card_shadow %}
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    {% endif %}
+    border-radius: {{ section.settings.image_border_radius | plus: 4 }}px;
+  }
+
+  #ProductGridContainer .card__inner,
+  #ProductGridContainer .card__media {
+    border-radius: {{ section.settings.image_border_radius }}px;
+  }
+
+  #ProductGridContainer .card__heading {
+    font-size: {{ section.settings.product_title_font_size }}px;
+    font-weight: {{ section.settings.product_title_font_weight }};
+    {% if section.settings.product_title_color != blank %}
+      color: {{ section.settings.product_title_color }};
+    {% endif %}
+  }
+
+  #ProductGridContainer .price__regular .price-item--regular {
+    font-size: {{ section.settings.product_price_font_size }}px;
+    font-weight: {{ section.settings.product_price_font_weight }};
+    {% if section.settings.product_price_color != blank %}
+      color: {{ section.settings.product_price_color }};
+    {% endif %}
+  }
+
+  #ProductGridContainer .price__sale .price-item--sale,
+  #ProductGridContainer .price__sale .price-item--regular {
+    font-size: calc({{ section.settings.product_price_font_size }}px * 0.9);
+  }
+
+  #ProductGridContainer .price-item--regular {
+    {% if section.settings.product_compare_price_color != blank %}
+      color: {{ section.settings.product_compare_price_color }};
+    {% endif %}
+  }
+
+  #ProductGridContainer .product-grid {
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  /* Magic Mind Quick Add Button */
+  {% if section.settings.enable_magic_mind_quick_add %}
+    #ProductGridContainer .quick-add__submit {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: {{ section.settings.quick_add_padding_y }}px {{ section.settings.quick_add_padding_x }}px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      border: 2px solid {{ section.settings.quick_add_button_color | default: '#7B92C8' }};
+      border-radius: 8px;
+      color: {{ section.settings.quick_add_button_color | default: '#7B92C8' }};
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      z-index: 1;
+      margin-top: {{ section.settings.quick_add_margin_top }}px;
+      width: 100%;
+    }
+
+    #ProductGridContainer .quick-add__submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, {{ section.settings.quick_add_button_color | default: '#7B92C8' }} 0%, #ddbea8 50%, #f3dfc1 100%);
+      background-size: 200% 200%;
+      opacity: 0;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    #ProductGridContainer .quick-add__submit:hover::before {
+      opacity: 1;
+      background-position: 100% 0;
+    }
+
+    #ProductGridContainer .quick-add__submit:hover {
+      color: #ffffff !important;
+      border-color: transparent !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3);
+    }
+
+    #ProductGridContainer .quick-add__submit:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px {{ section.settings.quick_add_button_color | default: '#7B92C8' | append: '40' }};
+    }
+
+    #ProductGridContainer .quick-add__submit[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #ProductGridContainer .quick-add__submit[disabled]:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    #ProductGridContainer .quick-add__submit[disabled]:hover::before {
+      opacity: 0;
+    }
+  {% endif %}
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -388,6 +510,185 @@
           "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
         }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Product Card Typography"
+    },
+    {
+      "type": "range",
+      "id": "product_title_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Product title font size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "product_title_font_weight",
+      "label": "Product title font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Product title color"
+    },
+    {
+      "type": "range",
+      "id": "product_price_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Price font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "product_price_font_weight",
+      "label": "Price font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Price color"
+    },
+    {
+      "type": "color",
+      "id": "product_compare_price_color",
+      "label": "Compare at price color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_margin_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Card bottom margin",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_border",
+      "default": false,
+      "label": "Show card border"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_shadow",
+      "default": false,
+      "label": "Show card shadow"
+    },
+    {
+      "type": "header",
+      "content": "Quick Add Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "default": false,
+      "label": "Enable quick add button"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_magic_mind_quick_add",
+      "default": true,
+      "label": "Enable Magic Mind style",
+      "info": "Applies gradient hover animation to quick add buttons"
+    },
+    {
+      "type": "color",
+      "id": "quick_add_button_color",
+      "label": "Button color",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "range",
+      "id": "quick_add_padding_y",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "quick_add_padding_x",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "quick_add_margin_top",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Button top margin",
+      "default": 12
     },
     {
       "type": "header",
