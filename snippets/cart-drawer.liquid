@@ -195,8 +195,13 @@
       display: flex;
       flex-direction: {{ section.settings.empty_cart_buttons_layout | default: 'column' }};
       gap: {{ section.settings.empty_cart_buttons_gap | default: 10 }}px;
-      justify-content: {{ section.settings.empty_cart_buttons_alignment | default: 'center' }};
-      align-items: {% if section.settings.empty_cart_buttons_layout == 'row' %}center{% else %}stretch{% endif %};
+      {% if section.settings.empty_cart_buttons_layout == 'row' %}
+        justify-content: {{ section.settings.empty_cart_buttons_alignment | default: 'center' }};
+        align-items: center;
+      {% else %}
+        justify-content: center;
+        align-items: {{ section.settings.empty_cart_buttons_alignment | default: 'center' }};
+      {% endif %}
     }
 
     .mm-empty-cart-btn {
@@ -218,7 +223,7 @@
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       overflow: hidden;
       z-index: 1;
-      {% if section.settings.empty_cart_buttons_layout == 'stacked' %}
+      {% if section.settings.empty_cart_buttons_layout == 'column' %}
         width: 100%;
       {% else %}
         width: fit-content;
