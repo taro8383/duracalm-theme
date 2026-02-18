@@ -35,12 +35,11 @@
       background-color: {{ section.settings.card_background_color }};
     {% endif %}
     border-radius: {{ section.settings.image_border_radius | plus: 4 }}px;
-    overflow: hidden;
   }
 
-  #ProductGridContainer .card,
   #ProductGridContainer .card__inner,
   #ProductGridContainer .card__media {
+    border-radius: {{ section.settings.image_border_radius }}px;
     {% if section.settings.card_background_color != blank %}
       background-color: {{ section.settings.card_background_color }};
     {% endif %}
@@ -50,11 +49,6 @@
     {% if section.settings.card_background_color != blank %}
       background-color: {{ section.settings.card_background_color }};
     {% endif %}
-  }
-
-  #ProductGridContainer .card__inner,
-  #ProductGridContainer .card__media {
-    border-radius: {{ section.settings.image_border_radius }}px;
   }
 
   #ProductGridContainer .card__heading {
