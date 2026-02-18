@@ -33,6 +33,8 @@
         "heading": {
           "type": "heading",
           "settings": {
+            "title": "Subscribe to our emails",
+            "title_highlight_color": "#6d388b",
             "heading_size": "h1"
           }
         },
@@ -52,11 +54,23 @@
         "paragraph",
         "email-form"
       ],
+      "disabled": true,
       "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "button_type": "solid",
+        "button_label": "Sign up",
+        "button_style_secondary": false,
+        "enable_magic_mind_button": true,
         "color_scheme": "background-2",
         "full_width": true,
         "padding_top": 68,
-        "padding_bottom": 52
+        "padding_bottom": 52,
+        "custom_colors_background": "#ffffff",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
       }
     }
   },
