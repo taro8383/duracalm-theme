@@ -9,6 +9,9 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    {% if section.settings.section_background_color != blank %}
+      background-color: {{ section.settings.section_background_color }};
+    {% endif %}
   }
 
   #ProductGridContainer .color-swatches-container {
@@ -27,6 +30,9 @@
     {% endif %}
     {% if section.settings.show_card_shadow %}
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    {% endif %}
+    {% if section.settings.card_background_color != blank %}
+      background-color: {{ section.settings.card_background_color }};
     {% endif %}
     border-radius: {{ section.settings.image_border_radius | plus: 4 }}px;
   }
@@ -636,6 +642,21 @@
       "id": "show_card_shadow",
       "default": false,
       "label": "Show card shadow"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color"
     },
     {
       "type": "header",
