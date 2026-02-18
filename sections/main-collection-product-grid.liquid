@@ -35,6 +35,21 @@
       background-color: {{ section.settings.card_background_color }};
     {% endif %}
     border-radius: {{ section.settings.image_border_radius | plus: 4 }}px;
+    overflow: hidden;
+  }
+
+  #ProductGridContainer .card,
+  #ProductGridContainer .card__inner,
+  #ProductGridContainer .card__media {
+    {% if section.settings.card_background_color != blank %}
+      background-color: {{ section.settings.card_background_color }};
+    {% endif %}
+  }
+
+  #ProductGridContainer .card__content {
+    {% if section.settings.card_background_color != blank %}
+      background-color: {{ section.settings.card_background_color }};
+    {% endif %}
   }
 
   #ProductGridContainer .card__inner,
@@ -87,7 +102,7 @@
       text-transform: none;
       border: 2px solid {{ section.settings.quick_add_button_color | default: '#7B92C8' }};
       border-radius: 8px;
-      color: {{ section.settings.quick_add_button_color | default: '#7B92C8' }};
+      color: {{ section.settings.quick_add_button_text_color | default: section.settings.quick_add_button_color | default: '#7B92C8' }};
       background: transparent;
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -672,7 +687,13 @@
     {
       "type": "color",
       "id": "quick_add_button_color",
-      "label": "Button color",
+      "label": "Button border/hover color",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "color",
+      "id": "quick_add_button_text_color",
+      "label": "Button text color (normal)",
       "default": "#7b92c8"
     },
     {
