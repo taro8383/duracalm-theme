@@ -141,6 +141,13 @@
     #MainProduct-{{ section.id }} .button:disabled::before {
       opacity: 0;
     }
+
+    /* Section custom background color */
+    {% if section.settings.section_background_color != blank %}
+    #MainProduct-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+    }
+    {% endif %}
   {%- endstyle -%}
 
   {% if section.settings.image_zoom == 'hover' %}
@@ -9438,6 +9445,17 @@
       "id": "button_hover_bg_end",
       "default": "#f3dfc1",
       "label": "Button hover gradient end"
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "default": "",
+      "label": "Section background color",
+      "info": "Leave empty to use default theme background"
     },
     {
       "type": "checkbox",
