@@ -139,6 +139,67 @@
     margin-right: {{ section.settings.heading_margin_right }}px;
     {% endif %}
   }
+
+  /* Product Card Size & Positioning */
+  {% if section.settings.card_max_width > 0 %}
+  #shopify-section-{{ section.id }} .grid__item {
+    max-width: {{ section.settings.card_max_width }}px;
+  }
+  {% endif %}
+
+  {% if section.settings.card_width > 0 %}
+  #shopify-section-{{ section.id }} .card {
+    width: {{ section.settings.card_width }}px;
+  }
+  {% endif %}
+
+  #shopify-section-{{ section.id }} .card {
+    {% if section.settings.card_padding_top > 0 %}
+    padding-top: {{ section.settings.card_padding_top }}px;
+    {% endif %}
+    {% if section.settings.card_padding_bottom > 0 %}
+    padding-bottom: {{ section.settings.card_padding_bottom }}px;
+    {% endif %}
+    {% if section.settings.card_padding_left > 0 %}
+    padding-left: {{ section.settings.card_padding_left }}px;
+    {% endif %}
+    {% if section.settings.card_padding_right > 0 %}
+    padding-right: {{ section.settings.card_padding_right }}px;
+    {% endif %}
+    {% if section.settings.card_margin_top > 0 %}
+    margin-top: {{ section.settings.card_margin_top }}px;
+    {% endif %}
+    {% if section.settings.card_margin_bottom > 0 %}
+    margin-bottom: {{ section.settings.card_margin_bottom }}px;
+    {% endif %}
+    {% if section.settings.card_margin_left > 0 %}
+    margin-left: {{ section.settings.card_margin_left }}px;
+    {% endif %}
+    {% if section.settings.card_margin_right > 0 %}
+    margin-right: {{ section.settings.card_margin_right }}px;
+    {% endif %}
+  }
+
+  /* Grid Gap Customization */
+  {% if section.settings.grid_column_gap > 0 %}
+  #shopify-section-{{ section.id }} .product-grid {
+    column-gap: {{ section.settings.grid_column_gap }}px;
+  }
+  {% endif %}
+  {% if section.settings.grid_row_gap > 0 %}
+  #shopify-section-{{ section.id }} .product-grid {
+    row-gap: {{ section.settings.grid_row_gap }}px;
+  }
+  {% endif %}
+
+  /* Card Image Size Control */
+  {% if section.settings.card_image_max_width > 0 %}
+  #shopify-section-{{ section.id }} .card__media {
+    max-width: {{ section.settings.card_image_max_width }}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden content-for-grouping animate-section animate--hidden">
@@ -523,6 +584,155 @@
       "id": "card_background_color",
       "label": "Card background color",
       "info": "Select a custom color for the product cards. Leave empty to use theme default."
+    },
+    {
+      "type": "header",
+      "content": "Product Card Size"
+    },
+    {
+      "type": "range",
+      "id": "card_max_width",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "default": 0,
+      "unit": "px",
+      "label": "Card max width",
+      "info": "Set to 0 for auto width. Use this to make cards smaller (e.g., 250px) when showing fewer columns."
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "default": 0,
+      "unit": "px",
+      "label": "Card fixed width",
+      "info": "Set a fixed width for cards. Leave at 0 for responsive behavior."
+    },
+    {
+      "type": "range",
+      "id": "card_image_max_width",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "default": 0,
+      "unit": "px",
+      "label": "Card image max width",
+      "info": "Limit the image width to prevent pixelation. Set to 0 for full width."
+    },
+    {
+      "type": "header",
+      "content": "Grid Spacing"
+    },
+    {
+      "type": "range",
+      "id": "grid_column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Column gap (horizontal)"
+    },
+    {
+      "type": "range",
+      "id": "grid_row_gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Row gap (vertical)"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Padding"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding top"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding bottom"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_left",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding left"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_right",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding right"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Margin"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin top"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin bottom"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_left",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin left"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_right",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin right"
     }
   ]
 }
