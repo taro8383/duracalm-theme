@@ -694,7 +694,17 @@
                         </h4>
                       {% endif %}
 {% if block.settings.mobile_rating_stars or block.settings.desktop_rating_stars %}
-                        {% assign rating_value = block.settings.star_rating_value %}
+                        {% if block.settings.use_product_metafields %}
+                          {% assign rating_value = product.metafields.custom.rating | default: product.metafields.reviews.rating.value.rating | default: block.settings.star_rating_value %}
+                          {% assign review_count = product.metafields.custom.review_count | default: product.metafields.reviews.rating_count | default: 0 %}
+                        {% else %}
+                          {% assign rating_value = block.settings.star_rating_value %}
+                          {% assign review_count = 0 %}
+                        {% endif %}
+                        {% assign label_text = block.settings.stars_label %}
+                        {% if review_count > 0 %}
+                          {% assign label_text = block.settings.stars_label | replace: '{{ count }}', review_count %}
+                        {% endif %}
                         <div class='rating-stars-and-text font-size--desktop-auto flex-center{% unless block.settings.mobile_rating_stars %} mobile-hidden{% endunless %}{% unless block.settings.desktop_rating_stars %} desktop-hidden{% endunless %}' style='--bg-star-color:{{ block.settings.star_color }};--font-size:1.3rem;--alignment:flex-start;'>
                           <div class='rating-stars__container rating-stars__container--underlay' style='position:relative;display:inline-block;'>
                             <div class='rating-stars__background' style='display:flex;gap:2px;'>
@@ -732,7 +742,7 @@
                               </svg>
                             </div>
                           </div>
-                          <span class="rating-stars__label">&nbsp;{{ block.settings.stars_label }}</span>
+                          <span class="rating-stars__label">&nbsp;{{ label_text }}</span>
                         </div>
                       {% endif %}
                       {%- if block.settings.mobile_show_price or block.settings.desktop_show_price -%}
@@ -1847,7 +1857,15 @@
           "type": "inline_richtext",
           "id": "label",
           "label": "Text",
-          "default": "(xxxx Reviews)"
+          "default": "(xxxx Reviews)",
+          "info": "Use {{ count }} to display the review count from metafields"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_product_metafields",
+          "default": false,
+          "label": "Use product metafields",
+          "info": "When enabled, rating and review count will be pulled from product metafields."
         },
         {
           "type": "range",
@@ -4391,7 +4409,8 @@
           "type": "inline_richtext",
           "id": "stars_label",
           "label": "Rating stars text",
-          "default": "(xxxx Reviews)"
+          "default": "(xxxx Reviews)",
+          "info": "Use {{ count }} to display the review count from metafields"
         },
         {
           "type": "range",
@@ -4400,7 +4419,14 @@
           "max": 5,
           "step": 0.1,
           "default": 5,
-          "label": "Star rating value"
+          "label": "Star rating value (manual)"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_product_metafields",
+          "default": false,
+          "label": "Use product metafields",
+          "info": "When enabled, rating and review count will be pulled from product metafields (reviews.rating and reviews.rating_count). Create these metafields in your Shopify admin."
         },
         {
           "type": "select",
