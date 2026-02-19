@@ -181,6 +181,26 @@
       animation-delay: 0.6s;
     }
 
+    /* Quantity selector custom colors */
+    #MainProduct-{{ section.id }} quantity-input.quantity {
+      background-color: var(--quantity-bg-color, #ffffff);
+      border-color: var(--quantity-border-color, #000000);
+    }
+
+    #MainProduct-{{ section.id }} quantity-input.quantity .quantity__button {
+      color: var(--quantity-button-color, #000000);
+    }
+
+    #MainProduct-{{ section.id }} quantity-input.quantity .quantity__button svg {
+      color: var(--quantity-button-color, #000000);
+      fill: currentColor;
+    }
+
+    #MainProduct-{{ section.id }} quantity-input.quantity .quantity__input {
+      color: var(--quantity-number-color, #000000);
+      background-color: transparent;
+    }
+
     /* Product card custom background color for complementary products */
     {% if section.settings.card_background_color != blank %}
     #MainProduct-{{ section.id }} .complementary-products__container .card {
@@ -512,7 +532,7 @@
                         <span>({{- 'products.product.quantity.in_cart_html' | t: quantity: cart_qty -}})</span>
                       </span>
                     </label>
-                    <quantity-input class="quantity main-quantity{% if block.settings.full_width_classic and quantity_atc_append == 'none' %} quantity--full{% endif %} no-background color-{{ settings.quantity_color_scheme }} accent-color-{{ settings.quantity_overlay_color }} accent-2-color-{{ settings.quantity_text_color }}" data-section="{{ section.id }}">
+                    <quantity-input class="quantity main-quantity{% if block.settings.full_width_classic and quantity_atc_append == 'none' %} quantity--full{% endif %} no-background color-{{ settings.quantity_color_scheme }} accent-color-{{ settings.quantity_overlay_color }} accent-2-color-{{ settings.quantity_text_color }}" data-section="{{ section.id }}" style="--quantity-bg-color: {{ block.settings.quantity_background_color | default: '#ffffff' }}; --quantity-button-color: {{ block.settings.quantity_button_color | default: '#000000' }}; --quantity-number-color: {{ block.settings.quantity_number_color | default: '#000000' }}; --quantity-border-color: {{ block.settings.quantity_border_color | default: '#000000' }};">
                       <button class="quantity__button no-js-hidden" name="minus" type="button">
                         <span class="visually-hidden">
                         {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
@@ -2528,6 +2548,34 @@
           "default": "stretch-quantity",
           "label": "Heights of the quantity selector & ATC button when together",
           "info": "By default, quantity selector & ATC button are not the same height. When you display the quantity selector next to the ATC button, this setting controls how's that handled."
+        },
+        {
+          "type": "header",
+          "content": "Quantity Selector Colors"
+        },
+        {
+          "type": "color",
+          "id": "quantity_background_color",
+          "label": "Background color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "quantity_button_color",
+          "label": "Button/arrow color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "quantity_number_color",
+          "label": "Number color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "quantity_border_color",
+          "label": "Border color",
+          "default": "#000000"
         },
         {
           "type": "header",
