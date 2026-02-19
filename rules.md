@@ -1,0 +1,254 @@
+# DuraCalm Theme Development Rules
+
+## Project Structure
+
+```
+/Duracalm-Developement/          ← Root project folder
+├── duracalm-theme/              ← NESTED GIT REPO (Shopify theme files ONLY)
+│   ├── assets/
+│   ├── sections/
+│   ├── templates/
+│   ├── config/
+│   └── .git/                    ← Separate git repo
+├── sections/                    ← IGNORE (old/outdated files)
+├── templates/                   ← IGNORE (old/outdated files)
+└── CLAUDE.md
+```
+
+## Git Repositories
+
+| Repository | URL | Path |
+|------------|-----|------|
+| **GitHub** | `https://github.com/taro8383/duracalm-theme.git` | `duracalm-theme/` |
+| **Root Project** | Local only | `/Duracalm-Developement/` |
+
+## Shopify Configuration
+
+| Setting | Value |
+|---------|-------|
+| **Store URL** | `https://porongas-2.myshopify.com/` |
+| **Admin URL** | `https://admin.shopify.com/store/porongas-2` |
+| **Development Theme ID** | `157203038446` |
+| **Development Theme Name** | `Development (d9a6e1-PC-20211120RCVG)` |
+
+## Development Workflow
+
+### Start Development Server
+```bash
+cd duracalm-theme
+shopify theme dev --store porongas-2.myshopify.com
+```
+
+### Push Changes to Shopify
+```bash
+cd duracalm-theme
+shopify theme push --theme 157203038446
+```
+
+### Pull Latest Settings from Shopify
+```bash
+cd duracalm-theme
+shopify theme pull --theme 157203038446
+```
+
+## CRITICAL RULES
+
+### 1. Edit ONLY in `duracalm-theme/` folder
+- **WRONG**: `sections/main-cart-items.liquid` (root level)
+- **CORRECT**: `duracalm-theme/sections/main-cart-items.liquid`
+
+### 2. Commit Pattern
+After every modification:
+1. Push to Shopify dev theme
+2. Commit to GitHub with signature:
+   ```
+   Co-Authored-By: Claude (kimi-k2.5) <noreply@anthropic.com>
+   ```
+
+### 3. Never Commit Shopify Credentials
+- No `.env` files with API keys
+- No `shopify.app.toml` with secrets
+- Check `git status` before committing
+
+### 4. Theme Files Location
+All Liquid, CSS, JS, and schema files live in `duracalm-theme/` only.
+
+### 5. PULL FROM SHOPIFY - Synchronize Editor Changes
+When user says **"PULL FROM SHOPIFY"**:
+
+1. **Pull ALL changes** from development theme:
+   ```bash
+   cd duracalm-theme
+   shopify theme pull --theme 157203038446
+   ```
+
+2. **Identify JSON/template changes** that were made in the online editor:
+   - `config/settings_data.json` (theme settings)
+   - `templates/*.json` (page templates)
+   - Section-specific settings in `sections/*.liquid`
+
+3. **Commit these pulled changes** to GitHub immediately:
+   ```bash
+   git add .
+   git commit -m "Pull latest settings and configuration from Shopify"
+   git push origin master
+   ```
+
+4. **Report what was synced** (list the changed files)
+
+**WHY**: Prevents losing changes made in the Shopify online editor. Ensures GitHub always has the latest state.
+
+### 6. GIT BRANCH - Use ONLY `master` Branch
+**CRITICAL**: All Git operations MUST use the `master` branch exclusively.
+
+- **NEVER use `main` branch** - It is outdated and does not contain the working code
+- **ALWAYS checkout `master`** before starting work:
+  ```bash
+  git checkout master
+  git pull origin master
+  ```
+- **ALWAYS push to `master`**:
+  ```bash
+  git push origin master
+  ```
+- **Pull requests must target `master`**
+
+**WHY**: The repository has two branches (`main` and `master`). The `master` branch contains all the working code, animations, and settings. The `main` branch is outdated and will break the theme if used.
+
+## Magic Mind Button Style
+
+The **Magic Mind** button is a signature UI element with these characteristics:
+
+### Normal State
+- **Border**: 2px solid purple (#7B92C8)
+- **Background**: Transparent
+- **Text**: Purple (#7B92C8), 15px, 600 weight
+- **Shape**: Rounded corners (8px radius)
+- **Padding**: 14px 32px
+
+### Hover State (The "Magic" Effect)
+- **Background**: Animated gradient flowing from **purple → beige → cream** (#7B92C8 → #ddbea8 → #f3dfc1)
+- **Text**: Changes to white
+- **Border**: Becomes transparent
+- **Shadow**: Soft purple glow (0 8px 24px rgba(123, 146, 200, 0.3))
+- **Lift**: Button rises slightly (translateY(-2px))
+- **Animation**: Smooth 0.35s transition with cubic-bezier easing
+
+### CSS Implementation
+```css
+.magic-mind-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-transform: none;
+  border: 2px solid #7B92C8;
+  border-radius: 8px;
+  color: #7B92C8;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.magic-mind-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%);
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.magic-mind-btn:hover::before {
+  opacity: 1;
+  background-position: 100% 0;
+}
+
+.magic-mind-btn:hover {
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3);
+}
+```
+
+## Product Card Background Customization
+
+When adding custom card background color settings to sections that display product cards, follow these guidelines to avoid common issues:
+
+### Common Pitfalls
+
+1. **NEVER apply background to `.card__inner`** - This element contains the product image. Applying background here will cover/hide the product photo.
+
+2. **ALWAYS override CSS variables** - Product cards use color schemes (like `color-inverse`, `color-background-1`) which set CSS variables. You must override these variables:
+   - `--color-background`
+   - `--gradient-background`
+
+3. **Use `!important` carefully** - The card color schemes have high specificity. Use `!important` on both `background` and `background-color` properties.
+
+4. **Reset child elements to transparent** - After setting background on `.card`, set `.card__content` and `.card__inner` to `transparent` to avoid double backgrounds.
+
+### Correct CSS Implementation
+
+```css
+/* Section-specific card background */
+#shopify-section-{{ section.id }} .card {
+  background: {{ section.settings.card_background_color }} !important;
+  background-color: {{ section.settings.card_background_color }} !important;
+  --color-background: {{ section.settings.card_background_color }};
+  --gradient-background: {{ section.settings.card_background_color }};
+}
+
+/* Reset content areas to transparent */
+#shopify-section-{{ section.id }} .card__content,
+#shopify-section-{{ section.id }} .card__inner {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+```
+
+### For Complementary Products (Product Information Section)
+
+Complementary products use the `.complementary-products__container` wrapper. Target this specifically:
+
+```css
+#MainProduct-{{ section.id }} .complementary-products__container .card {
+  background: {{ section.settings.card_background_color }} !important;
+  background-color: {{ section.settings.card_background_color }} !important;
+  --color-background: {{ section.settings.card_background_color }};
+  --gradient-background: {{ section.settings.card_background_color }};
+}
+
+#MainProduct-{{ section.id }} .complementary-products__container .card__content,
+#MainProduct-{{ section.id }} .complementary-products__container .card__inner {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+```
+
+### Schema Setting Template
+
+```json
+{
+  "type": "header",
+  "content": "Product Card Background"
+},
+{
+  "type": "color",
+  "id": "card_background_color",
+  "label": "Card background color",
+  "info": "Select a custom color for the product cards. Leave empty to use theme default."
+}
+```
