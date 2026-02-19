@@ -1,4 +1,23 @@
-<div class="rating-stars" style='--rating:{{ block.settings.rating }};--visible-stars:{{ block.settings.rating | ceil }};--star-color:{{ block.settings.star_color }};--bg-star-color:{{ block.settings.bg_star_color }};--font-size:{{ block.settings.size | divided_by: 10.0 }}rem;--alignment:{{ block.settings.alignment }};{% if margins %}--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;{% endif %}' {% if block_attributes %}{{ block.shopify_attributes }}{% endif %}>
+{% if block.settings.use_product_data %}
+  {% assign rating_value = block.settings.rating %}
+  {% assign review_count = 0 %}
+  {% for tag in product.tags %}
+    {% if tag contains 'rating:' %}
+      {% assign rating_value = tag | split: ':' | last | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'reviews:' %}
+      {% assign review_count = tag | split: ':' | last | plus: 0 %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% assign rating_value = block.settings.rating %}
+  {% assign review_count = 0 %}
+{% endif %}
+{% assign label_text = block.settings.label %}
+{% if review_count > 0 %}
+  {% assign label_text = block.settings.label | replace: '[count]', review_count %}
+{% endif %}
+<div class="rating-stars" style='--rating:{{ rating_value }};--visible-stars:{{ rating_value | ceil }};--star-color:{{ block.settings.star_color }};--bg-star-color:{{ block.settings.bg_star_color }};--font-size:{{ block.settings.size | divided_by: 10.0 }}rem;--alignment:{{ block.settings.alignment }};{% if margins %}--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;{% endif %}' {% if block_attributes %}{{ block.shopify_attributes }}{% endif %}>
   {% if block.settings.scroll_id != blank %}<a href="{{ block.settings.scroll_id }}">{% endif %}
     <div class='rating-stars-and-text font-size--desktop-auto flex-center'>
       <div class='rating-stars__container rating-stars__container--underlay'>
@@ -23,7 +42,7 @@
           {% endfor %}
         </div>
       </div>
-      <span class="rating-stars__label">&nbsp;{{ block.settings.label }}</span>
+      <span class="rating-stars__label">&nbsp;{{ label_text }}</span>
     </div>
   {% if block.settings.scroll_id != blank %}</a>{% endif %}
 </div>
