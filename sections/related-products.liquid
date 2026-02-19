@@ -34,6 +34,111 @@
     background: transparent !important;
   }
   {% endif %}
+
+  /* Magic Mind Button Style for Quick Add buttons */
+  #shopify-section-{{ section.id }} .quick-add__submit {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    text-transform: none;
+    border: 2px solid #7B92C8;
+    border-radius: 8px;
+    color: #ffffff;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%);
+    background-size: 200% 200%;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit:hover::before {
+    opacity: 1;
+    background-position: 100% 0;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit:hover {
+    color: #ffffff;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3);
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit[disabled],
+  #shopify-section-{{ section.id }} .quick-add__submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit[disabled]::before,
+  #shopify-section-{{ section.id }} .quick-add__submit:disabled::before {
+    opacity: 0;
+  }
+
+  /* Heading Customization */
+  #shopify-section-{{ section.id }} .related-products__heading {
+    {% if section.settings.heading_font_family != blank %}
+    font-family: {{ section.settings.heading_font_family }};
+    {% endif %}
+    {% if section.settings.heading_text_size != blank %}
+    font-size: {{ section.settings.heading_text_size }}px;
+    {% endif %}
+    {% if section.settings.heading_color != blank %}
+    color: {{ section.settings.heading_color }};
+    {% endif %}
+    {% if section.settings.heading_alignment == 'left' %}
+    text-align: left;
+    {% elsif section.settings.heading_alignment == 'center' %}
+    text-align: center;
+    {% elsif section.settings.heading_alignment == 'right' %}
+    text-align: right;
+    {% endif %}
+    {% if section.settings.heading_padding_top != blank %}
+    padding-top: {{ section.settings.heading_padding_top }}px;
+    {% endif %}
+    {% if section.settings.heading_padding_bottom != blank %}
+    padding-bottom: {{ section.settings.heading_padding_bottom }}px;
+    {% endif %}
+    {% if section.settings.heading_padding_left != blank %}
+    padding-left: {{ section.settings.heading_padding_left }}px;
+    {% endif %}
+    {% if section.settings.heading_padding_right != blank %}
+    padding-right: {{ section.settings.heading_padding_right }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_top != blank %}
+    margin-top: {{ section.settings.heading_margin_top }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_bottom != blank %}
+    margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_left != blank %}
+    margin-left: {{ section.settings.heading_margin_left }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_right != blank %}
+    margin-right: {{ section.settings.heading_margin_right }}px;
+    {% endif %}
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden content-for-grouping animate-section animate--hidden">
@@ -123,6 +228,132 @@
       ],
       "default": "h1",
       "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "Heading Customization"
+    },
+    {
+      "type": "range",
+      "id": "heading_text_size",
+      "min": 12,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading text size",
+      "info": "Leave at 0 to use default theme size"
+    },
+    {
+      "type": "text",
+      "id": "heading_font_family",
+      "label": "Heading font family",
+      "info": "Enter a font family (e.g., 'Playfair Display', sans-serif). Leave empty to use theme default."
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading text color",
+      "info": "Select a color to override the default theme color"
+    },
+    {
+      "type": "header",
+      "content": "Heading Padding"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding left"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding right"
+    },
+    {
+      "type": "header",
+      "content": "Heading Margin"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin top"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin bottom"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin left"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin right"
     },
     {
       "type": "range",
