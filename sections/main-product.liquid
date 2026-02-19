@@ -151,13 +151,18 @@
 
     /* Product card custom background color for complementary products */
     {% if section.settings.card_background_color != blank %}
-    #MainProduct-{{ section.id }} .complementary-slide .card {
+    #MainProduct-{{ section.id }} .complementary-products__container .card,
+    #MainProduct-{{ section.id }} .complementary-products__container .card--card,
+    #MainProduct-{{ section.id }} .complementary-products__container .card--horizontal {
       background: {{ section.settings.card_background_color }} !important;
+      background-color: {{ section.settings.card_background_color }} !important;
       --color-background: {{ section.settings.card_background_color }};
       --gradient-background: {{ section.settings.card_background_color }};
     }
-    #MainProduct-{{ section.id }} .complementary-slide .card__content {
+    #MainProduct-{{ section.id }} .complementary-products__container .card__content,
+    #MainProduct-{{ section.id }} .complementary-products__container .card__inner {
       background: transparent !important;
+      background-color: transparent !important;
     }
     {% endif %}
   {%- endstyle -%}
