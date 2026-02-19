@@ -644,6 +644,22 @@
                   }
                 {% endstyle %}
               {% endif %}
+              {% style %}
+                #sticky-atc-{{ section.id }} .button {
+                  min-height: {{ block.settings.desktop_button_height }}px;
+                  font-size: {{ block.settings.desktop_button_font_size }}px;
+                  padding-left: {{ block.settings.desktop_button_padding_horizontal }}px;
+                  padding-right: {{ block.settings.desktop_button_padding_horizontal }}px;
+                }
+                @media screen and (max-width: 749px) {
+                  #sticky-atc-{{ section.id }} .button {
+                    min-height: {{ block.settings.mobile_button_height }}px;
+                    font-size: {{ block.settings.mobile_button_font_size }}px;
+                    padding-left: {{ block.settings.mobile_button_padding_horizontal }}px;
+                    padding-right: {{ block.settings.mobile_button_padding_horizontal }}px;
+                  }
+                }
+              {% endstyle %}
               <sticky-atc 
                 id="sticky-atc-{{ section.id }}"
                 class="sticky-atc color-{{ block.settings.color_scheme }}{% unless block.settings.mobile_show_sale_badge %} sticky-atc--mobile-no-badge{% endunless %}{% unless block.settings.desktop_show_sale_badge %} sticky-atc--desktop-no-badge{% endunless %}{% if block.settings.mobile_transparent_bg %} sticky-atc--mobile-transparent{% endif %}{% if block.settings.desktop_transparent_bg %} sticky-atc--desktop-transparent{% endif %}{% if block.settings.mobile_show_title or block.settings.mobile_show_price %} sticky-atc--small-mobile-select{% endif %}" 
@@ -4434,6 +4450,36 @@
           "info": "This option automatically makes the button full width and hides all other elements."
         },
         {
+          "type": "range",
+          "id": "desktop_button_height",
+          "min": 40,
+          "max": 100,
+          "step": 2,
+          "default": 52,
+          "unit": "px",
+          "label": "Button height (desktop)"
+        },
+        {
+          "type": "range",
+          "id": "desktop_button_font_size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "default": 16,
+          "unit": "px",
+          "label": "Button font size (desktop)"
+        },
+        {
+          "type": "range",
+          "id": "desktop_button_padding_horizontal",
+          "min": 0,
+          "max": 60,
+          "step": 4,
+          "default": 24,
+          "unit": "px",
+          "label": "Button horizontal padding (desktop)"
+        },
+        {
           "type": "header",
           "content": "Mobile layout"
         },
@@ -4492,6 +4538,36 @@
           "default": false,
           "label": "Use transparent background style.",
           "info": "This option automatically makes the button full width and hides all other elements."
+        },
+        {
+          "type": "range",
+          "id": "mobile_button_height",
+          "min": 40,
+          "max": 100,
+          "step": 2,
+          "default": 48,
+          "unit": "px",
+          "label": "Button height (mobile)"
+        },
+        {
+          "type": "range",
+          "id": "mobile_button_font_size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "default": 14,
+          "unit": "px",
+          "label": "Button font size (mobile)"
+        },
+        {
+          "type": "range",
+          "id": "mobile_button_padding_horizontal",
+          "min": 0,
+          "max": 60,
+          "step": 4,
+          "default": 16,
+          "unit": "px",
+          "label": "Button horizontal padding (mobile)"
         }
       ]
     },
