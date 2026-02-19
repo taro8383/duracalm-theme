@@ -464,7 +464,21 @@
         "padding_top": 24,
         "padding_bottom": 24,
         "section_background_color": "#f3dfc1",
-        "card_background_color": "#ddbea8"
+        "card_background_color": "#ddbea8",
+        "card_max_width": 400,
+        "card_width": 0,
+        "card_image_max_width": 0,
+        "auto_center_cards": true,
+        "grid_column_gap": 80,
+        "grid_row_gap": 0,
+        "card_padding_top": 0,
+        "card_padding_bottom": 0,
+        "card_padding_left": 0,
+        "card_padding_right": 0,
+        "card_margin_top": 0,
+        "card_margin_bottom": 60,
+        "card_margin_left": 0,
+        "card_margin_right": 0
       }
     },
     "section_divider_PYPTAi": {
