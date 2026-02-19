@@ -59,7 +59,7 @@
             "star_color": "#ffcc00",
             "bg_stars_style": "full",
             "bg_star_color": "#ececec",
-            "label": "(xxxx Reviews)",
+            "label": "(136 Reviews)",
             "size": 16,
             "alignment": "flex-start",
             "scroll_id": "",
@@ -276,7 +276,7 @@
             "custom_btn_color": "#2e2a39",
             "color_scheme": "accent-1",
             "star_color": "#ffcc00",
-            "stars_label": "(xxxx Reviews)",
+            "stars_label": "(136 Reviews)",
             "picker_type": "combined",
             "desktop_show_image": true,
             "desktop_show_title": true,
@@ -287,6 +287,9 @@
             "desktop_full_button_width": false,
             "desktop_show_price_in_button": true,
             "desktop_transparent_bg": false,
+            "desktop_button_height": 40,
+            "desktop_button_font_size": 12,
+            "desktop_button_padding_horizontal": 24,
             "mobile_show_image": true,
             "mobile_show_title": true,
             "mobile_rating_stars": false,
@@ -295,7 +298,10 @@
             "mobile_variant_picker": false,
             "mobile_full_button_width": false,
             "mobile_show_price_in_button": false,
-            "mobile_transparent_bg": false
+            "mobile_transparent_bg": false,
+            "mobile_button_height": 40,
+            "mobile_button_font_size": 12,
+            "mobile_button_padding_horizontal": 16
           }
         },
         "description": {
