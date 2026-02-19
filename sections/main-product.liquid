@@ -149,14 +149,10 @@
     }
     {% endif %}
 
-    /* Main product area custom background color */
-    {% if section.settings.main_product_background_color != blank %}
-    #MainProduct-{{ section.id }} {
-      background-color: {{ section.settings.main_product_background_color }} !important;
-    }
-    #MainProduct-{{ section.id }} .product__media-wrapper,
-    #MainProduct-{{ section.id }} .product__info-wrapper {
-      background-color: {{ section.settings.main_product_background_color }} !important;
+    /* Product media custom background color */
+    {% if section.settings.media_background_color != blank %}
+    #MainProduct-{{ section.id }} .product__media.media {
+      background-color: {{ section.settings.media_background_color }};
     }
     {% endif %}
 
@@ -9483,13 +9479,13 @@
     },
     {
       "type": "header",
-      "content": "Main Product Area Background"
+      "content": "Product Media Background"
     },
     {
       "type": "color",
-      "id": "main_product_background_color",
-      "label": "Main product background color",
-      "info": "Select a custom color for the main product display area. Leave empty to use theme default."
+      "id": "media_background_color",
+      "label": "Product media background color",
+      "info": "Select a color for the product image/media area. Leave empty for default (white)."
     },
     {
       "type": "header",
