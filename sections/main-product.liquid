@@ -142,10 +142,27 @@
       opacity: 0;
     }
 
-    /* Section custom background color */
+    /* Section custom background color - applied to full-width wrapper */
     {% if section.settings.section_background_color != blank %}
-    #MainProduct-{{ section.id }} {
+    #shopify-section-{{ section.id }} {
       background-color: {{ section.settings.section_background_color }};
+    }
+    {% endif %}
+
+    /* Product card custom background color for complementary products */
+    {% if section.settings.card_background_color != blank %}
+    #MainProduct-{{ section.id }} .complementary-products__container .card,
+    #MainProduct-{{ section.id }} .complementary-products__container .card--card,
+    #MainProduct-{{ section.id }} .complementary-products__container .card--horizontal {
+      background: {{ section.settings.card_background_color }} !important;
+      background-color: {{ section.settings.card_background_color }} !important;
+      --color-background: {{ section.settings.card_background_color }};
+      --gradient-background: {{ section.settings.card_background_color }};
+    }
+    #MainProduct-{{ section.id }} .complementary-products__container .card__content,
+    #MainProduct-{{ section.id }} .complementary-products__container .card__inner {
+      background: transparent !important;
+      background-color: transparent !important;
     }
     {% endif %}
   {%- endstyle -%}
@@ -9453,9 +9470,18 @@
     {
       "type": "color",
       "id": "section_background_color",
-      "default": "",
       "label": "Section background color",
-      "info": "Leave empty to use default theme background"
+      "info": "Select a color to override the default theme background"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Background"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background color",
+      "info": "Select a custom color for complementary product cards. Leave empty to use theme default."
     },
     {
       "type": "checkbox",
