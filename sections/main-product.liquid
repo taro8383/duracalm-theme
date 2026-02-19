@@ -148,6 +148,19 @@
       background-color: {{ section.settings.section_background_color }};
     }
     {% endif %}
+
+    /* Product card custom background color for complementary products */
+    {% if section.settings.card_background_color != blank %}
+    #MainProduct-{{ section.id }} .complementary-slide .card {
+      background-color: {{ section.settings.card_background_color }} !important;
+    }
+    #MainProduct-{{ section.id }} .complementary-slide .card__inner {
+      background-color: {{ section.settings.card_background_color }} !important;
+    }
+    #MainProduct-{{ section.id }} .complementary-slide .card__content {
+      background-color: {{ section.settings.card_background_color }} !important;
+    }
+    {% endif %}
   {%- endstyle -%}
 
   {% if section.settings.image_zoom == 'hover' %}
@@ -9455,6 +9468,16 @@
       "id": "section_background_color",
       "label": "Section background color",
       "info": "Select a color to override the default theme background"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Background"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background color",
+      "info": "Select a custom color for complementary product cards. Leave empty to use theme default."
     },
     {
       "type": "checkbox",

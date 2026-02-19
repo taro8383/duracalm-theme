@@ -22,6 +22,19 @@
     background-color: {{ section.settings.section_background_color }};
   }
   {% endif %}
+
+  /* Product card custom background color */
+  {% if section.settings.card_background_color != blank %}
+  #shopify-section-{{ section.id }} .card {
+    background-color: {{ section.settings.card_background_color }} !important;
+  }
+  #shopify-section-{{ section.id }} .card__inner {
+    background-color: {{ section.settings.card_background_color }} !important;
+  }
+  #shopify-section-{{ section.id }} .card__content {
+    background-color: {{ section.settings.card_background_color }} !important;
+  }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden content-for-grouping animate-section animate--hidden">
@@ -261,6 +274,16 @@
       "id": "section_background_color",
       "label": "Section background color",
       "info": "Select a color to override the default theme background"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Background"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background color",
+      "info": "Select a custom color for the product cards. Leave empty to use theme default."
     }
   ]
 }
