@@ -9,9 +9,35 @@
  */
 {
   "sections": {
+    "b321ab88-2b59-4dba-bade-54885c874ca5": {
+      "type": "section-divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "waves_3",
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 200,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
+        "inventory_iq7CwT": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": true,
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -227,7 +253,7 @@
             "date_format": "mm_dd",
             "days_labels": "Mon, Tue, Wed, Thu, Fri, Sat, Sun",
             "months_labels": "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec",
-            "color_scheme": "inverse",
+            "color_scheme": "accent-1",
             "margin_top": 24,
             "margin_bottom": 24
           }
@@ -238,9 +264,9 @@
             "function": "add_to_cart",
             "display_when": "after_scroll",
             "button_label": "Add to cart",
-            "enable_custom_btn_color": false,
-            "custom_btn_color": "#dd1d1d",
-            "color_scheme": "background-1",
+            "enable_custom_btn_color": true,
+            "custom_btn_color": "#7b92c8",
+            "color_scheme": "accent-1",
             "star_color": "#ffcc00",
             "stars_label": "(xxxx Reviews)",
             "picker_type": "combined",
@@ -303,6 +329,7 @@
         },
         "de158e68-5d0d-4819-a625-e2dabdff87d1": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Collapsible row",
             "heading_size": "medium",
@@ -319,6 +346,7 @@
         }
       },
       "block_order": [
+        "inventory_iq7CwT",
         "title",
         "a6eb81db-40e4-43e0-972f-32db010a4a56",
         "price",
@@ -334,16 +362,23 @@
       "custom_css": [],
       "settings": {
         "display_id": false,
+        "button_text_color": "#ffffff",
+        "button_border_color": "#7b92c8",
+        "button_bg_color": "#7b92c8",
+        "button_hover_text_color": "#ffffff",
+        "button_hover_bg_start": "#7b92c8",
+        "button_hover_bg_mid": "#ddbea8",
+        "button_hover_bg_end": "#f3dfc1",
         "enable_sticky_info": true,
         "display_variant_image_first": false,
         "disable_prepend": true,
         "hide_variants": false,
         "variant_image_filtering": "none",
-        "image_zoom": "none",
+        "image_zoom": "lightbox",
         "thumbnails_ratio": "square",
-        "arrows_color_scheme": "inverse",
+        "arrows_color_scheme": "accent-1",
         "transparent_arrows": false,
-        "dots_color_scheme": "inverse",
+        "dots_color_scheme": "accent-1",
         "video_player": "play_btn",
         "enable_video_looping": false,
         "autoplay_videos_pause_btn": false,
@@ -383,9 +418,42 @@
         "desktop_padding_bottom": 36
       }
     },
+    "section_divider_PYPTAi": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#f3dfc1",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_divider_QbGrqL": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#f3dfc1",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "related-products": {
       "type": "related-products",
-      "disabled": true,
       "settings": {
         "display_id": false,
         "title": "You may also like",
@@ -402,6 +470,23 @@
         "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 24
+      }
+    },
+    "section_divider_AYN8E7": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "8beb6911-28c6-482c-976a-e5421ad3e8df": {
@@ -532,7 +617,7 @@
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "color_scheme": "background-1",
+        "color_scheme": "custom",
         "columns_count": 4,
         "column_gap_desktop": 40,
         "row_gap_desktop": 40,
@@ -560,12 +645,29 @@
         "col_6_visibility": "always-display",
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
         "custom_colors_solid_button_background": "#dd1d1d",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d"
+      }
+    },
+    "section_divider_pqyQHB": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#f3dfc1",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59": {
@@ -620,7 +722,7 @@
         "title": "Image/Video Slider",
         "title_highlight_color": "#6d388b",
         "heading_size": "h1",
-        "color_scheme": "background-1",
+        "color_scheme": "custom",
         "type": "slide",
         "drag": "enabled",
         "autoplay": false,
@@ -651,9 +753,26 @@
         "mobile_arrows_position": "sides",
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
         "custom_colors_text": "#121212"
+      }
+    },
+    "section_divider_fC8jnw": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": true,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a": {
@@ -721,7 +840,7 @@
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "color_scheme": "background-1",
+        "color_scheme": "custom",
         "icon_size": "m",
         "icon_position": "next-to-title",
         "icon_color": "accent-1",
@@ -735,7 +854,7 @@
         "hide_content_on_mobile": false,
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
         "custom_colors_solid_button_background": "#dd1d1d",
@@ -786,7 +905,7 @@
         "title_highlight_color": "#6d388b",
         "heading_size": "h1",
         "text": "",
-        "color_scheme": "background-1",
+        "color_scheme": "custom",
         "image_width": "full",
         "image_ratio": "square",
         "column_alignment": "center",
@@ -794,15 +913,16 @@
         "inactive_stars_style": "solid",
         "star_color": "#ffcc00",
         "bg_star_color": "#ececec",
-        "show_quotes": true,
-        "quotes_color_scheme": "accent-2",
-        "cards_color_scheme": "bg-overlay",
+        "star_animation": "shimmer",
+        "show_quotes": false,
+        "quotes_color_scheme": "accent-1",
+        "cards_color_scheme": "accent-1",
         "type": "slide",
         "autoplay": false,
         "autoplay_speed": 5,
-        "arrows_color_scheme": "inverse",
+        "arrows_color_scheme": "accent-1",
         "transparent_arrows": true,
-        "dots_color_scheme": "inverse",
+        "dots_color_scheme": "accent-1",
         "desktop_full_page": false,
         "columns_desktop": 3,
         "slider_desktop": false,
@@ -820,37 +940,44 @@
         "mobile_arrows_position": "under",
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
-        "custom_cards_colors_background": "#f3f3f3",
+        "custom_cards_colors_background": "#ddbea8",
         "custom_cards_gradient_background": "",
         "custom_cards_colors_text": "#2e2a39"
       }
     },
-    "b321ab88-2b59-4dba-bade-54885c874ca5": {
+    "section_divider_VjNwm7": {
       "type": "section-divider",
       "settings": {
         "visibility": "always-display",
         "shape": "waves_3",
         "flip_horizontal": false,
-        "flip_vertical": false,
+        "flip_vertical": true,
         "shape_color": "accent-1",
         "custom_shape_color": "#dd1d1d",
-        "background_color": "background-1",
-        "custom_background_color": "#ffffff",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 200,
         "padding_top": 0,
         "padding_bottom": 0
       }
     }
   },
   "order": [
+    "b321ab88-2b59-4dba-bade-54885c874ca5",
     "main",
+    "section_divider_PYPTAi",
     "related-products",
+    "section_divider_AYN8E7",
     "8beb6911-28c6-482c-976a-e5421ad3e8df",
+    "section_divider_pqyQHB",
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
+    "section_divider_fC8jnw",
     "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a",
+    "section_divider_QbGrqL",
     "55bd100e-3bbd-426c-a5cf-eed7b2a3706f",
-    "b321ab88-2b59-4dba-bade-54885c874ca5"
+    "section_divider_VjNwm7"
   ]
 }

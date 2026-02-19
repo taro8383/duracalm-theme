@@ -38,8 +38,73 @@
   }
 
   #ProductGridContainer .card__inner,
-  #ProductGridContainer .card__media {
+  #ProductGridContainer .card__media,
+  #ProductGridContainer .card__media .media,
+  #ProductGridContainer .card__media .media.media--transparent {
     border-radius: {{ section.settings.image_border_radius }}px;
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  #ProductGridContainer .card,
+  #ProductGridContainer .card[class*="color-"] {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  #ProductGridContainer .card.gradient,
+  #ProductGridContainer .card__inner.gradient,
+  #ProductGridContainer .card__inner[class*="color-"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    --color-background: transparent;
+  }
+
+  /* Force images to be visible and properly sized */
+  #ProductGridContainer .card__media .media img,
+  #ProductGridContainer .card__media img {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    z-index: 10 !important;
+  }
+
+  /* Ensure media container displays properly */
+  #ProductGridContainer .card__media {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 5 !important;
+  }
+
+  #ProductGridContainer .card__media .media {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: transparent !important;
+  }
+
+  #ProductGridContainer .card__inner {
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  #ProductGridContainer .card__content {
+    {% if section.settings.card_background_color != blank %}
+      background-color: {{ section.settings.card_background_color }};
+    {% endif %}
   }
 
   #ProductGridContainer .card__heading {
@@ -87,7 +152,7 @@
       text-transform: none;
       border: 2px solid {{ section.settings.quick_add_button_color | default: '#7B92C8' }};
       border-radius: 8px;
-      color: {{ section.settings.quick_add_button_color | default: '#7B92C8' }};
+      color: {{ section.settings.quick_add_button_text_color | default: section.settings.quick_add_button_color | default: '#7B92C8' }};
       background: transparent;
       cursor: pointer;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -672,7 +737,13 @@
     {
       "type": "color",
       "id": "quick_add_button_color",
-      "label": "Button color",
+      "label": "Button border/hover color",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "color",
+      "id": "quick_add_button_text_color",
+      "label": "Button text color (normal)",
       "default": "#7b92c8"
     },
     {

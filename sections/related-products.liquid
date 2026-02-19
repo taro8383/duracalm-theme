@@ -15,6 +15,13 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Section custom background color */
+  {% if section.settings.section_background_color != blank %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.section_background_color }};
+  }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden content-for-grouping animate-section animate--hidden">
@@ -244,6 +251,17 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "default": "",
+      "label": "Section background color",
+      "info": "Leave empty to use default theme background"
     }
   ]
 }

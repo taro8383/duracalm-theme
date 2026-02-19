@@ -31,6 +31,123 @@
         --slide-inner-percentage-width: {{ section.settings.mobile_slides_inner_width }}%;
       }
     }
+
+    /* Star Animation - Golden Shimmer */
+    @keyframes productStarShimmer {
+      0% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
+      50% { filter: brightness(1.3) drop-shadow(0 0 4px currentColor); }
+      100% { filter: brightness(1) drop-shadow(0 0 0 transparent); }
+    }
+
+    #MainProduct-{{ section.id }} .rating-stars__container--overlay svg,
+    #MainProduct-{{ section.id }} .rating-stars__container svg {
+      animation: productStarShimmer 2s ease-in-out infinite;
+    }
+
+    #MainProduct-{{ section.id }} .rating-stars__container--overlay svg:nth-child(1),
+    #MainProduct-{{ section.id }} .rating-stars__container svg:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    #MainProduct-{{ section.id }} .rating-stars__container--overlay svg:nth-child(2),
+    #MainProduct-{{ section.id }} .rating-stars__container svg:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    #MainProduct-{{ section.id }} .rating-stars__container--overlay svg:nth-child(3),
+    #MainProduct-{{ section.id }} .rating-stars__container svg:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    #MainProduct-{{ section.id }} .rating-stars__container--overlay svg:nth-child(4),
+    #MainProduct-{{ section.id }} .rating-stars__container svg:nth-child(4) {
+      animation-delay: 0.6s;
+    }
+
+    #MainProduct-{{ section.id }} .rating-stars__container--overlay svg:nth-child(5),
+    #MainProduct-{{ section.id }} .rating-stars__container svg:nth-child(5) {
+      animation-delay: 0.8s;
+    }
+
+    /* Magic Mind Button Style - Applied to all buttons */
+    #MainProduct-{{ section.id }} .button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      text-transform: none;
+      border: 2px solid {{ section.settings.button_border_color | default: '#7B92C8' }};
+      border-radius: 8px;
+      color: {{ section.settings.button_text_color | default: '#ffffff' }};
+      background: {{ section.settings.button_bg_color | default: 'transparent' }};
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    #MainProduct-{{ section.id }} .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, {{ section.settings.button_hover_bg_start | default: '#7B92C8' }} 0%, {{ section.settings.button_hover_bg_mid | default: '#ddbea8' }} 50%, {{ section.settings.button_hover_bg_end | default: '#f3dfc1' }} 100%);
+      background-size: 200% 200%;
+      opacity: 0;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    #MainProduct-{{ section.id }} .button:hover::before {
+      opacity: 1;
+      background-position: 100% 0;
+    }
+
+    #MainProduct-{{ section.id }} .button:hover {
+      color: {{ section.settings.button_hover_text_color | default: '#ffffff' }};
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3);
+    }
+
+    #MainProduct-{{ section.id }} .button--secondary {
+      border-color: {{ section.settings.button_border_color | default: '#7B92C8' }};
+      color: {{ section.settings.button_text_color | default: '#ffffff' }};
+      background: transparent;
+    }
+
+    #MainProduct-{{ section.id }} .button--secondary:hover {
+      color: {{ section.settings.button_hover_text_color | default: '#ffffff' }};
+      border-color: transparent;
+    }
+
+    /* Preserve disabled state styling */
+    #MainProduct-{{ section.id }} .button[disabled],
+    #MainProduct-{{ section.id }} .button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    #MainProduct-{{ section.id }} .button[disabled]::before,
+    #MainProduct-{{ section.id }} .button:disabled::before {
+      opacity: 0;
+    }
+
+    /* Section custom background color */
+    {% if section.settings.section_background_color != blank %}
+    #MainProduct-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+    }
+    {% endif %}
   {%- endstyle -%}
 
   {% if section.settings.image_zoom == 'hover' %}
@@ -9282,6 +9399,63 @@
       "label": "Display section ID",
       "info": "ID can be put inside any button link and the button will scroll to this section.",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "default": "#ffffff",
+      "label": "Button text color"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "default": "#7B92C8",
+      "label": "Button border color"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "default": "#7B92C8",
+      "label": "Button background color"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "default": "#ffffff",
+      "label": "Button hover text color"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_start",
+      "default": "#7B92C8",
+      "label": "Button hover gradient start"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_mid",
+      "default": "#ddbea8",
+      "label": "Button hover gradient middle"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_end",
+      "default": "#f3dfc1",
+      "label": "Button hover gradient end"
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "default": "",
+      "label": "Section background color",
+      "info": "Leave empty to use default theme background"
     },
     {
       "type": "checkbox",
