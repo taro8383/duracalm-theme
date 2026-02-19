@@ -200,6 +200,32 @@
     margin-right: auto;
   }
   {% endif %}
+
+  /* Auto-center and space evenly */
+  {% if section.settings.auto_center_cards %}
+  #shopify-section-{{ section.id }} .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    {% if section.settings.card_max_width > 0 %}
+    {% assign cards_per_row = section.settings.columns_desktop | default: 4 %}
+    {% assign container_padding = 100 %}
+    {% assign available_space = 'calc(100% - ' | append: container_padding | append: 'px)' %}
+    gap: {{ section.settings.grid_column_gap | default: 20 }}px;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .grid__item {
+    {% if section.settings.card_max_width > 0 %}
+    flex: 0 0 {{ section.settings.card_max_width }}px;
+    max-width: {{ section.settings.card_max_width }}px;
+    width: {{ section.settings.card_max_width }}px;
+    {% else %}
+    flex: 1 1 auto;
+    max-width: 100%;
+    {% endif %}
+  }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden content-for-grouping animate-section animate--hidden">
@@ -621,6 +647,13 @@
       "unit": "px",
       "label": "Card image max width",
       "info": "Limit the image width to prevent pixelation. Set to 0 for full width."
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_center_cards",
+      "default": false,
+      "label": "Auto-center and space evenly",
+      "info": "When enabled, cards will be centered in the section and spaced evenly based on the Card max width setting. Best used with 2-3 columns."
     },
     {
       "type": "header",
