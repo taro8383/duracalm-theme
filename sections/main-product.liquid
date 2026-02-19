@@ -142,9 +142,9 @@
       opacity: 0;
     }
 
-    /* Section custom background color */
+    /* Section custom background color - applied to full-width wrapper */
     {% if section.settings.section_background_color != blank %}
-    #MainProduct-{{ section.id }} {
+    #shopify-section-{{ section.id }} {
       background-color: {{ section.settings.section_background_color }};
     }
     {% endif %}
