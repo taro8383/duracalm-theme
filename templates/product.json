@@ -370,6 +370,8 @@
         "button_hover_bg_mid": "#ddbea8",
         "button_hover_bg_end": "#f3dfc1",
         "section_background_color": "#f3dfc1",
+        "media_background_color": "#ddbea8",
+        "card_background_color": "",
         "enable_sticky_info": true,
         "display_variant_image_first": false,
         "disable_prepend": true,
@@ -437,7 +439,8 @@
         "columns_mobile": "2",
         "padding_top": 24,
         "padding_bottom": 24,
-        "section_background_color": "#f3dfc1"
+        "section_background_color": "#f3dfc1",
+        "card_background_color": "#ddbea8"
       }
     },
     "section_divider_PYPTAi": {
