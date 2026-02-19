@@ -711,7 +711,7 @@
                         {% endif %}
                         {% assign label_text = block.settings.stars_label %}
                         {% if review_count > 0 %}
-                          {% assign label_text = block.settings.stars_label | replace: '{{ count }}', review_count %}
+                          {% assign label_text = block.settings.stars_label | replace: '[count]', review_count %}
                         {% endif %}
                         <div class='rating-stars-and-text font-size--desktop-auto flex-center{% unless block.settings.mobile_rating_stars %} mobile-hidden{% endunless %}{% unless block.settings.desktop_rating_stars %} desktop-hidden{% endunless %}' style='--bg-star-color:{{ block.settings.star_color }};--font-size:1.3rem;--alignment:flex-start;'>
                           <div class='rating-stars__container rating-stars__container--underlay' style='position:relative;display:inline-block;'>
@@ -1866,7 +1866,7 @@
           "id": "label",
           "label": "Text",
           "default": "(xxxx Reviews)",
-          "info": "Use {{ count }} to display the review count"
+          "info": "Use [count] to display the review count"
         },
         {
           "type": "checkbox",
@@ -4418,7 +4418,7 @@
           "id": "stars_label",
           "label": "Rating stars text",
           "default": "(xxxx Reviews)",
-          "info": "Use {{ count }} to display the review count from metafields"
+          "info": "Use [count] to display the review count"
         },
         {
           "type": "range",
