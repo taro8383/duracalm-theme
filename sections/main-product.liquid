@@ -156,6 +156,31 @@
     }
     {% endif %}
 
+    /* Inventory indicator pulse animation */
+    @keyframes inventoryPulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.15); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon {
+      animation: inventoryPulse 1.5s ease-in-out infinite;
+      display: inline-block;
+      transform-origin: center;
+    }
+
+    #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon--in-stock {
+      animation-delay: 0s;
+    }
+
+    #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon--low {
+      animation-delay: 0.3s;
+    }
+
+    #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon--out-of-stock {
+      animation-delay: 0.6s;
+    }
+
     /* Product card custom background color for complementary products */
     {% if section.settings.card_background_color != blank %}
     #MainProduct-{{ section.id }} .complementary-products__container .card {
@@ -349,17 +374,17 @@
               </div>
             {%- when 'inventory' -%}
               <p
-                class="product__inventory no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+                class="product__inventory no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if block.settings.enable_pulse_animation %} inventory-pulse{% endif %}"
                 {{ block.shopify_attributes }}
                 id="Inventory-{{ section.id }}"
                 role="status"
-                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;"
+                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --in-stock-color: {{ block.settings.in_stock_color | default: '#3ED660' }}; --low-stock-color: {{ block.settings.low_stock_color | default: '#EE9441' }}; --out-of-stock-color: {{ block.settings.out_of_stock_color | default: '#C8C8C8' }};"
               >
                 {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
                   {%- if product.selected_or_first_available_variant.inventory_quantity <= block.settings.inventory_threshold -%}
-                    <svg width="15" height="15" aria-hidden="true">
-                      <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(238,148,65, 0.3)"/>
-                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(238,148,65)"/>
+                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--low">
+                      <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.low_stock_color | default: '#EE9441' }}" fill-opacity="0.3"/>
+                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.low_stock_color | default: '#EE9441' }}"/>
                     </svg>
                     {%- if block.settings.show_inventory_quantity -%}
                       {{- 'products.product.inventory_low_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity -}}
@@ -367,9 +392,9 @@
                       {{- 'products.product.inventory_low_stock' | t -}}
                     {%- endif -%}
                   {%- else -%}
-                    <svg width="15" height="15" aria-hidden="true">
-                      <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(62,214,96, 0.3)"/>
-                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(62,214,96)"/>
+                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--in-stock">
+                      <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}" fill-opacity="0.3"/>
+                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}"/>
                     </svg>
                     {%- if block.settings.show_inventory_quantity -%}
                       {{- 'products.product.inventory_in_stock_show_count' | t: quantity: product.selected_or_first_available_variant.inventory_quantity -}}
@@ -379,15 +404,15 @@
                   {%- endif -%}
                 {%- else -%}
                   {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
-                    <svg width="15" height="15" aria-hidden="true">
-                      <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(62,214,96, 0.3)"/>
-                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(62,214,96)"/>
+                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--in-stock">
+                      <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}" fill-opacity="0.3"/>
+                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}"/>
                     </svg>
                     {{- 'products.product.inventory_out_of_stock_continue_selling' | t -}}
                   {%- else -%}
-                    <svg width="15" height="15" aria-hidden="true">
-                      <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(200,200,200, 0.3)"/>
-                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(200,200,200)"/>
+                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--out-of-stock">
+                      <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.out_of_stock_color | default: '#C8C8C8' }}" fill-opacity="0.3"/>
+                      <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.out_of_stock_color | default: '#C8C8C8' }}"/>
                     </svg>
                     {{- 'products.product.inventory_out_of_stock' | t -}}
                   {%- endif -%}
@@ -2388,6 +2413,34 @@
           "type": "checkbox",
           "id": "show_inventory_quantity",
           "label": "t:sections.main-product.blocks.inventory.settings.show_inventory_quantity.label",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Inventory Indicator Colors"
+        },
+        {
+          "type": "color",
+          "id": "in_stock_color",
+          "label": "In stock color",
+          "default": "#3ED660"
+        },
+        {
+          "type": "color",
+          "id": "low_stock_color",
+          "label": "Low stock color",
+          "default": "#EE9441"
+        },
+        {
+          "type": "color",
+          "id": "out_of_stock_color",
+          "label": "Out of stock color",
+          "default": "#C8C8C8"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_pulse_animation",
+          "label": "Enable pulse animation",
           "default": true
         },
         {
