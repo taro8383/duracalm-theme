@@ -149,6 +149,17 @@
     }
     {% endif %}
 
+    /* Main product area custom background color */
+    {% if section.settings.main_product_background_color != blank %}
+    #MainProduct-{{ section.id }} {
+      background-color: {{ section.settings.main_product_background_color }} !important;
+    }
+    #MainProduct-{{ section.id }} .product__media-wrapper,
+    #MainProduct-{{ section.id }} .product__info-wrapper {
+      background-color: {{ section.settings.main_product_background_color }} !important;
+    }
+    {% endif %}
+
     /* Product card custom background color for complementary products */
     {% if section.settings.card_background_color != blank %}
     #MainProduct-{{ section.id }} .complementary-products__container .card {
@@ -9469,6 +9480,16 @@
       "id": "section_background_color",
       "label": "Section background color",
       "info": "Select a color to override the default theme background"
+    },
+    {
+      "type": "header",
+      "content": "Main Product Area Background"
+    },
+    {
+      "type": "color",
+      "id": "main_product_background_color",
+      "label": "Main product background color",
+      "info": "Select a custom color for the main product display area. Leave empty to use theme default."
     },
     {
       "type": "header",
