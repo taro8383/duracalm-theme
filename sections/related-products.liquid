@@ -26,10 +26,12 @@
   /* Product card custom background color */
   {% if section.settings.card_background_color != blank %}
   #shopify-section-{{ section.id }} .card {
-    background-color: {{ section.settings.card_background_color }} !important;
+    background: {{ section.settings.card_background_color }} !important;
+    --color-background: {{ section.settings.card_background_color }};
+    --gradient-background: {{ section.settings.card_background_color }};
   }
   #shopify-section-{{ section.id }} .card__content {
-    background-color: {{ section.settings.card_background_color }} !important;
+    background: transparent !important;
   }
   {% endif %}
 {%- endstyle -%}
