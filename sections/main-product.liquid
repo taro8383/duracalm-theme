@@ -214,6 +214,48 @@
       background-color: transparent !important;
     }
     {% endif %}
+
+    /* Custom Gallery Colors - Dots & Arrows */
+    {% if section.settings.gallery_arrows_color != blank %}
+    #MainProduct-{{ section.id }} .splide__arrow svg {
+      color: {{ section.settings.gallery_arrows_color }};
+      fill: {{ section.settings.gallery_arrows_color }};
+    }
+    #MainProduct-{{ section.id }} .slider-button svg {
+      color: {{ section.settings.gallery_arrows_color }};
+    }
+    {% endif %}
+
+    {% if section.settings.gallery_arrows_bg_color != blank %}
+    #MainProduct-{{ section.id }} .splide__arrow,
+    #MainProduct-{{ section.id }} .slider-button {
+      background-color: {{ section.settings.gallery_arrows_bg_color }};
+    }
+    {% endif %}
+
+    {% if section.settings.gallery_dots_color != blank %}
+    #MainProduct-{{ section.id }} .slider-counter__link--dots .dot {
+      background-color: {{ section.settings.gallery_dots_color }};
+      border-color: {{ section.settings.gallery_dots_color }};
+    }
+    #MainProduct-{{ section.id }} .splide__pagination__page {
+      background-color: {{ section.settings.gallery_dots_color }};
+      opacity: 0.5;
+    }
+    {% endif %}
+
+    {% if section.settings.gallery_dots_active_color != blank %}
+    #MainProduct-{{ section.id }} .slider-counter__link--dots.is-active .dot,
+    #MainProduct-{{ section.id }} .slider-counter__link--dots:hover .dot {
+      background-color: {{ section.settings.gallery_dots_active_color }};
+      border-color: {{ section.settings.gallery_dots_active_color }};
+    }
+    #MainProduct-{{ section.id }} .splide__pagination__page.is-active,
+    #MainProduct-{{ section.id }} .splide__pagination__page:hover {
+      background-color: {{ section.settings.gallery_dots_active_color }};
+      opacity: 1;
+    }
+    {% endif %}
   {%- endstyle -%}
 
   {% if section.settings.image_zoom == 'hover' %}
@@ -9746,6 +9788,34 @@
       ],
       "default": "inverse",
       "label": "Dots color"
+    },
+    {
+      "type": "header",
+      "content": "Custom Gallery Colors"
+    },
+    {
+      "type": "color",
+      "id": "gallery_arrows_color",
+      "label": "Arrows color",
+      "info": "Leave empty to use color scheme. This will override the arrows color scheme above."
+    },
+    {
+      "type": "color",
+      "id": "gallery_arrows_bg_color",
+      "label": "Arrows background color",
+      "info": "Leave empty for default. This will override the transparent arrows setting."
+    },
+    {
+      "type": "color",
+      "id": "gallery_dots_color",
+      "label": "Dots color",
+      "info": "Leave empty to use color scheme. This will override the dots color scheme above."
+    },
+    {
+      "type": "color",
+      "id": "gallery_dots_active_color",
+      "label": "Dots active/hover color",
+      "info": "Leave empty for default."
     },
     {
       "type": "header",
