@@ -101,7 +101,7 @@
     {% if section.settings.heading_font_family != blank %}
     font-family: {{ section.settings.heading_font_family }};
     {% endif %}
-    {% if section.settings.heading_text_size != blank %}
+    {% if section.settings.heading_text_size > 0 %}
     font-size: {{ section.settings.heading_text_size }}px;
     {% endif %}
     {% if section.settings.heading_color != blank %}
@@ -236,12 +236,13 @@
     {
       "type": "range",
       "id": "heading_text_size",
-      "min": 12,
+      "min": 0,
       "max": 72,
       "step": 1,
+      "default": 0,
       "unit": "px",
       "label": "Heading text size",
-      "info": "Leave at 0 to use default theme size"
+      "info": "Set to 0 to use default theme size"
     },
     {
       "type": "text",
@@ -285,6 +286,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Padding top"
     },
@@ -294,6 +296,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Padding bottom"
     },
@@ -303,6 +306,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Padding left"
     },
@@ -312,6 +316,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Padding right"
     },
@@ -325,6 +330,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Margin top"
     },
@@ -334,6 +340,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Margin bottom"
     },
@@ -343,6 +350,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Margin left"
     },
@@ -352,6 +360,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
+      "default": 0,
       "unit": "px",
       "label": "Margin right"
     },
