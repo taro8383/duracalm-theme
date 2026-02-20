@@ -412,26 +412,32 @@
           id="ImageWithText--{{ section.id }}"
           class="image-with-text__content image-with-text__content--{{ section.settings.desktop_content_position }} image-with-text__content--desktop-{{ section.settings.desktop_content_alignment }} image-with-text__content--mobile-{{ section.settings.mobile_content_alignment }} image-with-text__content--{{ section.settings.height }} gradient color-{{ section.settings.color_scheme }} color-scheme-{{ section.id }} content-container"
         >
-          {%- if section.settings.scrollable_text -%}
-            <div class="image-with-text__text-scrollable-wrapper">
-          {%- endif -%}
+          {%- comment -%}Render non-scrollable blocks first (heading, caption, ratings){%- endcomment -%}
           {%- for block in section.blocks -%}
-            {% case block.type %}
+            {%- case block.type -%}
               {%- when 'heading' -%}
                 <h2 class="image-with-text__heading {{ block.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ block.settings.title_highlight_color }}' {{ block.shopify_attributes }}>
                   {{ block.settings.title }}
                 </h2>
-              {% when 'rating_stars' %}
+              {%- when 'rating_stars' -%}
                 {% render 'rating-stars-block', block: block, margins: false, block_attributes: true %}
-              {% when 'trustpilot_stars' %}
+              {%- when 'trustpilot_stars' -%}
                 {% render 'trustpilot-stars-block', block: block, margins: false, block_attributes: true %}
               {%- when 'caption' -%}
-                <p
-                  class="image-with-text__text image-with-text__text--caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }} {{ block.settings.text_style }}"
-                  {{ block.shopify_attributes }}
-                >
+                <p class="image-with-text__text image-with-text__text--caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }} {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
                   {{ block.settings.caption }}
                 </p>
+            {%- endcase -%}
+          {%- endfor -%}
+
+          {%- comment -%}Start scrollable wrapper for content blocks{%- endcomment -%}
+          {%- if section.settings.scrollable_text -%}
+            <div class="image-with-text__text-scrollable-wrapper">
+          {%- endif -%}
+
+          {%- comment -%}Render scrollable content blocks (text, pull_quote, icon_anchor){%- endcomment -%}
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
               {%- when 'text' -%}
                 <div class="image-with-text__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
                   {{ block.settings.text }}
@@ -478,6 +484,17 @@
                   </div>
                   <div class="icon-anchor__text">{{ block.settings.subhead }}</div>
                 </div>
+            {%- endcase -%}
+          {%- endfor -%}
+
+          {%- comment -%}Close scrollable wrapper{%- endcomment -%}
+          {%- if section.settings.scrollable_text -%}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%}Render buttons and other non-scrollable blocks after wrapper{%- endcomment -%}
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
               {%- when 'button' -%}
                 {%- if block.settings.button_label != blank -%}
                   <a
@@ -492,7 +509,7 @@
                     {{ block.settings.button_label | escape }}
                   </a>
                 {%- endif -%}
-              {% when 'button_magic_mind' %}
+              {%- when 'button_magic_mind' -%}
                 {%- assign btn_align = block.settings.button_alignment | default: 'left' -%}
                 <div class="magic-mind-btn-wrapper" style="width: 100%; display: flex; justify-content: {% if btn_align == 'left' %}flex-start{% elsif btn_align == 'center' %}center{% else %}flex-end{% endif %};" {{ block.shopify_attributes }}>
                   {% render 'magic-mind-button',
@@ -508,7 +525,7 @@
                     full_width_mobile: block.settings.full_width_mobile
                   %}
                 </div>
-              {% when 'atc_button' %}
+              {%- when 'atc_button' -%}
                 {% if block.settings.atc_product == blank %}
                   <button
                     id="SectionAtcBtn-{{ section.id }}"
@@ -543,10 +560,11 @@
                 {% endif %}
               {%- when 'text_with_icon' -%}
                 {% render 'text-with-icon-block', block: block, mobile_align: true, block_attributes: true %}
-              {% when 'image' %}
+              {%- when 'image' -%}
                 <div
                   class="product-info__image-block product-info__image-block--mobile-alignment"
                   style="--image-width:{{ block.settings.width }}%;--image-alignment:{{ block.settings.alignment }};--mobile-image-alignment:{{ block.settings.mobile_alignment }};--border-radius:{{ block.settings.border_radius | divided_by: 10.0 }}rem;"
+                  {{ block.shopify_attributes }}
                 >
                   {% if block.settings.image != blank %}
                     <div class="media media--transparent ratio" style="--ratio-percent: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%">
@@ -566,9 +584,6 @@
                 </div>
             {%- endcase -%}
           {%- endfor -%}
-          {%- if section.settings.scrollable_text -%}
-            </div>
-          {%- endif -%}
         </div>
       </div>
     </div>
