@@ -115,6 +115,43 @@ When user says **"PULL FROM SHOPIFY"**:
 
 **WHY**: The repository has two branches (`main` and `master`). The `master` branch contains all the working code, animations, and settings. The `main` branch is outdated and will break the theme if used.
 
+### 7. VERIFY PUSH SUCCESS - Don't Trust Success Messages
+**CRITICAL**: After every push to Shopify, verify the remote actually received the changes.
+
+1. **After pushing**, check a specific setting exists remotely:
+   ```bash
+   cd duracalm-theme
+   shopify theme pull --theme 157203038446 --live 2>&1 | head -5
+   git status
+   ```
+
+2. **If user reports settings missing**, immediately pull to check remote state:
+   ```bash
+   cd duracalm-theme
+   shopify theme pull --theme 157203038446
+   git diff --stat
+   ```
+
+3. **NEVER assume** - A "success" message doesn't mean the sync worked. Always verify.
+
+**WHY**: Push commands can fail silently or the Shopify server may have been reverted. If local and remote diverge, pulling will OVERWRITE local changes with the outdated remote version, causing data loss.
+
+### 8. PUSH vs PULL - Triple Check Before Executing
+**CRITICAL**: These commands do opposite things and can destroy work.
+
+| Command | Direction | Risk |
+|---------|-----------|------|
+| `shopify theme push` | Local → Shopify | Overwrites remote with local |
+| `shopify theme pull` | Shopify → Local | **Overwrites local with remote** |
+
+- **Use `push`** when you want to update Shopify with local changes
+- **Use `pull`** ONLY when:
+  - User explicitly says "PULL FROM SHOPIFY"
+  - You need to verify remote state
+  - User made changes in Shopify editor that need to be synced to GitHub
+
+**WHY**: Accidentally running `pull` instead of `push` will overwrite all local work with an outdated Shopify version, losing commits of progress.
+
 ## Magic Mind Button Style
 
 The **Magic Mind** button is a signature UI element with these characteristics:
