@@ -347,11 +347,11 @@
         {% endif %}
       >
         <div class="splide__track">
-          <ul class="splide__list">
+          <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
             {%- for block in section.blocks -%}
               <li class="splide__slide">
                 <div class="splide__slide__container" style="--index:{{ forloop.index0 | plus: content_index }};" {{ block.shopify_attributes }}>
-                  <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block.settings.author_avatar == blank and block.settings.author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child">
+                  <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block.settings.author_avatar == blank and block.settings.author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
                     {%- if block.settings.image != blank or block.settings.video != blank -%}
                       {% if section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
                         {% assign spaced_image = true %}

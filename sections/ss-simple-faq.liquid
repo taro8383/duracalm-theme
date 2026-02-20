@@ -1,8 +1,8 @@
 <div class="rb-faq-shopify-section" style="background-color: {{ section.settings.section_background_color }};">
     <h1 style="text-align: center; padding: 20px 20px 0px 20px;"> {{ section.settings.heading }} </h1>
-    <div class="rb-faq-container">
+    <div class="rb-faq-container" data-stagger-children data-stagger-animate="fade-up">
         {%for block in section.blocks %}
-        <div class="rb-faq-container-item">
+        <div class="rb-faq-container-item" data-scroll-animate="fade-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
             <input style="display:none!important;" type="checkbox" id="tab{{forloop.index}}" class="tab-toggle">
             <label for="tab{{forloop.index}}" class="rb-faq-question">{{block.settings.question}}</label>
             <div class="rb-faq-answer-wrapper">

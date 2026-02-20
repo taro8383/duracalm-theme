@@ -999,11 +999,11 @@ For inquiries or permissions, contact daniel@section.store
           {% endcase %}
         {% endfor %}
       </div>
-      <div class="guarantee-content-{{ section.id }}">
+      <div class="guarantee-content-{{ section.id }}" data-stagger-children data-stagger-animate="scale-up">
         {% for block in section.blocks %}
           {% case block.type %}
             {% when 'icon' %}
-            <div class="guarantee-card-icon-{{ section.id }}">
+            <div class="guarantee-card-icon-{{ section.id }}" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
               {% if block.settings.custom_icon != blank %}                      
                 {%- capture sizes -%}(min-width: {{ content_width }}px) {{ content_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2){%- endcapture -%}
                   {{ block.settings.custom_icon | image_url: width: 2000 | image_tag:

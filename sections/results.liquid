@@ -97,13 +97,13 @@
       <div class="content-container content-rte center animate-item animate-item--child index-0{% if section.settings.layout == 'results_first' %} desktop-index-1{% elsif section.settings.layout == 'title_above' %} title-above{% endif %}">
         {%- unless section.settings.title == blank -%}
           {% assign content_index = 1 %}
-          <h2 class="{{ section.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ section.settings.title_highlight_color }}'>
+          <h2 class="{{ section.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ section.settings.title_highlight_color }}' data-text-reveal>
             {{ section.settings.title }}
           </h2>
         {%- endunless -%}
         {%- unless section.settings.text == blank -%}
           {% assign content_index = 1 %}
-          <div class='rte'>
+          <div class='rte' data-scroll-animate="fade-up">
             {{ section.settings.text }}
           </div>
         {%- endunless -%}
@@ -168,7 +168,7 @@
           {%- endunless -%}
           <div class="results__rows-container">
             {%- for row in section.blocks -%}
-              <div class="results__row">
+              <div class="results__row" data-scroll-animate="slide-left" data-scroll-delay="{{ forloop.index | times: 100 }}">
                 <div class="results__percentage{% if section.settings.enable_percentage_animation %} percentage-animated{% endif %}" style="--percentage: {{ row.settings.percentage }}%;" data-percentage="{{ row.settings.percentage }}">
                   <p class="percentage-number{% if section.settings.enable_percentage_animation %} animate-number{% endif %}" data-target="{{ row.settings.percentage }}">{% if section.settings.enable_percentage_animation %}0{% else %}{{ row.settings.percentage }}{% endif %}%</p>
                 </div>
