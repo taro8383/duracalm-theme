@@ -147,10 +147,32 @@ When user says **"PULL FROM SHOPIFY"**:
 - **Use `push`** when you want to update Shopify with local changes
 - **Use `pull`** ONLY when:
   - User explicitly says "PULL FROM SHOPIFY"
-  - You need to verify remote state
   - User made changes in Shopify editor that need to be synced to GitHub
 
+**NEVER use `pull` to verify remote state** - This destroys local work. Use `shopify theme check` or ask the user.
+
 **WHY**: Accidentally running `pull` instead of `push` will overwrite all local work with an outdated Shopify version, losing commits of progress.
+
+### 9. NEVER PULL FROM SHOPIFY UNLESS EXPLICITLY REQUESTED
+**CRITICAL**: Do NOT run `shopify theme pull` unless the user explicitly asks for it.
+
+- **NEVER pull** to "verify" changes or check remote state
+- **NEVER pull** to "refresh" or "sync" the theme
+- **NEVER pull** proactively - always wait for user instruction
+- **ONLY pull** when user says "PULL FROM SHOPIFY" or explicitly requests it
+
+**WHY**: Pulling overwrites all local files with the remote Shopify version. If there are local changes that haven't been pushed yet, they will be permanently lost. GitHub is the source of truth, not Shopify.
+
+### 10. GitHub is Source of Truth
+**CRITICAL**: Always treat GitHub as the authoritative source, not Shopify.
+
+- GitHub `master` branch contains the definitive code
+- Shopify is just a deployment target
+- If Shopify and GitHub diverge, trust GitHub
+- Always commit to GitHub before pushing to Shopify
+- If uncertain about remote state, ask the user - don't pull to check
+
+**WHY**: Pulling from Shopify to "check" something destroys the carefully maintained GitHub state. When in doubt, communicate with the user rather than making destructive assumptions.
 
 ## Magic Mind Button Style
 
