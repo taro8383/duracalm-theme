@@ -423,7 +423,7 @@
         "atc_skip_cart": false,
         "padding_top": 56,
         "padding_bottom": 56,
-        "custom_colors_background": "#f3dfc1",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
         "custom_colors_accent": "#ffffff",
@@ -570,6 +570,7 @@
     },
     "section_divider_nqD7aH": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
@@ -756,6 +757,7 @@
     },
     "section_divider_RUNaLw": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
@@ -797,6 +799,8 @@
         "show_rating": false,
         "enable_quick_add": true,
         "enable_magic_mind_style": true,
+        "quick_add_margin_top": 30,
+        "quick_add_margin_bottom": 30,
         "swatches_option_name": "",
         "swatches_position": "top",
         "swatches_desktop_size": 36,
@@ -834,6 +838,7 @@
     },
     "section_divider_R8jWtY": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
@@ -978,6 +983,7 @@
     },
     "section_divider_CDnnig": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
@@ -995,6 +1001,7 @@
     },
     "section_divider_tnnJ7p": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
@@ -1092,7 +1099,7 @@
         "mobile_arrows_position": "under",
         "padding_top": 56,
         "padding_bottom": 56,
-        "custom_colors_background": "#ddbea8",
+        "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
         "custom_cards_colors_background": "#ddbea8",
@@ -1102,6 +1109,7 @@
     },
     "section_divider_MXjBHm": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
@@ -1119,6 +1127,7 @@
     },
     "section_divider_GqeUgi": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
@@ -1307,7 +1316,7 @@
         "guarantee_icon_border_color": "#7b92c8",
         "images_border_color": "#7b92c8",
         "background_style": "solid",
-        "background_color": "#f3dfc1",
+        "background_color": "#ddbea8",
         "background_gradient": "linear-gradient(180deg, #FFFFFF 0%, #F2F2F2 100%)",
         "border_color": "#7b92c8",
         "margin_top": 0,
@@ -1377,11 +1386,11 @@
       "name": "SS - FAQ #1",
       "settings": {
         "heading": "Frequently Asked Questions",
-        "section_background_color": "#ddbea8",
+        "section_background_color": "#f3dfc1",
         "icon_color": "#7b92c8",
         "hover_color": "#121212",
         "question_color": "#7b92c8",
-        "background_color": "#f3dfc1",
+        "background_color": "#ddbea8",
         "answer_color": "#000000",
         "answer_bg_color": "#ddbea8",
         "questions-font-size": 1.5,
@@ -1393,6 +1402,7 @@
     },
     "section_divider_Q73fbM": {
       "type": "section-divider",
+      "disabled": true,
       "name": "Section divider",
       "settings": {
         "visibility": "always-display",
