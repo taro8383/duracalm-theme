@@ -44,7 +44,7 @@
             "rotation": 0,
             "z_index": 3,
             "heading_prefix": "",
-            "heading": "<strong>Silence the </strong><em><strong>right</strong></em><strong> signal.</strong>",
+            "heading": "Finally, a headache solution that treats the cause, not just the pain.",
             "title_highlight_color": "#121212",
             "enable_title_outline": true,
             "title_outline_color": "#ffffff",
@@ -53,7 +53,7 @@
             "subtitle_outline_color": "#ffffff",
             "subtitle_outline_width": 0.2,
             "enable_custom_font_word": true,
-            "custom_font_word": "right",
+            "custom_font_word": "Finally",
             "custom_font_family": "caveat_n4",
             "custom_font_size_scale": 130,
             "custom_font_weight": "800",
@@ -62,8 +62,8 @@
             "mobile_heading_size": 30,
             "heading_suffix": "",
             "heading_prefix_size": "h4",
-            "text": "<p><strong>Target the root cause, whether it's vascular inflammation, muscle tension or medication overuse.</strong></p>",
-            "button_label_1": "Fix it now",
+            "text": "",
+            "button_label_1": "Erase the pain",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": false,
             "mm_style_button_1": true,
@@ -150,6 +150,256 @@
         "overlay_opacity": 0,
         "padding_top": 50,
         "padding_bottom": 50
+      }
+    },
+    "testimonials_4nytbq": {
+      "type": "testimonials",
+      "blocks": {
+        "column_erJW6k": {
+          "type": "column",
+          "settings": {
+            "star_rating": 4,
+            "title": "Good tool for the toolkit",
+            "text": "<p>Don't expect a miracle cure. You still get headaches. But this helps you manage them without feeling like a zombie on meds. I use the neuro cool hat with my ubrelvy and it works way faster together.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_051400_78720696.jpg",
+            "author": "<strong>Sam1975</strong>"
+          }
+        },
+        "column_cixHDb": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Cheaper than my chiro",
+            "text": "<p>I spend a fortune on adjustments and massages. This kit costs less than one visit. It’s effective. The packaging was a little banged up when it arrived but everything inside was fine.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_051550_1fa0e83b.jpg",
+            "author": "<strong>Tom B</strong>"
+          }
+        },
+        "column_wPTVXg": {
+          "type": "column",
+          "settings": {
+            "star_rating": 4,
+            "title": "Sleep tracks are surprisingly good",
+            "text": "<p>Bought the Rebound kit mostly for the mat, didn't think I'd use the digital 'software' part. But the sleep audio is actually really helpful. I didn't realize how much my insomnia was triggering my headaches. Mat is a bit intense for me but the system works.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052659_f930ecfc.jpg",
+            "author": "<strong>Karen W</strong>"
+          }
+        },
+        "column_mmdFLg": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Hardest week of my life but it worked",
+            "text": "<p>I was taking excedrin daily for years. Didn't know about 'rebound headaches' until I read your site. The detox week was rough, not gonna lie. The acupressure mat is sharp but it distracts your brain from the pain. 30 days pill free now. thanks guys.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_051719_3b6c5cd1.jpg",
+            "author": "<strong> Dave_R</strong>"
+          }
+        },
+        "column_aLHVRU": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Better than ice packs",
+            "text": "<p>Used to strap bags of peas to my head lol. This is way better. hits the exact spot over the eye that throbs. Expensive for what it is but honestly worth it to not feel like my head is exploding.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_050806_79d03818.jpg",
+            "author": "<strong>L.T</strong>"
+          }
+        },
+        "column_fbfWXR": {
+          "type": "column",
+          "settings": {
+            "star_rating": 4,
+            "title": "Hat is great, wish it stayed cold longer",
+            "text": "<p>The cold cap feels amazing when an attack starts. Numbs the throbbing instantly. Knocking off one star because it only stays ice cold for about 40 mins, I ended up buying a second one so I can rotate them in the freezer. essential if you get hemiplegic migraines.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052028_ad84823e.jpg",
+            "author": "<strong>Chris P</strong>"
+          }
+        },
+        "column_GjTHjP": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Finally popped that knot",
+            "text": "<p>I sit at a computer for 10 hours a day and my neck usually feels like concrete by 3pm. The traction tool in the Myo-Release kit is intense... kinda hurts at first but in a 'good pain' way? Felt the pressure release at the base of my skull immediately. Wish the shipping was faster but the kit is legit.<br/><br/></p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_050615_38eb37ab.jpg",
+            "author": "<strong>Mike_D</strong>"
+          }
+        },
+        "column_6qy4Hc": {
+          "type": "column",
+          "settings": {
+            "star_rating": 4,
+            "title": "Works if you actually follow the plan",
+            "text": "<p>Honest review: the neck hammock thing feels nice but the results didn't stick until I actually watched the digital vids and did the strengthening stuff. Its not a magic fix, you gotta do the work. But I haven't taken advil in 2 weeks so I guess it works.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052520_f0a94972.jpg",
+            "author": "<strong>Sarah J</strong>"
+          }
+        },
+        "column_ACqzUT": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Quiz was right, thought it was migraine",
+            "text": "<p>I always thought I had migraines cause they were so bad. Took the quiz and it said tension/muscle related. Was skeptical but bought the Myo kit. Turns out treating my neck fixed the headache. crazy. The posture strap is kinda itchy so wear a tshirt under it.</p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_050946_a27b6615.jpg",
+            "author": "<strong>Jen22</strong>"
+          }
+        },
+        "column_UnrfQ3": {
+          "type": "column",
+          "settings": {
+            "star_rating": 5,
+            "title": "Lifesaver during pregnancy",
+            "text": "<p>Since I cant take my usual triptans right now this kit has been the only thing getting me through. The compression on the hat is perfect. It doesnt stop the migraine 100% but it numbs it enough so I can sleep. Green light helps too when I cant stand to look at my phone.<br/><br/></p>",
+            "author_avatar": "shopify://shop_images/generated_image_20260202_052947_2072c1a8.jpg",
+            "author": "<strong>Ashlee M.</strong>"
+          }
+        }
+      },
+      "block_order": [
+        "column_erJW6k",
+        "column_cixHDb",
+        "column_wPTVXg",
+        "column_mmdFLg",
+        "column_aLHVRU",
+        "column_fbfWXR",
+        "column_GjTHjP",
+        "column_6qy4Hc",
+        "column_ACqzUT",
+        "column_UnrfQ3"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Customer Reviews",
+        "title_highlight_color": "#6d388b",
+        "heading_size": "h1",
+        "text": "",
+        "color_scheme": "custom",
+        "image_width": "full",
+        "image_ratio": "square",
+        "column_alignment": "center",
+        "show_stars": true,
+        "inactive_stars_style": "solid",
+        "star_color": "#ffcc00",
+        "bg_star_color": "#ececec",
+        "star_animation": "shimmer",
+        "show_quotes": false,
+        "quotes_color_scheme": "accent-2",
+        "cards_color_scheme": "accent-1",
+        "type": "slide",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "arrows_color_scheme": "accent-1",
+        "transparent_arrows": false,
+        "dots_color_scheme": "accent-1",
+        "desktop_full_page": false,
+        "columns_desktop": 2,
+        "slider_desktop": false,
+        "per_move_desktop": 1,
+        "desktop_spacing": 40,
+        "desktop_side_padding": 0,
+        "desktop_padding_calc": true,
+        "desktop_adaptive_height": false,
+        "desktop_dots_position": "under",
+        "desktop_arrows_position": "sides",
+        "slider_mobile": true,
+        "enable_mobile_preview": false,
+        "mobile_adaptive_height": false,
+        "mobile_dots_position": "under",
+        "mobile_arrows_position": "under",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#f3dfc1",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_cards_colors_background": "#f3dfc1",
+        "custom_cards_gradient_background": "",
+        "custom_cards_colors_text": "#2e2a39"
+      }
+    },
+    "0f1fc9e4-bc4c-4052-9747-62d1f8472caa": {
+      "type": "results",
+      "blocks": {
+        "row_AAhakA": {
+          "type": "row",
+          "settings": {
+            "percentage": 90,
+            "row_text": "<p><strong>of tension-type headache sufferers have comorbid neck pain </strong><em><strong>¹</strong></em></p>"
+          }
+        },
+        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-3": {
+          "type": "row",
+          "settings": {
+            "percentage": 73,
+            "row_text": "<p><strong>reduction in headache frequency via detox </strong><em><strong>²</strong></em></p>"
+          }
+        },
+        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-1": {
+          "type": "row",
+          "settings": {
+            "percentage": 70,
+            "row_text": "<p><strong>of chronic headache cases are actually \"self-inflicted\" by medication </strong><em><strong>³</strong></em></p>"
+          }
+        },
+        "row_ad4xUN": {
+          "type": "row",
+          "settings": {
+            "percentage": 60,
+            "row_text": "<p><strong>of female migraineurs suffer from \"estrogen withdrawal\" </strong><em><strong>⁴</strong></em></p>"
+          }
+        },
+        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-2": {
+          "type": "row",
+          "settings": {
+            "percentage": 48,
+            "row_text": "<p><strong>of chronic migraines can be \"fixed\" by sleep protocols alone </strong><em><strong>⁵</strong></em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "row_AAhakA",
+        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-3",
+        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-1",
+        "row_ad4xUN",
+        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-2"
+      ],
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Did you know?",
+        "title_highlight_color": "#6d388b",
+        "heading_size": "h1",
+        "text": "<p>Science insight of why you have not escaped the painful loop.</p>",
+        "video_muted_autoplay": true,
+        "color_scheme": "custom",
+        "enable_percentage_animation": true,
+        "animation_duration": 3,
+        "percentage_fill_color": "#7b92c8",
+        "percentage_bg_color": "#f0f0f0",
+        "layout": "title_above",
+        "results_headline": "",
+        "results_title_highlight_color": "#6d388b",
+        "results_headline_size": "h2",
+        "results_text": "",
+        "results_headline_alignment": "left",
+        "caption": "<p>Sources <a href=\"https://pubmed.ncbi.nlm.nih.gov/37889466/\" title=\"https://pubmed.ncbi.nlm.nih.gov/37889466/\"><strong>1</strong></a><strong> </strong><a href=\"https://www.researchgate.net/publication/5958758_Behavioral_Sleep_Modification_May_Revert_Transformed_Migraine_to_Episodic_Migraine\" title=\"https://www.researchgate.net/publication/5958758_Behavioral_Sleep_Modification_May_Revert_Transformed_Migraine_to_Episodic_Migraine\"><strong>2</strong></a><strong> </strong><a href=\"https://www.ncbi.nlm.nih.gov/books/NBK538150/\" target=\"_blank\" title=\"https://www.ncbi.nlm.nih.gov/books/NBK538150/\"><strong>3</strong></a><strong> </strong><a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC11765488/\" target=\"_blank\" title=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC11765488/\"><strong>4</strong></a><strong> </strong><a href=\"https://www.mdpi.com/1424-8247/18/2/139\" target=\"_blank\" title=\"https://www.mdpi.com/1424-8247/18/2/139\"><strong>5</strong></a></p>",
+        "button_label": "",
+        "link": "",
+        "button_style_secondary": false,
+        "atc_button_label": "",
+        "atc_product": "",
+        "atc_skip_cart": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "custom_colors_background": "#f3dfc1",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_accent": "#ffffff",
+        "custom_colors_solid_button_background": "#7b92c8",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d"
       }
     },
     "image_with_text_LjDeGJ": {
@@ -713,89 +963,6 @@
         "padding_bottom": 0
       }
     },
-    "0f1fc9e4-bc4c-4052-9747-62d1f8472caa": {
-      "type": "results",
-      "blocks": {
-        "row_AAhakA": {
-          "type": "row",
-          "settings": {
-            "percentage": 90,
-            "row_text": "<p><strong>of tension-type headache sufferers have comorbid neck pain </strong><em><strong>¹</strong></em></p>"
-          }
-        },
-        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-3": {
-          "type": "row",
-          "settings": {
-            "percentage": 73,
-            "row_text": "<p><strong>reduction in headache frequency via detox </strong><em><strong>²</strong></em></p>"
-          }
-        },
-        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-1": {
-          "type": "row",
-          "settings": {
-            "percentage": 70,
-            "row_text": "<p><strong>of chronic headache cases are actually \"self-inflicted\" by medication </strong><em><strong>³</strong></em></p>"
-          }
-        },
-        "row_ad4xUN": {
-          "type": "row",
-          "settings": {
-            "percentage": 60,
-            "row_text": "<p><strong>of female migraineurs suffer from \"estrogen withdrawal\" </strong><em><strong>⁴</strong></em></p>"
-          }
-        },
-        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-2": {
-          "type": "row",
-          "settings": {
-            "percentage": 48,
-            "row_text": "<p><strong>of chronic migraines can be \"fixed\" by sleep protocols alone </strong><em><strong>⁵</strong></em></p>"
-          }
-        }
-      },
-      "block_order": [
-        "row_AAhakA",
-        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-3",
-        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-1",
-        "row_ad4xUN",
-        "template--21507361505575__0f1fc9e4-bc4c-4052-9747-62d1f8472caa-row-2"
-      ],
-      "settings": {
-        "display_id": false,
-        "visibility": "always-display",
-        "title": "Did you know?",
-        "title_highlight_color": "#6d388b",
-        "heading_size": "h1",
-        "text": "<p>Science insight of why you have not escaped the painful loop.</p>",
-        "video_muted_autoplay": true,
-        "color_scheme": "custom",
-        "enable_percentage_animation": true,
-        "animation_duration": 3,
-        "percentage_fill_color": "#7b92c8",
-        "percentage_bg_color": "#f0f0f0",
-        "layout": "title_above",
-        "results_headline": "",
-        "results_title_highlight_color": "#6d388b",
-        "results_headline_size": "h2",
-        "results_text": "",
-        "results_headline_alignment": "left",
-        "caption": "<p>Sources <a href=\"https://pubmed.ncbi.nlm.nih.gov/37889466/\" title=\"https://pubmed.ncbi.nlm.nih.gov/37889466/\"><strong>1</strong></a><strong> </strong><a href=\"https://www.researchgate.net/publication/5958758_Behavioral_Sleep_Modification_May_Revert_Transformed_Migraine_to_Episodic_Migraine\" title=\"https://www.researchgate.net/publication/5958758_Behavioral_Sleep_Modification_May_Revert_Transformed_Migraine_to_Episodic_Migraine\"><strong>2</strong></a><strong> </strong><a href=\"https://www.ncbi.nlm.nih.gov/books/NBK538150/\" target=\"_blank\" title=\"https://www.ncbi.nlm.nih.gov/books/NBK538150/\"><strong>3</strong></a><strong> </strong><a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC11765488/\" target=\"_blank\" title=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC11765488/\"><strong>4</strong></a><strong> </strong><a href=\"https://www.mdpi.com/1424-8247/18/2/139\" target=\"_blank\" title=\"https://www.mdpi.com/1424-8247/18/2/139\"><strong>5</strong></a></p>",
-        "button_label": "",
-        "link": "",
-        "button_style_secondary": false,
-        "atc_button_label": "",
-        "atc_product": "",
-        "atc_skip_cart": false,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "custom_colors_background": "#f3dfc1",
-        "custom_gradient_background": "",
-        "custom_colors_text": "#2e2a39",
-        "custom_colors_accent": "#ffffff",
-        "custom_colors_solid_button_background": "#7b92c8",
-        "custom_colors_solid_button_text": "#ffffff",
-        "custom_colors_outline_button": "#dd1d1d"
-      }
-    },
     "section_divider_tnnJ7p": {
       "type": "section-divider",
       "name": "Section divider",
@@ -920,173 +1087,6 @@
         "padding_bottom": 0
       }
     },
-    "testimonials_4nytbq": {
-      "type": "testimonials",
-      "blocks": {
-        "column_erJW6k": {
-          "type": "column",
-          "settings": {
-            "star_rating": 4,
-            "title": "Good tool for the toolkit",
-            "text": "<p>Don't expect a miracle cure. You still get headaches. But this helps you manage them without feeling like a zombie on meds. I use the neuro cool hat with my ubrelvy and it works way faster together.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_051400_78720696.jpg",
-            "author": "<strong>Sam1975</strong>"
-          }
-        },
-        "column_cixHDb": {
-          "type": "column",
-          "settings": {
-            "star_rating": 5,
-            "title": "Cheaper than my chiro",
-            "text": "<p>I spend a fortune on adjustments and massages. This kit costs less than one visit. It’s effective. The packaging was a little banged up when it arrived but everything inside was fine.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_051550_1fa0e83b.jpg",
-            "author": "<strong>Tom B</strong>"
-          }
-        },
-        "column_wPTVXg": {
-          "type": "column",
-          "settings": {
-            "star_rating": 4,
-            "title": "Sleep tracks are surprisingly good",
-            "text": "<p>Bought the Rebound kit mostly for the mat, didn't think I'd use the digital 'software' part. But the sleep audio is actually really helpful. I didn't realize how much my insomnia was triggering my headaches. Mat is a bit intense for me but the system works.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052659_f930ecfc.jpg",
-            "author": "<strong>Karen W</strong>"
-          }
-        },
-        "column_mmdFLg": {
-          "type": "column",
-          "settings": {
-            "star_rating": 5,
-            "title": "Hardest week of my life but it worked",
-            "text": "<p>I was taking excedrin daily for years. Didn't know about 'rebound headaches' until I read your site. The detox week was rough, not gonna lie. The acupressure mat is sharp but it distracts your brain from the pain. 30 days pill free now. thanks guys.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_051719_3b6c5cd1.jpg",
-            "author": "<strong> Dave_R</strong>"
-          }
-        },
-        "column_aLHVRU": {
-          "type": "column",
-          "settings": {
-            "star_rating": 5,
-            "title": "Better than ice packs",
-            "text": "<p>Used to strap bags of peas to my head lol. This is way better. hits the exact spot over the eye that throbs. Expensive for what it is but honestly worth it to not feel like my head is exploding.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_050806_79d03818.jpg",
-            "author": "<strong>L.T</strong>"
-          }
-        },
-        "column_fbfWXR": {
-          "type": "column",
-          "settings": {
-            "star_rating": 4,
-            "title": "Hat is great, wish it stayed cold longer",
-            "text": "<p>The cold cap feels amazing when an attack starts. Numbs the throbbing instantly. Knocking off one star because it only stays ice cold for about 40 mins, I ended up buying a second one so I can rotate them in the freezer. essential if you get hemiplegic migraines.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052028_ad84823e.jpg",
-            "author": "<strong>Chris P</strong>"
-          }
-        },
-        "column_GjTHjP": {
-          "type": "column",
-          "settings": {
-            "star_rating": 5,
-            "title": "Finally popped that knot",
-            "text": "<p>I sit at a computer for 10 hours a day and my neck usually feels like concrete by 3pm. The traction tool in the Myo-Release kit is intense... kinda hurts at first but in a 'good pain' way? Felt the pressure release at the base of my skull immediately. Wish the shipping was faster but the kit is legit.<br/><br/></p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_050615_38eb37ab.jpg",
-            "author": "<strong>Mike_D</strong>"
-          }
-        },
-        "column_6qy4Hc": {
-          "type": "column",
-          "settings": {
-            "star_rating": 4,
-            "title": "Works if you actually follow the plan",
-            "text": "<p>Honest review: the neck hammock thing feels nice but the results didn't stick until I actually watched the digital vids and did the strengthening stuff. Its not a magic fix, you gotta do the work. But I haven't taken advil in 2 weeks so I guess it works.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052520_f0a94972.jpg",
-            "author": "<strong>Sarah J</strong>"
-          }
-        },
-        "column_ACqzUT": {
-          "type": "column",
-          "settings": {
-            "star_rating": 5,
-            "title": "Quiz was right, thought it was migraine",
-            "text": "<p>I always thought I had migraines cause they were so bad. Took the quiz and it said tension/muscle related. Was skeptical but bought the Myo kit. Turns out treating my neck fixed the headache. crazy. The posture strap is kinda itchy so wear a tshirt under it.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_050946_a27b6615.jpg",
-            "author": "<strong>Jen22</strong>"
-          }
-        },
-        "column_UnrfQ3": {
-          "type": "column",
-          "settings": {
-            "star_rating": 5,
-            "title": "Lifesaver during pregnancy",
-            "text": "<p>Since I cant take my usual triptans right now this kit has been the only thing getting me through. The compression on the hat is perfect. It doesnt stop the migraine 100% but it numbs it enough so I can sleep. Green light helps too when I cant stand to look at my phone.<br/><br/></p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052947_2072c1a8.jpg",
-            "author": "<strong>Ashlee M.</strong>"
-          }
-        }
-      },
-      "block_order": [
-        "column_erJW6k",
-        "column_cixHDb",
-        "column_wPTVXg",
-        "column_mmdFLg",
-        "column_aLHVRU",
-        "column_fbfWXR",
-        "column_GjTHjP",
-        "column_6qy4Hc",
-        "column_ACqzUT",
-        "column_UnrfQ3"
-      ],
-      "name": "Testimonials",
-      "settings": {
-        "display_id": false,
-        "visibility": "always-display",
-        "title": "Customer Reviews",
-        "title_highlight_color": "#6d388b",
-        "heading_size": "h1",
-        "text": "",
-        "color_scheme": "custom",
-        "image_width": "full",
-        "image_ratio": "square",
-        "column_alignment": "center",
-        "show_stars": true,
-        "inactive_stars_style": "solid",
-        "star_color": "#ffcc00",
-        "bg_star_color": "#ececec",
-        "star_animation": "shimmer",
-        "show_quotes": false,
-        "quotes_color_scheme": "accent-2",
-        "cards_color_scheme": "accent-1",
-        "type": "slide",
-        "autoplay": false,
-        "autoplay_speed": 5,
-        "arrows_color_scheme": "accent-1",
-        "transparent_arrows": false,
-        "dots_color_scheme": "accent-1",
-        "desktop_full_page": false,
-        "columns_desktop": 2,
-        "slider_desktop": false,
-        "per_move_desktop": 1,
-        "desktop_spacing": 40,
-        "desktop_side_padding": 0,
-        "desktop_padding_calc": true,
-        "desktop_adaptive_height": false,
-        "desktop_dots_position": "under",
-        "desktop_arrows_position": "sides",
-        "slider_mobile": true,
-        "enable_mobile_preview": false,
-        "mobile_adaptive_height": false,
-        "mobile_dots_position": "under",
-        "mobile_arrows_position": "under",
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "custom_colors_background": "#f3dfc1",
-        "custom_gradient_background": "",
-        "custom_colors_text": "#2e2a39",
-        "custom_cards_colors_background": "#f3dfc1",
-        "custom_cards_gradient_background": "",
-        "custom_cards_colors_text": "#2e2a39"
-      }
-    },
     "section_divider_GqeUgi": {
       "type": "section-divider",
       "name": "Section divider",
@@ -1099,83 +1099,6 @@
         "custom_shape_color": "#dd1d1d",
         "background_color": "custom",
         "custom_background_color": "#f3dfc1",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "ss_simple_faq_bfdgyV": {
-      "type": "ss-simple-faq",
-      "blocks": {
-        "text_QJT6ii": {
-          "type": "text",
-          "settings": {
-            "question": "How do I know which system I need?",
-            "answer": "<p>The difference lies in the <strong>sensation</strong> and the <strong>source</strong>.<br/><em>Our Assessment Tool will analyze your symptoms according to ICHD-3 criteria to match you with the right protocol.</em><br/></p>"
-          }
-        },
-        "text_WHQQxp": {
-          "type": "text",
-          "settings": {
-            "question": "I've been taking painkillers for years. Will this really help me stop?",
-            "answer": "<p>Yes, and science suggests it might be the <em>only</em> way to stop the pain cycle.</p><p>Research shows that up to <strong>70% of chronic headache patients</strong> actually suffer from <strong>Medication Overuse Headache (MOH)</strong>—a condition where the pills lower your brain's pain threshold. </p><p>The <strong>Rebound Breaker System</strong> is designed to provide a \"bridge,\" using gate-control therapy and sleep protocols to manage your pain naturally while your body detoxes and resets its own pain killers.<br/><br/></p>"
-          }
-        },
-        "text_t9qRtU": {
-          "type": "text",
-          "settings": {
-            "question": "Is Duracalm safe for pregnancy or breastfeeding?",
-            "answer": "<p><strong>Yes.</strong></p><p>Migraine management during pregnancy is difficult because many standard medications (like triptans and NSAIDs) are restricted or carry risks. </p><p>Duracalm protocols use <strong>physical modalities</strong> (cold therapy, acupressure, and support) rather than chemistry. </p><p>They are 100% non-invasive and safe for both mother and baby, making them the recommended first-line approach during pregnancy and lactation.<br/><br/></p>"
-          }
-        },
-        "text_WFKDFK": {
-          "type": "text",
-          "settings": {
-            "question": "I have tried 'neck tools' before. How is this different?",
-            "answer": "<p>Most generic tools just \"stretch\" the neck.</p><p>Duracalm's <strong>Myo-Release Kit</strong> targets <strong>Suboccipital Decompression</strong>.</p><p>Sources show that <strong>90% of Tension-Type Headache sufferers</strong> have comorbid neck pain driven by specific trigger points at the base of the skull.</p><p>Our tools are paired with a <strong>Digital Protocol</strong> (Software) to strengthen the deep neck flexors. </p><p>Research proves that physical tools work best when combined with strengthening exercises to fix the posture permanently.</p>"
-          }
-        },
-        "text_7hNycm": {
-          "type": "text",
-          "settings": {
-            "question": "What if I have both Migraine and Tension Headaches?",
-            "answer": "<p>It is very common to have both. </p><p>This is called a \"mixed headache\" presentation.</p><p>Triggers for tension headaches (like stress and posture) can actually activate a migraine attack. I</p><p>f you suffer from both, we generally recommend starting with the <strong>Neuro-Cool System</strong> (Migraine focus) because the <strong>neurovascular pathway</strong> is more sensitive. </p><p>However, taking our <strong>Pain Assessment</strong> is the best way to determine which mechanism is your primary driver.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "text_QJT6ii",
-        "text_WHQQxp",
-        "text_t9qRtU",
-        "text_WFKDFK",
-        "text_7hNycm"
-      ],
-      "name": "SS - FAQ #1",
-      "settings": {
-        "heading": "Frequently Asked Questions",
-        "section_background_color": "#ddbea8",
-        "icon_color": "#7b92c8",
-        "hover_color": "#121212",
-        "question_color": "#7b92c8",
-        "background_color": "#f3dfc1",
-        "answer_color": "#000000",
-        "answer_bg_color": "#ddbea8",
-        "questions-font-size": 1.5,
-        "accordion_animation": "bounce"
-      }
-    },
-    "section_divider_Q73fbM": {
-      "type": "section-divider",
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": false,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#ddbea8",
         "divider_height": 50,
         "padding_top": 0,
         "padding_bottom": 0
@@ -1375,6 +1298,83 @@
         "lazy": true
       }
     },
+    "ss_simple_faq_bfdgyV": {
+      "type": "ss-simple-faq",
+      "blocks": {
+        "text_QJT6ii": {
+          "type": "text",
+          "settings": {
+            "question": "How do I know which system I need?",
+            "answer": "<p>The difference lies in the <strong>sensation</strong> and the <strong>source</strong>.<br/><em>Our Assessment Tool will analyze your symptoms according to ICHD-3 criteria to match you with the right protocol.</em><br/></p>"
+          }
+        },
+        "text_WHQQxp": {
+          "type": "text",
+          "settings": {
+            "question": "I've been taking painkillers for years. Will this really help me stop?",
+            "answer": "<p>Yes, and science suggests it might be the <em>only</em> way to stop the pain cycle.</p><p>Research shows that up to <strong>70% of chronic headache patients</strong> actually suffer from <strong>Medication Overuse Headache (MOH)</strong>—a condition where the pills lower your brain's pain threshold. </p><p>The <strong>Rebound Breaker System</strong> is designed to provide a \"bridge,\" using gate-control therapy and sleep protocols to manage your pain naturally while your body detoxes and resets its own pain killers.<br/><br/></p>"
+          }
+        },
+        "text_t9qRtU": {
+          "type": "text",
+          "settings": {
+            "question": "Is Duracalm safe for pregnancy or breastfeeding?",
+            "answer": "<p><strong>Yes.</strong></p><p>Migraine management during pregnancy is difficult because many standard medications (like triptans and NSAIDs) are restricted or carry risks. </p><p>Duracalm protocols use <strong>physical modalities</strong> (cold therapy, acupressure, and support) rather than chemistry. </p><p>They are 100% non-invasive and safe for both mother and baby, making them the recommended first-line approach during pregnancy and lactation.<br/><br/></p>"
+          }
+        },
+        "text_WFKDFK": {
+          "type": "text",
+          "settings": {
+            "question": "I have tried 'neck tools' before. How is this different?",
+            "answer": "<p>Most generic tools just \"stretch\" the neck.</p><p>Duracalm's <strong>Myo-Release Kit</strong> targets <strong>Suboccipital Decompression</strong>.</p><p>Sources show that <strong>90% of Tension-Type Headache sufferers</strong> have comorbid neck pain driven by specific trigger points at the base of the skull.</p><p>Our tools are paired with a <strong>Digital Protocol</strong> (Software) to strengthen the deep neck flexors. </p><p>Research proves that physical tools work best when combined with strengthening exercises to fix the posture permanently.</p>"
+          }
+        },
+        "text_7hNycm": {
+          "type": "text",
+          "settings": {
+            "question": "What if I have both Migraine and Tension Headaches?",
+            "answer": "<p>It is very common to have both. </p><p>This is called a \"mixed headache\" presentation.</p><p>Triggers for tension headaches (like stress and posture) can actually activate a migraine attack. I</p><p>f you suffer from both, we generally recommend starting with the <strong>Neuro-Cool System</strong> (Migraine focus) because the <strong>neurovascular pathway</strong> is more sensitive. </p><p>However, taking our <strong>Pain Assessment</strong> is the best way to determine which mechanism is your primary driver.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_QJT6ii",
+        "text_WHQQxp",
+        "text_t9qRtU",
+        "text_WFKDFK",
+        "text_7hNycm"
+      ],
+      "name": "SS - FAQ #1",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "section_background_color": "#ddbea8",
+        "icon_color": "#7b92c8",
+        "hover_color": "#121212",
+        "question_color": "#7b92c8",
+        "background_color": "#f3dfc1",
+        "answer_color": "#000000",
+        "answer_bg_color": "#ddbea8",
+        "questions-font-size": 1.5,
+        "accordion_animation": "bounce"
+      }
+    },
+    "section_divider_Q73fbM": {
+      "type": "section-divider",
+      "name": "Section divider",
+      "settings": {
+        "visibility": "always-display",
+        "shape": "diagonal_1",
+        "flip_horizontal": false,
+        "flip_vertical": false,
+        "shape_color": "accent-1",
+        "custom_shape_color": "#dd1d1d",
+        "background_color": "custom",
+        "custom_background_color": "#ddbea8",
+        "divider_height": 50,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "ss_wave_2_X7Pgn7": {
       "type": "ss-wave-2",
       "name": "SS - Wave #2",
@@ -1402,6 +1402,8 @@
   "order": [
     "ss_wave_2_qXWU79",
     "parallax_hero_ByfbBU",
+    "testimonials_4nytbq",
+    "0f1fc9e4-bc4c-4052-9747-62d1f8472caa",
     "image_with_text_LjDeGJ",
     "section_divider_nqD7aH",
     "image_with_text_UaAiJ7",
@@ -1410,15 +1412,13 @@
     "section_divider_R8jWtY",
     "d2d3417b-e92f-428c-b221-5bceffb552be",
     "section_divider_CDnnig",
-    "0f1fc9e4-bc4c-4052-9747-62d1f8472caa",
     "section_divider_tnnJ7p",
     "6aa09428-a417-429d-9159-a4e8afd49590",
     "section_divider_MXjBHm",
-    "testimonials_4nytbq",
     "section_divider_GqeUgi",
+    "ss_guarantee_f3HaNX",
     "ss_simple_faq_bfdgyV",
     "section_divider_Q73fbM",
-    "ss_guarantee_f3HaNX",
     "ss_wave_2_X7Pgn7"
   ]
 }
