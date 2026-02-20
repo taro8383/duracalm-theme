@@ -14,13 +14,18 @@
   /* Premium Testimonial Styles */
   .testimonial-card {
     position: relative;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
     border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
     overflow: hidden;
-    will-change: transform, box-shadow;
   }
 
-  .testimonial-card:hover {
+  /* Hover lift on slide container to avoid transform conflicts */
+  .testimonials-{{ section.id }} .splide__slide__container {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
+    border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
+  }
+
+  .testimonials-{{ section.id }} .splide__slide__container:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
   }
@@ -256,7 +261,7 @@
   {% endif %}
 {%- endstyle -%}
 
-<div class="multicolumn color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %} content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
+<div class="multicolumn testimonials-{{ section.id }} color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %} content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
   {% if section.settings.display_id %}
     <copy-button class='section-id-btn button' data-content="#shopify-section-{{ section.id }}" data-success="false">
       <span class="copy-text">Click to copy section ID</span>

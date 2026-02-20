@@ -35,11 +35,13 @@
     }
   }
 
-  /* Hover lift animation for icon cards */
-  .icon-bar-{{ section.id }} .icon-bar-card {
+  /* Hover lift animation for icon cards - target slide container to avoid transform conflicts */
+  .icon-bar-{{ section.id }} .splide__slide__container {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    will-change: transform, box-shadow;
+    border-radius: 12px;
   }
-  .icon-bar-{{ section.id }} .icon-bar-card:hover {
+  .icon-bar-{{ section.id }} .splide__slide__container:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
   }
