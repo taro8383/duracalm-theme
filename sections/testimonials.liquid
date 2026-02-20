@@ -309,10 +309,14 @@
       {% endif %}
     </div>
     {% if has_mobile_slider or has_desktop_slider %}
+      {%- assign raw_autoplay = section.settings.autoplay -%}
+      {%- assign autoplay_enabled = raw_autoplay | default: true -%}
+      {%- assign autoplay_speed_val = section.settings.autoplay_speed | default: 5 -%}
+      <!-- DEBUG: raw_autoplay={{ raw_autoplay }}, autoplay_enabled={{ autoplay_enabled }}, speed={{ autoplay_speed_val }} -->
       <splide-component
         data-type='{{ section.settings.type }}'
-        data-autoplay="{% if section.settings.autoplay %}true{% else %}false{% endif %}"
-        data-autoplay-speed='{{ section.settings.autoplay_speed }}'
+        data-autoplay="{% if autoplay_enabled %}true{% else %}false{% endif %}"
+        data-autoplay-speed='{{ autoplay_speed_val }}'
         data-arrows-color="{{ section.settings.arrows_color_scheme }}"
         data-dots-color="{{ section.settings.dots_color_scheme }}"
         data-slides-desktop="{{ section.settings.columns_desktop }}"
@@ -327,11 +331,8 @@
         {% else %}
           data-side-padding-mobile='15'
         {% endif %}
-        {% if has_desktop_slider == false %}
-          data-destroy-desktop="true"
-        {% elsif has_mobile_slider == false %}
-          data-destroy-mobile="true"
-        {% endif %}
+        data-destroy-desktop="false"
+        data-destroy-mobile="false"
         data-pause-videos='true'
       >
     {% endif %}
