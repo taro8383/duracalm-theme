@@ -16,11 +16,19 @@
     .icon-bar-{{ section.id }} .splide__list {
       display: grid !important;
       grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
       gap: {{ section.settings.desktop_spacing | times: 1.5 }}px;
     }
     .icon-bar-{{ section.id }} .splide__slide {
       width: 100% !important;
       margin: 0 !important;
+      height: 100%;
+    }
+    .icon-bar-{{ section.id }} .splide__slide__container {
+      height: 100%;
+    }
+    .icon-bar-{{ section.id }} .icon-bar-card {
+      height: 100%;
     }
     .icon-bar-{{ section.id }} .splide__track {
       overflow: visible;
