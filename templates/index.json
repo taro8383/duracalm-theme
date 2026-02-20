@@ -162,7 +162,9 @@
             "title": "Good tool for the toolkit",
             "text": "<p>Don't expect a miracle cure. You still get headaches. But this helps you manage them without feeling like a zombie on meds. I use the neuro cool hat with my ubrelvy and it works way faster together.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_051400_78720696.jpg",
-            "author": "<strong>Sam1975</strong>"
+            "author": "<strong>Sam1975</strong>",
+            "author_location": "New York, NY",
+            "verified_purchase": true
           }
         },
         "column_cixHDb": {
@@ -172,7 +174,9 @@
             "title": "Cheaper than my chiro",
             "text": "<p>I spend a fortune on adjustments and massages. This kit costs less than one visit. It’s effective. The packaging was a little banged up when it arrived but everything inside was fine.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_051550_1fa0e83b.jpg",
-            "author": "<strong>Tom B</strong>"
+            "author": "<strong>Tom B</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_wPTVXg": {
@@ -182,7 +186,9 @@
             "title": "Sleep tracks are surprisingly good",
             "text": "<p>Bought the Rebound kit mostly for the mat, didn't think I'd use the digital 'software' part. But the sleep audio is actually really helpful. I didn't realize how much my insomnia was triggering my headaches. Mat is a bit intense for me but the system works.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_052659_f930ecfc.jpg",
-            "author": "<strong>Karen W</strong>"
+            "author": "<strong>Karen W</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_mmdFLg": {
@@ -192,7 +198,9 @@
             "title": "Hardest week of my life but it worked",
             "text": "<p>I was taking excedrin daily for years. Didn't know about 'rebound headaches' until I read your site. The detox week was rough, not gonna lie. The acupressure mat is sharp but it distracts your brain from the pain. 30 days pill free now. thanks guys.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_051719_3b6c5cd1.jpg",
-            "author": "<strong> Dave_R</strong>"
+            "author": "<strong> Dave_R</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_aLHVRU": {
@@ -202,7 +210,9 @@
             "title": "Better than ice packs",
             "text": "<p>Used to strap bags of peas to my head lol. This is way better. hits the exact spot over the eye that throbs. Expensive for what it is but honestly worth it to not feel like my head is exploding.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_050806_79d03818.jpg",
-            "author": "<strong>L.T</strong>"
+            "author": "<strong>L.T</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_fbfWXR": {
@@ -212,7 +222,9 @@
             "title": "Hat is great, wish it stayed cold longer",
             "text": "<p>The cold cap feels amazing when an attack starts. Numbs the throbbing instantly. Knocking off one star because it only stays ice cold for about 40 mins, I ended up buying a second one so I can rotate them in the freezer. essential if you get hemiplegic migraines.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_052028_ad84823e.jpg",
-            "author": "<strong>Chris P</strong>"
+            "author": "<strong>Chris P</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_GjTHjP": {
@@ -222,7 +234,9 @@
             "title": "Finally popped that knot",
             "text": "<p>I sit at a computer for 10 hours a day and my neck usually feels like concrete by 3pm. The traction tool in the Myo-Release kit is intense... kinda hurts at first but in a 'good pain' way? Felt the pressure release at the base of my skull immediately. Wish the shipping was faster but the kit is legit.<br/><br/></p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_050615_38eb37ab.jpg",
-            "author": "<strong>Mike_D</strong>"
+            "author": "<strong>Mike_D</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_6qy4Hc": {
@@ -232,7 +246,9 @@
             "title": "Works if you actually follow the plan",
             "text": "<p>Honest review: the neck hammock thing feels nice but the results didn't stick until I actually watched the digital vids and did the strengthening stuff. Its not a magic fix, you gotta do the work. But I haven't taken advil in 2 weeks so I guess it works.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_052520_f0a94972.jpg",
-            "author": "<strong>Sarah J</strong>"
+            "author": "<strong>Sarah J</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_ACqzUT": {
@@ -242,7 +258,9 @@
             "title": "Quiz was right, thought it was migraine",
             "text": "<p>I always thought I had migraines cause they were so bad. Took the quiz and it said tension/muscle related. Was skeptical but bought the Myo kit. Turns out treating my neck fixed the headache. crazy. The posture strap is kinda itchy so wear a tshirt under it.</p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_050946_a27b6615.jpg",
-            "author": "<strong>Jen22</strong>"
+            "author": "<strong>Jen22</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         },
         "column_UnrfQ3": {
@@ -252,7 +270,9 @@
             "title": "Lifesaver during pregnancy",
             "text": "<p>Since I cant take my usual triptans right now this kit has been the only thing getting me through. The compression on the hat is perfect. It doesnt stop the migraine 100% but it numbs it enough so I can sleep. Green light helps too when I cant stand to look at my phone.<br/><br/></p>",
             "author_avatar": "shopify://shop_images/generated_image_20260202_052947_2072c1a8.jpg",
-            "author": "<strong>Ashlee M.</strong>"
+            "author": "<strong>Ashlee M.</strong>",
+            "author_location": "",
+            "verified_purchase": false
           }
         }
       },
@@ -277,6 +297,7 @@
         "heading_size": "h1",
         "text": "",
         "color_scheme": "custom",
+        "card_border_radius": 16,
         "image_width": "full",
         "image_ratio": "square",
         "column_alignment": "center",
@@ -285,18 +306,18 @@
         "star_color": "#ffcc00",
         "bg_star_color": "#ececec",
         "star_animation": "shimmer",
-        "show_quotes": false,
-        "quotes_color_scheme": "accent-2",
+        "show_quotes": true,
+        "quotes_color_scheme": "inverse",
         "cards_color_scheme": "accent-1",
         "type": "slide",
-        "autoplay": false,
-        "autoplay_speed": 5,
+        "autoplay": true,
+        "autoplay_speed": 1,
         "arrows_color_scheme": "accent-1",
         "transparent_arrows": false,
         "dots_color_scheme": "accent-1",
-        "desktop_full_page": false,
-        "columns_desktop": 2,
-        "slider_desktop": false,
+        "desktop_full_page": true,
+        "columns_desktop": 1,
+        "slider_desktop": true,
         "per_move_desktop": 1,
         "desktop_spacing": 40,
         "desktop_side_padding": 0,
@@ -314,6 +335,15 @@
         "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
+        "avatar_size": 64,
+        "avatar_border_color": "#ffffff",
+        "quote_font_size": 18,
+        "quote_text_color": "#2e2a39",
+        "author_name_color": "#121212",
+        "verified_badge_text": "Verified Purchase",
+        "verified_badge_bg_color": "#ddbea8",
+        "verified_badge_icon_color": "#ffffff",
+        "verified_badge_text_color": "#ddbea8",
         "custom_cards_colors_background": "#f3dfc1",
         "custom_cards_gradient_background": "",
         "custom_cards_colors_text": "#2e2a39"
