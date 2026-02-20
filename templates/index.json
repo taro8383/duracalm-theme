@@ -1075,7 +1075,7 @@
         "transparent_arrows": false,
         "dots_color_scheme": "accent-1",
         "desktop_full_page": false,
-        "columns_desktop": 4,
+        "columns_desktop": 2,
         "slider_desktop": false,
         "per_move_desktop": 1,
         "desktop_spacing": 40,
