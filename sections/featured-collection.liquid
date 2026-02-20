@@ -38,6 +38,11 @@
     --color-button-text: {{ section.settings.custom_colors_solid_button_text.red }}, {{ section.settings.custom_colors_solid_button_text.green }}, {{ section.settings.custom_colors_solid_button_text.blue }};
   }
 
+  .collection-{{ section.id }} .quick-add {
+    margin-top: {{ section.settings.quick_add_margin_top }}px;
+    margin-bottom: {{ section.settings.quick_add_margin_bottom }}px;
+  }
+
   {% if section.settings.enable_magic_mind_style %}
   .collection-{{ section.id }} .quick-add .quick-add__submit.button {
     position: relative !important;
@@ -569,6 +574,30 @@
       "default": false,
       "label": "Use Magic Mind button style",
       "info": "Applies the Magic Mind gradient hover animation to quick add buttons"
+    },
+    {
+      "type": "header",
+      "content": "Quick add button"
+    },
+    {
+      "type": "range",
+      "id": "quick_add_margin_top",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Margin top",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "quick_add_margin_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Margin bottom",
+      "default": 8
     },
     {
       "type": "header",
