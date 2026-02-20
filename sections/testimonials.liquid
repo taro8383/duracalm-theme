@@ -14,14 +14,15 @@
   /* Premium Testimonial Styles */
   .testimonial-card {
     position: relative;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
     border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
     overflow: hidden;
+    will-change: transform, box-shadow;
   }
 
   .testimonial-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
   }
 
   /* Large Quote Styling */
