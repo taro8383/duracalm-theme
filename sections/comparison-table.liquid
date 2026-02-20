@@ -190,7 +190,7 @@
       <div class="content-container content-rte desktop-{{ section.settings.desktop_alignment }} mobile-{{ section.settings.mobile_alignment }} animate-item animate-item--child index-0{% if section.settings.layout == 'table_first' %} desktop-index-1{% elsif section.settings.layout == 'title_above' %} title-above{% endif %}">
         {%- unless section.settings.title == blank -%}
           {% assign content_index = 1 %}
-          <h2 class="{{ section.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ section.settings.title_highlight_color }}' data-text-reveal>
+          <h2 class="{{ section.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ section.settings.title_highlight_color }}'>
             {{ section.settings.title }}
           </h2>
         {%- endunless -%}
@@ -248,7 +248,7 @@
           {% endif %}
         {%- endif -%}
       </div>
-      <div class="comparison-table-container flex-center animate-item animate-item--child index-{{ content_index }}{% if section.settings.layout == 'table_first' %} desktop-index-0{% endif %}" data-stagger-children data-stagger-animate="fade-up">
+      <div class="comparison-table-container flex-center animate-item animate-item--child index-{{ content_index }}{% if section.settings.layout == 'table_first' %} desktop-index-0{% endif %}">
         {% liquid
           assign number_of_competitors = section.settings.number_of_competitors
           if section.settings.style == 'minimal'
