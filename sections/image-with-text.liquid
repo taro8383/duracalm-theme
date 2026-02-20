@@ -19,51 +19,51 @@
   }
 
   {%- if section.settings.scrollable_text -%}
-    /* Desktop scrollable text */
+    /* Desktop scrollable text wrapper - contains all content blocks */
     @media screen and (min-width: 750px) {
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper {
         overflow-y: auto;
         overflow-x: visible;
         padding-right: 12px;
         max-height: 500px;
         display: block;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar {
         width: 6px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-track {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar-track {
         background: rgba(123, 146, 200, 0.15);
         border-radius: 3px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-thumb {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar-thumb {
         background: #7b92c8;
         border-radius: 3px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-thumb:hover {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar-thumb:hover {
         background: #6a7fb0;
       }
     }
-    /* Mobile scrollable text */
+    /* Mobile scrollable text wrapper */
     @media screen and (max-width: 749px) {
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper {
         overflow-y: auto;
         overflow-x: visible;
         padding-right: 12px;
         max-height: 400px;
         display: block;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar {
         width: 4px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-track {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar-track {
         background: rgba(123, 146, 200, 0.15);
         border-radius: 2px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-thumb {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar-thumb {
         background: #7b92c8;
         border-radius: 2px;
       }
-      #image-with-text-{{ section.id }} .image-with-text__text.image-with-text__text::-webkit-scrollbar-thumb:hover {
+      #image-with-text-{{ section.id }} .image-with-text__text-scrollable-wrapper::-webkit-scrollbar-thumb:hover {
         background: #6a7fb0;
       }
     }
@@ -412,6 +412,9 @@
           id="ImageWithText--{{ section.id }}"
           class="image-with-text__content image-with-text__content--{{ section.settings.desktop_content_position }} image-with-text__content--desktop-{{ section.settings.desktop_content_alignment }} image-with-text__content--mobile-{{ section.settings.mobile_content_alignment }} image-with-text__content--{{ section.settings.height }} gradient color-{{ section.settings.color_scheme }} color-scheme-{{ section.id }} content-container"
         >
+          {%- if section.settings.scrollable_text -%}
+            <div class="image-with-text__text-scrollable-wrapper">
+          {%- endif -%}
           {%- for block in section.blocks -%}
             {% case block.type %}
               {%- when 'heading' -%}
@@ -563,6 +566,9 @@
                 </div>
             {%- endcase -%}
           {%- endfor -%}
+          {%- if section.settings.scrollable_text -%}
+            </div>
+          {%- endif -%}
         </div>
       </div>
     </div>
