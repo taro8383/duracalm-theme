@@ -11,6 +11,165 @@
     }
   }
 
+  /* Premium Testimonial Styles */
+  .testimonial-card {
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
+    overflow: hidden;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Large Quote Styling */
+  .testimonial-card .rte {
+    font-size: {{ section.settings.quote_font_size | default: 18 }}px;
+    line-height: 1.7;
+    font-style: italic;
+    color: {{ section.settings.quote_text_color | default: 'inherit' }};
+  }
+
+  .testimonial-card .rte p {
+    margin: 0;
+    position: relative;
+  }
+
+  /* Enhanced Avatar Styling */
+  .testimonial-card__avatar {
+    position: relative;
+    width: {{ section.settings.avatar_size | default: 64 }}px;
+    height: {{ section.settings.avatar_size | default: 64 }}px;
+    border-radius: 50%;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+
+  .testimonial-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid {{ section.settings.avatar_border_color | default: '#ffffff' }};
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Verified Badge */
+  .testimonial-card__verified-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid {{ section.settings.avatar_border_color | default: '#ffffff' }};
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .testimonial-card__verified-badge svg {
+    width: 12px;
+    height: 12px;
+    color: white;
+  }
+
+  /* Author Info Layout */
+  .testimonial-card__author-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .testimonial-card__author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .testimonial-card__author {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+    color: {{ section.settings.author_name_color | default: 'inherit' }};
+  }
+
+  .testimonial-card__verified-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .testimonial-card__verified-text::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+  }
+
+  .testimonial-card__location {
+    font-size: 13px;
+    color: rgba(var(--color-foreground), 0.6);
+  }
+
+  /* Smooth Carousel Transitions */
+  #shopify-section-{{ section.id }} .splide__slide {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  #shopify-section-{{ section.id }} .splide__slide.is-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  #shopify-section-{{ section.id }} .splide__slide:not(.is-active) {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+
+  /* Enhanced Stars */
+  .testimonial-card__stars {
+    margin-bottom: 16px;
+  }
+
+  .testimonial-card__stars .rating-stars__container--overlay svg {
+    filter: drop-shadow(0 2px 4px rgba(255, 204, 0, 0.3));
+  }
+
+  /* Quote Marks Enhancement */
+  .testimonial-card__quotes {
+    margin-bottom: 16px;
+    opacity: 0.3;
+  }
+
+  .testimonial-card__quotes svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Card Content Spacing */
+  .testimonial-card__info--no-image-no-stars {
+    padding-top: 24px;
+  }
+
+  /* Premium Focus State */
+  .testimonial-card:focus-within {
+    outline: 2px solid {{ section.settings.accent_color | default: '#7b92c8' }};
+    outline-offset: 2px;
+  }
+
   .color-scheme-{{ section.id }}.color-custom {
     --color-background: {{ section.settings.custom_colors_background.red }}, {{ section.settings.custom_colors_background.green }}, {{ section.settings.custom_colors_background.blue }};
     --gradient-background: {% if section.settings.custom_gradient_background != blank %}{{ section.settings.custom_gradient_background }}{% else %}{{ section.settings.custom_colors_background }}{% endif %};
@@ -315,13 +474,28 @@
                                 | image_url: width: 150
                                 | image_tag: loading: 'lazy', width: 100
                               }}
+                              {%- if block.settings.verified_purchase -%}
+                                <div class="testimonial-card__verified-badge">
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                  </svg>
+                                </div>
+                              {%- endif -%}
                             </div>
                           {%- endif -%}
-                          {%- if block.settings.author != blank -%}
-                            <p class="testimonial-card__author">
-                              {{ block.settings.author }}
-                            </p>
-                          {%- endif -%}
+                          <div class="testimonial-card__author-info">
+                            {%- if block.settings.author != blank -%}
+                              <p class="testimonial-card__author">
+                                {{ block.settings.author }}
+                              </p>
+                            {%- endif -%}
+                            {%- if block.settings.verified_purchase -%}
+                              <span class="testimonial-card__verified-text">{{ section.settings.verified_badge_text | default: 'Verified Purchase' }}</span>
+                            {%- endif -%}
+                            {%- if block.settings.author_location != blank -%}
+                              <span class="testimonial-card__location">{{ block.settings.author_location }}</span>
+                            {%- endif -%}
+                          </div>
                         </div>
                       {%- endunless -%}
                     </div>
@@ -456,6 +630,16 @@
     {
       "type": "header",
       "content": "Cards style"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 16
     },
     {
       "type": "select",
@@ -679,14 +863,15 @@
           "label": "Infinite"
         }
       ],
-      "default": "slide",
-      "label": "Type"
+      "default": "loop",
+      "label": "Slider type",
+      "info": "Infinite creates a seamless carousel experience"
     },
     {
       "type": "checkbox",
       "id": "autoplay",
       "label": "Enable autoplay",
-      "default": false
+      "default": true
     },
     {
       "type": "range",
@@ -774,17 +959,18 @@
       "type": "range",
       "id": "columns_desktop",
       "min": 1,
-      "max": 10,
+      "max": 4,
       "step": 1,
-      "default": 3,
-      "label": "Slides per page"
+      "default": 1,
+      "label": "Testimonials per page",
+      "info": "1 creates a premium focused carousel experience"
     },
     {
       "type": "checkbox",
       "id": "slider_desktop",
       "label": "Enable desktop slider",
-      "default": false,
-      "info": "The settings bellow are applied if this option is checked"
+      "default": true,
+      "info": "Creates a carousel experience on desktop. The settings below are applied if this option is checked"
     },
     {
       "type": "range",
@@ -984,6 +1170,55 @@
     },
     {
       "type": "header",
+      "content": "Premium Styling"
+    },
+    {
+      "type": "range",
+      "id": "avatar_size",
+      "min": 48,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Avatar size",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "avatar_border_color",
+      "label": "Avatar border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "quote_font_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Quote font size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "quote_text_color",
+      "label": "Quote text color",
+      "default": "#2e2a39"
+    },
+    {
+      "type": "color",
+      "id": "author_name_color",
+      "label": "Author name color",
+      "default": "#121212"
+    },
+    {
+      "type": "text",
+      "id": "verified_badge_text",
+      "label": "Verified badge text",
+      "default": "Verified Purchase",
+      "info": "Text displayed next to verified badge"
+    },
+    {
+      "type": "header",
       "content": "Custom cards color scheme",
       "info": "Applied if Cards color scheme setting is set to Custom."
     },
@@ -1065,7 +1300,20 @@
           "type": "inline_richtext",
           "id": "author",
           "default": "<em><strong>Author</strong></em>",
-          "label": "Author"
+          "label": "Author name"
+        },
+        {
+          "type": "text",
+          "id": "author_location",
+          "label": "Author location",
+          "info": "Optional - e.g., 'New York, NY'"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified_purchase",
+          "default": false,
+          "label": "Verified Purchase",
+          "info": "Displays a verified badge and 'Verified Purchase' text"
         }
       ]
     },
