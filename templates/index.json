@@ -173,8 +173,14 @@
         "text_JkmU3F": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Dear fellow sufferer,</strong></p><p>Let's be honest.</p><p>There is nothing \"mild\" about a headache.</p><p>Whether it's the <strong>band-like vise grip</strong> of a Tension Headache squeezing your skull until you can't think... or the <strong>one-sided, pulsating explosion</strong> of a Migraine that makes you want to hide in a dark closet... the pain is real. And it is stealing your life.</p><p>But here is the ugly truth that the pharmaceutical companies don't want you to dwell on:</p><p><strong>The pills you are taking might be making it worse.</strong></p><p>It sounds crazy, but it's a documented medical fact. It's called <strong>Medication Overuse Headache (MOH)</strong>. Research shows that frequent use of acute painkillers can actually lower your brain's pain threshold, guaranteeing you'll need <em>another</em> pill tomorrow.</p><p>It's a trap. And at <strong>Duracalm</strong>, we are here to help you break out of it.</p>",
+            "text": "<p></p><p><strong>Dear fellow sufferer,</strong><br/><br/>Let's be honest.<br/><br/>There is nothing <strong>\"mild\"</strong> about a headache.<br/><br/>Whether it's the crushing pressure wrapping around your skull until you can't form a single thought  or the blinding, pulsating force of a Migraine that drives you into a dark room and locks the door, the pain is real. </p><p><strong>And it is stealing your life.</strong><br/><br/>Here is something the <strong>pharmaceutical companies </strong>would rather you never found out:</p>",
             "text_style": "body"
+          }
+        },
+        "pull_quote_1": {
+          "type": "pull_quote",
+          "settings": {
+            "quote": "The pills you reach for every time may be the reason it keeps coming back."
           }
         },
         "icon_anchor_bRkL2m": {
@@ -187,7 +193,7 @@
         "text_2ndq4P": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>The \"biological secret\" locked inside your skull</strong></p><p>My name is Tom Collins, and I founded Duracalm because I discovered a fatal flaw in how we treat head pain: <strong>We treat the hardware, but ignore the software.</strong></p><p>You see, a headache isn't just a physical knot. It is a <strong>neurological loop</strong>.</p><p>• <strong>If you have Migraines:</strong> Your nervous system is stuck in \"high alert,\" typically involving the trigeminal nerve and vascular inflammation.</p><p>• <strong>If you have Tension Headaches:</strong> Your neck muscles are weak and shortening due to posture, constantly pulling on the base of your skull.</p><p>You cannot fix a \"software problem\" with a pill. You need to <strong>reprogram the system.</strong></p>",
+            "text": "<p>The <strong>\"biological secret\"</strong> locked inside your skull<br/><br/>Tom Collins founded Duracalm after uncovering a fatal flaw in how head pain gets treated: <strong>the hardware gets addressed, but the software gets ignored.</strong><br/><br/>Here's what's actually happening inside your skull when you have an episode.<br/><br/>A headache isn't just a physical knot. <strong>It is a neurological loop.</strong><br/><br/>If you have Migraines: <strong>Your nervous system is stuck</strong> in \"high alert,\" typically involving the trigeminal nerve and vascular inflammation.</p><p><br/>If you have Tension Headaches: <strong>Your neck muscles are weak and shortening due to posture</strong>, constantly pulling on the base of your skull.<br/><br/><strong>A pill cannot fix a software problem. </strong></p><p>Your system needs to be reprogrammed.<br/></p>",
             "text_style": "body"
           }
         },
@@ -204,12 +210,6 @@
             "margin_top": 0,
             "margin_bottom": 0,
             "full_width_mobile": false
-          }
-        },
-        "pull_quote_1": {
-          "type": "pull_quote",
-          "settings": {
-            "quote": "The pills you are taking might be making it worse."
           }
         }
       },
@@ -250,6 +250,34 @@
         "mobile_padding_bottom": 16,
         "desktop_padding_top": 36,
         "desktop_padding_bottom": 36,
+        "body_font_family": "merriweather",
+        "text_max_width": 65,
+        "line_height": 1.7,
+        "paragraph_spacing": 1.5,
+        "font_size_scale": 100,
+        "heading_text_color": "#121212",
+        "body_text_color": "#2e2a39",
+        "accent_text_color": "#7b92c8",
+        "enable_pull_quotes": true,
+        "pull_quote_font_scale": 125,
+        "pull_quote_line_height": 1.4,
+        "pull_quote_border_color": "#7b92c8",
+        "pull_quote_border_width": 4,
+        "pull_quote_padding": 24,
+        "pull_quote_bg_color": "rgba(0,0,0,0)",
+        "pull_quote_text_color": "#121212",
+        "pull_quote_margin_y": 24,
+        "pull_quote_quotation_marks": false,
+        "pull_quote_quotation_opacity": 20,
+        "icon_anchor_icon_size": 28,
+        "icon_anchor_icon_color": "#7b92c8",
+        "icon_anchor_icon_spacing": 12,
+        "icon_anchor_subhead_size": "medium",
+        "icon_anchor_subhead_weight": "700",
+        "icon_anchor_subhead_color": "#121212",
+        "icon_anchor_margin_top": 24,
+        "icon_anchor_margin_bottom": 8,
+        "icon_anchor_vertical_align": "center",
         "custom_colors_background": "#f3dfc1",
         "custom_gradient_background": "",
         "custom_colors_text": "#121212",
@@ -291,35 +319,35 @@
         "text_intro": {
           "type": "text",
           "settings": {
-            "text": "<p>We don't sell \"magic gadgets.\" We provide <strong>complete physiological systems</strong>. We have engineered three specific protocols that combine <strong>clinical-grade physical devices</strong> (The Hardware) with <strong>neuro-behavioral digital therapies</strong> (The Software) to target the <em>exact</em> biological mechanism driving your agony.</p>",
+            "text": "<p><strong>No magic gadgets. </strong></p><p>What's waiting for you are complete physiological systems, three specific protocols that combine clinical-grade physical devices (The Hardware) <strong>with neuro-behavioral digital therapies</strong> (The Software), each engineered to target the exact biological mechanism driving your agony.</p>",
             "text_style": "body"
           }
         },
         "icon_anchor_neuro": {
           "type": "icon_anchor",
           "settings": {
-            "material_icon": "neurology",
+            "material_icon": "ac_unit",
             "subhead": "System 1: The Neuro-Cool™"
           }
         },
         "text_neuro": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>The Neuro-Cool System™ (For the \"Sensory Storm\")</strong></p><p>• <strong>The Target:</strong> Neurovascular Inflammation &amp; Sensory Overload.</p><p>• <strong>The Hardware (Mechanism): Precision Thermal Modulation.</strong></p><p>◦ This physical system applies targeted cryotherapy to the cranial vascular network. It is engineered to mechanically constrict dilated blood vessels and numb the inflamed nerve endings that cause that throbbing sensation.</p><p>• <strong>The Software (Digital): The Sensory Reset Protocol</strong>.</p><p>◦ This isn't just a \"guide.\" It is a digital course based on <strong>Cognitive Behavioral Therapy (CBT)</strong> techniques proven to reduce headache frequency. We teach you how to \"turn down the volume\" on your brain's light sensitivity and identify triggers before they launch an attack.</p>",
+            "text": "<p><strong>The Neuro-Cool System™ (For the \"Sensory Storm\")</strong></p><p><strong>The Target:</strong> Neurovascular Inflammation & Sensory Overload.</p><p><strong>The Hardware (Mechanism): </strong>Precision Thermal Modulation. </p><p>This physical system applies <strong>targeted cryotherapy</strong> to the cranial vascular network, mechanically constricting dilated blood vessels and numbing the inflamed nerve endings causing that throbbing sensation.</p><p><strong>The Software (Digital): </strong>The Sensory Reset Protocol. </p><p>A digital course built on <strong>Cognitive Behavioral Therapy (CBT)</strong> techniques proven to reduce headache frequency.</p><p>You'll learn how to <strong>turn down</strong> the volume on your brain's light sensitivity and spot triggers <strong>before</strong> they launch an attack.</p>",
             "text_style": "body"
           }
         },
         "icon_anchor_myo": {
           "type": "icon_anchor",
           "settings": {
-            "material_icon": "shield",
+            "material_icon": "lock_open_right",
             "subhead": "System 2: The Myo-Release™"
           }
         },
         "text_myo": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>The Myo-Release System™ (For the \"Physical Vise\")</strong></p><p>• <strong>The Target:</strong> Myofascial Trigger Points &amp; \"Tech-Neck.\"</p><p>• <strong>The Hardware (Mechanism): Suboccipital Decompression.</strong></p><p>◦ A pill cannot untie a knot. This physical device uses gravity and leverage to provide deep-tissue inhibition to the suboccipital muscles at the base of your skull—mechanically releasing the tension that is strangling your nerves.</p><p>• <strong>The Software (Digital): The \"Neck Armor\" Video Series</strong>.</p><p>◦ Releasing the knot is temporary; strengthening the muscle is permanent. This video library guides you through the specific <strong>deep neck flexor exercises</strong> that research shows can reduce tension headache frequency by treating the root cause: muscle weakness.</p>",
+            "text": "<p><strong>The Target:</strong> Myofascial Trigger Points & \"Tech-Neck.\"</p><p><strong>The Hardware (Mechanism): </strong>Suboccipital Decompression. </p><p><strong>A pill cannot untie a knot</strong>. </p><p>This device uses gravity and leverage to <strong>deliver deep-tissue inhibition</strong> to the suboccipital muscles at the base of your skull, mechanically releasing the tension that is strangling your nerves.</p><p><strong>The Software (Digital): </strong>The \"Neck Armor\" Video Series. </p><p>Releasing the knot is <strong>temporary</strong>. Strengthening the muscle is <strong>permanent</strong>.</p><p>This video library walks you through the specific deep neck flexor exercises that research shows can reduce tension headache frequency <strong>by treating the root cause</strong>: muscle weakness.</p>",
             "text_style": "body"
           }
         },
@@ -333,7 +361,7 @@
         "text_rebound": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>The Rebound Breaker System™ (For the \"Chronic Cycle\")</strong></p><p>• <strong>The Target:</strong> Central Sensitization &amp; Medication Overuse.</p><p>• <strong>The Hardware (Mechanism): Neural Gating Stimulation.</strong></p><p>◦ You need a bridge to safety. This physical system utilizes thousands of micro-contact points to flood your nervous system with safe sensory signals. This activates the \"Gate Control Theory\" of pain, helping to override the pain loop without drugs.</p><p>• <strong>The Software (Digital): The Deep Sleep &amp; Detox Audio Protocol</strong>.</p><p>◦ This is the critical piece. Studies prove that <strong>Behavioral Sleep Modification</strong> can actually <strong>revert chronic migraine back to episodic migraine</strong> in nearly 50% of patients. We give you the exact audio tracks and sleep hygiene protocols to reset your pain threshold while you detox from the pills.</p>",
+            "text": "<p><strong>The Target: </strong>Central Sensitization & Medication Overuse.</p><p><strong>The Hardware (Mechanism): </strong>Neural Gating Stimulation. </p><p>This physical system utilizes thousands of micro-contact points to flood your nervous system with safe sensory signals,<strong> activating the Gate Control Theory </strong>of pain to help override the loop without drugs.<br/><strong>The Software (Digital): </strong>The Deep Sleep & Detox Audio Protocol. </p><p>Studies prove that Behavioral Sleep Modification <strong>can revert chronic migraine </strong>back to episodic migraine in nearly 50% of patients. </p><p>The exact audio tracks and sleep hygiene protocols are here, ready to reset your pain threshold <strong>while your body detoxes from the pills</strong>.</p>",
             "text_style": "body"
           }
         },
@@ -347,7 +375,7 @@
         "text_cta": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Stop Guessing. Start Treating.</strong></p><p>I don't want you to buy a single product yet.</p><p>I want you to find out exactly what is happening inside your nervous system. Because if you use the <strong>Myo-Release</strong> tools on a <strong>Migraine</strong>, it won't work. And if you use the <strong>Neuro-Cool</strong> system on a <strong>Rebound Headache</strong>, you're missing the root cause.</p><p>We have built a comprehensive <strong>Assessment Tool</strong> based on the International Classification of Headache Disorders (ICHD-3). It will analyze your symptoms—whether it's the nausea, the \"band-like\" pressure, or the pill usage—and tell you exactly which System fits your physiology. It is free. It takes 2 minutes. And it could save you from years of misery.</p><p><strong>Click the button below. Your brain will thank you.</strong></p>",
+            "text": "<p><strong>Stop Guessing. Start Treating.</strong><br/><br/>Don't buy a single product yet.<br/><br/>First, find out exactly what is happening inside your nervous system. </p><p>Using the Myo-Release tools on a Migraine <strong>won't work </strong>— and using the Neuro-Cool system on a Rebound Headache means <strong>missing the root cause entirely</strong>.<br/><br/>A comprehensive Assessment Tool, built on the <strong>International Classification of Headache Disorders (ICHD-3), i</strong>s ready for you right now. </p><p><strong>It analyzes your symptoms</strong>, whether it's the nausea, the band-like pressure, or the pill usage, <strong>and tells you exactly which System fits your physiology</strong>. </p><p>It's free. It takes 2 minutes and it could save you from years of misery.<br/><br/><strong>Click the button below. </strong><br/>Your brain will thank you.</p>",
             "text_style": "body"
           }
         },
@@ -408,6 +436,34 @@
         "mobile_padding_bottom": 16,
         "desktop_padding_top": 36,
         "desktop_padding_bottom": 36,
+        "body_font_family": "merriweather",
+        "text_max_width": 65,
+        "line_height": 1.7,
+        "paragraph_spacing": 1.5,
+        "font_size_scale": 100,
+        "heading_text_color": "#121212",
+        "body_text_color": "#2e2a39",
+        "accent_text_color": "#7b92c8",
+        "enable_pull_quotes": true,
+        "pull_quote_font_scale": 125,
+        "pull_quote_line_height": 1.4,
+        "pull_quote_border_color": "#7b92c8",
+        "pull_quote_border_width": 4,
+        "pull_quote_padding": 24,
+        "pull_quote_bg_color": "rgba(0,0,0,0)",
+        "pull_quote_text_color": "#121212",
+        "pull_quote_margin_y": 24,
+        "pull_quote_quotation_marks": false,
+        "pull_quote_quotation_opacity": 20,
+        "icon_anchor_icon_size": 28,
+        "icon_anchor_icon_color": "#7b92c8",
+        "icon_anchor_icon_spacing": 12,
+        "icon_anchor_subhead_size": "medium",
+        "icon_anchor_subhead_weight": "700",
+        "icon_anchor_subhead_color": "#121212",
+        "icon_anchor_margin_top": 24,
+        "icon_anchor_margin_bottom": 8,
+        "icon_anchor_vertical_align": "center",
         "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
         "custom_colors_text": "#121212",
@@ -1309,6 +1365,9 @@
         "padding_bottom": 36,
         "padding_horizontal": 5,
         "padding_horizontal_mobile": 1.5,
+        "enable_polaroid_float": true,
+        "enable_guarantee_stagger": true,
+        "enable_shield_pulse": true,
         "width": "page",
         "content_width": 1200,
         "border_thickness": 0,
