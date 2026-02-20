@@ -63,7 +63,7 @@
     right: -2px;
     width: 22px;
     height: 22px;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: {{ section.settings.verified_badge_bg_color | default: '#10b981' }};
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -75,7 +75,7 @@
   .testimonial-card__verified-badge svg {
     width: 12px;
     height: 12px;
-    color: white;
+    color: {{ section.settings.verified_badge_icon_color | default: '#ffffff' }};
   }
 
   /* Author Info Layout */
@@ -104,7 +104,7 @@
   .testimonial-card__verified-text {
     font-size: 13px;
     font-weight: 500;
-    color: #10b981;
+    color: {{ section.settings.verified_badge_text_color | default: '#10b981' }};
     display: flex;
     align-items: center;
     gap: 4px;
@@ -115,7 +115,7 @@
     display: inline-block;
     width: 6px;
     height: 6px;
-    background: #10b981;
+    background: {{ section.settings.verified_badge_text_color | default: '#10b981' }};
     border-radius: 50%;
   }
 
@@ -311,7 +311,7 @@
     {% if has_mobile_slider or has_desktop_slider %}
       <splide-component
         data-type='{{ section.settings.type }}'
-        data-autoplay='{{ section.settings.autoplay }}'
+        data-autoplay="{% if section.settings.autoplay %}true{% else %}false{% endif %}"
         data-autoplay-speed='{{ section.settings.autoplay_speed }}'
         data-arrows-color="{{ section.settings.arrows_color_scheme }}"
         data-dots-color="{{ section.settings.dots_color_scheme }}"
@@ -1216,6 +1216,24 @@
       "label": "Verified badge text",
       "default": "Verified Purchase",
       "info": "Text displayed next to verified badge"
+    },
+    {
+      "type": "color",
+      "id": "verified_badge_bg_color",
+      "label": "Verified badge background color",
+      "default": "#10b981"
+    },
+    {
+      "type": "color",
+      "id": "verified_badge_icon_color",
+      "label": "Verified badge checkmark color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "verified_badge_text_color",
+      "label": "Verified badge text color",
+      "default": "#10b981"
     },
     {
       "type": "header",
