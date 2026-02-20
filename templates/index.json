@@ -115,8 +115,8 @@
         "image_g8NhVq": {
           "type": "image",
           "settings": {
-            "desktop_image": "shopify://shop_images/Airbrush-OBJECT-REMOVER-1769248899447.jpg",
-            "mobile_image": "shopify://shop_images/image-892c0a1a-5088-49ce-8b1c-3ae3f9f49075.jpg",
+            "desktop_image": "shopify://shop_images/hero-desktop.jpg",
+            "mobile_image": "shopify://shop_images/hero-mobile.jpg",
             "hide_on_mobile": false,
             "vertical_scrollng_speed": 0,
             "horizontal_scrollng_speed": 0,
@@ -161,7 +161,7 @@
             "star_rating": 4,
             "title": "Good tool for the toolkit",
             "text": "<p>Don't expect a miracle cure. You still get headaches. But this helps you manage them without feeling like a zombie on meds. I use the neuro cool hat with my ubrelvy and it works way faster together.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_051400_78720696.jpg",
+            "author_avatar": "shopify://shop_images/Sam1975.webp",
             "author": "<strong>Sam1975</strong>",
             "author_location": "New York, NY",
             "verified_purchase": true
@@ -173,10 +173,10 @@
             "star_rating": 5,
             "title": "Cheaper than my chiro",
             "text": "<p>I spend a fortune on adjustments and massages. This kit costs less than one visit. It’s effective. The packaging was a little banged up when it arrived but everything inside was fine.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_051550_1fa0e83b.jpg",
+            "author_avatar": "shopify://shop_images/TomB.webp",
             "author": "<strong>Tom B</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Piscataway, NJ",
+            "verified_purchase": true
           }
         },
         "column_wPTVXg": {
@@ -185,10 +185,10 @@
             "star_rating": 4,
             "title": "Sleep tracks are surprisingly good",
             "text": "<p>Bought the Rebound kit mostly for the mat, didn't think I'd use the digital 'software' part. But the sleep audio is actually really helpful. I didn't realize how much my insomnia was triggering my headaches. Mat is a bit intense for me but the system works.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052659_f930ecfc.jpg",
+            "author_avatar": "shopify://shop_images/KarenW.webp",
             "author": "<strong>Karen W</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Hartland, WI",
+            "verified_purchase": true
           }
         },
         "column_mmdFLg": {
@@ -197,10 +197,10 @@
             "star_rating": 5,
             "title": "Hardest week of my life but it worked",
             "text": "<p>I was taking excedrin daily for years. Didn't know about 'rebound headaches' until I read your site. The detox week was rough, not gonna lie. The acupressure mat is sharp but it distracts your brain from the pain. 30 days pill free now. thanks guys.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_051719_3b6c5cd1.jpg",
+            "author_avatar": "shopify://shop_images/DaveR.webp",
             "author": "<strong> Dave_R</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Chino, CA",
+            "verified_purchase": true
           }
         },
         "column_aLHVRU": {
@@ -209,10 +209,10 @@
             "star_rating": 5,
             "title": "Better than ice packs",
             "text": "<p>Used to strap bags of peas to my head lol. This is way better. hits the exact spot over the eye that throbs. Expensive for what it is but honestly worth it to not feel like my head is exploding.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_050806_79d03818.jpg",
+            "author_avatar": "shopify://shop_images/LT.webp",
             "author": "<strong>L.T</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Tallahassee, FL",
+            "verified_purchase": true
           }
         },
         "column_fbfWXR": {
@@ -221,10 +221,10 @@
             "star_rating": 4,
             "title": "Hat is great, wish it stayed cold longer",
             "text": "<p>The cold cap feels amazing when an attack starts. Numbs the throbbing instantly. Knocking off one star because it only stays ice cold for about 40 mins, I ended up buying a second one so I can rotate them in the freezer. essential if you get hemiplegic migraines.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052028_ad84823e.jpg",
+            "author_avatar": "shopify://shop_images/ChrisP.webp",
             "author": "<strong>Chris P</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Sleepy Eye, MN",
+            "verified_purchase": true
           }
         },
         "column_GjTHjP": {
@@ -233,10 +233,10 @@
             "star_rating": 5,
             "title": "Finally popped that knot",
             "text": "<p>I sit at a computer for 10 hours a day and my neck usually feels like concrete by 3pm. The traction tool in the Myo-Release kit is intense... kinda hurts at first but in a 'good pain' way? Felt the pressure release at the base of my skull immediately. Wish the shipping was faster but the kit is legit.<br/><br/></p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_050615_38eb37ab.jpg",
+            "author_avatar": "shopify://shop_images/MikeD.webp",
             "author": "<strong>Mike_D</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Newark, NJ",
+            "verified_purchase": true
           }
         },
         "column_6qy4Hc": {
@@ -245,10 +245,10 @@
             "star_rating": 4,
             "title": "Works if you actually follow the plan",
             "text": "<p>Honest review: the neck hammock thing feels nice but the results didn't stick until I actually watched the digital vids and did the strengthening stuff. Its not a magic fix, you gotta do the work. But I haven't taken advil in 2 weeks so I guess it works.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052520_f0a94972.jpg",
+            "author_avatar": "shopify://shop_images/SaraJ.webp",
             "author": "<strong>Sarah J</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Valparaiso, IN",
+            "verified_purchase": true
           }
         },
         "column_ACqzUT": {
@@ -257,10 +257,10 @@
             "star_rating": 5,
             "title": "Quiz was right, thought it was migraine",
             "text": "<p>I always thought I had migraines cause they were so bad. Took the quiz and it said tension/muscle related. Was skeptical but bought the Myo kit. Turns out treating my neck fixed the headache. crazy. The posture strap is kinda itchy so wear a tshirt under it.</p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_050946_a27b6615.jpg",
+            "author_avatar": "shopify://shop_images/Jen22.webp",
             "author": "<strong>Jen22</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Seattle, WA",
+            "verified_purchase": true
           }
         },
         "column_UnrfQ3": {
@@ -269,10 +269,10 @@
             "star_rating": 5,
             "title": "Lifesaver during pregnancy",
             "text": "<p>Since I cant take my usual triptans right now this kit has been the only thing getting me through. The compression on the hat is perfect. It doesnt stop the migraine 100% but it numbs it enough so I can sleep. Green light helps too when I cant stand to look at my phone.<br/><br/></p>",
-            "author_avatar": "shopify://shop_images/generated_image_20260202_052947_2072c1a8.jpg",
+            "author_avatar": "shopify://shop_images/AshleeM.webp",
             "author": "<strong>Ashlee M.</strong>",
-            "author_location": "",
-            "verified_purchase": false
+            "author_location": "Johnson City, NY",
+            "verified_purchase": true
           }
         }
       },
@@ -506,12 +506,12 @@
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "image": "shopify://shop_images/generated_image_20260129_093227_628f1ee9.jpg",
+        "image": "shopify://shop_images/before-f.webp",
         "video_autoplay": true,
         "video_loop": true,
         "height": "adapt",
         "enable_rotating_images": true,
-        "image_2": "shopify://shop_images/generated_image_20260129_093400_f5de0703.jpg",
+        "image_2": "shopify://shop_images/before-m.webp",
         "rotation_interval": 5,
         "color_scheme": "custom",
         "section_color_scheme": "accent-2",
@@ -566,24 +566,6 @@
         "custom_colors_outline_button": "#121212",
         "custom_section_colors_background": "#f3dfc1",
         "custom_section_gradient_background": ""
-      }
-    },
-    "section_divider_nqD7aH": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": true,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#f3dfc1",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "image_with_text_UaAiJ7": {
@@ -693,12 +675,12 @@
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "image": "shopify://shop_images/generated_image_20260129_094338_6a514b13.jpg",
+        "image": "shopify://shop_images/after-g.webp",
         "video_autoplay": true,
         "video_loop": true,
         "height": "adapt",
         "enable_rotating_images": true,
-        "image_2": "shopify://shop_images/generated_image_20260129_094043_b0f6c997.jpg",
+        "image_2": "shopify://shop_images/after-m.webp",
         "rotation_interval": 5,
         "color_scheme": "custom",
         "section_color_scheme": "custom",
@@ -753,24 +735,6 @@
         "custom_colors_outline_button": "#dd1d1d",
         "custom_section_colors_background": "#ddbea8",
         "custom_section_gradient_background": ""
-      }
-    },
-    "section_divider_RUNaLw": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": false,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#ddbea8",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "featured_collection_f9BQdr": {
@@ -834,24 +798,6 @@
         "custom_colors_text": "#121212",
         "custom_colors_solid_button_background": "#121212",
         "custom_colors_solid_button_text": "#121212"
-      }
-    },
-    "section_divider_R8jWtY": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": true,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#f3dfc1",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "d2d3417b-e92f-428c-b221-5bceffb552be": {
@@ -981,42 +927,6 @@
         "custom_colors_others_text": "#2e2a39"
       }
     },
-    "section_divider_CDnnig": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": false,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#ddbea8",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "section_divider_tnnJ7p": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": true,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#f3dfc1",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "6aa09428-a417-429d-9159-a4e8afd49590": {
       "type": "icon-bar",
       "blocks": {
@@ -1105,42 +1015,6 @@
         "custom_cards_colors_background": "#ddbea8",
         "custom_cards_gradient_background": "",
         "custom_cards_colors_text": "#2e2a39"
-      }
-    },
-    "section_divider_MXjBHm": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": false,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#ddbea8",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "section_divider_GqeUgi": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": true,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#f3dfc1",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "ss_guarantee_f3HaNX": {
@@ -1235,7 +1109,7 @@
           "settings": {
             "rotate": 10,
             "rotate_mobile": -5,
-            "image": "shopify://shop_images/generated_image_20260202_041854_20c4e68b.jpg",
+            "image": "shopify://shop_images/holdbox-1.webp",
             "image_hide_mobile": false
           }
         },
@@ -1244,7 +1118,7 @@
           "settings": {
             "rotate": -10,
             "rotate_mobile": 5,
-            "image": "shopify://shop_images/generated_image_20260202_042616_bad8a3a6.jpg",
+            "image": "shopify://shop_images/holdbox-3.webp",
             "image_hide_mobile": false
           }
         },
@@ -1253,7 +1127,7 @@
           "settings": {
             "rotate": -10,
             "rotate_mobile": 10,
-            "image": "shopify://shop_images/generated_image_20260202_041441_bdb7ab61.jpg",
+            "image": "shopify://shop_images/holdbox-2.webp",
             "image_hide_mobile": false
           }
         },
@@ -1262,7 +1136,7 @@
           "settings": {
             "rotate": 10,
             "rotate_mobile": 10,
-            "image": "shopify://shop_images/generated_image_20260202_040108_08213bef.jpg",
+            "image": "shopify://shop_images/holdbox-4.webp",
             "image_hide_mobile": true
           }
         }
@@ -1400,24 +1274,6 @@
         "padding_horizontal": 28
       }
     },
-    "section_divider_Q73fbM": {
-      "type": "section-divider",
-      "disabled": true,
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": false,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#ddbea8",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "ss_wave_2_X7Pgn7": {
       "type": "ss-wave-2",
       "name": "SS - Wave #2",
@@ -1448,20 +1304,12 @@
     "testimonials_4nytbq",
     "0f1fc9e4-bc4c-4052-9747-62d1f8472caa",
     "image_with_text_LjDeGJ",
-    "section_divider_nqD7aH",
     "image_with_text_UaAiJ7",
-    "section_divider_RUNaLw",
     "featured_collection_f9BQdr",
-    "section_divider_R8jWtY",
     "d2d3417b-e92f-428c-b221-5bceffb552be",
-    "section_divider_CDnnig",
-    "section_divider_tnnJ7p",
     "6aa09428-a417-429d-9159-a4e8afd49590",
-    "section_divider_MXjBHm",
-    "section_divider_GqeUgi",
     "ss_guarantee_f3HaNX",
     "ss_simple_faq_bfdgyV",
-    "section_divider_Q73fbM",
     "ss_wave_2_X7Pgn7"
   ]
 }
