@@ -233,42 +233,40 @@
     color: {{ section.settings.accent_text_color }};
   }
 
-  {%- if section.settings.enable_pull_quotes -%}
-    /* Pull Quote Styles */
-    #image-with-text-{{ section.id }} .image-with-text__text.rte blockquote {
-      position: relative;
-      font-size: {{ section.settings.pull_quote_font_scale }}%;
-      line-height: {{ section.settings.pull_quote_line_height }};
-      color: {{ section.settings.pull_quote_text_color }};
-      background: {{ section.settings.pull_quote_bg_color }};
-      border-left: {{ section.settings.pull_quote_border_width }}px solid {{ section.settings.pull_quote_border_color }};
-      padding: {{ section.settings.pull_quote_padding }}px;
-      margin: {{ section.settings.pull_quote_margin_y }}px 0;
-      font-style: italic;
-    }
+  /* Pull Quote Block Styles */
+  #image-with-text-{{ section.id }} blockquote.pull-quote {
+    position: relative;
+    font-size: {{ section.settings.pull_quote_font_scale }}%;
+    line-height: {{ section.settings.pull_quote_line_height }};
+    color: {{ section.settings.pull_quote_text_color }};
+    background: {{ section.settings.pull_quote_bg_color }};
+    border-left: {{ section.settings.pull_quote_border_width }}px solid {{ section.settings.pull_quote_border_color }};
+    padding: {{ section.settings.pull_quote_padding }}px;
+    margin: {{ section.settings.pull_quote_margin_y }}px 0;
+    font-style: italic;
+  }
 
-    #image-with-text-{{ section.id }} .image-with-text__text.rte blockquote p {
-      margin-bottom: 0;
-    }
+  #image-with-text-{{ section.id }} blockquote.pull-quote p {
+    margin-bottom: 0;
+  }
 
-    #image-with-text-{{ section.id }} .image-with-text__text.rte blockquote p:last-child {
-      margin-bottom: 0;
-    }
+  #image-with-text-{{ section.id }} blockquote.pull-quote p:last-child {
+    margin-bottom: 0;
+  }
 
-    {%- if section.settings.pull_quote_quotation_marks -%}
-      #image-with-text-{{ section.id }} .image-with-text__text.rte blockquote::before {
-        content: '"';
-        position: absolute;
-        top: -8px;
-        left: 8px;
-        font-size: 3em;
-        color: {{ section.settings.pull_quote_border_color }};
-        opacity: {{ section.settings.pull_quote_quotation_opacity | divided_by: 100.0 }};
-        font-family: Georgia, serif;
-        line-height: 1;
-        pointer-events: none;
-      }
-    {%- endif -%}
+  {%- if section.settings.pull_quote_quotation_marks -%}
+    #image-with-text-{{ section.id }} blockquote.pull-quote::before {
+      content: '"';
+      position: absolute;
+      top: -8px;
+      left: 8px;
+      font-size: 3em;
+      color: {{ section.settings.pull_quote_border_color }};
+      opacity: {{ section.settings.pull_quote_quotation_opacity | divided_by: 100.0 }};
+      font-family: Georgia, serif;
+      line-height: 1;
+      pointer-events: none;
+    }
   {%- endif -%}
 
   /* Icon Anchor Styles */
@@ -435,6 +433,10 @@
                 <div class="image-with-text__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
                   {{ block.settings.text }}
                 </div>
+              {%- when 'pull_quote' -%}
+                <blockquote class="pull-quote" {{ block.shopify_attributes }}>
+                  {{ block.settings.quote }}
+                </blockquote>
               {%- when 'icon_anchor' -%}
                 <div class="icon-anchor" {{ block.shopify_attributes }}>
                   <div class="icon-anchor__icon">
@@ -1574,6 +1576,19 @@
           ],
           "default": "medium",
           "label": "t:sections.image-with-text.blocks.caption.settings.caption_size.label"
+        }
+      ]
+    },
+    {
+      "type": "pull_quote",
+      "name": "Pull Quote",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "quote",
+          "label": "Quote text",
+          "default": "The pills you are taking might be making it worse.",
+          "info": "Your strongest line that breaks up the text wall"
         }
       ]
     },

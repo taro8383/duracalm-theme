@@ -173,7 +173,7 @@
         "text_JkmU3F": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Dear fellow sufferer,</strong></p><p>Let's be honest.</p><p>There is nothing \"mild\" about a headache.</p><p>Whether it's the <strong>band-like vise grip</strong> of a Tension Headache squeezing your skull until you can't think... or the <strong>one-sided, pulsating explosion</strong> of a Migraine that makes you want to hide in a dark closet... the pain is real. And it is stealing your life.</p><p>But here is the ugly truth that the pharmaceutical companies don't want you to dwell on:</p><blockquote><p>The pills you are taking might be making it worse.</p></blockquote><p>It sounds crazy, but it's a documented medical fact. It's called <strong>Medication Overuse Headache (MOH)</strong>. Research shows that frequent use of acute painkillers can actually lower your brain's pain threshold, guaranteeing you'll need <em>another</em> pill tomorrow.</p><p>It's a trap. And at <strong>Duracalm</strong>, we are here to help you break out of it.</p>",
+            "text": "<p><strong>Dear fellow sufferer,</strong></p><p>Let's be honest.</p><p>There is nothing \"mild\" about a headache.</p><p>Whether it's the <strong>band-like vise grip</strong> of a Tension Headache squeezing your skull until you can't think... or the <strong>one-sided, pulsating explosion</strong> of a Migraine that makes you want to hide in a dark closet... the pain is real. And it is stealing your life.</p><p>But here is the ugly truth that the pharmaceutical companies don't want you to dwell on:</p><p><strong>The pills you are taking might be making it worse.</strong></p><p>It sounds crazy, but it's a documented medical fact. It's called <strong>Medication Overuse Headache (MOH)</strong>. Research shows that frequent use of acute painkillers can actually lower your brain's pain threshold, guaranteeing you'll need <em>another</em> pill tomorrow.</p><p>It's a trap. And at <strong>Duracalm</strong>, we are here to help you break out of it.</p>",
             "text_style": "body"
           }
         },
@@ -205,12 +205,19 @@
             "margin_bottom": 0,
             "full_width_mobile": false
           }
+        },
+        "pull_quote_1": {
+          "type": "pull_quote",
+          "settings": {
+            "quote": "The pills you are taking might be making it worse."
+          }
         }
       },
       "block_order": [
         "heading_kCBKGf",
         "icon_anchor_wCjN9x",
         "text_JkmU3F",
+        "pull_quote_1",
         "icon_anchor_bRkL2m",
         "text_2ndq4P",
         "button_magic_mind_FCqhxf"
