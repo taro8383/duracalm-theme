@@ -1,5 +1,5 @@
 <div class="rb-faq-shopify-section" style="background-color: {{ section.settings.section_background_color }};">
-    <h1 style="text-align: center; padding: 20px {{ section.settings.padding_horizontal }}px 0px {{ section.settings.padding_horizontal }}px;"> {{ section.settings.heading }} </h1>
+    <h1 style="text-align: center; padding: 20px {{ section.settings.padding_horizontal }}px 0px;"> {{ section.settings.heading }} </h1>
     <div class="rb-faq-container" data-stagger-children data-stagger-animate="fade-up">
         {%for block in section.blocks %}
         <div class="rb-faq-container-item" data-scroll-animate="fade-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
@@ -157,7 +157,7 @@
             "step": 4,
             "unit": "px",
             "label": "Padding left/right",
-            "default": 30
+            "default": 28
         }
     ],
     "blocks":	[
