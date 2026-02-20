@@ -18,16 +18,15 @@
     overflow: hidden;
   }
 
-  /* Hover lift on slide container to avoid transform conflicts */
-  .testimonials-{{ section.id }} .splide__slide__container {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  /* Hover lift on card - use !important to override scroll animations */
+  .testimonials-{{ section.id }} .testimonial-card {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
     will-change: transform, box-shadow;
-    border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
   }
 
-  .testimonials-{{ section.id }} .splide__slide__container:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  .testimonials-{{ section.id }} .testimonial-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
   }
 
   /* Large Quote Styling */
