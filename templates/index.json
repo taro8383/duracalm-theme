@@ -166,7 +166,7 @@
         "icon_anchor_wCjN9x": {
           "type": "icon_anchor",
           "settings": {
-            "icon": "warning",
+            "material_icon": "warning",
             "subhead": "The Rebound Trap"
           }
         },
@@ -180,7 +180,7 @@
         "icon_anchor_bRkL2m": {
           "type": "icon_anchor",
           "settings": {
-            "icon": "brain",
+            "material_icon": "neurology",
             "subhead": "The Neurological Loop"
           }
         },
@@ -298,7 +298,7 @@
         "icon_anchor_neuro": {
           "type": "icon_anchor",
           "settings": {
-            "icon": "brain",
+            "material_icon": "neurology",
             "subhead": "System 1: The Neuro-Cool™"
           }
         },
@@ -312,7 +312,7 @@
         "icon_anchor_myo": {
           "type": "icon_anchor",
           "settings": {
-            "icon": "shield",
+            "material_icon": "shield",
             "subhead": "System 2: The Myo-Release™"
           }
         },
@@ -326,7 +326,7 @@
         "icon_anchor_rebound": {
           "type": "icon_anchor",
           "settings": {
-            "icon": "pill",
+            "material_icon": "medication",
             "subhead": "System 3: The Rebound Breaker™"
           }
         },
@@ -340,7 +340,7 @@
         "icon_anchor_solution": {
           "type": "icon_anchor",
           "settings": {
-            "icon": "check_circle",
+            "material_icon": "check_circle",
             "subhead": "The Solution"
           }
         },
