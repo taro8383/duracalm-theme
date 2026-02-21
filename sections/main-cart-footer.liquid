@@ -327,13 +327,13 @@
     <div class="cart__footer">
       {%- if section.settings.show_note -%}
         <cart-note class="cart__note field">
-          <label for="Cart-note">{{ section.settings.note_label | default: 'sections.cart.note' | t }}</label>
+          <label for="Cart-note">{% if section.settings.note_label != blank %}{{ section.settings.note_label }}{% else %}{{ 'sections.cart.note' | t }}{% endif %}</label>
           <textarea
             class="text-area field__input"
             name="note"
             form="cart"
             id="Cart-note"
-            placeholder="{{ section.settings.note_placeholder | default: 'sections.cart.note' | t }}"
+            placeholder="{% if section.settings.note_placeholder != blank %}{{ section.settings.note_placeholder }}{% else %}{{ 'sections.cart.note' | t }}{% endif %}"
           >{{ cart.note }}</textarea>
         </cart-note>
       {%- endif -%}
@@ -346,7 +346,7 @@
             {%- when 'subtotal' -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
                 <div class="totals">
-                  <h2 class="totals__subtotal">{{ section.settings.subtotal_label | default: 'sections.cart.subtotal' | t }}</h2>
+                  <h2 class="totals__subtotal">{% if section.settings.subtotal_label != blank %}{{ section.settings.subtotal_label }}{% else %}{{ 'sections.cart.subtotal' | t }}{% endif %}</h2>
                   <p class="totals__subtotal-value">{{ cart.total_price | money_with_currency }}</p>
                 </div>
 
@@ -370,7 +370,7 @@
               <div class="cart__ctas" {{ block.shopify_attributes }}>
                 <noscript>
                   <button type="submit" class="cart__update-button button button--secondary" form="cart">
-                    {{ section.settings.update_button_text | default: 'sections.cart.update' | t }}
+                    {% if section.settings.update_button_text != blank %}{{ section.settings.update_button_text }}{% else %}{{ 'sections.cart.update' | t }}{% endif %}
                   </button>
                 </noscript>
 
@@ -384,7 +384,7 @@
                   {% endif %}
                   form="cart"
                 >
-                  {{ section.settings.checkout_button_text | default: 'sections.cart.checkout' | t }}
+                  {% if section.settings.checkout_button_text != blank %}{{ section.settings.checkout_button_text }}{% else %}{{ 'sections.cart.checkout' | t }}{% endif %}
                 </button>
               </div>
 
@@ -612,13 +612,15 @@
       "type": "text",
       "id": "note_label",
       "label": "Note label",
-      "default": "Order note"
+      "default": "",
+      "info": "Leave blank to use default translation"
     },
     {
       "type": "text",
       "id": "note_placeholder",
       "label": "Note placeholder",
-      "default": "Special instructions for your order..."
+      "default": "",
+      "info": "Leave blank to use default translation"
     },
     {
       "type": "range",
@@ -792,7 +794,8 @@
       "type": "text",
       "id": "subtotal_label",
       "label": "Subtotal label",
-      "default": "Subtotal"
+      "default": "",
+      "info": "Leave blank to use default translation"
     },
     {
       "type": "select",
@@ -1308,7 +1311,8 @@
       "type": "text",
       "id": "update_button_text",
       "label": "Update button text",
-      "default": "Update"
+      "default": "",
+      "info": "Leave blank to use default translation"
     },
     {
       "type": "color",
@@ -1428,7 +1432,8 @@
       "type": "text",
       "id": "checkout_button_text",
       "label": "Checkout button text",
-      "default": "Checkout"
+      "default": "",
+      "info": "Leave blank to use default translation"
     },
     {
       "type": "select",
