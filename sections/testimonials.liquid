@@ -155,13 +155,18 @@
     }
   }
 
-  /* Center single testimonial card on desktop */
+  /* Center single testimonial card - force center alignment */
+  #shopify-section-{{ section.id }} .splide.is-active .splide__list {
+    display: flex !important;
+  }
   @media screen and (min-width: 750px) {
-    #shopify-section-{{ section.id }} .splide__list:has(> .splide__slide:only-child) {
-      justify-content: center;
+    #shopify-section-{{ section.id }} .splide__slide:first-child:last-child {
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
-    #shopify-section-{{ section.id }} .splide__slide:only-child {
-      margin: 0 auto;
+    #shopify-section-{{ section.id }} .splide__track {
+      display: flex;
+      justify-content: center;
     }
   }
 
