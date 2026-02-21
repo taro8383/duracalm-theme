@@ -155,18 +155,14 @@
     }
   }
 
-  /* Center single testimonial card - force center alignment */
-  #shopify-section-{{ section.id }} .splide.is-active .splide__list {
-    display: flex !important;
-  }
+  /* Center single testimonial card on desktop */
   @media screen and (min-width: 750px) {
-    #shopify-section-{{ section.id }} .splide__slide:first-child:last-child {
+    #shopify-section-{{ section.id }} .splide--single-slide .splide__list {
+      justify-content: center !important;
+    }
+    #shopify-section-{{ section.id }} .splide--single-slide .splide__slide {
       margin-left: auto !important;
       margin-right: auto !important;
-    }
-    #shopify-section-{{ section.id }} .splide__track {
-      display: flex;
-      justify-content: center;
     }
   }
 
@@ -382,8 +378,8 @@
         data-pause-videos='true'
       >
     {% endif %}
-      <div 
-        class='splide splide--desktop-dots-{{ section.settings.desktop_dots_position }} splide--mobile-dots-{{ section.settings.mobile_dots_position }} splide--desktop-arrows-{{ section.settings.desktop_arrows_position }} splide--desktop-arrows-outside splide--mobile-arrows-{{ section.settings.mobile_arrows_position }}{% if section.settings.transparent_arrows %} splide--transparent-arrows{% endif %}{% if section.settings.vertical-alignment == 'center' %} splide--vertically-centered{% endif %}{% if has_desktop_slider == false %} splide--destroy-desktop{% endif %}{% if has_mobile_slider == false %} splide--destroy-mobile{% endif %}' 
+      <div
+        class='splide splide--desktop-dots-{{ section.settings.desktop_dots_position }} splide--mobile-dots-{{ section.settings.mobile_dots_position }} splide--desktop-arrows-{{ section.settings.desktop_arrows_position }} splide--desktop-arrows-outside splide--mobile-arrows-{{ section.settings.mobile_arrows_position }}{% if section.settings.transparent_arrows %} splide--transparent-arrows{% endif %}{% if section.settings.vertical-alignment == 'center' %} splide--vertically-centered{% endif %}{% if has_desktop_slider == false %} splide--destroy-desktop{% endif %}{% if has_mobile_slider == false %} splide--destroy-mobile{% endif %}{% if section.blocks.size == 1 %} splide--single-slide{% endif %}' 
         style="--columns-desktop: {{ section.settings.columns_desktop }};--columns-mobile:1;--gap-desktop:{{ section.settings.desktop_spacing | divided_by: 10.0 }}rem;--gap-mobile:1.5rem;"
         {% if section.settings.desktop_adaptive_height and section.settings.slides_desktop == 1 and has_desktop_slider %}
           data-desktop-adaptive-height="true"
