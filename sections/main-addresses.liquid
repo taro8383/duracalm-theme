@@ -260,9 +260,9 @@
     }
   }
 
-  /* Submit and Cancel buttons */
-  .customer.addresses form button[type="submit"],
-  .customer.addresses form button[type="reset"] {
+  /* Form buttons (Add/Update and Cancel) */
+  .customer.addresses form > div:last-child button:first-child,
+  .customer.addresses form > div:last-child button:last-child {
     flex: 1;
     padding: {{ section.settings.button_padding_y }}px {{ section.settings.button_padding_x }}px !important;
     font-size: {{ section.settings.button_font_size }}px !important;
@@ -276,8 +276,8 @@
     overflow: hidden !important;
   }
 
-  /* Add Button (in Add Address form) */
-  #AddAddress button[type="submit"] {
+  /* Add Button (in Add Address form) - targets first button in the form button row */
+  #AddAddress form > div:last-child button:first-child {
     {% if section.settings.enable_magic_mind_add_form_button %}
     border: 2px solid #7B92C8 !important;
     color: #7B92C8 !important;
@@ -291,7 +291,7 @@
 
   {% if section.settings.enable_magic_mind_add_form_button %}
   /* Magic Mind - Add Button */
-  #AddAddress button[type="submit"]::before {
+  #AddAddress form > div:last-child button:first-child::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -305,19 +305,19 @@
     z-index: -1 !important;
   }
 
-  #AddAddress button[type="submit"]:hover::before {
+  #AddAddress form > div:last-child button:first-child:hover::before {
     opacity: 1 !important;
     background-position: 100% 0 !important;
   }
 
-  #AddAddress button[type="submit"]:hover {
+  #AddAddress form > div:last-child button:first-child:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
   }
   {% elsif section.settings.button_gradient_hover %}
-  #AddAddress button[type="submit"]::before {
+  #AddAddress form > div:last-child button:first-child::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -330,18 +330,18 @@
     z-index: 0 !important;
   }
 
-  #AddAddress button[type="submit"]:hover::before {
+  #AddAddress form > div:last-child button:first-child:hover::before {
     opacity: 1 !important;
   }
 
-  #AddAddress button[type="submit"]:hover {
+  #AddAddress form > div:last-child button:first-child:hover {
     color: {{ section.settings.button_hover_text_color }} !important;
     border-color: {{ section.settings.button_hover_border_color }} !important;
     transform: translateY({{ section.settings.button_hover_translate_y }}px) !important;
     box-shadow: {% if section.settings.button_hover_shadow %}0 10px 20px {{ section.settings.button_hover_shadow_color | color_modify: 'alpha', 0.3 }}{% else %}none{% endif %} !important;
   }
   {% else %}
-  #AddAddress button[type="submit"]:hover {
+  #AddAddress form > div:last-child button:first-child:hover {
     background: {{ section.settings.button_hover_bg_color }} !important;
     color: {{ section.settings.button_hover_text_color }} !important;
     border-color: {{ section.settings.button_hover_border_color }} !important;
@@ -349,8 +349,8 @@
   }
   {% endif %}
 
-  /* Update Button (in Edit Address form) */
-  div[id^="EditAddress"] button[type="submit"] {
+  /* Update Button (in Edit Address form) - targets first button in the form button row */
+  div[id^="EditAddress"] form > div:last-child button:first-child {
     {% if section.settings.enable_magic_mind_update_button %}
     border: 2px solid #7B92C8 !important;
     color: #7B92C8 !important;
@@ -364,7 +364,7 @@
 
   {% if section.settings.enable_magic_mind_update_button %}
   /* Magic Mind - Update Button */
-  div[id^="EditAddress"] button[type="submit"]::before {
+  div[id^="EditAddress"] form > div:last-child button:first-child::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -378,19 +378,19 @@
     z-index: -1 !important;
   }
 
-  div[id^="EditAddress"] button[type="submit"]:hover::before {
+  div[id^="EditAddress"] form > div:last-child button:first-child:hover::before {
     opacity: 1 !important;
     background-position: 100% 0 !important;
   }
 
-  div[id^="EditAddress"] button[type="submit"]:hover {
+  div[id^="EditAddress"] form > div:last-child button:first-child:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
   }
   {% elsif section.settings.button_gradient_hover %}
-  div[id^="EditAddress"] button[type="submit"]::before {
+  div[id^="EditAddress"] form > div:last-child button:first-child::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -403,18 +403,18 @@
     z-index: 0 !important;
   }
 
-  div[id^="EditAddress"] button[type="submit"]:hover::before {
+  div[id^="EditAddress"] form > div:last-child button:first-child:hover::before {
     opacity: 1 !important;
   }
 
-  div[id^="EditAddress"] button[type="submit"]:hover {
+  div[id^="EditAddress"] form > div:last-child button:first-child:hover {
     color: {{ section.settings.button_hover_text_color }} !important;
     border-color: {{ section.settings.button_hover_border_color }} !important;
     transform: translateY({{ section.settings.button_hover_translate_y }}px) !important;
     box-shadow: {% if section.settings.button_hover_shadow %}0 10px 20px {{ section.settings.button_hover_shadow_color | color_modify: 'alpha', 0.3 }}{% else %}none{% endif %} !important;
   }
   {% else %}
-  div[id^="EditAddress"] button[type="submit"]:hover {
+  div[id^="EditAddress"] form > div:last-child button:first-child:hover {
     background: {{ section.settings.button_hover_bg_color }} !important;
     color: {{ section.settings.button_hover_text_color }} !important;
     border-color: {{ section.settings.button_hover_border_color }} !important;
@@ -422,8 +422,8 @@
   }
   {% endif %}
 
-  /* Cancel Button */
-  .customer.addresses form button[type="reset"] {
+  /* Cancel Button - targets second button in the form button row */
+  .customer.addresses form > div:last-child button:last-child {
     {% if section.settings.enable_magic_mind_cancel_button %}
     border: 2px solid #7B92C8 !important;
     color: #7B92C8 !important;
@@ -437,7 +437,7 @@
 
   {% if section.settings.enable_magic_mind_cancel_button %}
   /* Magic Mind - Cancel Button */
-  .customer.addresses form button[type="reset"]::before {
+  .customer.addresses form > div:last-child button:last-child::before {
     content: '' !important;
     position: absolute !important;
     top: 0 !important;
@@ -451,19 +451,19 @@
     z-index: -1 !important;
   }
 
-  .customer.addresses form button[type="reset"]:hover::before {
+  .customer.addresses form > div:last-child button:last-child:hover::before {
     opacity: 1 !important;
     background-position: 100% 0 !important;
   }
 
-  .customer.addresses form button[type="reset"]:hover {
+  .customer.addresses form > div:last-child button:last-child:hover {
     color: #ffffff !important;
     border-color: transparent !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
   }
   {% else %}
-  .customer.addresses form button[type="reset"]:hover {
+  .customer.addresses form > div:last-child button:last-child:hover {
     border-color: {{ section.settings.button_border_color }} !important;
     color: {{ section.settings.button_border_color }} !important;
   }
