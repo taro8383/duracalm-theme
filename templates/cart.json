@@ -12,6 +12,7 @@
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
+        "enable_magic_mind_continue_button": true,
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -69,6 +70,8 @@
         "show_rating": false,
         "enable_quick_add": true,
         "enable_magic_mind_style": true,
+        "quick_add_margin_top": 8,
+        "quick_add_margin_bottom": 8,
         "swatches_option_name": "",
         "swatches_position": "top",
         "swatches_desktop_size": 36,
@@ -103,56 +106,11 @@
         "custom_colors_solid_button_background": "#dd1d1d",
         "custom_colors_solid_button_text": "#ffffff"
       }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "title": "Subscribe to our emails",
-            "title_highlight_color": "#6d388b",
-            "heading_size": "h1"
-          }
-        },
-        "paragraph": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>Join our email list for exclusive offers and the latest news. </p>"
-          }
-        },
-        "email-form": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "heading",
-        "paragraph",
-        "email-form"
-      ],
-      "settings": {
-        "display_id": false,
-        "visibility": "always-display",
-        "button_type": "solid",
-        "button_label": "Sign up",
-        "button_style_secondary": false,
-        "color_scheme": "custom",
-        "full_width": true,
-        "padding_top": 68,
-        "padding_bottom": 52,
-        "custom_colors_background": "#ddbea8",
-        "custom_gradient_background": "",
-        "custom_colors_text": "#2e2a39",
-        "custom_colors_solid_button_background": "#7b92c8",
-        "custom_colors_solid_button_text": "#ffffff"
-      }
     }
   },
   "order": [
     "cart-items",
     "cart-footer",
-    "featured-collection",
-    "newsletter"
+    "featured-collection"
   ]
 }
