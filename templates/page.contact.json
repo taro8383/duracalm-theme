@@ -23,7 +23,7 @@
         "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-0": {
           "type": "heading",
           "settings": {
-            "title": "Talk about your brand",
+            "title": "Get In Touch",
             "title_highlight_color": "#6d388b",
             "heading_size": "h1"
           }
@@ -31,7 +31,7 @@
         "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-1": {
           "type": "text",
           "settings": {
-            "text": "<p>At [Your company], your satisfaction is our top priority. We encourage you to reach out with any questions, concerns, or feedback, as our dedicated team is always eager to assist you. Whether you need help with product inquiries or simply want to share your experience with us, we're just a message away. </p>"
+            "text": "<p>At Duracalm, your satisfaction is our top priority. We encourage you to reach out with any questions, concerns, or feedback, as our dedicated team is always eager to assist you. Whether you need help with product inquiries or simply want to share your experience with us, we're just a message away. </p>"
           }
         }
       },
@@ -39,17 +39,16 @@
         "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-0",
         "template--18407212810569__60910267-55e8-4e0d-a9f9-79b26b3533dc-16795881913b1fb5f3-1"
       ],
-      "disabled": true,
       "settings": {
         "display_id": false,
         "visibility": "always-display",
         "desktop_content_position": "center",
         "content_alignment": "center",
         "full_width": true,
-        "color_scheme": "background-1",
+        "color_scheme": "custom",
         "padding_top": 40,
         "padding_bottom": 12,
-        "custom_colors_background": "#ffffff",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
         "custom_colors_text": "#2e2a39",
         "custom_colors_solid_button_background": "#dd1d1d",
@@ -108,32 +107,33 @@
       "settings": {
         "display_id": false,
         "visibility": "always-display",
-        "title": "Get in touch",
-        "title_highlight_color": "#6D388B",
+        "title": "",
+        "title_highlight_color": "#6d388b",
         "heading_size": "h1",
         "button_full_width": true,
-        "color_scheme": "background-1",
+        "use_magic_mind_button": true,
+        "color_scheme": "custom",
         "success_icon": "check_circle",
         "success_icon_filled": false,
-        "success_text_color": "#28C100",
-        "success_bg_color": "#F2FFED",
+        "success_text_color": "#7b92c8",
+        "success_bg_color": "#f2ffed",
         "success_border_radius": 8,
         "success_border_width": 1,
-        "success_border_color": "#28C100",
+        "success_border_color": "#7b92c8",
         "errors_icon": "error",
         "errors_icon_filled": false,
-        "errors_text_color": "#FF0000",
+        "errors_text_color": "#7b92c8",
         "errors_bg_color": "#fff5f5",
         "errors_border_radius": 8,
         "errors_border_width": 1,
-        "errors_border_color": "#FF0000",
+        "errors_border_color": "#7b92c8",
         "padding_top": 36,
         "padding_bottom": 36,
-        "custom_colors_background": "#FFFFFF",
+        "custom_colors_background": "#ddbea8",
         "custom_gradient_background": "",
-        "custom_colors_text": "#2E2A39",
-        "custom_colors_solid_button_background": "#dd1d1d",
-        "custom_colors_solid_button_text": "#ffffff"
+        "custom_colors_text": "#2e2a39",
+        "custom_colors_solid_button_background": "#f3dfc1",
+        "custom_colors_solid_button_text": "#2e2a39"
       }
     }
   },
