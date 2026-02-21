@@ -379,10 +379,10 @@
         </svg>
       </div>
     {%- endif -%}
-    <h1 class="cart__empty-text">{{ section.settings.empty_text | default: 'sections.cart.empty' | t }}</h1>
+    <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
     {% if section.settings.show_empty_button and settings.display_continue_shopping %}
       <a href="{% if settings.continue_shopping_url == blank %}{{ routes.all_products_collection_url }}{% else %}{{ settings.continue_shopping_url }}{% endif %}" class="button">
-        {{ section.settings.empty_button_text | default: 'general.continue_shopping' | t }}
+        {{ 'general.continue_shopping' | t }}
       </a>
     {% endif %}
 
