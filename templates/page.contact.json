@@ -159,6 +159,30 @@
         "custom_colors_solid_button_text": "#2e2a39"
       }
     },
+    "track_order_qUR7Fx": {
+      "type": "track-order",
+      "name": "Track order",
+      "settings": {
+        "display_id": false,
+        "visibility": "always-display",
+        "title": "Track your order",
+        "title_highlight_color": "#6D388B",
+        "heading_size": "h1",
+        "text": "<p>Please enter you tracking number below. If your tracking number doesn't work feel free to contact us at hello@duracalm.com or filling the form above.</p>",
+        "input_label": "Tracking number",
+        "button_label": "TRACK",
+        "button_full_width": true,
+        "use_magic_mind_button": true,
+        "color_scheme": "custom",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "custom_colors_background": "#f3dfc1",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#2E2A39",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff"
+      }
+    },
     "ss_wave_2_fMNtmR": {
       "type": "ss-wave-2",
       "name": "SS - Wave #2",
@@ -188,6 +212,7 @@
     "main",
     "60910267-55e8-4e0d-a9f9-79b26b3533dc",
     "contact_form_U9ptC4",
+    "track_order_qUR7Fx",
     "ss_wave_2_fMNtmR"
   ]
 }

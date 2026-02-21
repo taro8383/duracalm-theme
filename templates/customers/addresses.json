@@ -63,7 +63,6 @@
         "link_font_size": 14,
         "link_text_decoration": "none",
         "enable_magic_mind_add_button": true,
-        "enable_magic_mind_submit_button": true,
         "enable_magic_mind_cancel_button": true,
         "enable_magic_mind_edit_button": true,
         "enable_magic_mind_delete_button": true,
