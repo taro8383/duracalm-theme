@@ -33,10 +33,16 @@
 
   /* Large Quote Styling */
   .testimonial-card .rte {
-    font-size: {{ section.settings.quote_font_size | default: 18 }}px;
+    font-size: {{ section.settings.quote_font_size_mobile | default: section.settings.quote_font_size | default: 16 }}px;
     line-height: 1.7;
     font-style: italic;
     color: {{ section.settings.quote_text_color | default: 'inherit' }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-card .rte {
+      font-size: {{ section.settings.quote_font_size_desktop | default: section.settings.quote_font_size | default: 18 }}px;
+    }
   }
 
   .testimonial-card .rte p {
@@ -103,18 +109,30 @@
 
   .testimonial-card__author {
     font-weight: 600;
-    font-size: 16px;
+    font-size: {{ section.settings.author_name_font_size_mobile | default: section.settings.author_name_font_size | default: 14 }}px;
     margin: 0;
     color: {{ section.settings.author_name_color | default: 'inherit' }};
   }
 
+  @media screen and (min-width: 750px) {
+    .testimonial-card__author {
+      font-size: {{ section.settings.author_name_font_size_desktop | default: section.settings.author_name_font_size | default: 16 }}px;
+    }
+  }
+
   .testimonial-card__verified-text {
-    font-size: 13px;
+    font-size: {{ section.settings.meta_font_size_mobile | default: section.settings.meta_font_size | default: 12 }}px;
     font-weight: 500;
     color: {{ section.settings.verified_badge_text_color | default: '#10b981' }};
     display: flex;
     align-items: center;
     gap: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-card__verified-text {
+      font-size: {{ section.settings.meta_font_size_desktop | default: section.settings.meta_font_size | default: 13 }}px;
+    }
   }
 
   .testimonial-card__verified-text::before {
@@ -127,8 +145,14 @@
   }
 
   .testimonial-card__location {
-    font-size: 13px;
+    font-size: {{ section.settings.meta_font_size_mobile | default: section.settings.meta_font_size | default: 12 }}px;
     color: rgba(var(--color-foreground), 0.6);
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-card__location {
+      font-size: {{ section.settings.meta_font_size_desktop | default: section.settings.meta_font_size | default: 13 }}px;
+    }
   }
 
   /* Smooth Carousel Transitions */
@@ -1221,14 +1245,72 @@
       "default": "#ffffff"
     },
     {
+      "type": "header",
+      "content": "Text sizes - Desktop"
+    },
+    {
       "type": "range",
-      "id": "quote_font_size",
-      "min": 14,
+      "id": "quote_font_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Quote text size (desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "author_name_font_size_desktop",
+      "min": 12,
       "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Quote font size",
-      "default": 18
+      "label": "Author name size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "meta_font_size_desktop",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Verified text & location size (desktop)",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Text sizes - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "quote_font_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Quote text size (mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "author_name_font_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Author name size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "meta_font_size_mobile",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Verified text & location size (mobile)",
+      "default": 12
     },
     {
       "type": "color",
