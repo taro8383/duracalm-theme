@@ -351,6 +351,98 @@
     background: none !important;
     background-image: none !important;
   }
+
+  /* Mobile Cart Layout Fixes */
+  @media screen and (max-width: 749px) {
+    /* Stack cart items vertically on mobile */
+    .cart-items tbody tr.cart-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      padding: 20px 0;
+      position: relative;
+    }
+
+    /* Product image container - centered and full width on its own row */
+    .cart-item__media {
+      width: 100% !important;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+      padding: 0 !important;
+    }
+
+    .cart-item__image-container {
+      width: {{ section.settings.image_width | times: 0.8 }}px !important;
+      max-width: 200px;
+    }
+
+    .cart-item__image {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Product details - full width below image */
+    .cart-item__details {
+      width: 100% !important;
+      padding: 0 !important;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .cart-item__name {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* Price on mobile - centered */
+    .cart-item__totals.medium-hide.large-up-hide {
+      width: 100% !important;
+      display: block !important;
+      text-align: center;
+      padding: 0 !important;
+      margin-bottom: 15px;
+    }
+
+    /* Quantity and remove button wrapper */
+    .cart-item__quantity {
+      width: 100% !important;
+      padding: 0 !important;
+    }
+
+    .cart-item__quantity-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Center the quantity selector and remove button */
+    .cart-item__quantity-wrapper quantity-input {
+      flex: 0 0 auto;
+    }
+
+    .cart-item__quantity-wrapper cart-remove-button {
+      flex: 0 0 auto;
+    }
+
+    /* Adjust remove button sizing */
+    .cart-item__quantity .button--tertiary {
+      width: {{ section.settings.qty_height }}px !important;
+      height: {{ section.settings.qty_height }}px !important;
+    }
+
+    /* Hide empty cells */
+    .cart-items td:empty {
+      display: none;
+    }
+
+    /* Ensure proper spacing */
+    .cart-item > td {
+      border: none !important;
+    }
+  }
 {%- endstyle -%}
 
 <cart-items class="color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient page-width{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
