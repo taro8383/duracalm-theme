@@ -155,9 +155,19 @@
     }
   }
 
+  /* Center single testimonial card on desktop */
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .splide__list:has(> .splide__slide:only-child) {
+      justify-content: center;
+    }
+    #shopify-section-{{ section.id }} .splide__slide:only-child {
+      margin: 0 auto;
+    }
+  }
+
   /* Smooth Carousel Transitions */
   #shopify-section-{{ section.id }} .splide__slide {
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.4 ease, transform 0.4s ease;
   }
 
   #shopify-section-{{ section.id }} .splide__slide.is-active {
