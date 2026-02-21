@@ -9,16 +9,39 @@
  */
 {
   "sections": {
+    "ss_wave_2_tJFYFq": {
+      "type": "ss-wave-2",
+      "name": "SS - Wave #2",
+      "settings": {
+        "wave_height": 60,
+        "wave_height_mobile": 40,
+        "wave_animation": true,
+        "wave_rotate": false,
+        "wave_color": "#7b92c8",
+        "background_color": "#ddbea8",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0
+      }
+    },
     "main": {
       "type": "main-404",
       "settings": {
-        "section_bg_color": "#ddbea8",
+        "section_bg_color": "#f3dfc1",
         "section_padding_top": 80,
         "section_padding_bottom": 80,
         "section_min_height": 70,
         "content_vertical_alignment": "center",
         "container_max_width": 500,
-        "container_bg_color": "#f3dfc1",
+        "container_bg_color": "#ddbea8",
         "container_padding": 48,
         "container_margin_top": 0,
         "container_margin_bottom": 0,
@@ -95,55 +118,33 @@
         "input_font_size": 15
       }
     },
-    "newsletter": {
-      "type": "newsletter",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "title": "Subscribe to our emails",
-            "title_highlight_color": "#6d388b",
-            "heading_size": "h1"
-          }
-        },
-        "paragraph": {
-          "type": "paragraph",
-          "settings": {
-            "text": "<p>Join our email list for exclusive offers and the latest news. </p>"
-          }
-        },
-        "email-form": {
-          "type": "email_form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "heading",
-        "paragraph",
-        "email-form"
-      ],
-      "disabled": true,
+    "ss_wave_2_wXRMkw": {
+      "type": "ss-wave-2",
+      "name": "SS - Wave #2",
       "settings": {
-        "display_id": false,
-        "visibility": "always-display",
-        "button_type": "solid",
-        "button_label": "Sign up",
-        "button_style_secondary": false,
-        "enable_magic_mind_button": true,
-        "color_scheme": "background-2",
+        "wave_height": 60,
+        "wave_height_mobile": 40,
+        "wave_animation": true,
+        "wave_rotate": true,
+        "wave_color": "#7b92c8",
+        "background_color": "#ddbea8",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
         "full_width": true,
-        "padding_top": 68,
-        "padding_bottom": 52,
-        "custom_colors_background": "#ffffff",
-        "custom_gradient_background": "",
-        "custom_colors_text": "#2e2a39",
-        "custom_colors_solid_button_background": "#dd1d1d",
-        "custom_colors_solid_button_text": "#ffffff"
+        "content_width": 120,
+        "border_thickness": 0
       }
     }
   },
   "order": [
+    "ss_wave_2_tJFYFq",
     "main",
-    "newsletter"
+    "ss_wave_2_wXRMkw"
   ]
 }
