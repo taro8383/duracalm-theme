@@ -358,7 +358,7 @@
         "checkout_btn_hover_shadow_y": 4,
         "checkout_btn_hover_shadow_blur": 10,
         "checkout_btn_hover_shadow_color": "#00000033",
-        "magic_mind_text_color": "#7b92c8",
+        "magic_mind_text_color": "#ffffff",
         "magic_mind_border_color": "#7b92c8",
         "magic_mind_border_width": 2,
         "magic_mind_border_radius": 8,

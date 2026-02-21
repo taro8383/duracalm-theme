@@ -73,7 +73,7 @@
         "enable_filtering": false,
         "filter_type": "horizontal",
         "enable_sorting": false,
-        "columns_mobile": "2",
+        "columns_mobile": "1",
         "product_title_font_size": 16,
         "product_title_font_weight": "500",
         "product_title_color": "",
