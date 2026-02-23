@@ -54,7 +54,7 @@
       {% endif %}
 
       {% if section.settings.badge_text != blank %}
-        <div class="oto-badge" style="--badge-bg: {{ section.settings.badge_bg | default: default_purple }}; --badge-text: {{ section.settings.badge_text_color | default: '#FFFFFF' }};">
+        <div class="oto-badge{% if section.settings.badge_align == 'center' %} oto-badge--center{% elsif section.settings.badge_align == 'right' %} oto-badge--right{% endif %}" style="--badge-bg: {{ section.settings.badge_bg | default: default_purple }}; --badge-text: {{ section.settings.badge_text_color | default: '#FFFFFF' }};">
           {{ section.settings.badge_text }}
         </div>
       {% endif %}
@@ -134,6 +134,7 @@
             font-size: {{ section.settings.accept_font_size }}px;
             padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
             border-radius: {{ section.settings.accept_radius }}px;
+            margin: {{ section.settings.accept_margin_top }}px {{ section.settings.accept_margin_right }}px {{ section.settings.accept_margin_bottom }}px {{ section.settings.accept_margin_left }}px;
           ">
             <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
             {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
@@ -146,6 +147,7 @@
             font-size: {{ section.settings.accept_font_size }}px;
             padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
             border-radius: {{ section.settings.accept_radius }}px;
+            margin: {{ section.settings.accept_margin_top }}px {{ section.settings.accept_margin_right }}px {{ section.settings.accept_margin_bottom }}px {{ section.settings.accept_margin_left }}px;
           ">
             <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
             {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
@@ -177,6 +179,8 @@
 .oto-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: none; background: rgba(0,0,0,0.05); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--oto-text); transition: background 0.2s; }
 .oto-close:hover { background: rgba(0,0,0,0.1); }
 .oto-badge { display: inline-block; background: var(--badge-bg); color: var(--badge-text); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; }
+.oto-badge--center { display: block; text-align: center; margin-left: auto; margin-right: auto; width: fit-content; }
+.oto-badge--right { display: block; margin-left: auto; width: fit-content; }
 .oto-header { margin-bottom: 28px; }
 .oto-title { margin: 0; font-family: var(--oto-font-heading); font-weight: 700; line-height: 1.2; }
 .oto-subheading { margin: 0; line-height: 1.5; }
@@ -306,6 +310,7 @@
     {"type": "text","id": "badge_text","label": "Badge Text","default": "Exclusive Offer"},
     {"type": "color","id": "badge_bg","label": "Badge Background","default": "#7B92C8"},
     {"type": "color","id": "badge_text_color","label": "Badge Text Color","default": "#FFFFFF"},
+    {"type": "select","id": "badge_align","label": "Badge Alignment","options": [{"value": "left","label": "Left"},{"value": "center","label": "Center"},{"value": "right","label": "Right"}],"default": "left"},
 
     {"type": "header","content": "Heading"},
     {"type": "text","id": "heading","label": "Heading","default": "Wait! Special Offer Just For You"},
@@ -370,6 +375,12 @@
     {"type": "range","id": "accept_padding_y","min": 12,"max": 28,"step": 2,"unit": "px","label": "Padding Vertical","default": 18},
     {"type": "range","id": "accept_padding_x","min": 20,"max": 50,"step": 2,"unit": "px","label": "Padding Horizontal","default": 32},
     {"type": "range","id": "accept_radius","min": 0,"max": 20,"step": 2,"unit": "px","label": "Border Radius","default": 10},
+
+    {"type": "paragraph","content": "Button Margins"},
+    {"type": "range","id": "accept_margin_top","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Top","default": 0},
+    {"type": "range","id": "accept_margin_right","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Right","default": 0},
+    {"type": "range","id": "accept_margin_bottom","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Bottom","default": 0},
+    {"type": "range","id": "accept_margin_left","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Left","default": 0},
 
     {"type": "header","content": "Decline Button"},
     {"type": "text","id": "decline_text","label": "Text","default": "No thanks, I will pass"},
