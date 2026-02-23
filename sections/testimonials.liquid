@@ -301,15 +301,67 @@
     if section.settings.slider_desktop
       assign has_desktop_slider = true
     endif
-  
+
     assign highest_ratio = 0
-    for block in section.blocks
-      if block.settings.video.aspect_ratio > highest_ratio
-        assign highest_ratio = block.settings.video.aspect_ratio
-      elsif block.settings.image.aspect_ratio > highest_ratio
-        assign highest_ratio = block.settings.image.aspect_ratio
+
+    # Determine reviews source based on data_source setting
+    if section.settings.data_source == 'metaobjects'
+      # Get reviews from metaobjects
+      if section.settings.target_product != blank
+        assign reviews_source = section.settings.target_product.metafields.custom.product_reviews.value
+      elsif product != blank
+        assign reviews_source = product.metafields.custom.product_reviews.value
+      else
+        assign reviews_source = ''
       endif
-    endfor
+
+      # Filter by featured if enabled
+      if section.settings.featured_only
+        assign filtered_reviews = ''
+        for review in reviews_source
+          if review.featured
+            assign filtered_reviews = filtered_reviews | append: review.handle | append: ','
+          endif
+        endfor
+        if filtered_reviews != ''
+          assign filtered_handles = filtered_reviews | split: ','
+          assign reviews_source = ''
+          for handle in filtered_handles
+            if handle != ''
+              assign review_metaobject = shop.metaobjects.review[handle]
+              assign reviews_source = reviews_source | append: review_metaobject | append: '|'
+            endif
+          endfor
+        else
+          assign reviews_source = ''
+        endif
+      endif
+
+      # Limit to max_reviews
+      assign max_reviews = section.settings.max_reviews | default: 20
+      assign limited_reviews = ''
+      assign review_count = 0
+      for review in reviews_source
+        if review_count < max_reviews
+          assign limited_reviews = limited_reviews | append: review.handle | append: ','
+          assign review_count = review_count | plus: 1
+        endif
+      endfor
+      if limited_reviews != ''
+        assign review_handles = limited_reviews | split: ','
+      endif
+    else
+      # Use manual blocks
+      assign review_handles = ''
+      for block in section.blocks
+        if block.settings.video.aspect_ratio > highest_ratio
+          assign highest_ratio = block.settings.video.aspect_ratio
+        elsif block.settings.image.aspect_ratio > highest_ratio
+          assign highest_ratio = block.settings.image.aspect_ratio
+        endif
+      endfor
+    endif
+  -%}
     assign bg_diff_class = ' multicolumn--same-bgs'
     unless section.settings.color_scheme == section.settings.cards_color_scheme
       assign bg_diff_class = ' multicolumn--diff-bgs'
@@ -381,11 +433,45 @@
       >
         <div class="splide__track">
           <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
-            {%- for block in section.blocks -%}
+            {%- liquid
+              if section.settings.data_source == 'metaobjects'
+                assign items_to_render = review_handles
+              else
+                assign items_to_render = section.blocks
+              endif
+            -%}
+            {%- for item in items_to_render -%}
+              {%- liquid
+                if section.settings.data_source == 'metaobjects'
+                  assign review_handle = item
+                  assign review_metaobject = shop.metaobjects.review[review_handle]
+                  assign block_image = review_metaobject.avatar_image
+                  assign block_video = ''
+                  assign block_title = review_metaobject.title
+                  assign block_text = review_metaobject.review_text
+                  assign block_author_avatar = review_metaobject.avatar_image
+                  assign block_author = review_metaobject.reviewer_name
+                  assign block_star_rating = review_metaobject.star_rating
+                  assign block_verified_purchase = review_metaobject.verified_purchase
+                  assign block_author_location = review_metaobject.location
+                  assign item_index = forloop.index0
+                else
+                  assign block_image = item.settings.image
+                  assign block_video = item.settings.video
+                  assign block_title = item.settings.title
+                  assign block_text = item.settings.text
+                  assign block_author_avatar = item.settings.author_avatar
+                  assign block_author = item.settings.author
+                  assign block_star_rating = item.settings.star_rating
+                  assign block_verified_purchase = item.settings.verified_purchase
+                  assign block_author_location = item.settings.author_location
+                  assign item_index = forloop.index0
+                endif
+              -%}
               <li class="splide__slide">
-                <div class="splide__slide__container" style="--index:{{ forloop.index0 | plus: content_index }};" {{ block.shopify_attributes }}>
-                  <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block.settings.author_avatar == blank and block.settings.author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
-                    {%- if block.settings.image != blank or block.settings.video != blank -%}
+                <div class="splide__slide__container" style="--index:{{ item_index | plus: content_index }};" {% unless section.settings.data_source == 'metaobjects' %}{{ item.shopify_attributes }}{% endunless %}>
+                  <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block_author_avatar == blank and block_author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
+                    {%- if block_image != blank or block_video != blank -%}
                       {% if section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
                         {% assign spaced_image = true %}
                       {% endif %}
@@ -396,13 +482,13 @@
                             style="padding-bottom: {{ 1 | divided_by: highest_ratio | times: 100 }}%;"
                           {% endif %}
                         >
-                          {% if block.settings.video == blank %}
+                          {% if block_video == blank or block_video == '' %}
                             {%- capture sizes -%}
-                              (min-width: 990px) {% if section.blocks.size <= 2 %}710px{% else %}550px{% endif %}, (min-width:
-                              750px) {% if section.blocks.size == 1 %}710px{% else %}550px{% endif %}, calc(100vw - 30px)
+                              (min-width: 990px) {% if items_to_render.size <= 2 %}710px{% else %}550px{% endif %}, (min-width:
+                              750px) {% if items_to_render.size == 1 %}710px{% else %}550px{% endif %}, calc(100vw - 30px)
                             {%- endcapture -%}
                             {{
-                              block.settings.image
+                              block_image
                               | image_url: width: 1420
                               | image_tag:
                                 loading: 'lazy',
@@ -413,22 +499,22 @@
                           {% else %}
                             <internal-video class="internal-video" data-action-on-inactive='pause'>
                               {% liquid
-                                if block.settings.video_thumbnail != blank
-                                  assign thumbnail = block.settings.video_thumbnail
+                                if item.settings.video_thumbnail != blank
+                                  assign thumbnail = item.settings.video_thumbnail
                                 else
-                                  assign thumbnail = block.settings.video.preview_image
+                                  assign thumbnail = block_video.preview_image
                                 endif
                               %}
-                              <video 
-                                width="100%" 
-                                height="auto" 
+                              <video
+                                width="100%"
+                                height="auto"
                                 preload='metadata'
                                 poster="{{ thumbnail | image_url }}"
                                 playsinline disablepictureinpicture
                               >
-                                {% for source in block.settings.video.sources %}
-                                  <source 
-                                    {% if block.settings.muted_autoplay %}data-{% endif %}src="{{ source.url }}" 
+                                {% for source in block_video.sources %}
+                                  <source
+                                    {% if item.settings.muted_autoplay %}data-{% endif %}src="{{ source.url }}"
                                     type="{{ source.mime_type }}"
                                   >
                                 {% endfor %}
@@ -444,7 +530,7 @@
                         </div>
                       </div>
                     {%- endif -%}
-                    <div class="multicolumn-card__info{% if block.settings.image == blank and section.settings.show_stars == false %} testimonial-card__info--no-image-no-stars{% endif %}{% if block.settings.image != blank and section.settings.show_stars == false %} testimonial-card__info--image-no-stars{% endif %}">
+                    <div class="multicolumn-card__info{% if block_image == blank and section.settings.show_stars == false %} testimonial-card__info--no-image-no-stars{% endif %}{% if block_image != blank and section.settings.show_stars == false %} testimonial-card__info--image-no-stars{% endif %}">
                       {%- if section.settings.show_stars -%}
                         {% liquid
                           assign alignment = 'center'
@@ -453,7 +539,7 @@
                           elsif section.settings.column_alignment == 'left'
                             assign alignment = 'flex-end'
                           endif
-                          assign rating = block.settings.star_rating
+                          assign rating = block_star_rating
                           assign visible_stars = rating | ceil
                         %}
                         <div class="testimonial-card__stars rating-stars rating-stars--inactive-{{ section.settings.inactive_stars_style }}" style='--rating:{{ rating }};--visible-stars:{{ visible_stars }};--star-color:{{ section.settings.star_color }};--bg-star-color:{{ section.settings.bg_star_color }};--alignment: {{ alignment }};--font-size: 1.8rem;'>
@@ -486,29 +572,29 @@
                         </div>
                       {%- endif -%}
                       {%- if section.settings.show_quotes -%}
-                        <div class="testimonial-card__quotes flex-center{% if block.settings.image == blank %} testimonial-card__quotes--image-blank{% endif %} color-{{ section.settings.quotes_color_scheme }}">
+                        <div class="testimonial-card__quotes flex-center{% if block_image == blank %} testimonial-card__quotes--image-blank{% endif %} color-{{ section.settings.quotes_color_scheme }}">
                           <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                             <path fill="currentColor" d="M119.472 66.59C53.489 66.59 0 120.094 0 186.1c0 65.983 53.489 119.487 119.472 119.487c0 0-0.578 44.392-36.642 108.284c-4.006 12.802 3.135 26.435 15.945 30.418c9.089 2.859 18.653 0.08 24.829-6.389c82.925-90.7 115.385-197.448 115.385-251.8C238.989 120.094 185.501 66.59 119.472 66.59z"/>
                             <path fill="currentColor" d="M392.482 66.59c-65.983 0-119.472 53.505-119.472 119.51c0 65.983 53.489 119.487 119.472 119.487c0 0-0.578 44.392-36.642 108.284c-4.006 12.802 3.136 26.435 15.945 30.418c9.089 2.859 18.653 0.08 24.828-6.389C479.539 347.2 512 240.452 512 186.1C512 120.094 458.511 66.59 392.482 66.59z"/>
                           </svg>
                         </div>
                       {%- endif -%}
-                      {%- if block.settings.title != blank -%}
-                        <h3>{{ block.settings.title }}</h3>
+                      {%- if block_title != blank -%}
+                        <h3>{{ block_title }}</h3>
                       {%- endif -%}
-                      {%- if block.settings.text != blank -%}
-                        <div class="rte">{{ block.settings.text }}</div>
+                      {%- if block_text != blank -%}
+                        <div class="rte">{{ block_text }}</div>
                       {%- endif -%}
-                      {%- unless block.settings.author_avatar == blank and block.settings.author == blank -%}
+                      {%- unless block_author_avatar == blank and block_author == blank -%}
                         <div class="testimonial-card__author-container">
-                          {%- if block.settings.author_avatar != blank -%}
+                          {%- if block_author_avatar != blank -%}
                             <div class="testimonial-card__avatar">
                               {{
-                                block.settings.author_avatar
+                                block_author_avatar
                                 | image_url: width: 150
                                 | image_tag: loading: 'lazy', width: 100
                               }}
-                              {%- if block.settings.verified_purchase -%}
+                              {%- if block_verified_purchase -%}
                                 <div class="testimonial-card__verified-badge">
                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -518,16 +604,16 @@
                             </div>
                           {%- endif -%}
                           <div class="testimonial-card__author-info">
-                            {%- if block.settings.author != blank -%}
+                            {%- if block_author != blank -%}
                               <p class="testimonial-card__author">
-                                {{ block.settings.author }}
+                                {{ block_author }}
                               </p>
                             {%- endif -%}
-                            {%- if block.settings.verified_purchase -%}
+                            {%- if block_verified_purchase -%}
                               <span class="testimonial-card__verified-text">{{ section.settings.verified_badge_text | default: 'Verified Purchase' }}</span>
                             {%- endif -%}
-                            {%- if block.settings.author_location != blank -%}
-                              <span class="testimonial-card__location">{{ block.settings.author_location }}</span>
+                            {%- if block_author_location != blank -%}
+                              <span class="testimonial-card__location">{{ block_author_location }}</span>
                             {%- endif -%}
                           </div>
                         </div>
@@ -585,6 +671,43 @@
       ],
       "label": "Display on",
       "default": "always-display"
+    },
+    {
+      "type": "header",
+      "content": "Data Source"
+    },
+    {
+      "type": "select",
+      "id": "data_source",
+      "label": "Data source",
+      "options": [
+        {"value": "blocks", "label": "Manual blocks"},
+        {"value": "metaobjects", "label": "Product reviews (metaobjects)"}
+      ],
+      "default": "blocks"
+    },
+    {
+      "type": "product",
+      "id": "target_product",
+      "label": "Target product (for metaobjects)",
+      "info": "If left empty, will use the current product on product pages"
+    },
+    {
+      "type": "checkbox",
+      "id": "featured_only",
+      "label": "Show only featured reviews",
+      "default": false,
+      "info": "Only applies when using metaobjects"
+    },
+    {
+      "type": "range",
+      "id": "max_reviews",
+      "label": "Maximum reviews to show",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "info": "Only applies when using metaobjects"
     },
     {
       "type": "header",

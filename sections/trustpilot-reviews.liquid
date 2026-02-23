@@ -58,6 +58,49 @@
     if section.settings.slider_desktop
       assign has_desktop_slider = true
     endif
+
+    # Determine reviews source based on data_source setting
+    if section.settings.data_source == 'metaobjects_all'
+      # Get all featured reviews from metaobjects (requires fetching all and filtering)
+      assign reviews_source = shop.metaobjects.review.values
+      assign filtered_reviews = ''
+      for review in reviews_source
+        if review.featured
+          assign filtered_reviews = filtered_reviews | append: review.handle | append: ','
+        endif
+      endfor
+      if filtered_reviews != ''
+        assign review_handles = filtered_reviews | split: ','
+      else
+        assign review_handles = ''
+      endif
+    elsif section.settings.data_source == 'metaobjects_product'
+      # Get reviews for specific product
+      if section.settings.target_product != blank
+        assign reviews_source = section.settings.target_product.metafields.custom.product_reviews.value
+      elsif product != blank
+        assign reviews_source = product.metafields.custom.product_reviews.value
+      else
+        assign reviews_source = ''
+      endif
+      assign filtered_handles = ''
+      assign review_count = 0
+      assign max_reviews = section.settings.max_reviews | default: 6
+      for review in reviews_source
+        if review_count < max_reviews
+          assign filtered_handles = filtered_handles | append: review.handle | append: ','
+          assign review_count = review_count | plus: 1
+        endif
+      endfor
+      if filtered_handles != ''
+        assign review_handles = filtered_handles | split: ','
+      else
+        assign review_handles = ''
+      endif
+    else
+      # Use manual blocks
+      assign review_handles = ''
+    endif
   -%}
   <div
     class="trustpilot-reviews trustpilot-reviews-{{ section.id }} trustpilot-reviews--desktop-content-{{ section.settings.desktop_content_position }} page-width{% if section.settings.desktop_full_page %} desktop-full-page{% endif %}{% if has_mobile_slider %} mobile-full-page{% endif %} section-{{ section.id }}-padding isolate"
@@ -142,56 +185,91 @@
     >
       <div class="splide__track">
         <ul class="splide__list">
-          {%- for block in section.blocks -%}
+          {%- liquid
+            if section.settings.data_source == 'blocks'
+              assign items_to_render = section.blocks
+            else
+              assign items_to_render = review_handles
+            endif
+          -%}
+          {%- for item in items_to_render -%}
+            {%- liquid
+              if section.settings.data_source == 'blocks'
+                assign block = item
+              else
+                assign review_handle = item
+                assign review_metaobject = shop.metaobjects.review[review_handle]
+                # Create a virtual block with metaobject values
+                assign block_stars_rating = review_metaobject.star_rating
+                assign block_star_color = section.settings.star_color
+                assign block_bg_star_color = section.settings.bg_star_color
+                assign block_star_symbol_color = '#fff'
+                assign block_title = review_metaobject.title
+                assign block_text = review_metaobject.review_text
+                assign block_author_avatar = review_metaobject.avatar_image
+                assign block_author = review_metaobject.reviewer_name
+              endif
+            -%}
             <li class="splide__slide">
               <div
                 class="splide__slide__container"
                 style="--index:{{ forloop.index0 }};"
-                {{ block.shopify_attributes }}
+                {% if section.settings.data_source == 'blocks' %}{{ block.shopify_attributes }}{% endif %}
               >
                 <div class='trustpilot-review custom-border-radius {{ section.settings.card_alignment }} cards-color-scheme-{{ section.id }} color-{{ section.settings.cards_color_scheme }}'>
                   {% if section.settings.show_stars %}
-                    <div class='rating-stars__container rating-stars__container--underlay' style='--rating:{{ block.settings.stars_rating }};--star-color:{{ block.settings.star_color }};--bg-star-color:{{ block.settings.bg_star_color }};'>
+                    <div class='rating-stars__container rating-stars__container--underlay' style='--rating:{% if section.settings.data_source == 'blocks' %}{{ block.settings.stars_rating }}{% else %}{{ block_stars_rating }}{% endif %};--star-color:{% if section.settings.data_source == 'blocks' %}{{ block.settings.star_color }}{% else %}{{ block_star_color }}{% endif %};--bg-star-color:{% if section.settings.data_source == 'blocks' %}{{ block.settings.bg_star_color }}{% else %}{{ block_bg_star_color }}{% endif %};'>
                       <svg height="469" width="2500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 96" class='trustpilot-stars-svg'>
-                        <path fill="{{ block.settings.bg_star_color }}" d="M0 0h96v96H0zM104 0h96v96h-96zM208 0h96v96h-96zM312 0h96v96h-96zM416 0h96v96h-96z"/>
-                        <path fill="{{ block.settings.star_symbol_color }}" d="M48 64.7L62.6 61l6.1 18.8zm33.6-24.3H55.9L48 16.2l-7.9 24.2H14.4l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM152 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L152 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM256 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L256 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM360 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L360 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM464 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L464 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2z" />
+                        <path fill="{% if section.settings.data_source == 'blocks' %}{{ block.settings.bg_star_color }}{% else %}{{ block_bg_star_color }}{% endif %}" d="M0 0h96v96H0zM104 0h96v96h-96zM208 0h96v96h-96zM312 0h96v96h-96zM416 0h96v96h-96z"/>
+                        <path fill="{% if section.settings.data_source == 'blocks' %}{{ block.settings.star_symbol_color }}{% else %}{{ block_star_symbol_color }}{% endif %}" d="M48 64.7L62.6 61l6.1 18.8zm33.6-24.3H55.9L48 16.2l-7.9 24.2H14.4l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM152 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L152 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM256 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L256 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM360 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L360 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM464 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L464 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2z" />
                       </svg>
                       <div class='rating-stars__container rating-stars__container--overlay trustpilot-stars__container--overlay'>
                         <svg height="469" width="2500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 96" class='trustpilot-stars-svg'>
-                          <path fill="{{ block.settings.star_color }}" d="M0 0h96v96H0zM104 0h96v96h-96zM208 0h96v96h-96zM312 0h96v96h-96zM416 0h96v96h-96z"/>
-                          <path fill="{{ block.settings.star_symbol_color }}" d="M48 64.7L62.6 61l6.1 18.8zm33.6-24.3H55.9L48 16.2l-7.9 24.2H14.4l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM152 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L152 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM256 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L256 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM360 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L360 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM464 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L464 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2z" />
+                          <path fill="{% if section.settings.data_source == 'blocks' %}{{ block.settings.star_color }}{% else %}{{ block_star_color }}{% endif %}" d="M0 0h96v96H0zM104 0h96v96h-96zM208 0h96v96h-96zM312 0h96v96h-96zM416 0h96v96h-96z"/>
+                          <path fill="{% if section.settings.data_source == 'blocks' %}{{ block.settings.star_symbol_color }}{% else %}{{ block_star_symbol_color }}{% endif %}" d="M48 64.7L62.6 61l6.1 18.8zm33.6-24.3H55.9L48 16.2l-7.9 24.2H14.4l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM152 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L152 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM256 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L256 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM360 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L360 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2zM464 64.7l14.6-3.7 6.1 18.8zm33.6-24.3h-25.7L464 16.2l-7.9 24.2h-25.7l20.8 15-7.9 24.2 20.8-15 12.8-9.2z" />
                         </svg>
                       </div>
                     </div>
                   {% endif %}
-                  {%- if block.settings.title != blank -%}
-                    <h3 class='h4'>
-                      {{ block.settings.title }}
-                    </h3>
+                  {%- if section.settings.data_source == 'blocks' -%}
+                    {%- if block.settings.title != blank -%}
+                      <h3 class='h4'>{{ block.settings.title }}</h3>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <div class="rte">{{ block.settings.text }}</div>
+                    {%- endif -%}
+                    {%- unless block.settings.author_avatar == blank and block.settings.author == blank -%}
+                      <div class="testimonial-card__author-container">
+                        {%- if block.settings.author_avatar != blank -%}
+                          <div class="testimonial-card__avatar">
+                            {{ block.settings.author_avatar | image_url: width: 150 | image_tag: loading: 'lazy', width: 100 }}
+                          </div>
+                        {%- endif -%}
+                        {%- if block.settings.author != blank -%}
+                          <p class="testimonial-card__author margin-0">{{ block.settings.author }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endunless -%}
+                  {%- else -%}
+                    {%- if block_title != blank -%}
+                      <h3 class='h4'>{{ block_title }}</h3>
+                    {%- endif -%}
+                    {%- if block_text != blank -%}
+                      <div class="rte">{{ block_text }}</div>
+                    {%- endif -%}
+                    {%- unless block_author_avatar == blank and block_author == blank -%}
+                      <div class="testimonial-card__author-container">
+                        {%- if block_author_avatar != blank -%}
+                          <div class="testimonial-card__avatar">
+                            {{ block_author_avatar | image_url: width: 150 | image_tag: loading: 'lazy', width: 100 }}
+                          </div>
+                        {%- endif -%}
+                        {%- if block_author != blank -%}
+                          <p class="testimonial-card__author margin-0">{{ block_author }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endunless -%}
                   {%- endif -%}
-                  {%- if block.settings.text != blank -%}
-                    <div class="rte">
-                      {{ block.settings.text }}
-                    </div>
-                  {%- endif -%}
-                  {%- unless block.settings.author_avatar == blank and block.settings.author == blank -%}
-                    <div class="testimonial-card__author-container">
-                      {%- if block.settings.author_avatar != blank -%}
-                        <div class="testimonial-card__avatar">
-                          {{
-                            block.settings.author_avatar
-                            | image_url: width: 150
-                            | image_tag: loading: 'lazy', width: 100
-                          }}
-                        </div>
-                      {%- endif -%}
-                      {%- if block.settings.author != blank -%}
-                        <p class="testimonial-card__author margin-0">
-                          {{ block.settings.author }}
-                        </p>
-                      {%- endif -%}
-                    </div>
-                  {%- endunless -%}
                 </div>
               </div>
             </li>
@@ -224,6 +302,37 @@
       "label": "Display section ID",
       "info": "ID is used in the Sections group section to merge 2 sections. ID can also be put inside any button link and the button will scroll to this section.",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Data Source"
+    },
+    {
+      "type": "select",
+      "id": "data_source",
+      "label": "Data source",
+      "options": [
+        {"value": "blocks", "label": "Manual blocks"},
+        {"value": "metaobjects_all", "label": "All featured reviews"},
+        {"value": "metaobjects_product", "label": "Specific product reviews"}
+      ],
+      "default": "blocks"
+    },
+    {
+      "type": "product",
+      "id": "target_product",
+      "label": "Target product",
+      "info": "Only applies when data source is set to Specific product reviews"
+    },
+    {
+      "type": "range",
+      "id": "max_reviews",
+      "label": "Maximum reviews to show",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "info": "Only applies when using metaobjects"
     },
     {
       "type": "header",

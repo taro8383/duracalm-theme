@@ -1,19 +1,34 @@
 {% liquid
-  assign item_count = 0
-  if block.settings.avatar_1 != blank
-    assign item_count = item_count | plus: 1
-  endif
-  if block.settings.avatar_2 != blank
-    assign item_count = item_count | plus: 1
-  endif
-  if block.settings.avatar_3 != blank
-    assign item_count = item_count | plus: 1
-  endif
-  if block.settings.avatar_4 != blank
-    assign item_count = item_count | plus: 1
-  endif
-  if block.settings.avatar_1 != blank
-    assign item_count = item_count | plus: 1
+  # Determine avatar source
+  if block.settings.avatar_source == 'metaobjects' and product != blank
+    assign product_reviews = product.metafields.custom.product_reviews.value
+    assign max_avatars = 5
+    assign avatar_count = 0
+    assign avatar_handles = ''
+    for review in product_reviews
+      if review.avatar_image != blank and avatar_count < max_avatars
+        assign avatar_handles = avatar_handles | append: review.handle | append: ','
+        assign avatar_count = avatar_count | plus: 1
+      endif
+    endfor
+    assign item_count = avatar_count
+  else
+    assign item_count = 0
+    if block.settings.avatar_1 != blank
+      assign item_count = item_count | plus: 1
+    endif
+    if block.settings.avatar_2 != blank
+      assign item_count = item_count | plus: 1
+    endif
+    if block.settings.avatar_3 != blank
+      assign item_count = item_count | plus: 1
+    endif
+    if block.settings.avatar_4 != blank
+      assign item_count = item_count | plus: 1
+    endif
+    if block.settings.avatar_5 != blank
+      assign item_count = item_count | plus: 1
+    endif
   endif
 %}
 
@@ -58,43 +73,70 @@
 >
   {% if item_count > 0 %}
     <div class="review-avatars__avatars-container flex isolate">
-      {% for i in (1..5) %}
-        {% liquid
-          case i 
-            when 1
-              assign avatar = block.settings.avatar_1
-              assign verified = block.settings.avatar_1_verified
-            when 2
-              assign avatar = block.settings.avatar_2
-              assign verified = block.settings.avatar_2_verified
-            when 3
-              assign avatar = block.settings.avatar_3
-              assign verified = block.settings.avatar_3_verified
-            when 4
-              assign avatar = block.settings.avatar_4
-              assign verified = block.settings.avatar_4_verified
-            when 5
-              assign avatar = block.settings.avatar_5
-              assign verified = block.settings.avatar_5_verified
-          endcase
-        %}
-        {% if avatar != blank %}
-          <div class="review-avatars__avatar{% if verified %} review-avatars__avatar--verified{% endif %} media media--transparent">
-            <img
-              src="{{ avatar | image_url }}"
-              {% if avatar.alt != blank %}
-                alt="{{ avatar.alt }}"
-              {% else %}
-                role="presentation"
-              {% endif %}
-              width="auto"
-              height="auto"
-              loading="lazy"
-            >
-            {{ checkmark }}
-          </div>
-        {% endif %}
-      {% endfor %}
+      {% if block.settings.avatar_source == 'metaobjects' %}
+        {% assign handles_array = avatar_handles | split: ',' %}
+        {% for handle in handles_array %}
+          {% if handle != blank %}
+            {% assign review_metaobject = shop.metaobjects.review[handle] %}
+            {% assign avatar = review_metaobject.avatar_image %}
+            {% assign verified = review_metaobject.verified_purchase %}
+            {% if avatar != blank %}
+              <div class="review-avatars__avatar{% if verified %} review-avatars__avatar--verified{% endif %} media media--transparent">
+                <img
+                  src="{{ avatar | image_url }}"
+                  {% if avatar.alt != blank %}
+                    alt="{{ avatar.alt }}"
+                  {% else %}
+                    role="presentation"
+                  {% endif %}
+                  width="auto"
+                  height="auto"
+                  loading="lazy"
+                >
+                {{ checkmark }}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% for i in (1..5) %}
+          {% liquid
+            case i
+              when 1
+                assign avatar = block.settings.avatar_1
+                assign verified = block.settings.avatar_1_verified
+              when 2
+                assign avatar = block.settings.avatar_2
+                assign verified = block.settings.avatar_2_verified
+              when 3
+                assign avatar = block.settings.avatar_3
+                assign verified = block.settings.avatar_3_verified
+              when 4
+                assign avatar = block.settings.avatar_4
+                assign verified = block.settings.avatar_4_verified
+              when 5
+                assign avatar = block.settings.avatar_5
+                assign verified = block.settings.avatar_5_verified
+            endcase
+          %}
+          {% if avatar != blank %}
+            <div class="review-avatars__avatar{% if verified %} review-avatars__avatar--verified{% endif %} media media--transparent">
+              <img
+                src="{{ avatar | image_url }}"
+                {% if avatar.alt != blank %}
+                  alt="{{ avatar.alt }}"
+                {% else %}
+                  role="presentation"
+                {% endif %}
+                width="auto"
+                height="auto"
+                loading="lazy"
+              >
+              {{ checkmark }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     </div>
   {% endif %}
   {% if block.settings.text_1_line_1 != blank or block.settings.text_1_line_2 != blank %}
