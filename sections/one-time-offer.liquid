@@ -1,0 +1,991 @@
+{% comment %}
+  One-Time Offer (OTO) Modal
+  Shows an exclusive subscription offer on first checkout click
+{% endcomment %}
+
+{% liquid
+  assign oto_product = all_products[section.settings.oto_product]
+  assign show_oto = false
+  if oto_product != blank and oto_product.available
+    assign show_oto = true
+  endif
+%}
+
+{% if show_oto %}
+<div
+  id="OneTimeOffer-{{ section.id }}"
+  class="one-time-offer-modal"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ oto_product.selected_or_first_available_variant.id }}"
+  data-product-handle="{{ oto_product.handle }}"
+  data-storage-key="oto_seen_{{ section.id }}"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="oto-title-{{ section.id }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="one-time-offer__overlay"></div>
+  <div class="one-time-offer__container">
+    <div class="one-time-offer__content" style="
+      --oto-bg: {{ section.settings.modal_background }};
+      --oto-text-color: {{ section.settings.text_color }};
+      --oto-accent-color: {{ section.settings.accent_color }};
+      --oto-border-radius: {{ section.settings.border_radius }}px;
+      --oto-max-width: {{ section.settings.max_width }}px;
+    ">
+      {% if section.settings.show_close_button %}
+        <button type="button" class="one-time-offer__close" aria-label="Close offer" data-oto-close>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      {% endif %}
+
+      {% if section.settings.badge_text != blank %}
+        <div class="one-time-offer__badge">
+          {{ section.settings.badge_text }}
+        </div>
+      {% endif %}
+
+      <div class="one-time-offer__header">
+        <h2 id="oto-title-{{ section.id }}" class="one-time-offer__title" style="font-size: {{ section.settings.heading_size }}px;">
+          {{ section.settings.heading }}
+        </h2>
+        {% if section.settings.subheading != blank %}
+          <p class="one-time-offer__subheading" style="font-size: {{ section.settings.subheading_size }}px;">
+            {{ section.settings.subheading }}
+          </p>
+        {% endif %}
+      </div>
+
+      <div class="one-time-offer__product">
+        {% if oto_product.featured_image %}
+          <div class="one-time-offer__image-wrapper">
+            <img
+              src="{{ oto_product.featured_image | image_url: width: 400 }}"
+              alt="{{ oto_product.featured_image.alt | escape }}"
+              class="one-time-offer__image"
+              width="200"
+              height="200"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+
+        <div class="one-time-offer__details">
+          <h3 class="one-time-offer__product-title">{{ oto_product.title }}</h3>
+
+          {% if section.settings.show_product_description and oto_product.description != blank %}
+            <div class="one-time-offer__description">
+              {{ oto_product.description | strip_html | truncatewords: 30 }}
+            </div>
+          {% endif %}
+
+          <div class="one-time-offer__pricing">
+            {% if section.settings.show_compare_price and oto_product.compare_at_price > oto_product.price %}
+              <span class="one-time-offer__compare-price">
+                {{ oto_product.compare_at_price | money }}
+              </span>
+            {% endif %}
+            <span class="one-time-offer__price" style="color: {{ section.settings.accent_color }};">
+              {{ oto_product.selected_or_first_available_variant.price | money }}
+            </span>
+            {% if section.settings.price_suffix != blank %}
+              <span class="one-time-offer__price-suffix">{{ section.settings.price_suffix }}</span>
+            {% endif %}
+          </div>
+
+          {% if section.settings.show_savings and oto_product.compare_at_price > oto_product.price %}
+            {% assign savings = oto_product.compare_at_price | minus: oto_product.price %}
+            <div class="one-time-offer__savings">
+              {{ section.settings.savings_text | replace: '[amount]', savings | money }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if section.settings.benefits_list != blank %}
+        <div class="one-time-offer__benefits">
+          <ul class="one-time-offer__benefits-list">
+            {% assign benefits = section.settings.benefits_list | newline_to_br | split: '<br />' %}
+            {% for benefit in benefits %}
+              {% assign trimmed_benefit = benefit | strip %}
+              {% if trimmed_benefit != blank %}
+                <li class="one-time-offer__benefit-item">
+                  <span class="one-time-offer__benefit-icon">
+                    {% if section.settings.benefit_icon == 'check' %}
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    {% elsif section.settings.benefit_icon == 'star' %}
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"/>
+                      </svg>
+                    {% elsif section.settings.benefit_icon == 'bolt' %}
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8.5 1L2 9H7.5L7 15L13.5 7H8L8.5 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
+                      </svg>
+                    {% endif %}
+                  </span>
+                  <span>{{ trimmed_benefit }}</span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <div class="one-time-offer__urgency">
+        {% if section.settings.urgency_text != blank %}
+          <p class="one-time-offer__urgency-text">
+            {% if section.settings.urgency_icon %}
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 6px;">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 4V8L10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            {% endif %}
+            {{ section.settings.urgency_text }}
+          </p>
+        {% endif %}
+      </div>
+
+      <div class="one-time-offer__actions">
+        <button
+          type="button"
+          class="one-time-offer__accept-btn"
+          data-oto-accept
+          data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}"
+          style="
+            --btn-bg: {{ section.settings.accept_button_bg }};
+            --btn-text: {{ section.settings.accept_button_text }};
+            --btn-hover-bg: {{ section.settings.accept_button_bg_hover }};
+          "
+        >
+          <span class="one-time-offer__btn-text">{{ section.settings.accept_button_text }}</span>
+          {% if section.settings.show_button_price %}
+            <span class="one-time-offer__btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>
+          {% endif %}
+        </button>
+
+        <button
+          type="button"
+          class="one-time-offer__decline-btn"
+          data-oto-decline
+          style="
+            --decline-color: {{ section.settings.decline_button_color }};
+            --decline-hover: {{ section.settings.decline_button_hover }};
+          "
+        >
+          {{ section.settings.decline_button_text }}
+        </button>
+      </div>
+
+      {% if section.settings.footer_text != blank %}
+        <div class="one-time-offer__footer">
+          <p class="one-time-offer__footer-text">{{ section.settings.footer_text }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+.one-time-offer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.one-time-offer-modal[aria-hidden="false"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.one-time-offer__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.one-time-offer__container {
+  position: relative;
+  width: 100%;
+  max-width: var(--oto-max-width, 560px);
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: otoSlideUp 0.4s ease forwards;
+}
+
+@keyframes otoSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.one-time-offer__content {
+  background: var(--oto-bg, #ffffff);
+  border-radius: var(--oto-border-radius, 16px);
+  padding: 40px 32px;
+  color: var(--oto-text-color, #1a1a1a);
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.one-time-offer__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--oto-text-color);
+  transition: background 0.2s ease;
+}
+
+.one-time-offer__close:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.one-time-offer__badge {
+  display: inline-block;
+  background: var(--oto-accent-color, #7B92C8);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.one-time-offer__header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.one-time-offer__title {
+  margin: 0 0 12px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.one-time-offer__subheading {
+  margin: 0;
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+.one-time-offer__product {
+  display: flex;
+  gap: 20px;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.one-time-offer__image-wrapper {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.one-time-offer__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.one-time-offer__details {
+  flex: 1;
+  min-width: 0;
+}
+
+.one-time-offer__product-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.one-time-offer__description {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.one-time-offer__pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.one-time-offer__compare-price {
+  font-size: 16px;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.one-time-offer__price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.one-time-offer__price-suffix {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.one-time-offer__savings {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--oto-accent-color);
+}
+
+.one-time-offer__benefits {
+  margin-bottom: 20px;
+}
+
+.one-time-offer__benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.one-time-offer__benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.one-time-offer__benefit-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(123, 146, 200, 0.15);
+  color: var(--oto-accent-color, #7B92C8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.one-time-offer__urgency {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.one-time-offer__urgency-text {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--oto-accent-color);
+  background: rgba(123, 146, 200, 0.1);
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.one-time-offer__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.one-time-offer__accept-btn {
+  width: 100%;
+  padding: 18px 24px;
+  background: var(--btn-bg, #7B92C8);
+  color: var(--btn-text, #ffffff);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(123, 146, 200, 0.3);
+}
+
+.one-time-offer__accept-btn:hover {
+  background: var(--btn-hover-bg, #6a7fb0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(123, 146, 200, 0.4);
+}
+
+.one-time-offer__accept-btn:active {
+  transform: translateY(0);
+}
+
+.one-time-offer__btn-text {
+  font-weight: 700;
+}
+
+.one-time-offer__btn-price {
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.one-time-offer__decline-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: transparent;
+  color: var(--decline-color, #666);
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.one-time-offer__decline-btn:hover {
+  color: var(--decline-hover, #333);
+}
+
+.one-time-offer__footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.one-time-offer__footer-text {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* Loading state */
+.one-time-offer__accept-btn.is-loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.one-time-offer__accept-btn.is-loading::after {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: otoSpin 0.8s linear infinite;
+}
+
+@keyframes otoSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 480px) {
+  .one-time-offer-modal {
+    padding: 16px;
+    align-items: flex-end;
+  }
+
+  .one-time-offer__content {
+    padding: 28px 20px;
+  }
+
+  .one-time-offer__product {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .one-time-offer__image-wrapper {
+    margin: 0 auto;
+  }
+
+  .one-time-offer__pricing {
+    justify-content: center;
+  }
+
+  .one-time-offer__title {
+    font-size: 24px !important;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .one-time-offer-modal,
+  .one-time-offer__container,
+  .one-time-offer__accept-btn,
+  .one-time-offer__decline-btn {
+    transition: none;
+    animation: none;
+  }
+}
+</style>
+
+<script>
+  (function() {
+    'use strict';
+
+    const OTO_KEY = 'oto_seen_{{ section.id }}';
+    const CHECKOUT_KEY = 'oto_checkout_triggered';
+
+    function initOTO() {
+      const modal = document.getElementById('OneTimeOffer-{{ section.id }}');
+      if (!modal) return;
+
+      const acceptBtn = modal.querySelector('[data-oto-accept]');
+      const declineBtn = modal.querySelector('[data-oto-decline]');
+      const closeBtn = modal.querySelector('[data-oto-close]');
+      const variantId = acceptBtn?.dataset.variantId;
+
+      // Check if user has already seen this offer
+      function hasSeenOTO() {
+        try {
+          return localStorage.getItem(OTO_KEY) === 'true';
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // Mark OTO as seen
+      function markOTOSseen() {
+        try {
+          localStorage.setItem(OTO_KEY, 'true');
+        } catch (e) {
+          console.warn('Could not save OTO state');
+        }
+      }
+
+      // Show the modal
+      function showModal() {
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        document.dispatchEvent(new CustomEvent('oto:shown', { detail: { sectionId: '{{ section.id }}' } }));
+      }
+
+      // Hide the modal
+      function hideModal() {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      // Add product to cart
+      function addToCart() {
+        if (!variantId) return Promise.reject('No variant ID');
+
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: 1
+          })
+        }).then(response => {
+          if (!response.ok) throw new Error('Add to cart failed');
+          return response.json();
+        });
+      }
+
+      // Continue to checkout
+      function goToCheckout() {
+        window.location.href = '/checkout';
+      }
+
+      // Handle accept button
+      if (acceptBtn) {
+        acceptBtn.addEventListener('click', function() {
+          acceptBtn.classList.add('is-loading');
+          markOTOSseen();
+
+          addToCart()
+            .then(() => {
+              document.dispatchEvent(new CustomEvent('oto:accepted', {
+                detail: { productId: variantId, sectionId: '{{ section.id }}' }
+              }));
+              goToCheckout();
+            })
+            .catch(err => {
+              console.error('OTO add to cart error:', err);
+              acceptBtn.classList.remove('is-loading');
+              alert('{{ section.settings.error_message | default: "Sorry, we couldn\'t add this item. Please try again." }}');
+            });
+        });
+      }
+
+      // Handle decline button
+      if (declineBtn) {
+        declineBtn.addEventListener('click', function() {
+          markOTOSseen();
+          hideModal();
+          document.dispatchEvent(new CustomEvent('oto:declined', { detail: { sectionId: '{{ section.id }}' } }));
+          goToCheckout();
+        });
+      }
+
+      // Handle close button
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          markOTOSseen();
+          hideModal();
+          document.dispatchEvent(new CustomEvent('oto:closed', { detail: { sectionId: '{{ section.id }}' } }));
+          goToCheckout();
+        });
+      }
+
+      // Close on overlay click
+      modal.querySelector('.one-time-offer__overlay').addEventListener('click', function() {
+        markOTOSseen();
+        hideModal();
+        document.dispatchEvent(new CustomEvent('oto:closed', { detail: { sectionId: '{{ section.id }}' } }));
+        goToCheckout();
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+          markOTOSseen();
+          hideModal();
+          document.dispatchEvent(new CustomEvent('oto:closed', { detail: { sectionId: '{{ section.id }}' } }));
+          goToCheckout();
+        }
+      });
+
+      // Listen for checkout button click in cart drawer
+      document.addEventListener('click', function(e) {
+        const checkoutBtn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
+        if (!checkoutBtn) return;
+
+        // Don't intercept if already triggered
+        if (checkoutBtn.dataset.otoIntercepted === 'true') return;
+
+        // Check if OTO should show
+        if (hasSeenOTO()) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Mark that we've intercepted this checkout
+        checkoutBtn.dataset.otoIntercepted = 'true';
+
+        // Show the OTO modal
+        showModal();
+      }, true);
+
+      // Reset intercept flag when cart drawer closes
+      const cartDrawer = document.querySelector('cart-drawer');
+      if (cartDrawer) {
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
+              if (!cartDrawer.hasAttribute('open')) {
+                // Cart drawer closed, reset intercept flags
+                document.querySelectorAll('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button').forEach(btn => {
+                  delete btn.dataset.otoIntercepted;
+                });
+              }
+            }
+          });
+        });
+        observer.observe(cartDrawer, { attributes: true });
+      }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initOTO);
+    } else {
+      initOTO();
+    }
+  })();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "One-Time Offer",
+  "tag": "section",
+  "class": "section-one-time-offer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Settings"
+    },
+    {
+      "type": "product",
+      "id": "oto_product",
+      "label": "Subscription Product",
+      "info": "Select the subscription product to offer"
+    },
+    {
+      "type": "header",
+      "content": "Modal Appearance"
+    },
+    {
+      "type": "color",
+      "id": "modal_background",
+      "label": "Modal Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#7B92C8"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border Radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 400,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "label": "Max Width",
+      "default": 560
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "Show Close Button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Header Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Exclusive Offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Wait! Special Offer Just For You"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size",
+      "default": 32
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Add this exclusive subscription to your order and save!"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading Size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Product Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_description",
+      "label": "Show Product Description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_compare_price",
+      "label": "Show Compare at Price",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_suffix",
+      "label": "Price Suffix",
+      "default": "/month"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_savings",
+      "label": "Show Savings Amount",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "savings_text",
+      "label": "Savings Text",
+      "default": "You save [amount]!"
+    },
+    {
+      "type": "header",
+      "content": "Benefits List"
+    },
+    {
+      "type": "textarea",
+      "id": "benefits_list",
+      "label": "Benefits List",
+      "info": "Enter each benefit on a new line",
+      "default": "Free shipping on subscription orders\nCancel anytime\nExclusive subscriber discounts"
+    },
+    {
+      "type": "select",
+      "id": "benefit_icon",
+      "label": "Benefit Icon",
+      "options": [
+        { "value": "check", "label": "Checkmark" },
+        { "value": "star", "label": "Star" },
+        { "value": "bolt", "label": "Lightning Bolt" }
+      ],
+      "default": "check"
+    },
+    {
+      "type": "header",
+      "content": "Urgency Message"
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Urgency Text",
+      "default": "Limited time offer - Available now only!"
+    },
+    {
+      "type": "checkbox",
+      "id": "urgency_icon",
+      "label": "Show Clock Icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "accept_button_text",
+      "label": "Accept Button Text",
+      "default": "Yes, Add to My Order"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button_price",
+      "label": "Show Price on Button",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "accept_button_bg",
+      "label": "Accept Button Background",
+      "default": "#7B92C8"
+    },
+    {
+      "type": "color",
+      "id": "accept_button_text_color",
+      "label": "Accept Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accept_button_bg_hover",
+      "label": "Accept Button Hover",
+      "default": "#6a7fb0"
+    },
+    {
+      "type": "text",
+      "id": "decline_button_text",
+      "label": "Decline Button Text",
+      "default": "No thanks, I'll pass"
+    },
+    {
+      "type": "color",
+      "id": "decline_button_color",
+      "label": "Decline Button Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "decline_button_hover",
+      "label": "Decline Button Hover",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer Text",
+      "default": "30-day money-back guarantee • Cancel anytime"
+    },
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "text",
+      "id": "error_message",
+      "label": "Error Message",
+      "default": "Sorry, we couldn't add this item. Please try again."
+    }
+  ],
+  "presets": [
+    {
+      "name": "One-Time Offer"
+    }
+  ]
+}
+{% endschema %}
