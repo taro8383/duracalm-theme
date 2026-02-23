@@ -25,7 +25,7 @@
 %}
 
 {% if show_oto %}
-<div id="OneTimeOffer-{{ section.id }}" class="oto-modal{% if test_mode %} oto-modal--test-mode{% endif %}" data-section-id="{{ section.id }}" data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" data-test-mode="{{ test_mode }}" aria-hidden="{% if test_mode %}false{% else %}true{% endif %}" role="dialog" aria-modal="true" aria-labelledby="oto-title-{{ section.id }}" {{ section.shopify_attributes }}>
+<div id="OneTimeOffer-{{ section.id }}" class="oto-modal{% if test_mode %} oto-modal--test-mode{% endif %}{% if section.settings.anim_popup_enable %} oto-modal--anim-{{ section.settings.anim_popup_open }}{% endif %}" data-section-id="{{ section.id }}" data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" data-test-mode="{{ test_mode }}" data-anim-close="{% if section.settings.anim_popup_enable %}{{ section.settings.anim_popup_close }}{% else %}none{% endif %}" data-anim-duration="{{ section.settings.anim_popup_duration }}" aria-hidden="{% if test_mode %}false{% else %}true{% endif %}" role="dialog" aria-modal="true" aria-labelledby="oto-title-{{ section.id }}" {{ section.shopify_attributes }} style="{% if section.settings.anim_popup_enable %}--anim-duration: {{ section.settings.anim_popup_duration }}ms;{% endif %}">
   {% if test_mode %}
     <div class="oto-test-banner">
       <span class="oto-test-badge">TEST MODE</span>
@@ -54,12 +54,12 @@
       {% endif %}
 
       {% if section.settings.badge_text != blank %}
-        <div class="oto-badge{% if section.settings.badge_align == 'center' %} oto-badge--center{% elsif section.settings.badge_align == 'right' %} oto-badge--right{% endif %}" style="--badge-bg: {{ section.settings.badge_bg | default: default_purple }}; --badge-text: {{ section.settings.badge_text_color | default: '#FFFFFF' }};">
+        <div class="oto-badge{% if section.settings.badge_align == 'center' %} oto-badge--center{% elsif section.settings.badge_align == 'right' %} oto-badge--right{% endif %}{% if section.settings.anim_badge_enable %} oto-anim oto-anim--{{ section.settings.anim_badge_type }}{% endif %}" style="--badge-bg: {{ section.settings.badge_bg | default: default_purple }}; --badge-text: {{ section.settings.badge_text_color | default: '#FFFFFF' }};{% if section.settings.anim_badge_enable %} --anim-delay: {{ section.settings.anim_badge_delay }}ms;{% endif %}">
           {{ section.settings.badge_text }}
         </div>
       {% endif %}
 
-      <div class="oto-header" style="text-align: {{ section.settings.heading_align }};">
+      <div class="oto-header{% if section.settings.anim_heading_enable %} oto-anim oto-anim--{{ section.settings.anim_heading_type }}{% endif %}" style="text-align: {{ section.settings.heading_align }};{% if section.settings.anim_heading_enable %} --anim-delay: {{ section.settings.anim_heading_delay }}ms;{% endif %}">
         <h2 id="oto-title-{{ section.id }}" class="oto-title" style="font-size: {{ section.settings.heading_size }}px; margin-bottom: {{ section.settings.heading_mb }}px;">
           {{ section.settings.heading }}
         </h2>
@@ -68,7 +68,7 @@
         {% endif %}
       </div>
 
-      <div class="oto-product" style="background: {{ section.settings.product_bg | default: 'rgba(0,0,0,0.03)' }}; border-radius: {{ section.settings.product_radius }}px;">
+      <div class="oto-product{% if section.settings.anim_product_enable %} oto-anim oto-anim--{{ section.settings.anim_product_type }}{% endif %}" style="background: {{ section.settings.product_bg | default: 'rgba(0,0,0,0.03)' }}; border-radius: {{ section.settings.product_radius }}px;{% if section.settings.anim_product_enable %} --anim-delay: {{ section.settings.anim_product_delay }}ms;{% endif %}">
         {% if oto_product.featured_image %}
           <div class="oto-img-wrap" style="width: {{ section.settings.image_size }}px; border-radius: {{ section.settings.image_radius }}px;">
             <img src="{{ oto_product.featured_image | image_url: width: 400 }}" alt="{{ oto_product.featured_image.alt | escape }}" class="oto-img" width="200" height="200" loading="lazy">
@@ -94,13 +94,13 @@
       </div>
 
       {% if section.settings.benefits != blank %}
-        <div class="oto-benefits">
+        <div class="oto-benefits{% if section.settings.anim_benefits_enable %} oto-anim oto-anim--{{ section.settings.anim_benefits_type }}{% endif %}{% if section.settings.anim_benefits_enable and section.settings.anim_benefits_stagger %} oto-anim--stagger{% endif %}" style="{% if section.settings.anim_benefits_enable %} --anim-delay: {{ section.settings.anim_benefits_delay }}ms;{% endif %}{% if section.settings.anim_benefits_stagger %} --stagger-delay: {{ section.settings.anim_benefits_stagger_delay }}ms;{% endif %}">
           <ul class="oto-benefits-list" style="gap: {{ section.settings.benefit_gap }}px;">
             {% assign benefit_list = section.settings.benefits | newline_to_br | split: '<br />' %}
             {% for benefit in benefit_list %}
               {% assign trimmed = benefit | strip %}
               {% if trimmed != blank %}
-                <li class="oto-benefit" style="font-size: {{ section.settings.benefit_size }}px;">
+                <li class="oto-benefit{% if section.settings.anim_benefits_enable %} oto-anim__child{% endif %}" style="font-size: {{ section.settings.benefit_size }}px;">
                   <span class="oto-benefit-icon" style="background: {{ section.settings.benefit_icon_bg | default: 'rgba(123,146,200,0.15)' }}; color: {{ section.settings.accent_color | default: default_purple }};">
                     {% if section.settings.benefit_icon == 'check' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     {% elsif section.settings.benefit_icon == 'star' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"/></svg>
@@ -116,7 +116,7 @@
       {% endif %}
 
       {% if section.settings.urgency_text != blank %}
-        <div class="oto-urgency" style="background: {{ section.settings.urgency_bg | default: 'rgba(123,146,200,0.1)' }}; color: {{ section.settings.accent_color | default: default_purple }};">
+        <div class="oto-urgency{% if section.settings.anim_urgency_enable %} oto-anim oto-anim--{{ section.settings.anim_urgency_type }}{% endif %}" style="background: {{ section.settings.urgency_bg | default: 'rgba(123,146,200,0.1)' }}; color: {{ section.settings.accent_color | default: default_purple }};{% if section.settings.anim_urgency_enable %} --anim-delay: {{ section.settings.anim_urgency_delay }}ms;{% endif %}">
           {% if section.settings.urgency_clock %}<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 4V8L10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>{% endif %}
           {{ section.settings.urgency_text }}
         </div>
@@ -124,7 +124,7 @@
 
       <div class="oto-actions" style="gap: {{ section.settings.button_gap }}px;">
         {% if section.settings.use_magic_mind %}
-          <button type="button" class="oto-btn oto-btn--magic" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
+          <button type="button" class="oto-btn oto-btn--magic{% if section.settings.anim_accept_enable %} oto-anim oto-anim--{{ section.settings.anim_accept_type }}{% endif %}{% if section.settings.anim_accept_hover %} oto-btn--hover-anim{% endif %}" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
             --mm-border: {{ section.settings.magic_border | default: default_purple }};
             --mm-text: {{ section.settings.magic_text | default: default_purple }};
             --mm-gradient-start: {{ section.settings.magic_gradient_start | default: default_purple }};
@@ -135,12 +135,13 @@
             padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
             border-radius: {{ section.settings.accept_radius }}px;
             margin: {{ section.settings.accept_margin_top }}px {{ section.settings.accept_margin_right }}px {{ section.settings.accept_margin_bottom }}px {{ section.settings.accept_margin_left }}px;
+            {% if section.settings.anim_accept_enable %} --anim-delay: {{ section.settings.anim_accept_delay }}ms;{% endif %}
           ">
             <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
             {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
           </button>
         {% else %}
-          <button type="button" class="oto-btn oto-btn--standard" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
+          <button type="button" class="oto-btn oto-btn--standard{% if section.settings.anim_accept_enable %} oto-anim oto-anim--{{ section.settings.anim_accept_type }}{% endif %}{% if section.settings.anim_accept_hover %} oto-btn--hover-anim{% endif %}" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
             --btn-bg: {{ section.settings.accept_bg | default: default_purple }};
             --btn-text: {{ section.settings.accept_text_color | default: '#FFFFFF' }};
             --btn-hover: {{ section.settings.accept_bg_hover | default: '#6a7fb0' }};
@@ -148,15 +149,17 @@
             padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
             border-radius: {{ section.settings.accept_radius }}px;
             margin: {{ section.settings.accept_margin_top }}px {{ section.settings.accept_margin_right }}px {{ section.settings.accept_margin_bottom }}px {{ section.settings.accept_margin_left }}px;
+            {% if section.settings.anim_accept_enable %} --anim-delay: {{ section.settings.anim_accept_delay }}ms;{% endif %}
           ">
             <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
             {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
           </button>
         {% endif %}
 
-        <button type="button" class="oto-decline" data-oto-decline style="
+        <button type="button" class="oto-decline{% if section.settings.anim_decline_enable %} oto-anim oto-anim--{{ section.settings.anim_decline_type }}{% endif %}" data-oto-decline style="
           color: {{ section.settings.decline_color | default: '#666666' }};
           font-size: {{ section.settings.decline_size }}px;
+          {% if section.settings.anim_decline_enable %} --anim-delay: {{ section.settings.anim_decline_delay }}ms;{% endif %}
         ">{{ section.settings.decline_text }}</button>
       </div>
 
@@ -233,6 +236,183 @@
 .oto-test-badge { background: #fff; color: #7B92C8; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
 .oto-test-text { font-size: 13px; font-weight: 500; }
 .shopify-design-mode .oto-modal:not(.oto-modal--test-mode) { display: none !important; }
+
+/* ========================================
+   OTO ANIMATIONS
+   ======================================== */
+
+/* Element Base Animation Styles */
+.oto-anim {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-duration: var(--anim-duration, 0.6s);
+  animation-delay: var(--anim-delay, 0s);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.oto-modal[aria-hidden="false"] .oto-anim {
+  animation-name: otoFadeIn;
+}
+
+/* Animation Keyframes */
+@keyframes otoFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes otoFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes otoSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes otoSlideDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(30px); }
+}
+@keyframes otoSlideLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes otoSlideRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes otoScaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes otoScaleOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.8); }
+}
+@keyframes otoBounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes otoPulse {
+  0% { opacity: 0; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Element Animation Types */
+.oto-modal[aria-hidden="false"] .oto-anim--fade { animation-name: otoFadeIn; }
+.oto-modal[aria-hidden="false"] .oto-anim--slide-up { animation-name: otoSlideUp; }
+.oto-modal[aria-hidden="false"] .oto-anim--slide-left { animation-name: otoSlideLeft; }
+.oto-modal[aria-hidden="false"] .oto-anim--slide-right { animation-name: otoSlideRight; }
+.oto-modal[aria-hidden="false"] .oto-anim--scale { animation-name: otoScaleIn; }
+.oto-modal[aria-hidden="false"] .oto-anim--bounce { animation-name: otoBounceIn; animation-duration: calc(var(--anim-duration, 0.6s) * 1.2); }
+.oto-modal[aria-hidden="false"] .oto-anim--pulse { animation-name: otoPulse; animation-iteration-count: 2; }
+
+/* Stagger Animation for Lists */
+.oto-anim--stagger .oto-anim__child {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-duration: var(--anim-duration, 0.5s);
+  animation-delay: calc(var(--anim-delay, 0s) + (var(--child-index, 0) * var(--stagger-delay, 100ms)));
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-name: otoSlideUp;
+}
+.oto-anim--stagger.oto-anim--fade .oto-anim__child { animation-name: otoFadeIn; }
+.oto-anim--stagger.oto-anim--slide-up .oto-anim__child { animation-name: otoSlideUp; }
+.oto-anim--stagger.oto-anim--slide-left .oto-anim__child { animation-name: otoSlideLeft; }
+.oto-anim--stagger.oto-anim--scale .oto-anim__child { animation-name: otoScaleIn; }
+.oto-anim--stagger.oto-anim--bounce .oto-anim__child { animation-name: otoBounceIn; }
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(1) { --child-index: 0; }
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(2) { --child-index: 1; }
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(3) { --child-index: 2; }
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(4) { --child-index: 3; }
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(5) { --child-index: 4; }
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(6) { --child-index: 5; }
+
+/* Popup Open Animations */
+.oto-modal--anim-fade .oto-container { animation: otoPopupFade var(--anim-duration, 0.4s) ease forwards; }
+.oto-modal--anim-slide-up .oto-container { animation: otoPopupSlideUp var(--anim-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.oto-modal--anim-zoom-in .oto-container { animation: otoPopupZoomIn var(--anim-duration, 0.4s) cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.oto-modal--anim-flip .oto-container { animation: otoPopupFlip var(--anim-duration, 0.5s) ease forwards; }
+.oto-modal--anim-elastic .oto-container { animation: otoPopupElastic var(--anim-duration, 0.6s) cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+
+@keyframes otoPopupFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes otoPopupSlideUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes otoPopupZoomIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes otoPopupFlip {
+  from { opacity: 0; transform: perspective(400px) rotateX(-90deg); }
+  to { opacity: 1; transform: perspective(400px) rotateX(0); }
+}
+@keyframes otoPopupElastic {
+  0% { opacity: 0; transform: scale(0.3); }
+  40% { transform: scale(1.1); }
+  60% { transform: scale(0.95); }
+  80% { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Popup Close Animations - Applied via JS */
+.oto-modal.is-closing--fade-out { animation: otoModalFadeOut var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--slide-down .oto-container { animation: otoPopupSlideDown var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--zoom-out .oto-container { animation: otoPopupZoomOut var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--flip-out .oto-container { animation: otoPopupFlipOut var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--elastic-out .oto-container { animation: otoPopupElasticOut var(--anim-duration, 0.4s) ease forwards; }
+
+@keyframes otoModalFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes otoPopupSlideDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(50px); }
+}
+@keyframes otoPopupZoomOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.5); }
+}
+@keyframes otoPopupFlipOut {
+  from { opacity: 1; transform: perspective(400px) rotateX(0); }
+  to { opacity: 0; transform: perspective(400px) rotateX(90deg); }
+}
+@keyframes otoPopupElasticOut {
+  0% { opacity: 1; transform: scale(1); }
+  40% { transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(0); }
+}
+
+/* Button Hover Animations */
+.oto-btn--hover-anim {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+.oto-btn--hover-anim:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(123, 146, 200, 0.4);
+}
+.oto-btn--hover-anim:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .oto-anim,
+  .oto-modal--anim-fade .oto-container,
+  .oto-modal--anim-slide-up .oto-container,
+  .oto-modal--anim-zoom-in .oto-container,
+  .oto-modal--anim-flip .oto-container,
+  .oto-modal--anim-elastic .oto-container {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 </style>
 
 <script>
@@ -249,7 +429,21 @@
     function seen(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
     function mark(){try{localStorage.setItem(KEY,'1')}catch(e){}}
     function show(){modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
-    function hide(){modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+    function hide(){
+      const closeAnim=modal.dataset.animClose;
+      const duration=parseInt(modal.dataset.animDuration)||400;
+      if(closeAnim&&closeAnim!=='none'){
+        modal.classList.add('is-closing--'+closeAnim);
+        setTimeout(()=>{
+          modal.setAttribute('aria-hidden','true');
+          document.body.style.overflow='';
+          modal.classList.remove('is-closing--'+closeAnim);
+        },duration);
+      }else{
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+      }
+    }
     function add(){return fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:1})});}
     function go(){window.location.href='/checkout';}
 
@@ -396,7 +590,51 @@
     {"type": "range","id": "footer_mt","min": 10,"max": 40,"step": 2,"unit": "px","label": "Footer Margin Top","default": 20},
 
     {"type": "header","content": "Messages"},
-    {"type": "text","id": "error_msg","label": "Error Message","default": "Sorry, we couldn't add this item. Please try again."}
+    {"type": "text","id": "error_msg","label": "Error Message","default": "Sorry, we couldn't add this item. Please try again."},
+
+    {"type": "header","content": "Popup Animation"},
+    {"type": "checkbox","id": "anim_popup_enable","label": "Enable Popup Animation","default": true},
+    {"type": "select","id": "anim_popup_open","label": "Open Animation","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "zoom-in","label": "Zoom In"},{"value": "flip","label": "Flip"},{"value": "elastic","label": "Elastic"}],"default": "slide-up"},
+    {"type": "select","id": "anim_popup_close","label": "Close Animation","options": [{"value": "fade-out","label": "Fade Out"},{"value": "slide-down","label": "Slide Down"},{"value": "zoom-out","label": "Zoom Out"},{"value": "flip-out","label": "Flip Out"},{"value": "elastic-out","label": "Elastic Out"}],"default": "slide-down"},
+    {"type": "range","id": "anim_popup_duration","min": 200,"max": 1000,"step": 50,"unit": "ms","label": "Animation Duration","default": 400},
+
+    {"type": "header","content": "Badge Animation"},
+    {"type": "checkbox","id": "anim_badge_enable","label": "Enable Badge Animation","default": true},
+    {"type": "select","id": "anim_badge_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "scale"},
+    {"type": "range","id": "anim_badge_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 100},
+
+    {"type": "header","content": "Heading Animation"},
+    {"type": "checkbox","id": "anim_heading_enable","label": "Enable Heading Animation","default": true},
+    {"type": "select","id": "anim_heading_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "slide-up"},
+    {"type": "range","id": "anim_heading_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 200},
+
+    {"type": "header","content": "Product Card Animation"},
+    {"type": "checkbox","id": "anim_product_enable","label": "Enable Product Animation","default": true},
+    {"type": "select","id": "anim_product_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-right","label": "Slide Right"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "slide-up"},
+    {"type": "range","id": "anim_product_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 300},
+
+    {"type": "header","content": "Benefits Animation"},
+    {"type": "checkbox","id": "anim_benefits_enable","label": "Enable Benefits Animation","default": true},
+    {"type": "select","id": "anim_benefits_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "slide-up"},
+    {"type": "range","id": "anim_benefits_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 400},
+    {"type": "checkbox","id": "anim_benefits_stagger","label": "Stagger List Items","default": true},
+    {"type": "range","id": "anim_benefits_stagger_delay","min": 50,"max": 300,"step": 25,"unit": "ms","label": "Stagger Delay","default": 100},
+
+    {"type": "header","content": "Urgency Banner Animation"},
+    {"type": "checkbox","id": "anim_urgency_enable","label": "Enable Urgency Animation","default": true},
+    {"type": "select","id": "anim_urgency_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "pulse","label": "Pulse"}],"default": "slide-up"},
+    {"type": "range","id": "anim_urgency_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 500},
+
+    {"type": "header","content": "Accept Button Animation"},
+    {"type": "checkbox","id": "anim_accept_enable","label": "Enable Button Animation","default": true},
+    {"type": "select","id": "anim_accept_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "bounce"},
+    {"type": "range","id": "anim_accept_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 600},
+    {"type": "checkbox","id": "anim_accept_hover","label": "Enable Hover Animation","default": true},
+
+    {"type": "header","content": "Decline Button Animation"},
+    {"type": "checkbox","id": "anim_decline_enable","label": "Enable Button Animation","default": true},
+    {"type": "select","id": "anim_decline_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "fade"},
+    {"type": "range","id": "anim_decline_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 700}
   ],
   "presets": [{"name": "One-Time Offer"}]
 }
