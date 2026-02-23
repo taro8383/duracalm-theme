@@ -248,6 +248,7 @@
 }
 
 /* Entrance Animations - Only when modal opens */
+.oto-modal:not([aria-hidden="true"]) .oto-anim,
 .oto-modal[aria-hidden="false"] .oto-anim {
   animation-fill-mode: both;
   animation-duration: var(--anim-duration, 0.5s);
@@ -288,12 +289,19 @@
 }
 
 /* Entrance Animation Types */
+.oto-modal:not([aria-hidden="true"]) .oto-anim--fade,
 .oto-modal[aria-hidden="false"] .oto-anim--fade { animation-name: otoFadeIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--slide-up,
 .oto-modal[aria-hidden="false"] .oto-anim--slide-up { animation-name: otoSlideUp; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--slide-left,
 .oto-modal[aria-hidden="false"] .oto-anim--slide-left { animation-name: otoSlideLeft; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--slide-right,
 .oto-modal[aria-hidden="false"] .oto-anim--slide-right { animation-name: otoSlideRight; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--scale,
 .oto-modal[aria-hidden="false"] .oto-anim--scale { animation-name: otoScaleIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--bounce,
 .oto-modal[aria-hidden="false"] .oto-anim--bounce { animation-name: otoBounceIn; animation-duration: calc(var(--anim-duration, 0.5s) * 1.2); }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--flip,
 .oto-modal[aria-hidden="false"] .oto-anim--flip { animation-name: otoFlipIn; }
 
 /* Stagger Animation for Lists */
@@ -304,16 +312,27 @@
   animation-delay: calc(var(--anim-delay, 0s) + (var(--child-index, 0) * var(--stagger-delay, 100ms)));
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--fade .oto-anim__child,
 .oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--fade .oto-anim__child { animation-name: otoFadeIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--slide-up .oto-anim__child,
 .oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--slide-up .oto-anim__child { animation-name: otoSlideUp; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--slide-left .oto-anim__child,
 .oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--slide-left .oto-anim__child { animation-name: otoSlideLeft; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--scale .oto-anim__child,
 .oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--scale .oto-anim__child { animation-name: otoScaleIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--bounce .oto-anim__child,
 .oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--bounce .oto-anim__child { animation-name: otoBounceIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(1),
 .oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(1) { --child-index: 0; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(2),
 .oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(2) { --child-index: 1; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(3),
 .oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(3) { --child-index: 2; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(4),
 .oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(4) { --child-index: 3; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(5),
 .oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(5) { --child-index: 4; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(6),
 .oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(6) { --child-index: 5; }
 
 /* Popup Open Animations */
@@ -573,6 +592,8 @@
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   .oto-anim,
+  .oto-modal[aria-hidden="false"] .oto-anim,
+  .oto-modal:not([aria-hidden="true"]) .oto-anim,
   .oto-modal--anim-fade .oto-container,
   .oto-modal--anim-slide-up .oto-container,
   .oto-modal--anim-zoom-in .oto-container,
@@ -585,7 +606,7 @@
   .oto-product--float,
   .oto-urgency--attention,
   .oto-savings {
-    animation: none;
+    animation: none !important;
   }
   .oto-benefit-icon--shimmer::after { display: none; }
   .oto-badge,
@@ -614,9 +635,29 @@
     const decline=modal.querySelector('[data-oto-decline]');
     const close=modal.querySelector('[data-oto-close]');
     const vid=accept?.dataset.variantId;
+    let animationTriggered = false;
     function seen(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
     function mark(){try{localStorage.setItem(KEY,'1')}catch(e){}}
-    function show(){modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+    function triggerAnimations(){
+      // Force a reflow to ensure animations trigger properly
+      const animElements = modal.querySelectorAll('.oto-anim');
+      animElements.forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight; // Force reflow
+        el.style.animation = '';
+      });
+    }
+    function show(){
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+      if(!animationTriggered){
+        animationTriggered = true;
+        // Small delay to ensure display:block is applied before animations start
+        requestAnimationFrame(() => {
+          triggerAnimations();
+        });
+      }
+    }
     function hide(){
       const closeAnim=modal.dataset.animClose;
       const duration=parseInt(modal.dataset.animDuration)||400;
