@@ -1,6 +1,6 @@
 {% comment %}
-  One-Time Offer (OTO) Modal
-  Shows an exclusive subscription offer on first checkout click
+  One-Time Offer (OTO) Modal - Theme Consistent
+  Shows exclusive subscription offer on first checkout click
 {% endcomment %}
 
 {% liquid
@@ -9,126 +9,93 @@
   if oto_product != blank and oto_product.available
     assign show_oto = true
   endif
+
+  # Theme default colors
+  assign default_purple = '#7B92C8'
+  assign default_beige = '#ddbea8'
+  assign default_cream = '#f3dfc1'
+  assign default_text = '#2E2A39'
+  assign default_bg = '#FFFFFF'
 %}
 
 {% if show_oto %}
-<div
-  id="OneTimeOffer-{{ section.id }}"
-  class="one-time-offer-modal"
-  data-section-id="{{ section.id }}"
-  data-product-id="{{ oto_product.selected_or_first_available_variant.id }}"
-  data-product-handle="{{ oto_product.handle }}"
-  data-storage-key="oto_seen_{{ section.id }}"
-  aria-hidden="true"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="oto-title-{{ section.id }}"
-  {{ section.shopify_attributes }}
->
-  <div class="one-time-offer__overlay"></div>
-  <div class="one-time-offer__container">
-    <div class="one-time-offer__content" style="
-      --oto-bg: {{ section.settings.modal_background }};
-      --oto-text-color: {{ section.settings.text_color }};
-      --oto-accent-color: {{ section.settings.accent_color }};
-      --oto-border-radius: {{ section.settings.border_radius }}px;
-      --oto-max-width: {{ section.settings.max_width }}px;
+<div id="OneTimeOffer-{{ section.id }}" class="oto-modal" data-section-id="{{ section.id }}" data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="oto-title-{{ section.id }}" {{ section.shopify_attributes }}>
+  <div class="oto-overlay"></div>
+  <div class="oto-container">
+    <div class="oto-content" style="
+      --oto-bg: {{ section.settings.bg_color | default: default_bg }};
+      --oto-text: {{ section.settings.text_color | default: default_text }};
+      --oto-accent: {{ section.settings.accent_color | default: default_purple }};
+      --oto-radius: {{ section.settings.border_radius }}px;
+      --oto-max-w: {{ section.settings.max_width }}px;
+      --oto-padding: {{ section.settings.padding }}px;
+      --oto-font-heading: {{ section.settings.heading_font.family | default: settings.type_header_font.family }}, {{ section.settings.heading_font.fallback_families | default: settings.type_header_font.fallback_families }};
+      --oto-font-body: {{ section.settings.body_font.family | default: settings.type_body_font.family }}, {{ section.settings.body_font.fallback_families | default: settings.type_body_font.fallback_families }};
+      --oto-shadow: {{ section.settings.shadow_opacity | divided_by: 100.0 }};
+      --oto-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     ">
-      {% if section.settings.show_close_button %}
-        <button type="button" class="one-time-offer__close" aria-label="Close offer" data-oto-close>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+
+      {% if section.settings.show_close %}
+        <button type="button" class="oto-close" aria-label="Close" data-oto-close>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       {% endif %}
 
       {% if section.settings.badge_text != blank %}
-        <div class="one-time-offer__badge">
+        <div class="oto-badge" style="--badge-bg: {{ section.settings.badge_bg | default: default_purple }}; --badge-text: {{ section.settings.badge_text_color | default: '#FFFFFF' }};">
           {{ section.settings.badge_text }}
         </div>
       {% endif %}
 
-      <div class="one-time-offer__header">
-        <h2 id="oto-title-{{ section.id }}" class="one-time-offer__title" style="font-size: {{ section.settings.heading_size }}px;">
+      <div class="oto-header" style="text-align: {{ section.settings.heading_align }};">
+        <h2 id="oto-title-{{ section.id }}" class="oto-title" style="font-size: {{ section.settings.heading_size }}px; margin-bottom: {{ section.settings.heading_mb }}px;">
           {{ section.settings.heading }}
         </h2>
         {% if section.settings.subheading != blank %}
-          <p class="one-time-offer__subheading" style="font-size: {{ section.settings.subheading_size }}px;">
-            {{ section.settings.subheading }}
-          </p>
+          <p class="oto-subheading" style="font-size: {{ section.settings.subheading_size }}px; opacity: 0.8;">{{ section.settings.subheading }}</p>
         {% endif %}
       </div>
 
-      <div class="one-time-offer__product">
+      <div class="oto-product" style="background: {{ section.settings.product_bg | default: 'rgba(0,0,0,0.03)' }}; border-radius: {{ section.settings.product_radius }}px;">
         {% if oto_product.featured_image %}
-          <div class="one-time-offer__image-wrapper">
-            <img
-              src="{{ oto_product.featured_image | image_url: width: 400 }}"
-              alt="{{ oto_product.featured_image.alt | escape }}"
-              class="one-time-offer__image"
-              width="200"
-              height="200"
-              loading="lazy"
-            >
+          <div class="oto-img-wrap" style="width: {{ section.settings.image_size }}px; border-radius: {{ section.settings.image_radius }}px;">
+            <img src="{{ oto_product.featured_image | image_url: width: 400 }}" alt="{{ oto_product.featured_image.alt | escape }}" class="oto-img" width="200" height="200" loading="lazy">
           </div>
         {% endif %}
-
-        <div class="one-time-offer__details">
-          <h3 class="one-time-offer__product-title">{{ oto_product.title }}</h3>
-
-          {% if section.settings.show_product_description and oto_product.description != blank %}
-            <div class="one-time-offer__description">
-              {{ oto_product.description | strip_html | truncatewords: 30 }}
-            </div>
+        <div class="oto-details">
+          <h3 class="oto-product-title" style="font-size: {{ section.settings.product_title_size }}px;">{{ oto_product.title }}</h3>
+          {% if section.settings.show_desc and oto_product.description != blank %}
+            <p class="oto-desc" style="font-size: {{ section.settings.desc_size }}px;">{{ oto_product.description | strip_html | truncatewords: 25 }}</p>
           {% endif %}
-
-          <div class="one-time-offer__pricing">
-            {% if section.settings.show_compare_price and oto_product.compare_at_price > oto_product.price %}
-              <span class="one-time-offer__compare-price">
-                {{ oto_product.compare_at_price | money }}
-              </span>
+          <div class="oto-price-wrap">
+            {% if section.settings.show_compare and oto_product.compare_at_price > oto_product.price %}
+              <span class="oto-compare" style="font-size: {{ section.settings.compare_size }}px;">{{ oto_product.compare_at_price | money }}</span>
             {% endif %}
-            <span class="one-time-offer__price" style="color: {{ section.settings.accent_color }};">
-              {{ oto_product.selected_or_first_available_variant.price | money }}
-            </span>
-            {% if section.settings.price_suffix != blank %}
-              <span class="one-time-offer__price-suffix">{{ section.settings.price_suffix }}</span>
-            {% endif %}
+            <span class="oto-price" style="font-size: {{ section.settings.price_size }}px; color: {{ section.settings.accent_color | default: default_purple }};">{{ oto_product.selected_or_first_available_variant.price | money }}</span>
+            {% if section.settings.price_suffix != blank %}<span class="oto-suffix" style="font-size: {{ section.settings.suffix_size }}px;">{{ section.settings.price_suffix }}</span>{% endif %}
           </div>
-
           {% if section.settings.show_savings and oto_product.compare_at_price > oto_product.price %}
             {% assign savings = oto_product.compare_at_price | minus: oto_product.price %}
-            <div class="one-time-offer__savings">
-              {{ section.settings.savings_text | replace: '[amount]', savings | money }}
-            </div>
+            <div class="oto-savings" style="color: {{ section.settings.accent_color | default: default_purple }}; font-size: {{ section.settings.savings_size }}px;">{{ section.settings.savings_text | replace: '[amount]', savings | money }}</div>
           {% endif %}
         </div>
       </div>
 
-      {% if section.settings.benefits_list != blank %}
-        <div class="one-time-offer__benefits">
-          <ul class="one-time-offer__benefits-list">
-            {% assign benefits = section.settings.benefits_list | newline_to_br | split: '<br />' %}
-            {% for benefit in benefits %}
-              {% assign trimmed_benefit = benefit | strip %}
-              {% if trimmed_benefit != blank %}
-                <li class="one-time-offer__benefit-item">
-                  <span class="one-time-offer__benefit-icon">
-                    {% if section.settings.benefit_icon == 'check' %}
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    {% elsif section.settings.benefit_icon == 'star' %}
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"/>
-                      </svg>
-                    {% elsif section.settings.benefit_icon == 'bolt' %}
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8.5 1L2 9H7.5L7 15L13.5 7H8L8.5 1Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
-                      </svg>
+      {% if section.settings.benefits != blank %}
+        <div class="oto-benefits">
+          <ul class="oto-benefits-list" style="gap: {{ section.settings.benefit_gap }}px;">
+            {% assign benefit_list = section.settings.benefits | newline_to_br | split: '<br />' %}
+            {% for benefit in benefit_list %}
+              {% assign trimmed = benefit | strip %}
+              {% if trimmed != blank %}
+                <li class="oto-benefit" style="font-size: {{ section.settings.benefit_size }}px;">
+                  <span class="oto-benefit-icon" style="background: {{ section.settings.benefit_icon_bg | default: 'rgba(123,146,200,0.15)' }}; color: {{ section.settings.accent_color | default: default_purple }};">
+                    {% if section.settings.benefit_icon == 'check' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {% elsif section.settings.benefit_icon == 'star' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"/></svg>
+                    {% elsif section.settings.benefit_icon == 'bolt' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.5 1L2 9H7.5L7 15L13.5 7H8L8.5 1Z"/></svg>
                     {% endif %}
                   </span>
-                  <span>{{ trimmed_benefit }}</span>
+                  <span>{{ trimmed }}</span>
                 </li>
               {% endif %}
             {% endfor %}
@@ -136,54 +103,52 @@
         </div>
       {% endif %}
 
-      <div class="one-time-offer__urgency">
-        {% if section.settings.urgency_text != blank %}
-          <p class="one-time-offer__urgency-text">
-            {% if section.settings.urgency_icon %}
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 6px;">
-                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M8 4V8L10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            {% endif %}
-            {{ section.settings.urgency_text }}
-          </p>
+      {% if section.settings.urgency_text != blank %}
+        <div class="oto-urgency" style="background: {{ section.settings.urgency_bg | default: 'rgba(123,146,200,0.1)' }}; color: {{ section.settings.accent_color | default: default_purple }};">
+          {% if section.settings.urgency_clock %}<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 4V8L10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>{% endif %}
+          {{ section.settings.urgency_text }}
+        </div>
+      {% endif %}
+
+      <div class="oto-actions" style="gap: {{ section.settings.button_gap }}px;">
+        {% if section.settings.use_magic_mind %}
+          <button type="button" class="oto-btn oto-btn--magic" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
+            --mm-border: {{ section.settings.magic_border | default: default_purple }};
+            --mm-text: {{ section.settings.magic_text | default: default_purple }};
+            --mm-gradient-start: {{ section.settings.magic_gradient_start | default: default_purple }};
+            --mm-gradient-mid: {{ section.settings.magic_gradient_mid | default: default_beige }};
+            --mm-gradient-end: {{ section.settings.magic_gradient_end | default: default_cream }};
+            --mm-shadow: {{ section.settings.magic_shadow | default: 'rgba(123,146,200,0.3)' }};
+            font-size: {{ section.settings.accept_font_size }}px;
+            padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
+            border-radius: {{ section.settings.accept_radius }}px;
+          ">
+            <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
+            {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
+          </button>
+        {% else %}
+          <button type="button" class="oto-btn oto-btn--standard" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
+            --btn-bg: {{ section.settings.accept_bg | default: default_purple }};
+            --btn-text: {{ section.settings.accept_text_color | default: '#FFFFFF' }};
+            --btn-hover: {{ section.settings.accept_bg_hover | default: '#6a7fb0' }};
+            font-size: {{ section.settings.accept_font_size }}px;
+            padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
+            border-radius: {{ section.settings.accept_radius }}px;
+          ">
+            <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
+            {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
+          </button>
         {% endif %}
-      </div>
 
-      <div class="one-time-offer__actions">
-        <button
-          type="button"
-          class="one-time-offer__accept-btn"
-          data-oto-accept
-          data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}"
-          style="
-            --btn-bg: {{ section.settings.accept_button_bg }};
-            --btn-text: {{ section.settings.accept_button_text }};
-            --btn-hover-bg: {{ section.settings.accept_button_bg_hover }};
-          "
-        >
-          <span class="one-time-offer__btn-text">{{ section.settings.accept_button_text }}</span>
-          {% if section.settings.show_button_price %}
-            <span class="one-time-offer__btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>
-          {% endif %}
-        </button>
-
-        <button
-          type="button"
-          class="one-time-offer__decline-btn"
-          data-oto-decline
-          style="
-            --decline-color: {{ section.settings.decline_button_color }};
-            --decline-hover: {{ section.settings.decline_button_hover }};
-          "
-        >
-          {{ section.settings.decline_button_text }}
-        </button>
+        <button type="button" class="oto-decline" data-oto-decline style="
+          color: {{ section.settings.decline_color | default: '#666666' }};
+          font-size: {{ section.settings.decline_size }}px;
+        ">{{ section.settings.decline_text }}</button>
       </div>
 
       {% if section.settings.footer_text != blank %}
-        <div class="one-time-offer__footer">
-          <p class="one-time-offer__footer-text">{{ section.settings.footer_text }}</p>
+        <div class="oto-footer" style="margin-top: {{ section.settings.footer_mt }}px;">
+          <p style="font-size: {{ section.settings.footer_size }}px; opacity: 0.6;">{{ section.settings.footer_text }}</p>
         </div>
       {% endif %}
     </div>
@@ -191,801 +156,202 @@
 </div>
 
 <style>
-.one-time-offer-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+.oto-modal { position: fixed; inset: 0; z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+.oto-modal[aria-hidden="false"] { opacity: 1; visibility: visible; }
+.oto-overlay { position: absolute; inset: 0; background: rgba(0,0,0,var(--oto-overlay, 0.7)); backdrop-filter: blur(4px); }
+.oto-container { position: relative; width: 100%; max-width: var(--oto-max-w, 560px); max-height: 90vh; overflow-y: auto; animation: otoSlideUp 0.4s ease forwards; }
+@keyframes otoSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.oto-content { background: var(--oto-bg); border-radius: var(--oto-radius, 16px); padding: var(--oto-padding, 40px); color: var(--oto-text); font-family: var(--oto-font-body); box-shadow: 0 25px 50px -12px rgba(0,0,0,calc(var(--oto-shadow, 0.25))); position: relative; }
+.oto-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: none; background: rgba(0,0,0,0.05); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--oto-text); transition: background 0.2s; }
+.oto-close:hover { background: rgba(0,0,0,0.1); }
+.oto-badge { display: inline-block; background: var(--badge-bg); color: var(--badge-text); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; }
+.oto-header { margin-bottom: 28px; }
+.oto-title { margin: 0; font-family: var(--oto-font-heading); font-weight: 700; line-height: 1.2; }
+.oto-subheading { margin: 0; line-height: 1.5; }
+.oto-product { display: flex; gap: 20px; padding: 24px; margin-bottom: 24px; }
+.oto-img-wrap { flex-shrink: 0; height: 100px; overflow: hidden; background: #f5f5f5; }
+.oto-img { width: 100%; height: 100%; object-fit: cover; }
+.oto-details { flex: 1; min-width: 0; }
+.oto-product-title { margin: 0 0 8px; font-family: var(--oto-font-heading); font-weight: 600; line-height: 1.3; }
+.oto-desc { margin: 0 0 12px; opacity: 0.7; line-height: 1.5; }
+.oto-price-wrap { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.oto-compare { text-decoration: line-through; opacity: 0.5; }
+.oto-price { font-weight: 700; }
+.oto-suffix { opacity: 0.6; }
+.oto-savings { margin-top: 8px; font-weight: 600; }
+.oto-benefits { margin-bottom: 20px; }
+.oto-benefits-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.oto-benefit { display: flex; align-items: center; gap: 10px; }
+.oto-benefit-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.oto-urgency { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 20px; text-align: center; }
+.oto-actions { display: flex; flex-direction: column; }
+.oto-btn { width: 100%; border: none; font-weight: 700; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; }
+.oto-btn--standard { background: var(--btn-bg); color: var(--btn-text); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+.oto-btn--standard:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+.oto-btn--magic { position: relative; background: transparent; color: var(--mm-text); border: 2px solid var(--mm-border); overflow: hidden; z-index: 1; }
+.oto-btn--magic::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--mm-gradient-start) 0%, var(--mm-gradient-mid) 50%, var(--mm-gradient-end) 100%); background-size: 200% 200%; opacity: 0; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1; }
+.oto-btn--magic:hover::before { opacity: 1; animation: otoGradientShift 0.6s ease forwards; }
+.oto-btn--magic:hover { color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: 0 8px 24px var(--mm-shadow); }
+@keyframes otoGradientShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+.oto-btn.is-loading { pointer-events: none; opacity: 0.8; }
+.oto-btn.is-loading::after { content: ''; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: currentColor; border-radius: 50%; animation: otoSpin 0.8s linear infinite; }
+@keyframes otoSpin { to { transform: rotate(360deg); } }
+.oto-decline { width: 100%; padding: 14px 24px; background: transparent; border: none; font-weight: 500; cursor: pointer; transition: color 0.2s; text-decoration: underline; text-underline-offset: 3px; font-family: inherit; }
+.oto-decline:hover { opacity: 0.8; }
+.oto-footer { text-align: center; }
+@media (max-width: 480px) {
+  .oto-modal { padding: 16px; align-items: flex-end; }
+  .oto-content { padding: 28px 20px; }
+  .oto-product { flex-direction: column; text-align: center; }
+  .oto-img-wrap { margin: 0 auto; }
 }
-
-.one-time-offer-modal[aria-hidden="false"] {
-  opacity: 1;
-  visibility: visible;
-}
-
-.one-time-offer__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(4px);
-}
-
-.one-time-offer__container {
-  position: relative;
-  width: 100%;
-  max-width: var(--oto-max-width, 560px);
-  max-height: 90vh;
-  overflow-y: auto;
-  animation: otoSlideUp 0.4s ease forwards;
-}
-
-@keyframes otoSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.one-time-offer__content {
-  background: var(--oto-bg, #ffffff);
-  border-radius: var(--oto-border-radius, 16px);
-  padding: 40px 32px;
-  color: var(--oto-text-color, #1a1a1a);
-  position: relative;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-.one-time-offer__close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--oto-text-color);
-  transition: background 0.2s ease;
-}
-
-.one-time-offer__close:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.one-time-offer__badge {
-  display: inline-block;
-  background: var(--oto-accent-color, #7B92C8);
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 6px 14px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-}
-
-.one-time-offer__header {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.one-time-offer__title {
-  margin: 0 0 12px;
-  line-height: 1.2;
-  font-weight: 700;
-}
-
-.one-time-offer__subheading {
-  margin: 0;
-  opacity: 0.7;
-  line-height: 1.5;
-}
-
-.one-time-offer__product {
-  display: flex;
-  gap: 20px;
-  padding: 24px;
-  background: rgba(0, 0, 0, 0.03);
-  border-radius: 12px;
-  margin-bottom: 24px;
-}
-
-.one-time-offer__image-wrapper {
-  flex-shrink: 0;
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #f5f5f5;
-}
-
-.one-time-offer__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.one-time-offer__details {
-  flex: 1;
-  min-width: 0;
-}
-
-.one-time-offer__product-title {
-  margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.one-time-offer__description {
-  font-size: 13px;
-  opacity: 0.7;
-  margin-bottom: 12px;
-  line-height: 1.5;
-}
-
-.one-time-offer__pricing {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.one-time-offer__compare-price {
-  font-size: 16px;
-  text-decoration: line-through;
-  opacity: 0.5;
-}
-
-.one-time-offer__price {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.one-time-offer__price-suffix {
-  font-size: 13px;
-  opacity: 0.6;
-}
-
-.one-time-offer__savings {
-  margin-top: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--oto-accent-color);
-}
-
-.one-time-offer__benefits {
-  margin-bottom: 20px;
-}
-
-.one-time-offer__benefits-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.one-time-offer__benefit-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-}
-
-.one-time-offer__benefit-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(123, 146, 200, 0.15);
-  color: var(--oto-accent-color, #7B92C8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.one-time-offer__urgency {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.one-time-offer__urgency-text {
-  display: inline-flex;
-  align-items: center;
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--oto-accent-color);
-  background: rgba(123, 146, 200, 0.1);
-  padding: 8px 16px;
-  border-radius: 8px;
-}
-
-.one-time-offer__actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.one-time-offer__accept-btn {
-  width: 100%;
-  padding: 18px 24px;
-  background: var(--btn-bg, #7B92C8);
-  color: var(--btn-text, #ffffff);
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 4px 14px rgba(123, 146, 200, 0.3);
-}
-
-.one-time-offer__accept-btn:hover {
-  background: var(--btn-hover-bg, #6a7fb0);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(123, 146, 200, 0.4);
-}
-
-.one-time-offer__accept-btn:active {
-  transform: translateY(0);
-}
-
-.one-time-offer__btn-text {
-  font-weight: 700;
-}
-
-.one-time-offer__btn-price {
-  font-weight: 500;
-  opacity: 0.9;
-}
-
-.one-time-offer__decline-btn {
-  width: 100%;
-  padding: 14px 24px;
-  background: transparent;
-  color: var(--decline-color, #666);
-  border: none;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.one-time-offer__decline-btn:hover {
-  color: var(--decline-hover, #333);
-}
-
-.one-time-offer__footer {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.one-time-offer__footer-text {
-  margin: 0;
-  font-size: 12px;
-  opacity: 0.5;
-}
-
-/* Loading state */
-.one-time-offer__accept-btn.is-loading {
-  pointer-events: none;
-  opacity: 0.8;
-}
-
-.one-time-offer__accept-btn.is-loading::after {
-  content: '';
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: currentColor;
-  border-radius: 50%;
-  animation: otoSpin 0.8s linear infinite;
-}
-
-@keyframes otoSpin {
-  to { transform: rotate(360deg); }
-}
-
-/* Mobile responsiveness */
-@media screen and (max-width: 480px) {
-  .one-time-offer-modal {
-    padding: 16px;
-    align-items: flex-end;
-  }
-
-  .one-time-offer__content {
-    padding: 28px 20px;
-  }
-
-  .one-time-offer__product {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .one-time-offer__image-wrapper {
-    margin: 0 auto;
-  }
-
-  .one-time-offer__pricing {
-    justify-content: center;
-  }
-
-  .one-time-offer__title {
-    font-size: 24px !important;
-  }
-}
-
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .one-time-offer-modal,
-  .one-time-offer__container,
-  .one-time-offer__accept-btn,
-  .one-time-offer__decline-btn {
-    transition: none;
-    animation: none;
-  }
+  .oto-modal, .oto-container, .oto-btn, .oto-decline { transition: none; animation: none; }
 }
 </style>
 
 <script>
-  (function() {
-    'use strict';
-
-    const OTO_KEY = 'oto_seen_{{ section.id }}';
-    const CHECKOUT_KEY = 'oto_checkout_triggered';
-
-    function initOTO() {
-      const modal = document.getElementById('OneTimeOffer-{{ section.id }}');
-      if (!modal) return;
-
-      const acceptBtn = modal.querySelector('[data-oto-accept]');
-      const declineBtn = modal.querySelector('[data-oto-decline]');
-      const closeBtn = modal.querySelector('[data-oto-close]');
-      const variantId = acceptBtn?.dataset.variantId;
-
-      // Check if user has already seen this offer
-      function hasSeenOTO() {
-        try {
-          return localStorage.getItem(OTO_KEY) === 'true';
-        } catch (e) {
-          return false;
-        }
-      }
-
-      // Mark OTO as seen
-      function markOTOSseen() {
-        try {
-          localStorage.setItem(OTO_KEY, 'true');
-        } catch (e) {
-          console.warn('Could not save OTO state');
-        }
-      }
-
-      // Show the modal
-      function showModal() {
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        document.dispatchEvent(new CustomEvent('oto:shown', { detail: { sectionId: '{{ section.id }}' } }));
-      }
-
-      // Hide the modal
-      function hideModal() {
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      // Add product to cart
-      function addToCart() {
-        if (!variantId) return Promise.reject('No variant ID');
-
-        return fetch('/cart/add.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            id: variantId,
-            quantity: 1
-          })
-        }).then(response => {
-          if (!response.ok) throw new Error('Add to cart failed');
-          return response.json();
-        });
-      }
-
-      // Continue to checkout
-      function goToCheckout() {
-        window.location.href = '/checkout';
-      }
-
-      // Handle accept button
-      if (acceptBtn) {
-        acceptBtn.addEventListener('click', function() {
-          acceptBtn.classList.add('is-loading');
-          markOTOSseen();
-
-          addToCart()
-            .then(() => {
-              document.dispatchEvent(new CustomEvent('oto:accepted', {
-                detail: { productId: variantId, sectionId: '{{ section.id }}' }
-              }));
-              goToCheckout();
-            })
-            .catch(err => {
-              console.error('OTO add to cart error:', err);
-              acceptBtn.classList.remove('is-loading');
-              alert('{{ section.settings.error_message | default: "Sorry, we couldn\'t add this item. Please try again." }}');
-            });
-        });
-      }
-
-      // Handle decline button
-      if (declineBtn) {
-        declineBtn.addEventListener('click', function() {
-          markOTOSseen();
-          hideModal();
-          document.dispatchEvent(new CustomEvent('oto:declined', { detail: { sectionId: '{{ section.id }}' } }));
-          goToCheckout();
-        });
-      }
-
-      // Handle close button
-      if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-          markOTOSseen();
-          hideModal();
-          document.dispatchEvent(new CustomEvent('oto:closed', { detail: { sectionId: '{{ section.id }}' } }));
-          goToCheckout();
-        });
-      }
-
-      // Close on overlay click
-      modal.querySelector('.one-time-offer__overlay').addEventListener('click', function() {
-        markOTOSseen();
-        hideModal();
-        document.dispatchEvent(new CustomEvent('oto:closed', { detail: { sectionId: '{{ section.id }}' } }));
-        goToCheckout();
-      });
-
-      // Close on Escape key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
-          markOTOSseen();
-          hideModal();
-          document.dispatchEvent(new CustomEvent('oto:closed', { detail: { sectionId: '{{ section.id }}' } }));
-          goToCheckout();
-        }
-      });
-
-      // Listen for checkout button click in cart drawer
-      document.addEventListener('click', function(e) {
-        const checkoutBtn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
-        if (!checkoutBtn) return;
-
-        // Don't intercept if already triggered
-        if (checkoutBtn.dataset.otoIntercepted === 'true') return;
-
-        // Check if OTO should show
-        if (hasSeenOTO()) return;
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Mark that we've intercepted this checkout
-        checkoutBtn.dataset.otoIntercepted = 'true';
-
-        // Show the OTO modal
-        showModal();
-      }, true);
-
-      // Reset intercept flag when cart drawer closes
-      const cartDrawer = document.querySelector('cart-drawer');
-      if (cartDrawer) {
-        const observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
-              if (!cartDrawer.hasAttribute('open')) {
-                // Cart drawer closed, reset intercept flags
-                document.querySelectorAll('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button').forEach(btn => {
-                  delete btn.dataset.otoIntercepted;
-                });
-              }
-            }
-          });
-        });
-        observer.observe(cartDrawer, { attributes: true });
-      }
-    }
-
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initOTO);
-    } else {
-      initOTO();
-    }
-  })();
+(function(){
+  const KEY='oto_{{ section.id }}';
+  function init(){
+    const modal=document.getElementById('OneTimeOffer-{{ section.id }}');
+    if(!modal)return;
+    const accept=modal.querySelector('[data-oto-accept]');
+    const decline=modal.querySelector('[data-oto-decline]');
+    const close=modal.querySelector('[data-oto-close]');
+    const vid=accept?.dataset.variantId;
+    function seen(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
+    function mark(){try{localStorage.setItem(KEY,'1')}catch(e){}}
+    function show(){modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+    function hide(){modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+    function add(){return fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:1})});}
+    function go(){window.location.href='/checkout';}
+    if(accept)accept.addEventListener('click',()=>{accept.classList.add('is-loading');mark();add().then(go).catch(()=>{accept.classList.remove('is-loading');alert('{{ section.settings.error_msg | default: "Error adding item" }}');});});
+    if(decline)decline.addEventListener('click',()=>{mark();hide();go();});
+    if(close)close.addEventListener('click',()=>{mark();hide();go();});
+    modal.querySelector('.oto-overlay').addEventListener('click',()=>{mark();hide();go();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.getAttribute('aria-hidden')==='false'){mark();hide();go();}});
+    document.addEventListener('click',e=>{
+      const btn=e.target.closest('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button');
+      if(!btn||btn.dataset.otoIntercepted||seen())return;
+      e.preventDefault();e.stopPropagation();
+      btn.dataset.otoIntercepted='true';show();
+    },true);
+    const drawer=document.querySelector('cart-drawer');
+    if(drawer)new MutationObserver(m=>m.forEach(n=>{if(n.type==='attributes'&&n.attributeName==='open'&&!drawer.hasAttribute('open'))document.querySelectorAll('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button').forEach(b=>delete b.dataset.otoIntercepted);})).observe(drawer,{attributes:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
 </script>
 {% endif %}
 
 {% schema %}
 {
   "name": "One-Time Offer",
-  "tag": "section",
-  "class": "section-one-time-offer",
+  "class": "section-oto",
   "settings": [
-    {
-      "type": "header",
-      "content": "Product Settings"
-    },
-    {
-      "type": "product",
-      "id": "oto_product",
-      "label": "Subscription Product",
-      "info": "Select the subscription product to offer"
-    },
-    {
-      "type": "header",
-      "content": "Modal Appearance"
-    },
-    {
-      "type": "color",
-      "id": "modal_background",
-      "label": "Modal Background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent Color",
-      "default": "#7B92C8"
-    },
-    {
-      "type": "range",
-      "id": "border_radius",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "label": "Border Radius",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "max_width",
-      "min": 400,
-      "max": 700,
-      "step": 20,
-      "unit": "px",
-      "label": "Max Width",
-      "default": 560
-    },
-    {
-      "type": "checkbox",
-      "id": "show_close_button",
-      "label": "Show Close Button",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Header Content"
-    },
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge Text",
-      "default": "Exclusive Offer"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Wait! Special Offer Just For You"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "min": 20,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "label": "Heading Size",
-      "default": 32
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Add this exclusive subscription to your order and save!"
-    },
-    {
-      "type": "range",
-      "id": "subheading_size",
-      "min": 14,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "label": "Subheading Size",
-      "default": 16
-    },
-    {
-      "type": "header",
-      "content": "Product Display"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_product_description",
-      "label": "Show Product Description",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_compare_price",
-      "label": "Show Compare at Price",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "price_suffix",
-      "label": "Price Suffix",
-      "default": "/month"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_savings",
-      "label": "Show Savings Amount",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "savings_text",
-      "label": "Savings Text",
-      "default": "You save [amount]!"
-    },
-    {
-      "type": "header",
-      "content": "Benefits List"
-    },
-    {
-      "type": "textarea",
-      "id": "benefits_list",
-      "label": "Benefits List",
-      "info": "Enter each benefit on a new line",
-      "default": "Free shipping on subscription orders\nCancel anytime\nExclusive subscriber discounts"
-    },
-    {
-      "type": "select",
-      "id": "benefit_icon",
-      "label": "Benefit Icon",
-      "options": [
-        { "value": "check", "label": "Checkmark" },
-        { "value": "star", "label": "Star" },
-        { "value": "bolt", "label": "Lightning Bolt" }
-      ],
-      "default": "check"
-    },
-    {
-      "type": "header",
-      "content": "Urgency Message"
-    },
-    {
-      "type": "text",
-      "id": "urgency_text",
-      "label": "Urgency Text",
-      "default": "Limited time offer - Available now only!"
-    },
-    {
-      "type": "checkbox",
-      "id": "urgency_icon",
-      "label": "Show Clock Icon",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Buttons"
-    },
-    {
-      "type": "text",
-      "id": "accept_button_text",
-      "label": "Accept Button Text",
-      "default": "Yes, Add to My Order"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_button_price",
-      "label": "Show Price on Button",
-      "default": true
-    },
-    {
-      "type": "color",
-      "id": "accept_button_bg",
-      "label": "Accept Button Background",
-      "default": "#7B92C8"
-    },
-    {
-      "type": "color",
-      "id": "accept_button_text_color",
-      "label": "Accept Button Text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "accept_button_bg_hover",
-      "label": "Accept Button Hover",
-      "default": "#6a7fb0"
-    },
-    {
-      "type": "text",
-      "id": "decline_button_text",
-      "label": "Decline Button Text",
-      "default": "No thanks, I'll pass"
-    },
-    {
-      "type": "color",
-      "id": "decline_button_color",
-      "label": "Decline Button Color",
-      "default": "#666666"
-    },
-    {
-      "type": "color",
-      "id": "decline_button_hover",
-      "label": "Decline Button Hover",
-      "default": "#333333"
-    },
-    {
-      "type": "header",
-      "content": "Footer"
-    },
-    {
-      "type": "text",
-      "id": "footer_text",
-      "label": "Footer Text",
-      "default": "30-day money-back guarantee • Cancel anytime"
-    },
-    {
-      "type": "header",
-      "content": "Messages"
-    },
-    {
-      "type": "text",
-      "id": "error_message",
-      "label": "Error Message",
-      "default": "Sorry, we couldn't add this item. Please try again."
-    }
+    {"type": "header","content": "Product"},
+    {"type": "product","id": "oto_product","label": "Subscription Product","info": "Product to offer as subscription"},
+
+    {"type": "header","content": "Modal Container"},
+    {"type": "color","id": "bg_color","label": "Background","default": "#FFFFFF"},
+    {"type": "color","id": "text_color","label": "Text Color","default": "#2E2A39"},
+    {"type": "color","id": "accent_color","label": "Accent Color","default": "#7B92C8"},
+    {"type": "range","id": "border_radius","min": 0,"max": 40,"step": 2,"unit": "px","label": "Border Radius","default": 16},
+    {"type": "range","id": "max_width","min": 400,"max": 700,"step": 20,"unit": "px","label": "Max Width","default": 560},
+    {"type": "range","id": "padding","min": 20,"max": 60,"step": 4,"unit": "px","label": "Padding","default": 40},
+    {"type": "range","id": "shadow_opacity","min": 0,"max": 50,"step": 5,"unit": "%","label": "Shadow Opacity","default": 25},
+    {"type": "range","id": "overlay_opacity","min": 30,"max": 90,"step": 5,"unit": "%","label": "Overlay Opacity","default": 70},
+
+    {"type": "header","content": "Typography"},
+    {"type": "font_picker","id": "heading_font","label": "Heading Font","default": "assistant_n4"},
+    {"type": "font_picker","id": "body_font","label": "Body Font","default": "assistant_n4"},
+
+    {"type": "header","content": "Badge"},
+    {"type": "text","id": "badge_text","label": "Badge Text","default": "Exclusive Offer"},
+    {"type": "color","id": "badge_bg","label": "Badge Background","default": "#7B92C8"},
+    {"type": "color","id": "badge_text_color","label": "Badge Text Color","default": "#FFFFFF"},
+
+    {"type": "header","content": "Heading"},
+    {"type": "text","id": "heading","label": "Heading","default": "Wait! Special Offer Just For You"},
+    {"type": "range","id": "heading_size","min": 20,"max": 48,"step": 2,"unit": "px","label": "Heading Size","default": 32},
+    {"type": "range","id": "heading_mb","min": 0,"max": 30,"step": 2,"unit": "px","label": "Heading Margin Bottom","default": 12},
+    {"type": "select","id": "heading_align","label": "Alignment","options": [{"value": "left","label": "Left"},{"value": "center","label": "Center"},{"value": "right","label": "Right"}],"default": "center"},
+    {"type": "textarea","id": "subheading","label": "Subheading","default": "Add this exclusive subscription to your order and save!"},
+    {"type": "range","id": "subheading_size","min": 12,"max": 22,"step": 1,"unit": "px","label": "Subheading Size","default": 16},
+    {"type": "checkbox","id": "show_close","label": "Show Close Button","default": true},
+
+    {"type": "header","content": "Product Card"},
+    {"type": "color","id": "product_bg","label": "Product Background","default": "rgba(0,0,0,0.03)"},
+    {"type": "range","id": "product_radius","min": 0,"max": 24,"step": 2,"unit": "px","label": "Product Card Radius","default": 12},
+    {"type": "range","id": "image_size","min": 60,"max": 150,"step": 10,"unit": "px","label": "Image Size","default": 100},
+    {"type": "range","id": "image_radius","min": 0,"max": 20,"step": 2,"unit": "px","label": "Image Radius","default": 10},
+    {"type": "checkbox","id": "show_desc","label": "Show Description","default": true},
+    {"type": "range","id": "desc_size","min": 11,"max": 16,"step": 1,"unit": "px","label": "Description Size","default": 13},
+    {"type": "range","id": "product_title_size","min": 14,"max": 22,"step": 1,"unit": "px","label": "Product Title Size","default": 18},
+
+    {"type": "header","content": "Pricing"},
+    {"type": "checkbox","id": "show_compare","label": "Show Compare Price","default": true},
+    {"type": "range","id": "compare_size","min": 12,"max": 20,"step": 1,"unit": "px","label": "Compare Price Size","default": 14},
+    {"type": "range","id": "price_size","min": 18,"max": 32,"step": 2,"unit": "px","label": "Price Size","default": 24},
+    {"type": "text","id": "price_suffix","label": "Price Suffix","default": "/month"},
+    {"type": "range","id": "suffix_size","min": 10,"max": 16,"step": 1,"unit": "px","label": "Suffix Size","default": 13},
+    {"type": "checkbox","id": "show_savings","label": "Show Savings","default": true},
+    {"type": "text","id": "savings_text","label": "Savings Text","default": "You save [amount]!"},
+    {"type": "range","id": "savings_size","min": 11,"max": 16,"step": 1,"unit": "px","label": "Savings Size","default": 13},
+
+    {"type": "header","content": "Benefits"},
+    {"type": "textarea","id": "benefits","label": "Benefits (one per line)","default": "Free shipping on subscription orders\nCancel anytime\nExclusive subscriber discounts"},
+    {"type": "select","id": "benefit_icon","label": "Icon","options": [{"value": "check","label": "Checkmark"},{"value": "star","label": "Star"},{"value": "bolt","label": "Bolt"}],"default": "check"},
+    {"type": "color","id": "benefit_icon_bg","label": "Icon Background","default": "rgba(123,146,200,0.15)"},
+    {"type": "range","id": "benefit_size","min": 12,"max": 18,"step": 1,"unit": "px","label": "Benefit Text Size","default": 14},
+    {"type": "range","id": "benefit_gap","min": 4,"max": 20,"step": 2,"unit": "px","label": "Benefit Gap","default": 10},
+
+    {"type": "header","content": "Urgency"},
+    {"type": "text","id": "urgency_text","label": "Urgency Text","default": "Limited time offer - Available now only!"},
+    {"type": "color","id": "urgency_bg","label": "Urgency Background","default": "rgba(123,146,200,0.1)"},
+    {"type": "checkbox","id": "urgency_clock","label": "Show Clock Icon","default": true},
+
+    {"type": "header","content": "Accept Button"},
+    {"type": "checkbox","id": "use_magic_mind","label": "Use Magic Mind Style","default": true},
+    {"type": "text","id": "accept_text","label": "Button Text","default": "Yes, Add to My Order"},
+    {"type": "checkbox","id": "show_accept_price","label": "Show Price on Button","default": true},
+
+    {"type": "paragraph","content": "Standard Button Colors"},
+    {"type": "color","id": "accept_bg","label": "Background","default": "#7B92C8"},
+    {"type": "color","id": "accept_text_color","label": "Text Color","default": "#FFFFFF"},
+    {"type": "color","id": "accept_bg_hover","label": "Hover Background","default": "#6a7fb0"},
+
+    {"type": "paragraph","content": "Magic Mind Gradient Colors"},
+    {"type": "color","id": "magic_border","label": "Border Color","default": "#7B92C8"},
+    {"type": "color","id": "magic_text","label": "Text Color","default": "#7B92C8"},
+    {"type": "color","id": "magic_gradient_start","label": "Gradient Start (Purple)","default": "#7B92C8"},
+    {"type": "color","id": "magic_gradient_mid","label": "Gradient Middle (Beige)","default": "#ddbea8"},
+    {"type": "color","id": "magic_gradient_end","label": "Gradient End (Cream)","default": "#f3dfc1"},
+    {"type": "color","id": "magic_shadow","label": "Shadow Color","default": "rgba(123,146,200,0.3)"},
+
+    {"type": "paragraph","content": "Button Sizing"},
+    {"type": "range","id": "accept_font_size","min": 14,"max": 22,"step": 1,"unit": "px","label": "Font Size","default": 16},
+    {"type": "range","id": "accept_padding_y","min": 12,"max": 28,"step": 2,"unit": "px","label": "Padding Vertical","default": 18},
+    {"type": "range","id": "accept_padding_x","min": 20,"max": 50,"step": 2,"unit": "px","label": "Padding Horizontal","default": 32},
+    {"type": "range","id": "accept_radius","min": 0,"max": 20,"step": 2,"unit": "px","label": "Border Radius","default": 10},
+
+    {"type": "header","content": "Decline Button"},
+    {"type": "text","id": "decline_text","label": "Text","default": "No thanks, I'll pass"},
+    {"type": "color","id": "decline_color","label": "Color","default": "#666666"},
+    {"type": "range","id": "decline_size","min": 12,"max": 18,"step": 1,"unit": "px","label": "Font Size","default": 14},
+
+    {"type": "header","content": "Button Layout"},
+    {"type": "range","id": "button_gap","min": 8,"max": 24,"step": 2,"unit": "px","label": "Button Gap","default": 12},
+
+    {"type": "header","content": "Footer"},
+    {"type": "text","id": "footer_text","label": "Footer Text","default": "30-day money-back guarantee • Cancel anytime"},
+    {"type": "range","id": "footer_size","min": 10,"max": 16,"step": 1,"unit": "px","label": "Footer Size","default": 12},
+    {"type": "range","id": "footer_mt","min": 10,"max": 40,"step": 2,"unit": "px","label": "Footer Margin Top","default": 20},
+
+    {"type": "header","content": "Messages"},
+    {"type": "text","id": "error_msg","label": "Error Message","default": "Sorry, we couldn't add this item. Please try again."}
   ],
-  "presets": [
-    {
-      "name": "One-Time Offer"
-    }
-  ]
+  "presets": [{"name": "One-Time Offer"}]
 }
 {% endschema %}
