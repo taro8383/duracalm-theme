@@ -10,6 +10,12 @@
     assign show_oto = true
   endif
 
+  # Check if in test mode (only works in theme editor)
+  assign test_mode = false
+  if section.settings.test_mode and request.design_mode
+    assign test_mode = true
+  endif
+
   # Theme default colors
   assign default_purple = '#7B92C8'
   assign default_beige = '#ddbea8'
@@ -19,7 +25,13 @@
 %}
 
 {% if show_oto %}
-<div id="OneTimeOffer-{{ section.id }}" class="oto-modal" data-section-id="{{ section.id }}" data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="oto-title-{{ section.id }}" {{ section.shopify_attributes }}>
+<div id="OneTimeOffer-{{ section.id }}" class="oto-modal{% if test_mode %} oto-modal--test-mode{% endif %}" data-section-id="{{ section.id }}" data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" data-test-mode="{{ test_mode }}" aria-hidden="{% if test_mode %}false{% else %}true{% endif %}" role="dialog" aria-modal="true" aria-labelledby="oto-title-{{ section.id }}" {{ section.shopify_attributes }}>
+  {% if test_mode %}
+    <div class="oto-test-banner">
+      <span class="oto-test-badge">TEST MODE</span>
+      <span class="oto-test-text">OTO Modal is visible for editing. Click outside to preview with overlay.</span>
+    </div>
+  {% endif %}
   <div class="oto-overlay"></div>
   <div class="oto-container">
     <div class="oto-content" style="
@@ -208,11 +220,21 @@
 @media (prefers-reduced-motion: reduce) {
   .oto-modal, .oto-container, .oto-btn, .oto-decline { transition: none; animation: none; }
 }
+
+/* Test Mode Styles */
+.oto-modal--test-mode { opacity: 1; visibility: visible; position: fixed; }
+.oto-modal--test-mode .oto-container { animation: none; }
+.oto-modal--test-mode .oto-overlay { pointer-events: none; opacity: 0.5; }
+.oto-test-banner { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(90deg, #7B92C8, #ddbea8); color: #fff; padding: 12px; text-align: center; z-index: 1000000; display: flex; align-items: center; justify-content: center; gap: 12px; font-family: system-ui, -apple-system, sans-serif; }
+.oto-test-badge { background: #fff; color: #7B92C8; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.oto-test-text { font-size: 13px; font-weight: 500; }
+.shopify-design-mode .oto-modal:not(.oto-modal--test-mode) { display: none !important; }
 </style>
 
 <script>
 (function(){
   const KEY='oto_{{ section.id }}';
+  const TEST_MODE={{ test_mode }};
   function init(){
     const modal=document.getElementById('OneTimeOffer-{{ section.id }}');
     if(!modal)return;
@@ -226,6 +248,15 @@
     function hide(){modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
     function add(){return fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:1})});}
     function go(){window.location.href='/checkout';}
+
+    // In test mode, buttons just show alerts instead of navigating
+    if(TEST_MODE){
+      if(accept)accept.addEventListener('click',(e)=>{e.preventDefault();alert('[TEST MODE] Would add "'+accept.querySelector('.oto-btn-text')?.textContent+'" to cart and go to checkout');});
+      if(decline)decline.addEventListener('click',(e)=>{e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(()=>modal.setAttribute('aria-hidden','false'),300);});
+      if(close)close.addEventListener('click',(e)=>{e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(()=>modal.setAttribute('aria-hidden','false'),300);});
+      return;
+    }
+
     if(accept)accept.addEventListener('click',()=>{accept.classList.add('is-loading');mark();add().then(go).catch(()=>{accept.classList.remove('is-loading');alert('{{ section.settings.error_msg | default: "Error adding item" }}');});});
     if(decline)decline.addEventListener('click',()=>{mark();hide();go();});
     if(close)close.addEventListener('click',()=>{mark();hide();go();});
@@ -250,6 +281,10 @@
   "name": "One-Time Offer",
   "class": "section-oto",
   "settings": [
+    {"type": "header","content": "Test Mode (Theme Editor Only)"},
+    {"type": "paragraph","content": "Enable this to keep the OTO modal visible while customizing in the theme editor. This only affects the admin preview, not the live store."},
+    {"type": "checkbox","id": "test_mode","label": "Enable test mode","default": true,"info": "Keeps the modal open for easier customization in the theme editor"},
+
     {"type": "header","content": "Product"},
     {"type": "product","id": "oto_product","label": "Subscription Product","info": "Product to offer as subscription"},
 
