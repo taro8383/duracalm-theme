@@ -32,6 +32,7 @@
   <div class="splide__slide__container" style="--index:{{ card_index0 | plus: content_index }};" {% if review_handle != blank %}data-review-handle="{{ review_handle }}"{% else %}{{ block.shopify_attributes }}{% endif %}>
     <div class="multicolumn-card content-container testimonial-card color-{{ snip.settings.cards_color_scheme }} cards-color-scheme-{{ snip.id }} gradient{{ bg_diff_class }} {{ snip.settings.column_alignment }}{% unless block_author_avatar == blank and block_author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ card_index | times: 100 }}">
       {%- if block_image != blank or block_video != blank -%}
+  {%- unless snip.settings.hide_top_media -%}
         <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--{{ snip.settings.image_width }}-width{% if snip.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
           <div
             class="media media--transparent media--{{ snip.settings.image_ratio }}"
@@ -91,8 +92,9 @@
             {% endif %}
           </div>
         </div>
+  {%- endunless -%}
       {%- endif -%}
-      <div class="multicolumn-card__info{% if block_image == blank and snip.settings.show_stars == false %} testimonial-card__info--no-image-no-stars{% endif %}{% if block_image != blank and snip.settings.show_stars == false %} testimonial-card__info--image-no-stars{% endif %}">
+      <div class="multicolumn-card__info{% if block_image == blank or snip.settings.hide_top_media %} testimonial-card__info--no-image-no-stars{% endif %}{% if block_image != blank and snip.settings.show_stars == false %} testimonial-card__info--image-no-stars{% endif %}{% if snip.settings.hide_top_media %} testimonial-card__info--hidden-top-media{% endif %}">
         {%- if snip.settings.show_stars -%}
           {% liquid
             assign alignment = 'center'
@@ -102,9 +104,8 @@
               assign alignment = 'flex-end'
             endif
             assign rating = block_star_rating | default: 5
-            assign visible_stars = rating | ceil
           %}
-          <div class="testimonial-card__stars rating-stars rating-stars--inactive-{{ snip.settings.inactive_stars_style }}" style='--rating:{{ rating }};--visible-stars:{{ visible_stars }};--star-color:{{ snip.settings.star_color }};--bg-star-color:{{ snip.settings.bg_star_color }};--alignment: {{ alignment }};--font-size: 1.8rem;'>
+          <div class="testimonial-card__stars rating-stars rating-stars--inactive-{{ snip.settings.inactive_stars_style }}" style='--rating:{{ rating }};--visible-stars:5;--star-color:{{ snip.settings.star_color }};--bg-star-color:{{ snip.settings.bg_star_color }};--alignment: {{ alignment }};--font-size: 1.8rem;'>
             <div class='rating-stars-and-text font-size--desktop-auto flex-center'>
               <div class='rating-stars__container rating-stars__container--underlay'>
                 {%- unless snip.settings.inactive_stars_style == 'hidden' -%}
