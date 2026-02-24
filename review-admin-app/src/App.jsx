@@ -679,6 +679,67 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Update shop metafield with all review handles
+  const updateShopReviewsMetafield = async (reviewHandles) => {
+    try {
+      // First check if shop metafield exists
+      const getQuery = `
+        query {
+          shop {
+            id
+            metafield(namespace: "custom", key: "all_reviews") {
+              id
+            }
+          }
+        }
+      `;
+
+      const shopData = await shopifyRequest(getQuery);
+      const shopId = shopData.shop.id;
+      const existingMetafield = shopData.shop.metafield;
+
+      const value = JSON.stringify(reviewHandles);
+
+      if (existingMetafield?.id) {
+        // Update existing
+        const updateMutation = `
+          mutation($id: ID!, $value: String!) {
+            metafieldUpdate(id: $id, input: { value: $value }) {
+              metafield { id }
+              userErrors { field message }
+            }
+          }
+        `;
+        await shopifyRequest(updateMutation, { id: existingMetafield.id, value });
+      } else {
+        // Create new
+        const createMutation = `
+          mutation($ownerId: ID!, $value: String!) {
+            metafieldCreate(input: {
+              ownerId: $ownerId
+              namespace: "custom"
+              key: "all_reviews"
+              type: "json"
+              value: $value
+            }) {
+              metafield { id }
+              userErrors { field message }
+            }
+          }
+        `;
+        await shopifyRequest(createMutation, { ownerId: shopId, value });
+      }
+    } catch (error) {
+      console.error('Error updating shop metafield:', error);
+    }
+  };
+
+  // Sync all review handles to shop metafield
+  const syncReviewHandlesToShop = async () => {
+    const handles = reviews.map(r => r.handle).filter(Boolean);
+    await updateShopReviewsMetafield(handles);
+  };
+
   // Create or update review
   const saveReview = async (formData) => {
     setSaving(true);
@@ -699,6 +760,8 @@ function App() {
         fields.push({ key: 'product', value: formData.product_id });
       }
 
+      let newHandle;
+
       if (editingReview?.id) {
         // Update existing review
         const mutation = `
@@ -706,6 +769,7 @@ function App() {
             metaobjectUpdate(id: $id, metaobject: $metaobject) {
               metaobject {
                 id
+                handle
               }
               userErrors {
                 field
@@ -724,14 +788,17 @@ function App() {
           throw new Error(result.metaobjectUpdate.userErrors[0].message);
         }
 
+        newHandle = result.metaobjectUpdate.metaobject.handle;
         showToast('Review updated successfully!');
       } else {
         // Create new review
+        newHandle = `review-${Date.now()}`;
         const mutation = `
           mutation($metaobject: MetaobjectCreateInput!) {
             metaobjectCreate(metaobject: $metaobject) {
               metaobject {
                 id
+                handle
               }
               userErrors {
                 field
@@ -744,7 +811,7 @@ function App() {
         const result = await shopifyRequest(mutation, {
           metaobject: {
             type: 'review',
-            handle: `review-${Date.now()}`,
+            handle: newHandle,
             fields,
           },
         });
@@ -756,7 +823,10 @@ function App() {
         showToast('Review created successfully!');
       }
 
+      // Refresh reviews and sync handles to shop metafield
       await fetchReviews();
+      await syncReviewHandlesToShop();
+
       setShowForm(false);
       setEditingReview(null);
     } catch (error) {
@@ -792,6 +862,7 @@ function App() {
 
       showToast('Review deleted successfully!');
       await fetchReviews();
+      await syncReviewHandlesToShop();
     } catch (error) {
       console.error('Error deleting review:', error);
       showToast('Error deleting review: ' + error.message, 'error');
