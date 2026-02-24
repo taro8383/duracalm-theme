@@ -380,8 +380,94 @@
         {% endif %}
       >
         <div class="splide__track">
+          {%- liquid
+            assign reviews_to_render = ''
+
+            if section.settings.data_source == 'metaobjects'
+              if section.settings.target_product != blank
+                assign reviews_source = section.settings.target_product.metafields.custom.product_reviews.value
+              elsif product != blank
+                assign reviews_source = product.metafields.custom.product_reviews.value
+              else
+                assign reviews_source = ''
+              endif
+
+              if section.settings.featured_only
+                assign filtered_reviews = ''
+                for review in reviews_source
+                  if review.featured
+                    assign filtered_reviews = filtered_reviews | append: review.id | append: ','
+                  endif
+                endfor
+                assign review_ids = filtered_reviews | split: ','
+                assign filtered_reviews_list = ''
+                for review_id in review_ids
+                  if review_id != ''
+                    for review in reviews_source
+                      if review.id == review_id
+                        assign filtered_reviews_list = filtered_reviews_list | append: review.handle | append: ','
+                      endif
+                    endfor
+                  endif
+                endfor
+                assign reviews_source_handles = filtered_reviews_list | split: ','
+              else
+                assign reviews_source_handles = ''
+                for review in reviews_source
+                  assign reviews_source_handles = reviews_source_handles | append: review.handle | append: ','
+                endfor
+                assign reviews_source_handles = reviews_source_handles | split: ','
+              endif
+
+              assign max_reviews = section.settings.max_reviews
+              assign reviews_count = 0
+            else
+              assign reviews_source = section.blocks
+            endif
+          -%}
           <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
-            {%- for block in section.blocks -%}
+            {%- if section.settings.data_source == 'metaobjects' -%}
+              {%- for review_handle in reviews_source_handles -%}
+                {%- liquid
+                  if reviews_count >= max_reviews
+                    break
+                  endif
+                  assign review = shop.metaobjects.review[review_handle]
+                  if review == blank
+                    continue
+                  endif
+                  assign reviews_count = reviews_count | plus: 1
+
+                  assign block_image = review.avatar_image
+                  assign block_video = ''
+                  assign block_title = review.review_title
+                  assign block_text = review.review_text
+                  assign block_author_avatar = review.avatar_image
+                  assign block_author = review.reviewer_name
+                  assign block_star_rating = review.star_rating
+                  assign block_verified_purchase = review.verified_purchase
+                  assign block_author_location = review.location
+                -%}
+                <li class="splide__slide">
+                  <div class="splide__slide__container" style="--index:{{ forloop.index0 }};" data-review-handle="{{ review_handle }}">
+                    <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block_author_avatar == blank and block_author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
+            {%- else -%}
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign block_image = block.settings.image
+                  assign block_video = block.settings.video
+                  assign block_title = block.settings.title
+                  assign block_text = block.settings.text
+                  assign block_author_avatar = block.settings.author_avatar
+                  assign block_author = block.settings.author
+                  assign block_star_rating = block.settings.star_rating
+                  assign block_verified_purchase = block.settings.verified_purchase
+                  assign block_author_location = block.settings.author_location
+                -%}
+                <li class="splide__slide">
+                  <div class="splide__slide__container" style="--index:{{ forloop.index0 | plus: content_index }};" {{ block.shopify_attributes }}>
+                    <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block_author_avatar == blank and block_author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
+            {%- endif -%}
               <li class="splide__slide">
                 <div class="splide__slide__container" style="--index:{{ forloop.index0 | plus: content_index }};" {{ block.shopify_attributes }}>
                   <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block.settings.author_avatar == blank and block.settings.author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
@@ -536,7 +622,17 @@
                   </div>
                 </div>
               </li>
-            {%- endfor -%}
+            {%- if section.settings.data_source == 'metaobjects' -%}
+                    </div>
+                  </div>
+                </li>
+              {%- endfor -%}
+            {%- else -%}
+                    </div>
+                  </div>
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
           </ul>
         </div>
         <div class='splide__dots-and-arrows'>
@@ -1373,6 +1469,43 @@
       "id": "custom_cards_colors_text",
       "default": "#2E2A39",
       "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Data Source"
+    },
+    {
+      "type": "select",
+      "id": "data_source",
+      "label": "Data source",
+      "options": [
+        {"value": "blocks", "label": "Manual blocks"},
+        {"value": "metaobjects", "label": "Product reviews (metaobjects)"}
+      ],
+      "default": "blocks"
+    },
+    {
+      "type": "product",
+      "id": "target_product",
+      "label": "Target product (for metaobjects)",
+      "info": "If left empty, will use the current product on product pages"
+    },
+    {
+      "type": "checkbox",
+      "id": "featured_only",
+      "label": "Show only featured reviews",
+      "default": false,
+      "info": "Only applies when using metaobjects"
+    },
+    {
+      "type": "range",
+      "id": "max_reviews",
+      "label": "Maximum reviews to show",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 6,
+      "info": "Only applies when using metaobjects"
     }
   ],
   "blocks": [
