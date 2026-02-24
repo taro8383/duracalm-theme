@@ -505,6 +505,21 @@ The review automatically appears in:
 
 ---
 
+## Implementation Progress
+
+### Completed ✅
+- [x] **Phase 1**: Review admin app with OAuth and file upload
+- [x] **Phase 2**: `sections/testimonials.liquid` - Data source toggle with metaobject support
+
+### In Progress 🔄
+- [ ] `sections/main-product.liquid` - Update block schemas
+- [ ] `sections/trustpilot-reviews.liquid` - Add data source toggle
+- [ ] `sections/facebook-testimonials.liquid` - Add data source toggle (optional)
+- [ ] `sections/ss-featured-review-slider.liquid` - Add data source toggle
+- [ ] `snippets/review-avatars.liquid` - Add avatar source toggle
+
+---
+
 ## Testing Checklist
 
 - [ ] Metaobject creation works in Shopify Admin
