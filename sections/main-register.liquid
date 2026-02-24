@@ -40,6 +40,7 @@
   /* Form fields */
   .customer.register .field {
     margin-bottom: {{ section.settings.field_margin_bottom }}px;
+    position: relative;
   }
 
   .customer.register .field input {
@@ -50,6 +51,42 @@
     background-color: {{ section.settings.input_bg_color }} !important;
     color: {{ section.settings.input_text_color }} !important;
     transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Fix placeholder behavior - hide placeholder when input has content */
+  .customer.register .field input:focus::placeholder {
+    color: transparent !important;
+    opacity: 0 !important;
+  }
+
+  /* Label float behavior */
+  .customer.register .field label {
+    position: absolute;
+    left: {{ section.settings.input_padding }}px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: {{ section.settings.label_color }} !important;
+    font-size: {{ section.settings.label_font_size }}px !important;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background: {{ section.settings.input_bg_color }};
+    padding: 0 4px;
+    margin: 0;
+  }
+
+  /* Move label up when input is focused or has value */
+  .customer.register .field input:focus ~ label,
+  .customer.register .field input:not(:placeholder-shown) ~ label {
+    top: 0;
+    transform: translateY(-50%) scale(0.85);
+    color: {{ section.settings.input_focus_border_color }} !important;
+  }
+
+  /* Keep label in original color when input has value but not focused */
+  .customer.register .field input:not(:placeholder-shown):not(:focus) ~ label {
+    color: {{ section.settings.label_color }} !important;
   }
 
   .customer.register .field input:focus {
@@ -58,9 +95,16 @@
     outline: none !important;
   }
 
-  .customer.register .field label {
+  /* Hide placeholder text when input is focused */
+  .customer.register .field input:focus::placeholder {
+    opacity: 0 !important;
+    color: transparent !important;
+  }
+
+  /* Reset placeholder when not focused */
+  .customer.register .field input::placeholder {
     color: {{ section.settings.label_color }} !important;
-    font-size: {{ section.settings.label_font_size }}px !important;
+    opacity: 0.6 !important;
   }
 
   /* Error messages */

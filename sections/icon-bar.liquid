@@ -16,24 +16,33 @@
     .icon-bar-{{ section.id }} .splide__list {
       display: grid !important;
       grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
       gap: {{ section.settings.desktop_spacing | times: 1.5 }}px;
     }
     .icon-bar-{{ section.id }} .splide__slide {
       width: 100% !important;
       margin: 0 !important;
+      height: 100%;
+    }
+    .icon-bar-{{ section.id }} .splide__slide__container {
+      height: 100%;
+    }
+    .icon-bar-{{ section.id }} .icon-bar-card {
+      height: 100%;
     }
     .icon-bar-{{ section.id }} .splide__track {
       overflow: visible;
     }
   }
 
-  /* Hover lift animation for icon cards */
+  /* Hover lift animation for icon cards - use !important to override scroll animations */
   .icon-bar-{{ section.id }} .icon-bar-card {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+    will-change: transform, box-shadow;
   }
   .icon-bar-{{ section.id }} .icon-bar-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
   }
 
   .color-scheme-{{ section.id }}.color-custom {
@@ -144,12 +153,12 @@
         {% endif %}
       >
         <div class="splide__track">
-          <ul class="splide__list">
+          <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
             {%- for block in section.blocks -%}
               <li class="splide__slide">
                 <div class="splide__slide__container" style="--index:{{ forloop.index0 | plus: content_index }};" {{ block.shopify_attributes }}>
-                  <div class="icon-bar-card icon-bar-card--{{ section.settings.icon_layout }} multicolumn-card center content-container cards-color-scheme-{{ section.id }} color-{{ section.settings.cards_color_scheme }} gradient{{ bg_diff_class }} animate-item animate-item--child">
-                    <div class="icon-bar-card__icon icon-bar-card__icon--{{ section.settings.icon_size }} text-color-{{ section.settings.icon_color }} flex-shrink-0">
+                  <div class="icon-bar-card icon-bar-card--{{ section.settings.icon_layout }} multicolumn-card center content-container cards-color-scheme-{{ section.id }} color-{{ section.settings.cards_color_scheme }} gradient{{ bg_diff_class }} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
+                    <div class="icon-bar-card__icon icon-bar-card__icon--{{ section.settings.icon_size }} text-color-{{ section.settings.icon_color }} flex-shrink-0" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 | plus: 50 }}">
                       {%- if block.settings.image == blank -%}
                         {% render 'material-icon', icon: block.settings.icon, filled: block.settings.filled_icon %}
                       {%- else -%}

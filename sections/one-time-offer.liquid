@@ -1,0 +1,890 @@
+{% comment %}
+  One-Time Offer (OTO) Modal - Theme Consistent
+  Shows exclusive subscription offer on first checkout click
+{% endcomment %}
+
+{% liquid
+  assign oto_product = all_products[section.settings.oto_product]
+  assign show_oto = false
+  if oto_product != blank and oto_product.available
+    assign show_oto = true
+  endif
+
+  # Check if in test mode (only works in theme editor)
+  assign test_mode = false
+  if section.settings.test_mode and request.design_mode
+    assign test_mode = true
+  endif
+
+  # Theme default colors
+  assign default_purple = '#7B92C8'
+  assign default_beige = '#ddbea8'
+  assign default_cream = '#f3dfc1'
+  assign default_text = '#2E2A39'
+  assign default_bg = '#FFFFFF'
+%}
+
+{% if show_oto %}
+<div id="OneTimeOffer-{{ section.id }}" class="oto-modal{% if test_mode %} oto-modal--test-mode{% endif %}{% if section.settings.anim_popup_enable %} oto-modal--anim-{{ section.settings.anim_popup_open }}{% endif %}" data-section-id="{{ section.id }}" data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" data-test-mode="{{ test_mode }}" data-anim-close="{% if section.settings.anim_popup_enable %}{{ section.settings.anim_popup_close }}{% else %}none{% endif %}" data-anim-duration="{{ section.settings.anim_popup_duration }}" aria-hidden="{% if test_mode %}false{% else %}true{% endif %}" role="dialog" aria-modal="true" aria-labelledby="oto-title-{{ section.id }}" {{ section.shopify_attributes }} style="{% if section.settings.anim_popup_enable %}--anim-duration: {{ section.settings.anim_popup_duration }}ms;{% endif %}">
+  {% if test_mode %}
+    <div class="oto-test-banner">
+      <span class="oto-test-badge">TEST MODE</span>
+      <span class="oto-test-text">OTO Modal is visible for editing. Click outside to preview with overlay.</span>
+    </div>
+  {% endif %}
+  <div class="oto-overlay"></div>
+  <div class="oto-container">
+    <div class="oto-content" style="
+      --oto-bg: {{ section.settings.bg_color | default: default_bg }};
+      --oto-text: {{ section.settings.text_color | default: default_text }};
+      --oto-accent: {{ section.settings.accent_color | default: default_purple }};
+      --oto-radius: {{ section.settings.border_radius }}px;
+      --oto-max-w: {{ section.settings.max_width }}px;
+      --oto-padding: {{ section.settings.padding }}px;
+      --oto-font-heading: {{ section.settings.heading_font.family | default: settings.type_header_font.family }}, {{ section.settings.heading_font.fallback_families | default: settings.type_header_font.fallback_families }};
+      --oto-font-body: {{ section.settings.body_font.family | default: settings.type_body_font.family }}, {{ section.settings.body_font.fallback_families | default: settings.type_body_font.fallback_families }};
+      --oto-shadow: {{ section.settings.shadow_opacity | divided_by: 100.0 }};
+      --oto-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    ">
+
+      {% if section.settings.show_close %}
+        <button type="button" class="oto-close" aria-label="Close" data-oto-close>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      {% endif %}
+
+      {% if section.settings.badge_text != blank %}
+        <div class="oto-badge{% if section.settings.badge_align == 'center' %} oto-badge--center{% elsif section.settings.badge_align == 'right' %} oto-badge--right{% endif %}{% if section.settings.anim_badge_enable %} oto-anim oto-anim--{{ section.settings.anim_badge_type }}{% endif %}{% if section.settings.anim_badge_continuous == 'pulse' %} oto-badge--pulse{% elsif section.settings.anim_badge_continuous == 'glow' %} oto-badge--glow{% endif %}{% if section.settings.anim_badge_hover %} oto-badge-hover{% endif %}" style="--badge-bg: {{ section.settings.badge_bg | default: default_purple }}; --badge-text: {{ section.settings.badge_text_color | default: '#FFFFFF' }};{% if section.settings.anim_badge_enable %} --anim-delay: {{ section.settings.anim_badge_delay }}ms;{% endif %}">
+          {{ section.settings.badge_text }}
+        </div>
+      {% endif %}
+
+      <div class="oto-header{% if section.settings.anim_heading_enable %} oto-anim oto-anim--{{ section.settings.anim_heading_type }}{% endif %}" style="text-align: {{ section.settings.heading_align }};{% if section.settings.anim_heading_enable %} --anim-delay: {{ section.settings.anim_heading_delay }}ms;{% endif %}">
+        <h2 id="oto-title-{{ section.id }}" class="oto-title" style="font-size: {{ section.settings.heading_size }}px; margin-bottom: {{ section.settings.heading_mb }}px;">
+          {{ section.settings.heading }}
+        </h2>
+        {% if section.settings.subheading != blank %}
+          <p class="oto-subheading" style="font-size: {{ section.settings.subheading_size }}px; opacity: 0.8;">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+
+      <div class="oto-product{% if section.settings.anim_product_enable %} oto-anim oto-anim--{{ section.settings.anim_product_type }}{% endif %}{% if section.settings.anim_product_hover %} oto-product-hover{% endif %}{% if section.settings.anim_product_float %} oto-product--float{% endif %}" style="background: {{ section.settings.product_bg | default: 'rgba(0,0,0,0.03)' }}; border-radius: {{ section.settings.product_radius }}px;{% if section.settings.anim_product_enable %} --anim-delay: {{ section.settings.anim_product_delay }}ms;{% endif %}">
+        {% if oto_product.featured_image %}
+          <div class="oto-img-wrap" style="width: {{ section.settings.image_size }}px; border-radius: {{ section.settings.image_radius }}px;">
+            <img src="{{ oto_product.featured_image | image_url: width: 400 }}" alt="{{ oto_product.featured_image.alt | escape }}" class="oto-img" width="200" height="200" loading="lazy">
+          </div>
+        {% endif %}
+        <div class="oto-details">
+          <h3 class="oto-product-title" style="font-size: {{ section.settings.product_title_size }}px;">{{ oto_product.title }}</h3>
+          {% if section.settings.show_desc and oto_product.description != blank %}
+            <p class="oto-desc" style="font-size: {{ section.settings.desc_size }}px;">{{ oto_product.description | strip_html | truncatewords: 25 }}</p>
+          {% endif %}
+          <div class="oto-price-wrap">
+            {% if section.settings.show_compare and oto_product.compare_at_price > oto_product.price %}
+              <span class="oto-compare" style="font-size: {{ section.settings.compare_size }}px;">{{ oto_product.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="oto-price" style="font-size: {{ section.settings.price_size }}px; color: {{ section.settings.accent_color | default: default_purple }};">{{ oto_product.selected_or_first_available_variant.price | money }}</span>
+            {% if section.settings.price_suffix != blank %}<span class="oto-suffix" style="font-size: {{ section.settings.suffix_size }}px;">{{ section.settings.price_suffix }}</span>{% endif %}
+          </div>
+          {% if section.settings.show_savings and oto_product.compare_at_price > oto_product.price %}
+            {% assign savings = oto_product.compare_at_price | minus: oto_product.price %}
+            <div class="oto-savings" style="color: {{ section.settings.accent_color | default: default_purple }}; font-size: {{ section.settings.savings_size }}px;">{{ section.settings.savings_text | replace: '[amount]', savings | money }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if section.settings.benefits != blank %}
+        <div class="oto-benefits{% if section.settings.anim_benefits_enable %} oto-anim oto-anim--{{ section.settings.anim_benefits_type }}{% endif %}{% if section.settings.anim_benefits_enable and section.settings.anim_benefits_stagger %} oto-anim--stagger{% endif %}" style="{% if section.settings.anim_benefits_enable %} --anim-delay: {{ section.settings.anim_benefits_delay }}ms;{% endif %}{% if section.settings.anim_benefits_stagger %} --stagger-delay: {{ section.settings.anim_benefits_stagger_delay }}ms;{% endif %}">
+          <ul class="oto-benefits-list" style="gap: {{ section.settings.benefit_gap }}px;">
+            {% assign benefit_list = section.settings.benefits | newline_to_br | split: '<br />' %}
+            {% for benefit in benefit_list %}
+              {% assign trimmed = benefit | strip %}
+              {% if trimmed != blank %}
+                <li class="oto-benefit{% if section.settings.anim_benefits_enable %} oto-anim__child{% endif %}{% if section.settings.anim_benefits_hover %} oto-benefit-hover{% endif %}" style="font-size: {{ section.settings.benefit_size }}px;">
+                  <span class="oto-benefit-icon{% if section.settings.anim_benefits_icon_shimmer %} oto-benefit-icon--shimmer{% endif %}" style="background: {{ section.settings.benefit_icon_bg | default: 'rgba(123,146,200,0.15)' }}; color: {{ section.settings.accent_color | default: default_purple }};">
+                    {% if section.settings.benefit_icon == 'check' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {% elsif section.settings.benefit_icon == 'star' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z"/></svg>
+                    {% elsif section.settings.benefit_icon == 'bolt' %}<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8.5 1L2 9H7.5L7 15L13.5 7H8L8.5 1Z"/></svg>
+                    {% endif %}
+                  </span>
+                  <span>{{ trimmed }}</span>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if section.settings.urgency_text != blank %}
+        <div class="oto-urgency{% if section.settings.anim_urgency_enable %} oto-anim oto-anim--{{ section.settings.anim_urgency_type }}{% endif %}{% if section.settings.anim_urgency_attention %} oto-urgency--attention{% endif %}{% if section.settings.anim_urgency_hover %} oto-urgency-hover{% endif %}" style="background: {{ section.settings.urgency_bg | default: 'rgba(123,146,200,0.1)' }}; color: {{ section.settings.accent_color | default: default_purple }};{% if section.settings.anim_urgency_enable %} --anim-delay: {{ section.settings.anim_urgency_delay }}ms;{% endif %}">
+          {% if section.settings.urgency_clock %}<svg width="16" height="16" viewBox="0 0 16 16" fill="none"{% if section.settings.anim_urgency_clock_pulse %} class="oto-urgency-clock"{% endif %}><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 4V8L10.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>{% endif %}
+          {{ section.settings.urgency_text }}
+        </div>
+      {% endif %}
+
+      <div class="oto-actions" style="gap: {{ section.settings.button_gap }}px;">
+        {% if section.settings.use_magic_mind %}
+          <button type="button" class="oto-btn oto-btn--magic{% if section.settings.anim_accept_enable %} oto-anim oto-anim--{{ section.settings.anim_accept_type }}{% endif %}{% if section.settings.anim_accept_hover %} oto-btn--hover-anim{% endif %}" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
+            --mm-border: {{ section.settings.magic_border | default: default_purple }};
+            --mm-text: {{ section.settings.magic_text | default: default_purple }};
+            --mm-gradient-start: {{ section.settings.magic_gradient_start | default: default_purple }};
+            --mm-gradient-mid: {{ section.settings.magic_gradient_mid | default: default_beige }};
+            --mm-gradient-end: {{ section.settings.magic_gradient_end | default: default_cream }};
+            --mm-shadow: {{ section.settings.magic_shadow | default: 'rgba(123,146,200,0.3)' }};
+            font-size: {{ section.settings.accept_font_size }}px;
+            padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
+            border-radius: {{ section.settings.accept_radius }}px;
+            margin: {{ section.settings.accept_margin_top }}px {{ section.settings.accept_margin_right }}px {{ section.settings.accept_margin_bottom }}px {{ section.settings.accept_margin_left }}px;
+            {% if section.settings.anim_accept_enable %} --anim-delay: {{ section.settings.anim_accept_delay }}ms;{% endif %}
+          ">
+            <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
+            {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
+          </button>
+        {% else %}
+          <button type="button" class="oto-btn oto-btn--standard{% if section.settings.anim_accept_enable %} oto-anim oto-anim--{{ section.settings.anim_accept_type }}{% endif %}{% if section.settings.anim_accept_hover %} oto-btn--hover-anim{% endif %}" data-oto-accept data-variant-id="{{ oto_product.selected_or_first_available_variant.id }}" style="
+            --btn-bg: {{ section.settings.accept_bg | default: default_purple }};
+            --btn-text: {{ section.settings.accept_text_color | default: '#FFFFFF' }};
+            --btn-hover: {{ section.settings.accept_bg_hover | default: '#6a7fb0' }};
+            font-size: {{ section.settings.accept_font_size }}px;
+            padding: {{ section.settings.accept_padding_y }}px {{ section.settings.accept_padding_x }}px;
+            border-radius: {{ section.settings.accept_radius }}px;
+            margin: {{ section.settings.accept_margin_top }}px {{ section.settings.accept_margin_right }}px {{ section.settings.accept_margin_bottom }}px {{ section.settings.accept_margin_left }}px;
+            {% if section.settings.anim_accept_enable %} --anim-delay: {{ section.settings.anim_accept_delay }}ms;{% endif %}
+          ">
+            <span class="oto-btn-text">{{ section.settings.accept_text }}</span>
+            {% if section.settings.show_accept_price %}<span class="oto-btn-price">— {{ oto_product.selected_or_first_available_variant.price | money }}</span>{% endif %}
+          </button>
+        {% endif %}
+
+        <button type="button" class="oto-decline{% if section.settings.anim_decline_enable %} oto-anim oto-anim--{{ section.settings.anim_decline_type }}{% endif %}" data-oto-decline style="
+          color: {{ section.settings.decline_color | default: '#666666' }};
+          font-size: {{ section.settings.decline_size }}px;
+          {% if section.settings.anim_decline_enable %} --anim-delay: {{ section.settings.anim_decline_delay }}ms;{% endif %}
+        ">{{ section.settings.decline_text }}</button>
+      </div>
+
+      {% if section.settings.footer_text != blank %}
+        <div class="oto-footer" style="margin-top: {{ section.settings.footer_mt }}px;">
+          <p style="font-size: {{ section.settings.footer_size }}px; opacity: 0.6;">{{ section.settings.footer_text }}</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+.oto-modal { position: fixed; inset: 0; z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+.oto-modal[aria-hidden="false"] { opacity: 1; visibility: visible; }
+.oto-overlay { position: absolute; inset: 0; background: rgba(0,0,0,var(--oto-overlay, 0.7)); backdrop-filter: blur(4px); }
+.oto-container { position: relative; width: 100%; max-width: var(--oto-max-w, 560px); max-height: 90vh; overflow-y: auto; animation: otoSlideUp 0.4s ease forwards; }
+@keyframes otoSlideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.oto-content { background: var(--oto-bg); border-radius: var(--oto-radius, 16px); padding: var(--oto-padding, 40px); color: var(--oto-text); font-family: var(--oto-font-body); box-shadow: 0 25px 50px -12px rgba(0,0,0,calc(var(--oto-shadow, 0.25))); position: relative; }
+.oto-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border: none; background: rgba(0,0,0,0.05); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--oto-text); transition: background 0.2s; }
+.oto-close:hover { background: rgba(0,0,0,0.1); }
+.oto-badge { display: inline-block; background: var(--badge-bg); color: var(--badge-text); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 6px 14px; border-radius: 20px; margin-bottom: 20px; }
+.oto-badge--center { display: block; text-align: center; margin-left: auto; margin-right: auto; width: fit-content; }
+.oto-badge--right { display: block; margin-left: auto; width: fit-content; }
+.oto-header { margin-bottom: 28px; }
+.oto-title { margin: 0; font-family: var(--oto-font-heading); font-weight: 700; line-height: 1.2; }
+.oto-subheading { margin: 0; line-height: 1.5; }
+.oto-product { display: flex; gap: 20px; padding: 24px; margin-bottom: 24px; }
+.oto-img-wrap { flex-shrink: 0; height: 100px; overflow: hidden; background: #f5f5f5; }
+.oto-img { width: 100%; height: 100%; object-fit: cover; }
+.oto-details { flex: 1; min-width: 0; }
+.oto-product-title { margin: 0 0 8px; font-family: var(--oto-font-heading); font-weight: 600; line-height: 1.3; }
+.oto-desc { margin: 0 0 12px; opacity: 0.7; line-height: 1.5; }
+.oto-price-wrap { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.oto-compare { text-decoration: line-through; opacity: 0.5; }
+.oto-price { font-weight: 700; }
+.oto-suffix { opacity: 0.6; }
+.oto-savings { margin-top: 8px; font-weight: 600; }
+.oto-benefits { margin-bottom: 20px; }
+.oto-benefits-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+.oto-benefit { display: flex; align-items: center; gap: 10px; }
+.oto-benefit-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.oto-urgency { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 20px; text-align: center; }
+.oto-actions { display: flex; flex-direction: column; }
+.oto-btn { width: 100%; border: none; font-weight: 700; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; }
+.oto-btn--standard { background: var(--btn-bg); color: var(--btn-text); box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+.oto-btn--standard:hover { background: var(--btn-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+.oto-btn--magic { position: relative; background: transparent; color: var(--mm-text); border: 2px solid var(--mm-border); overflow: hidden; z-index: 1; }
+.oto-btn--magic::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--mm-gradient-start) 0%, var(--mm-gradient-mid) 50%, var(--mm-gradient-end) 100%); background-size: 200% 200%; opacity: 0; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: -1; }
+.oto-btn--magic:hover::before { opacity: 1; animation: otoGradientShift 0.6s ease forwards; }
+.oto-btn--magic:hover { color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: 0 8px 24px var(--mm-shadow); }
+@keyframes otoGradientShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+.oto-btn.is-loading { pointer-events: none; opacity: 0.8; }
+.oto-btn.is-loading::after { content: ''; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: currentColor; border-radius: 50%; animation: otoSpin 0.8s linear infinite; }
+@keyframes otoSpin { to { transform: rotate(360deg); } }
+.oto-decline { width: 100%; padding: 14px 24px; background: transparent; border: none; font-weight: 500; cursor: pointer; transition: color 0.2s; text-decoration: underline; text-underline-offset: 3px; font-family: inherit; }
+.oto-decline:hover { opacity: 0.8; }
+.oto-footer { text-align: center; }
+@media (max-width: 480px) {
+  .oto-modal { padding: 16px; align-items: flex-end; }
+  .oto-content { padding: 28px 20px; }
+  .oto-product { flex-direction: column; text-align: center; }
+  .oto-img-wrap { margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oto-modal, .oto-container, .oto-btn, .oto-decline { transition: none; animation: none; }
+}
+
+/* Test Mode Styles */
+.oto-modal--test-mode { opacity: 1; visibility: visible; position: fixed; }
+.oto-modal--test-mode .oto-container { animation: none; }
+.oto-modal--test-mode .oto-overlay { pointer-events: none; opacity: 0.5; }
+.oto-test-banner { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(90deg, #7B92C8, #ddbea8); color: #fff; padding: 12px; text-align: center; z-index: 1000000; display: flex; align-items: center; justify-content: center; gap: 12px; font-family: system-ui, -apple-system, sans-serif; }
+.oto-test-badge { background: #fff; color: #7B92C8; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.oto-test-text { font-size: 13px; font-weight: 500; }
+.shopify-design-mode .oto-modal:not(.oto-modal--test-mode) { display: none !important; }
+
+/* ========================================
+   OTO ANIMATIONS - OPTIMIZED
+   ======================================== */
+
+/* Base Animation Setup - Performance Optimized */
+.oto-anim {
+  opacity: 1;
+  will-change: transform, opacity;
+}
+
+/* Entrance Animations - Only when modal opens */
+.oto-modal:not([aria-hidden="true"]) .oto-anim,
+.oto-modal[aria-hidden="false"] .oto-anim {
+  animation-fill-mode: both;
+  animation-duration: var(--anim-duration, 0.5s);
+  animation-delay: var(--anim-delay, 0s);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Entrance Animation Keyframes - GPU Accelerated */
+@keyframes otoFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes otoSlideUp {
+  from { opacity: 0; transform: translate3d(0, 30px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes otoSlideLeft {
+  from { opacity: 0; transform: translate3d(-30px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes otoSlideRight {
+  from { opacity: 0; transform: translate3d(30px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes otoScaleIn {
+  from { opacity: 0; transform: scale3d(0.8, 0.8, 1); }
+  to { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+@keyframes otoBounceIn {
+  0% { opacity: 0; transform: scale3d(0.3, 0.3, 1); }
+  50% { transform: scale3d(1.05, 1.05, 1); }
+  70% { transform: scale3d(0.9, 0.9, 1); }
+  100% { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+@keyframes otoFlipIn {
+  from { opacity: 0; transform: perspective(400px) rotate3d(1, 0, 0, -90deg); }
+  to { opacity: 1; transform: perspective(400px) rotate3d(0, 0, 0, 0); }
+}
+
+/* Entrance Animation Types */
+.oto-modal:not([aria-hidden="true"]) .oto-anim--fade,
+.oto-modal[aria-hidden="false"] .oto-anim--fade { animation-name: otoFadeIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--slide-up,
+.oto-modal[aria-hidden="false"] .oto-anim--slide-up { animation-name: otoSlideUp; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--slide-left,
+.oto-modal[aria-hidden="false"] .oto-anim--slide-left { animation-name: otoSlideLeft; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--slide-right,
+.oto-modal[aria-hidden="false"] .oto-anim--slide-right { animation-name: otoSlideRight; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--scale,
+.oto-modal[aria-hidden="false"] .oto-anim--scale { animation-name: otoScaleIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--bounce,
+.oto-modal[aria-hidden="false"] .oto-anim--bounce { animation-name: otoBounceIn; animation-duration: calc(var(--anim-duration, 0.5s) * 1.2); }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--flip,
+.oto-modal[aria-hidden="false"] .oto-anim--flip { animation-name: otoFlipIn; }
+
+/* Stagger Animation for Lists */
+.oto-anim--stagger .oto-anim__child {
+  opacity: 0;
+  animation-fill-mode: forwards;
+  animation-duration: var(--anim-duration, 0.4s);
+  animation-delay: calc(var(--anim-delay, 0s) + (var(--child-index, 0) * var(--stagger-delay, 100ms)));
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--fade .oto-anim__child,
+.oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--fade .oto-anim__child { animation-name: otoFadeIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--slide-up .oto-anim__child,
+.oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--slide-up .oto-anim__child { animation-name: otoSlideUp; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--slide-left .oto-anim__child,
+.oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--slide-left .oto-anim__child { animation-name: otoSlideLeft; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--scale .oto-anim__child,
+.oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--scale .oto-anim__child { animation-name: otoScaleIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger.oto-anim--bounce .oto-anim__child,
+.oto-modal[aria-hidden="false"] .oto-anim--stagger.oto-anim--bounce .oto-anim__child { animation-name: otoBounceIn; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(1),
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(1) { --child-index: 0; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(2),
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(2) { --child-index: 1; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(3),
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(3) { --child-index: 2; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(4),
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(4) { --child-index: 3; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(5),
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(5) { --child-index: 4; }
+.oto-modal:not([aria-hidden="true"]) .oto-anim--stagger .oto-anim__child:nth-child(6),
+.oto-modal[aria-hidden="false"] .oto-anim--stagger .oto-anim__child:nth-child(6) { --child-index: 5; }
+
+/* Popup Open Animations */
+.oto-modal--anim-fade .oto-container { animation: otoPopupFade var(--anim-duration, 0.4s) ease forwards; }
+.oto-modal--anim-slide-up .oto-container { animation: otoPopupSlideUp var(--anim-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.oto-modal--anim-zoom-in .oto-container { animation: otoPopupZoomIn var(--anim-duration, 0.4s) cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.oto-modal--anim-flip .oto-container { animation: otoPopupFlip var(--anim-duration, 0.5s) ease forwards; }
+.oto-modal--anim-elastic .oto-container { animation: otoPopupElastic var(--anim-duration, 0.6s) cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+
+@keyframes otoPopupFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes otoPopupSlideUp {
+  from { opacity: 0; transform: translate3d(0, 50px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes otoPopupZoomIn {
+  from { opacity: 0; transform: scale3d(0.5, 0.5, 1); }
+  to { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+@keyframes otoPopupFlip {
+  from { opacity: 0; transform: perspective(400px) rotate3d(1, 0, 0, -90deg); }
+  to { opacity: 1; transform: perspective(400px) rotate3d(0, 0, 0, 0); }
+}
+@keyframes otoPopupElastic {
+  0% { opacity: 0; transform: scale3d(0.3, 0.3, 1); }
+  40% { transform: scale3d(1.1, 1.1, 1); }
+  60% { transform: scale3d(0.95, 0.95, 1); }
+  80% { transform: scale3d(1.02, 1.02, 1); }
+  100% { opacity: 1; transform: scale3d(1, 1, 1); }
+}
+
+/* Popup Close Animations */
+.oto-modal.is-closing--fade-out { animation: otoModalFadeOut var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--slide-down .oto-container { animation: otoPopupSlideDown var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--zoom-out .oto-container { animation: otoPopupZoomOut var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--flip-out .oto-container { animation: otoPopupFlipOut var(--anim-duration, 0.3s) ease forwards; }
+.oto-modal.is-closing--elastic-out .oto-container { animation: otoPopupElasticOut var(--anim-duration, 0.4s) ease forwards; }
+
+@keyframes otoModalFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes otoPopupSlideDown {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to { opacity: 0; transform: translate3d(0, 50px, 0); }
+}
+@keyframes otoPopupZoomOut {
+  from { opacity: 1; transform: scale3d(1, 1, 1); }
+  to { opacity: 0; transform: scale3d(0.5, 0.5, 1); }
+}
+@keyframes otoPopupFlipOut {
+  from { opacity: 1; transform: perspective(400px) rotate3d(0, 0, 0, 0); }
+  to { opacity: 0; transform: perspective(400px) rotate3d(1, 0, 0, 90deg); }
+}
+@keyframes otoPopupElasticOut {
+  0% { opacity: 1; transform: scale3d(1, 1, 1); }
+  40% { transform: scale3d(1.05, 1.05, 1); }
+  100% { opacity: 0; transform: scale3d(0, 0, 1); }
+}
+
+/* ========================================
+   CONTINUOUS/DISPLAY ANIMATIONS
+   ======================================== */
+
+/* Badge Pulse Animation */
+.oto-badge--pulse {
+  animation: otoBadgePulse 2s ease-in-out infinite;
+}
+@keyframes otoBadgePulse {
+  0%, 100% { transform: scale3d(1, 1, 1); box-shadow: 0 0 0 0 rgba(123, 146, 200, 0.4); }
+  50% { transform: scale3d(1.02, 1.02, 1); box-shadow: 0 0 0 8px rgba(123, 146, 200, 0); }
+}
+
+/* Badge Glow Animation */
+.oto-badge--glow {
+  animation: otoBadgeGlow 2s ease-in-out infinite alternate;
+}
+@keyframes otoBadgeGlow {
+  from { box-shadow: 0 0 5px rgba(123, 146, 200, 0.3); }
+  to { box-shadow: 0 0 20px rgba(123, 146, 200, 0.6); }
+}
+
+/* Clock Icon Continuous Animation */
+.oto-urgency svg.oto-urgency-clock,
+.oto-urgency-clock {
+  animation: otoClockPulse 1.2s ease-in-out infinite !important;
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+}
+@keyframes otoClockPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* Star/Benefit Icon Shimmer */
+.oto-benefit-icon--shimmer {
+  position: relative;
+  overflow: hidden !important;
+}
+.oto-benefit-icon--shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%);
+  animation: otoShimmer 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+@keyframes otoShimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* Product Card Float Animation */
+.oto-product--float {
+  animation: otoProductFloat 3s ease-in-out infinite;
+}
+@keyframes otoProductFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -5px, 0); }
+}
+
+/* Urgency Banner Attention Pulse */
+.oto-urgency--attention {
+  animation: otoUrgencyPulse 2s ease-in-out infinite;
+}
+@keyframes otoUrgencyPulse {
+  0%, 100% { transform: scale3d(1, 1, 1); }
+  50% { transform: scale3d(1.01, 1.01, 1); }
+}
+
+/* ========================================
+   HOVER ANIMATIONS
+   ======================================== */
+
+/* Badge Hover Effects */
+.oto-badge {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+.oto-badge:hover {
+  transform: translate3d(0, -2px, 0) scale3d(1.05, 1.05, 1);
+  box-shadow: 0 4px 12px rgba(123, 146, 200, 0.3);
+}
+
+/* Product Card Hover */
+.oto-product {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+.oto-product-hover:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Product Image Hover Zoom */
+.oto-img-wrap {
+  overflow: hidden;
+}
+.oto-img {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.oto-product-hover:hover .oto-img {
+  transform: scale3d(1.08, 1.08, 1);
+}
+
+/* Benefit Item Hover */
+.oto-benefit {
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.oto-benefit-hover:hover {
+  transform: translate3d(4px, 0, 0);
+}
+
+/* Benefit Icon Hover */
+.oto-benefit-icon {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.oto-benefit-hover:hover .oto-benefit-icon {
+  transform: scale3d(1.15, 1.15, 1) rotate(5deg);
+  box-shadow: 0 4px 12px rgba(123, 146, 200, 0.25);
+}
+
+/* Urgency Banner Hover */
+.oto-urgency {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.oto-urgency-hover:hover {
+  transform: translate3d(0, -2px, 0);
+  box-shadow: 0 4px 12px rgba(123, 146, 200, 0.2);
+}
+
+/* Button Hover Animations */
+.oto-btn--hover-anim {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+.oto-btn--hover-anim:hover {
+  transform: translate3d(0, -3px, 0) scale3d(1.02, 1.02, 1);
+  box-shadow: 0 12px 28px rgba(123, 146, 200, 0.4);
+}
+.oto-btn--hover-anim:active {
+  transform: translate3d(0, -1px, 0) scale3d(0.98, 0.98, 1);
+}
+
+/* Decline Button Hover */
+.oto-decline {
+  transition: all 0.25s ease;
+}
+.oto-decline:hover {
+  opacity: 0.8;
+  transform: translate3d(0, -1px, 0);
+}
+
+/* Close Button Hover Animation */
+.oto-close {
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+.oto-close:hover {
+  transform: rotate(90deg);
+}
+
+/* Savings Badge Animation */
+.oto-savings {
+  display: inline-block;
+  animation: otoSavingsWiggle 0.5s ease-in-out 1s;
+}
+@keyframes otoSavingsWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+/* Price Compare Strikethrough Animation */
+.oto-compare {
+  position: relative;
+}
+.oto-compare::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s ease;
+}
+.oto-product:hover .oto-compare::after {
+  width: 100%;
+}
+
+/* ========================================
+   HOVER ANIMATION TOGGLES
+   ======================================== */
+.oto-badge-hover:hover {
+  transform: translate3d(0, -2px, 0) scale3d(1.05, 1.05, 1);
+  box-shadow: 0 4px 12px rgba(123, 146, 200, 0.3);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .oto-anim,
+  .oto-modal[aria-hidden="false"] .oto-anim,
+  .oto-modal:not([aria-hidden="true"]) .oto-anim,
+  .oto-modal--anim-fade .oto-container,
+  .oto-modal--anim-slide-up .oto-container,
+  .oto-modal--anim-zoom-in .oto-container,
+  .oto-modal--anim-flip .oto-container,
+  .oto-modal--anim-elastic .oto-container,
+  .oto-badge--pulse,
+  .oto-badge--glow,
+  .oto-urgency-clock,
+  .oto-benefit-icon--shimmer::after,
+  .oto-product--float,
+  .oto-urgency--attention,
+  .oto-savings {
+    animation: none !important;
+  }
+  .oto-benefit-icon--shimmer::after { display: none; }
+  .oto-badge,
+  .oto-product,
+  .oto-img,
+  .oto-benefit,
+  .oto-benefit-icon,
+  .oto-urgency,
+  .oto-btn,
+  .oto-decline,
+  .oto-close {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+</style>
+
+<script>
+(function(){
+  const KEY='oto_{{ section.id }}';
+  const TEST_MODE={{ test_mode }};
+  function init(){
+    const modal=document.getElementById('OneTimeOffer-{{ section.id }}');
+    if(!modal)return;
+    const accept=modal.querySelector('[data-oto-accept]');
+    const decline=modal.querySelector('[data-oto-decline]');
+    const close=modal.querySelector('[data-oto-close]');
+    const vid=accept?.dataset.variantId;
+    let animationTriggered = false;
+    function seen(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
+    function mark(){try{localStorage.setItem(KEY,'1')}catch(e){}}
+    function triggerAnimations(){
+      // Force a reflow to ensure animations trigger properly
+      const animElements = modal.querySelectorAll('.oto-anim');
+      animElements.forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight; // Force reflow
+        el.style.animation = '';
+      });
+    }
+    function show(){
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+      if(!animationTriggered){
+        animationTriggered = true;
+        // Small delay to ensure display:block is applied before animations start
+        requestAnimationFrame(() => {
+          triggerAnimations();
+        });
+      }
+    }
+    function hide(){
+      const closeAnim=modal.dataset.animClose;
+      const duration=parseInt(modal.dataset.animDuration)||400;
+      if(closeAnim&&closeAnim!=='none'){
+        modal.classList.add('is-closing--'+closeAnim);
+        setTimeout(()=>{
+          modal.setAttribute('aria-hidden','true');
+          document.body.style.overflow='';
+          modal.classList.remove('is-closing--'+closeAnim);
+        },duration);
+      }else{
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+      }
+    }
+    function add(){return fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:1})});}
+    function go(){window.location.href='/checkout';}
+
+    // In test mode, buttons just show alerts instead of navigating
+    if(TEST_MODE){
+      if(accept)accept.addEventListener('click',(e)=>{e.preventDefault();alert('[TEST MODE] Would add "'+accept.querySelector('.oto-btn-text')?.textContent+'" to cart and go to checkout');});
+      if(decline)decline.addEventListener('click',(e)=>{e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(()=>modal.setAttribute('aria-hidden','false'),300);});
+      if(close)close.addEventListener('click',(e)=>{e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(()=>modal.setAttribute('aria-hidden','false'),300);});
+      return;
+    }
+
+    if(accept)accept.addEventListener('click',()=>{accept.classList.add('is-loading');mark();add().then(go).catch(()=>{accept.classList.remove('is-loading');alert('{{ section.settings.error_msg | default: "Error adding item" }}');});});
+    if(decline)decline.addEventListener('click',()=>{mark();hide();go();});
+    if(close)close.addEventListener('click',()=>{mark();hide();go();});
+    modal.querySelector('.oto-overlay').addEventListener('click',()=>{mark();hide();go();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.getAttribute('aria-hidden')==='false'){mark();hide();go();}});
+    document.addEventListener('click',e=>{
+      const btn=e.target.closest('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button');
+      if(!btn||btn.dataset.otoIntercepted||seen())return;
+      e.preventDefault();e.stopPropagation();
+      btn.dataset.otoIntercepted='true';show();
+    },true);
+    const drawer=document.querySelector('cart-drawer');
+    if(drawer)new MutationObserver(m=>m.forEach(n=>{if(n.type==='attributes'&&n.attributeName==='open'&&!drawer.hasAttribute('open'))document.querySelectorAll('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button').forEach(b=>delete b.dataset.otoIntercepted);})).observe(drawer,{attributes:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "One-Time Offer",
+  "class": "section-oto",
+  "settings": [
+    {"type": "header","content": "Test Mode (Theme Editor Only)"},
+    {"type": "paragraph","content": "Enable this to keep the OTO modal visible while customizing in the theme editor. This only affects the admin preview, not the live store."},
+    {"type": "checkbox","id": "test_mode","label": "Enable test mode","default": true,"info": "Keeps the modal open for easier customization in the theme editor"},
+
+    {"type": "header","content": "Product"},
+    {"type": "product","id": "oto_product","label": "Subscription Product","info": "Product to offer as subscription"},
+
+    {"type": "header","content": "Modal Container"},
+    {"type": "color","id": "bg_color","label": "Background","default": "#FFFFFF"},
+    {"type": "color","id": "text_color","label": "Text Color","default": "#2E2A39"},
+    {"type": "color","id": "accent_color","label": "Accent Color","default": "#7B92C8"},
+    {"type": "range","id": "border_radius","min": 0,"max": 40,"step": 2,"unit": "px","label": "Border Radius","default": 16},
+    {"type": "range","id": "max_width","min": 400,"max": 700,"step": 20,"unit": "px","label": "Max Width","default": 560},
+    {"type": "range","id": "padding","min": 20,"max": 60,"step": 4,"unit": "px","label": "Padding","default": 40},
+    {"type": "range","id": "shadow_opacity","min": 0,"max": 50,"step": 5,"unit": "%","label": "Shadow Opacity","default": 25},
+    {"type": "range","id": "overlay_opacity","min": 30,"max": 90,"step": 5,"unit": "%","label": "Overlay Opacity","default": 70},
+
+    {"type": "header","content": "Typography"},
+    {"type": "font_picker","id": "heading_font","label": "Heading Font","default": "assistant_n4"},
+    {"type": "font_picker","id": "body_font","label": "Body Font","default": "assistant_n4"},
+
+    {"type": "header","content": "Badge"},
+    {"type": "text","id": "badge_text","label": "Badge Text","default": "Exclusive Offer"},
+    {"type": "color","id": "badge_bg","label": "Badge Background","default": "#7B92C8"},
+    {"type": "color","id": "badge_text_color","label": "Badge Text Color","default": "#FFFFFF"},
+    {"type": "select","id": "badge_align","label": "Badge Alignment","options": [{"value": "left","label": "Left"},{"value": "center","label": "Center"},{"value": "right","label": "Right"}],"default": "left"},
+
+    {"type": "header","content": "Heading"},
+    {"type": "text","id": "heading","label": "Heading","default": "Wait! Special Offer Just For You"},
+    {"type": "range","id": "heading_size","min": 20,"max": 48,"step": 2,"unit": "px","label": "Heading Size","default": 32},
+    {"type": "range","id": "heading_mb","min": 0,"max": 30,"step": 2,"unit": "px","label": "Heading Margin Bottom","default": 12},
+    {"type": "select","id": "heading_align","label": "Alignment","options": [{"value": "left","label": "Left"},{"value": "center","label": "Center"},{"value": "right","label": "Right"}],"default": "center"},
+    {"type": "textarea","id": "subheading","label": "Subheading","default": "Add this exclusive subscription to your order and save!"},
+    {"type": "range","id": "subheading_size","min": 12,"max": 22,"step": 1,"unit": "px","label": "Subheading Size","default": 16},
+    {"type": "checkbox","id": "show_close","label": "Show Close Button","default": true},
+
+    {"type": "header","content": "Product Card"},
+    {"type": "color","id": "product_bg","label": "Product Background","default": "rgba(0,0,0,0.03)"},
+    {"type": "range","id": "product_radius","min": 0,"max": 24,"step": 2,"unit": "px","label": "Product Card Radius","default": 12},
+    {"type": "range","id": "image_size","min": 60,"max": 150,"step": 10,"unit": "px","label": "Image Size","default": 100},
+    {"type": "range","id": "image_radius","min": 0,"max": 20,"step": 2,"unit": "px","label": "Image Radius","default": 10},
+    {"type": "checkbox","id": "show_desc","label": "Show Description","default": true},
+    {"type": "range","id": "desc_size","min": 11,"max": 16,"step": 1,"unit": "px","label": "Description Size","default": 13},
+    {"type": "range","id": "product_title_size","min": 14,"max": 22,"step": 1,"unit": "px","label": "Product Title Size","default": 18},
+
+    {"type": "header","content": "Pricing"},
+    {"type": "checkbox","id": "show_compare","label": "Show Compare Price","default": true},
+    {"type": "range","id": "compare_size","min": 12,"max": 20,"step": 1,"unit": "px","label": "Compare Price Size","default": 14},
+    {"type": "range","id": "price_size","min": 18,"max": 32,"step": 2,"unit": "px","label": "Price Size","default": 24},
+    {"type": "text","id": "price_suffix","label": "Price Suffix","default": "/month"},
+    {"type": "range","id": "suffix_size","min": 10,"max": 16,"step": 1,"unit": "px","label": "Suffix Size","default": 13},
+    {"type": "checkbox","id": "show_savings","label": "Show Savings","default": true},
+    {"type": "text","id": "savings_text","label": "Savings Text","default": "You save [amount]!"},
+    {"type": "range","id": "savings_size","min": 11,"max": 16,"step": 1,"unit": "px","label": "Savings Size","default": 13},
+
+    {"type": "header","content": "Benefits"},
+    {"type": "textarea","id": "benefits","label": "Benefits (one per line)","default": "Free shipping on subscription orders\nCancel anytime\nExclusive subscriber discounts"},
+    {"type": "select","id": "benefit_icon","label": "Icon","options": [{"value": "check","label": "Checkmark"},{"value": "star","label": "Star"},{"value": "bolt","label": "Bolt"}],"default": "check"},
+    {"type": "color","id": "benefit_icon_bg","label": "Icon Background","default": "rgba(123,146,200,0.15)"},
+    {"type": "range","id": "benefit_size","min": 12,"max": 18,"step": 1,"unit": "px","label": "Benefit Text Size","default": 14},
+    {"type": "range","id": "benefit_gap","min": 4,"max": 20,"step": 2,"unit": "px","label": "Benefit Gap","default": 10},
+
+    {"type": "header","content": "Urgency"},
+    {"type": "text","id": "urgency_text","label": "Urgency Text","default": "Limited time offer - Available now only!"},
+    {"type": "color","id": "urgency_bg","label": "Urgency Background","default": "rgba(123,146,200,0.1)"},
+    {"type": "checkbox","id": "urgency_clock","label": "Show Clock Icon","default": true},
+
+    {"type": "header","content": "Accept Button"},
+    {"type": "checkbox","id": "use_magic_mind","label": "Use Magic Mind Style","default": true},
+    {"type": "text","id": "accept_text","label": "Button Text","default": "Yes, Add to My Order"},
+    {"type": "checkbox","id": "show_accept_price","label": "Show Price on Button","default": true},
+
+    {"type": "paragraph","content": "Standard Button Colors"},
+    {"type": "color","id": "accept_bg","label": "Background","default": "#7B92C8"},
+    {"type": "color","id": "accept_text_color","label": "Text Color","default": "#FFFFFF"},
+    {"type": "color","id": "accept_bg_hover","label": "Hover Background","default": "#6a7fb0"},
+
+    {"type": "paragraph","content": "Magic Mind Gradient Colors"},
+    {"type": "color","id": "magic_border","label": "Border Color","default": "#7B92C8"},
+    {"type": "color","id": "magic_text","label": "Text Color","default": "#7B92C8"},
+    {"type": "color","id": "magic_gradient_start","label": "Gradient Start (Purple)","default": "#7B92C8"},
+    {"type": "color","id": "magic_gradient_mid","label": "Gradient Middle (Beige)","default": "#ddbea8"},
+    {"type": "color","id": "magic_gradient_end","label": "Gradient End (Cream)","default": "#f3dfc1"},
+    {"type": "color","id": "magic_shadow","label": "Shadow Color","default": "rgba(123,146,200,0.3)"},
+
+    {"type": "paragraph","content": "Button Sizing"},
+    {"type": "range","id": "accept_font_size","min": 14,"max": 22,"step": 1,"unit": "px","label": "Font Size","default": 16},
+    {"type": "range","id": "accept_padding_y","min": 12,"max": 28,"step": 2,"unit": "px","label": "Padding Vertical","default": 18},
+    {"type": "range","id": "accept_padding_x","min": 20,"max": 50,"step": 2,"unit": "px","label": "Padding Horizontal","default": 32},
+    {"type": "range","id": "accept_radius","min": 0,"max": 20,"step": 2,"unit": "px","label": "Border Radius","default": 10},
+
+    {"type": "paragraph","content": "Button Margins"},
+    {"type": "range","id": "accept_margin_top","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Top","default": 0},
+    {"type": "range","id": "accept_margin_right","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Right","default": 0},
+    {"type": "range","id": "accept_margin_bottom","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Bottom","default": 0},
+    {"type": "range","id": "accept_margin_left","min": 0,"max": 40,"step": 2,"unit": "px","label": "Margin Left","default": 0},
+
+    {"type": "header","content": "Decline Button"},
+    {"type": "text","id": "decline_text","label": "Text","default": "No thanks, I will pass"},
+    {"type": "color","id": "decline_color","label": "Color","default": "#666666"},
+    {"type": "range","id": "decline_size","min": 12,"max": 18,"step": 1,"unit": "px","label": "Font Size","default": 14},
+
+    {"type": "header","content": "Button Layout"},
+    {"type": "range","id": "button_gap","min": 8,"max": 24,"step": 2,"unit": "px","label": "Button Gap","default": 12},
+
+    {"type": "header","content": "Footer"},
+    {"type": "text","id": "footer_text","label": "Footer Text","default": "30-day money-back guarantee • Cancel anytime"},
+    {"type": "range","id": "footer_size","min": 10,"max": 16,"step": 1,"unit": "px","label": "Footer Size","default": 12},
+    {"type": "range","id": "footer_mt","min": 10,"max": 40,"step": 2,"unit": "px","label": "Footer Margin Top","default": 20},
+
+    {"type": "header","content": "Messages"},
+    {"type": "text","id": "error_msg","label": "Error Message","default": "Sorry, we couldn't add this item. Please try again."},
+
+    {"type": "header","content": "Popup Animation"},
+    {"type": "checkbox","id": "anim_popup_enable","label": "Enable Popup Animation","default": true},
+    {"type": "select","id": "anim_popup_open","label": "Open Animation","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "zoom-in","label": "Zoom In"},{"value": "flip","label": "Flip"},{"value": "elastic","label": "Elastic"}],"default": "slide-up"},
+    {"type": "select","id": "anim_popup_close","label": "Close Animation","options": [{"value": "fade-out","label": "Fade Out"},{"value": "slide-down","label": "Slide Down"},{"value": "zoom-out","label": "Zoom Out"},{"value": "flip-out","label": "Flip Out"},{"value": "elastic-out","label": "Elastic Out"}],"default": "slide-down"},
+    {"type": "range","id": "anim_popup_duration","min": 200,"max": 1000,"step": 50,"unit": "ms","label": "Animation Duration","default": 400},
+
+    {"type": "header","content": "Badge Animation"},
+    {"type": "checkbox","id": "anim_badge_enable","label": "Enable Badge Animation","default": true},
+    {"type": "select","id": "anim_badge_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "scale"},
+    {"type": "range","id": "anim_badge_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 100},
+    {"type": "header","content": "Badge Continuous Animation"},
+    {"type": "select","id": "anim_badge_continuous","label": "Continuous Effect","options": [{"value": "none","label": "None"},{"value": "pulse","label": "Pulse"},{"value": "glow","label": "Glow"}],"default": "pulse","info": "Animation that plays while the popup is open"},
+    {"type": "header","content": "Badge Hover Animation"},
+    {"type": "checkbox","id": "anim_badge_hover","label": "Enable Hover Effect","default": true,"info": "Badge lifts and scales on hover"},
+
+    {"type": "header","content": "Heading Animation"},
+    {"type": "checkbox","id": "anim_heading_enable","label": "Enable Heading Animation","default": true},
+    {"type": "select","id": "anim_heading_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "slide-up"},
+    {"type": "range","id": "anim_heading_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 200},
+
+    {"type": "header","content": "Product Card Animation"},
+    {"type": "checkbox","id": "anim_product_enable","label": "Enable Product Animation","default": true},
+    {"type": "select","id": "anim_product_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-right","label": "Slide Right"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "slide-up"},
+    {"type": "range","id": "anim_product_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 300},
+    {"type": "header","content": "Product Card Hover Animation"},
+    {"type": "checkbox","id": "anim_product_hover","label": "Enable Hover Effect","default": true,"info": "Card lifts and image zooms on hover"},
+    {"type": "checkbox","id": "anim_product_float","label": "Enable Floating Effect","default": false,"info": "Product card gently floats while displayed"},
+
+    {"type": "header","content": "Benefits Animation"},
+    {"type": "checkbox","id": "anim_benefits_enable","label": "Enable Benefits Animation","default": true},
+    {"type": "select","id": "anim_benefits_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "slide-up"},
+    {"type": "range","id": "anim_benefits_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 400},
+    {"type": "checkbox","id": "anim_benefits_stagger","label": "Stagger List Items","default": true},
+    {"type": "range","id": "anim_benefits_stagger_delay","min": 50,"max": 300,"step": 25,"unit": "ms","label": "Stagger Delay","default": 100},
+    {"type": "header","content": "Benefits Hover Animation"},
+    {"type": "checkbox","id": "anim_benefits_hover","label": "Enable Hover Effects","default": true,"info": "Benefits slide and icon scales on hover"},
+    {"type": "checkbox","id": "anim_benefits_icon_shimmer","label": "Enable Icon Shimmer","default": false,"info": "Shimmer effect on benefit icons"},
+
+    {"type": "header","content": "Urgency Banner Animation"},
+    {"type": "checkbox","id": "anim_urgency_enable","label": "Enable Urgency Animation","default": true},
+    {"type": "select","id": "anim_urgency_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "slide-up"},
+    {"type": "range","id": "anim_urgency_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 500},
+    {"type": "header","content": "Urgency Continuous Animation"},
+    {"type": "checkbox","id": "anim_urgency_clock_pulse","label": "Enable Clock Pulse","default": true,"info": "Clock icon pulses continuously"},
+    {"type": "checkbox","id": "anim_urgency_attention","label": "Enable Attention Pulse","default": false,"info": "Subtle scale pulse on the entire banner"},
+    {"type": "header","content": "Urgency Hover Animation"},
+    {"type": "checkbox","id": "anim_urgency_hover","label": "Enable Hover Effect","default": true,"info": "Banner lifts on hover"},
+
+    {"type": "header","content": "Accept Button Animation"},
+    {"type": "checkbox","id": "anim_accept_enable","label": "Enable Button Animation","default": true},
+    {"type": "select","id": "anim_accept_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "bounce"},
+    {"type": "range","id": "anim_accept_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 600},
+    {"type": "checkbox","id": "anim_accept_hover","label": "Enable Hover Animation","default": true},
+
+    {"type": "header","content": "Decline Button Animation"},
+    {"type": "checkbox","id": "anim_decline_enable","label": "Enable Button Animation","default": true},
+    {"type": "select","id": "anim_decline_type","label": "Animation Type","options": [{"value": "fade","label": "Fade In"},{"value": "slide-up","label": "Slide Up"},{"value": "slide-left","label": "Slide Left"},{"value": "scale","label": "Scale In"},{"value": "bounce","label": "Bounce In"}],"default": "fade"},
+    {"type": "range","id": "anim_decline_delay","min": 0,"max": 1000,"step": 50,"unit": "ms","label": "Animation Delay","default": 700}
+  ],
+  "presets": [{"name": "One-Time Offer"}]
+}
+{% endschema %}

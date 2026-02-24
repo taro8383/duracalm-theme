@@ -14,22 +14,34 @@
   /* Premium Testimonial Styles */
   .testimonial-card {
     position: relative;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
     overflow: hidden;
+    margin-top: {{ section.settings.card_margin_top | default: 0 }}px;
   }
 
-  .testimonial-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  /* Hover lift on card - use !important to override scroll animations */
+  .testimonials-{{ section.id }} .testimonial-card {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease !important;
+    will-change: transform, box-shadow;
+  }
+
+  .testimonials-{{ section.id }} .testimonial-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
   }
 
   /* Large Quote Styling */
   .testimonial-card .rte {
-    font-size: {{ section.settings.quote_font_size | default: 18 }}px;
+    font-size: {{ section.settings.quote_font_size_mobile | default: section.settings.quote_font_size | default: 16 }}px;
     line-height: 1.7;
     font-style: italic;
     color: {{ section.settings.quote_text_color | default: 'inherit' }};
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-card .rte {
+      font-size: {{ section.settings.quote_font_size_desktop | default: section.settings.quote_font_size | default: 18 }}px;
+    }
   }
 
   .testimonial-card .rte p {
@@ -96,18 +108,30 @@
 
   .testimonial-card__author {
     font-weight: 600;
-    font-size: 16px;
+    font-size: {{ section.settings.author_name_font_size_mobile | default: section.settings.author_name_font_size | default: 14 }}px;
     margin: 0;
     color: {{ section.settings.author_name_color | default: 'inherit' }};
   }
 
+  @media screen and (min-width: 750px) {
+    .testimonial-card__author {
+      font-size: {{ section.settings.author_name_font_size_desktop | default: section.settings.author_name_font_size | default: 16 }}px;
+    }
+  }
+
   .testimonial-card__verified-text {
-    font-size: 13px;
+    font-size: {{ section.settings.meta_font_size_mobile | default: section.settings.meta_font_size | default: 12 }}px;
     font-weight: 500;
     color: {{ section.settings.verified_badge_text_color | default: '#10b981' }};
     display: flex;
     align-items: center;
     gap: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-card__verified-text {
+      font-size: {{ section.settings.meta_font_size_desktop | default: section.settings.meta_font_size | default: 13 }}px;
+    }
   }
 
   .testimonial-card__verified-text::before {
@@ -120,13 +144,19 @@
   }
 
   .testimonial-card__location {
-    font-size: 13px;
+    font-size: {{ section.settings.meta_font_size_mobile | default: section.settings.meta_font_size | default: 12 }}px;
     color: rgba(var(--color-foreground), 0.6);
+  }
+
+  @media screen and (min-width: 750px) {
+    .testimonial-card__location {
+      font-size: {{ section.settings.meta_font_size_desktop | default: section.settings.meta_font_size | default: 13 }}px;
+    }
   }
 
   /* Smooth Carousel Transitions */
   #shopify-section-{{ section.id }} .splide__slide {
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.4 ease, transform 0.4s ease;
   }
 
   #shopify-section-{{ section.id }} .splide__slide.is-active {
@@ -255,7 +285,7 @@
   {% endif %}
 {%- endstyle -%}
 
-<div class="multicolumn color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %} content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
+<div class="multicolumn testimonials-{{ section.id }} color-scheme-{{ section.id }} color-{{ section.settings.color_scheme }} gradient{% if section.settings.title == blank %} no-heading{% endif %} content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
   {% if section.settings.display_id %}
     <copy-button class='section-id-btn button' data-content="#shopify-section-{{ section.id }}" data-success="false">
       <span class="copy-text">Click to copy section ID</span>
@@ -331,12 +361,15 @@
         {% else %}
           data-side-padding-mobile='15'
         {% endif %}
-        data-destroy-desktop="false"
-        data-destroy-mobile="false"
+        {% if has_desktop_slider == false %}
+          data-destroy-desktop="true"
+        {% elsif has_mobile_slider == false %}
+          data-destroy-mobile="true"
+        {% endif %}
         data-pause-videos='true'
       >
     {% endif %}
-      <div 
+      <div
         class='splide splide--desktop-dots-{{ section.settings.desktop_dots_position }} splide--mobile-dots-{{ section.settings.mobile_dots_position }} splide--desktop-arrows-{{ section.settings.desktop_arrows_position }} splide--desktop-arrows-outside splide--mobile-arrows-{{ section.settings.mobile_arrows_position }}{% if section.settings.transparent_arrows %} splide--transparent-arrows{% endif %}{% if section.settings.vertical-alignment == 'center' %} splide--vertically-centered{% endif %}{% if has_desktop_slider == false %} splide--destroy-desktop{% endif %}{% if has_mobile_slider == false %} splide--destroy-mobile{% endif %}' 
         style="--columns-desktop: {{ section.settings.columns_desktop }};--columns-mobile:1;--gap-desktop:{{ section.settings.desktop_spacing | divided_by: 10.0 }}rem;--gap-mobile:1.5rem;"
         {% if section.settings.desktop_adaptive_height and section.settings.slides_desktop == 1 and has_desktop_slider %}
@@ -347,11 +380,11 @@
         {% endif %}
       >
         <div class="splide__track">
-          <ul class="splide__list">
+          <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
             {%- for block in section.blocks -%}
               <li class="splide__slide">
                 <div class="splide__slide__container" style="--index:{{ forloop.index0 | plus: content_index }};" {{ block.shopify_attributes }}>
-                  <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block.settings.author_avatar == blank and block.settings.author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child">
+                  <div class="multicolumn-card content-container testimonial-card color-{{ section.settings.cards_color_scheme }} cards-color-scheme-{{ section.id }} gradient{{ bg_diff_class }} {{ section.settings.column_alignment }}{% unless block.settings.author_avatar == blank and block.settings.author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
                     {%- if block.settings.image != blank or block.settings.video != blank -%}
                       {% if section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
                         {% assign spaced_image = true %}
@@ -641,6 +674,30 @@
       "unit": "px",
       "label": "Card border radius",
       "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Card spacing"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Card inner padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_margin_top",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Card margin top",
+      "default": 0
     },
     {
       "type": "select",
@@ -1190,14 +1247,72 @@
       "default": "#ffffff"
     },
     {
+      "type": "header",
+      "content": "Text sizes - Desktop"
+    },
+    {
       "type": "range",
-      "id": "quote_font_size",
-      "min": 14,
+      "id": "quote_font_size_desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Quote text size (desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "author_name_font_size_desktop",
+      "min": 12,
       "max": 24,
       "step": 1,
       "unit": "px",
-      "label": "Quote font size",
-      "default": 18
+      "label": "Author name size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "meta_font_size_desktop",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Verified text & location size (desktop)",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Text sizes - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "quote_font_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Quote text size (mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "author_name_font_size_mobile",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Author name size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "meta_font_size_mobile",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Verified text & location size (mobile)",
+      "default": 12
     },
     {
       "type": "color",

@@ -32,6 +32,62 @@
       }
     }
   {% endif %}
+
+  {% if section.settings.use_magic_mind_button %}
+    .magic-mind-btn-{{ section.id }} {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      text-transform: none;
+      border: 2px solid #7B92C8;
+      border-radius: 8px;
+      color: #7B92C8;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .magic-mind-btn-{{ section.id }}::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%);
+      background-size: 200% 200%;
+      opacity: 0;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+
+    .magic-mind-btn-{{ section.id }}:hover::before {
+      opacity: 1;
+      background-position: 100% 0;
+    }
+
+    .magic-mind-btn-{{ section.id }}:hover {
+      color: #ffffff !important;
+      border-color: transparent !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3);
+    }
+
+    @media screen and (max-width: 749px) {
+      .magic-mind-btn-{{ section.id }} {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+  {% endif %}
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} color-scheme-{{ section.id }} gradient content-for-grouping animate-section animate--hidden {{ section.settings.visibility }}">
@@ -69,7 +125,7 @@
       <div class="contact__button">
         <input
           type="button"
-          class="button{% if section.settings.button_full_width %} button--full-width{% endif %}"
+          class="button{% if section.settings.button_full_width %} button--full-width{% endif %}{% if section.settings.use_magic_mind_button %} magic-mind-btn-{{ section.id }}{% endif %}"
           value="{{ section.settings.button_label }}"
           onclick="doTrack()"
         >
@@ -193,6 +249,13 @@
       "id": "button_full_width",
       "label": "Use full width button style",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "use_magic_mind_button",
+      "label": "Use Magic Mind button style",
+      "default": false,
+      "info": "Applies the signature purple-to-beige gradient hover effect to the Track button"
     },
     {
       "type": "select",

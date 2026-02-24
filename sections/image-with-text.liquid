@@ -427,7 +427,7 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'heading' -%}
-                <h2 class="image-with-text__heading {{ block.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ block.settings.title_highlight_color }}' {{ block.shopify_attributes }}>
+                <h2 class="image-with-text__heading {{ block.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ block.settings.title_highlight_color }}' {{ block.shopify_attributes }} data-text-reveal>
                   {{ block.settings.title }}
                 </h2>
               {%- when 'rating_stars' -%}
@@ -450,15 +450,15 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'text' -%}
-                <div class="image-with-text__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+                <div class="image-with-text__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }} data-scroll-animate="fade-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
                   {{ block.settings.text }}
                 </div>
               {%- when 'pull_quote' -%}
-                <blockquote class="pull-quote" {{ block.shopify_attributes }}>
+                <blockquote class="pull-quote" {{ block.shopify_attributes }} data-scroll-animate="scale-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
                   {{ block.settings.quote }}
                 </blockquote>
               {%- when 'icon_anchor' -%}
-                <div class="icon-anchor" {{ block.shopify_attributes }}>
+                <div class="icon-anchor" {{ block.shopify_attributes }} data-scroll-animate="slide-left" data-scroll-delay="{{ forloop.index | times: 100 }}">
                   <div class="icon-anchor__icon">
                     {%- if block.settings.custom_icon != blank -%}
                       <img src="{{ block.settings.custom_icon | image_url }}" alt="" loading="lazy">

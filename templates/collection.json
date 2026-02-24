@@ -9,6 +9,29 @@
  */
 {
   "sections": {
+    "ss_wave_2_kYKPAN": {
+      "type": "ss-wave-2",
+      "name": "SS - Wave #2",
+      "settings": {
+        "wave_height": 60,
+        "wave_height_mobile": 200,
+        "wave_animation": true,
+        "wave_rotate": false,
+        "wave_color": "#7b92c8",
+        "background_color": "#ddbea8",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0
+      }
+    },
     "main-collection-banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -23,7 +46,7 @@
         "description_max_width": 800,
         "title_color": "#7b92c8",
         "description_color": "",
-        "background_color": "#ddbea8",
+        "background_color": "#f3dfc1",
         "color_scheme": "background-1",
         "padding_top": 0,
         "padding_bottom": 0,
@@ -50,7 +73,7 @@
         "enable_filtering": false,
         "filter_type": "horizontal",
         "enable_sorting": false,
-        "columns_mobile": "2",
+        "columns_mobile": "1",
         "product_title_font_size": 16,
         "product_title_font_weight": "500",
         "product_title_color": "",
@@ -76,10 +99,35 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "ss_wave_2_qDifKC": {
+      "type": "ss-wave-2",
+      "name": "SS - Wave #2",
+      "settings": {
+        "wave_height": 60,
+        "wave_height_mobile": 200,
+        "wave_animation": true,
+        "wave_rotate": true,
+        "wave_color": "#7b92c8",
+        "background_color": "#ddbea8",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0
+      }
     }
   },
   "order": [
+    "ss_wave_2_kYKPAN",
     "main-collection-banner",
-    "main-collection-product-grid"
+    "main-collection-product-grid",
+    "ss_wave_2_qDifKC"
   ]
 }

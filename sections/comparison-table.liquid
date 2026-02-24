@@ -270,7 +270,7 @@
                   {{
                     section.settings.logo
                     | image_url: width: 400
-                    | image_tag: width: logo_width, height: logo_height, alt: shop.name
+                    | image_tag: width: logo_width, height: logo_height, alt: shop.name, loading: 'lazy'
                   }}
                 {%- else -%}
                   {{ section.settings.us_label | replace: '[shop_name]', shop.name }}
@@ -310,7 +310,7 @@
                     {{
                       logo
                       | image_url: width: 400
-                      | image_tag: width: logo_width, height: logo_height, alt: label
+                      | image_tag: width: logo_width, height: logo_height, alt: label, loading: 'lazy'
                     }}
                   {%- else -%}
                     {{ label }}

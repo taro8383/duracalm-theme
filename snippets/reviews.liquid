@@ -1,26 +1,41 @@
 {% liquid
-  assign items_count = 0
-  if block.settings.text_1 != blank
-    assign items_count = items_count | plus: 1
+  # Check data source
+  if block.settings.data_source == 'metaobjects' and product != blank
+    assign product_reviews = product.metafields.custom.product_reviews.value
+    assign max_reviews = block.settings.max_reviews | default: 3
+    assign items_count = 0
+    assign review_handles = ''
+    for review in product_reviews
+      if items_count < max_reviews
+        assign review_handles = review_handles | append: review.handle | append: ','
+        assign items_count = items_count | plus: 1
+      endif
+    endfor
+  else
+    assign items_count = 0
+    if block.settings.text_1 != blank
+      assign items_count = items_count | plus: 1
+    endif
+    if block.settings.text_2 != blank
+      assign items_count = items_count | plus: 1
+    endif
+    if block.settings.text_3 != blank
+      assign items_count = items_count | plus: 1
+    endif
   endif
-  if block.settings.text_2 != blank
-    assign items_count = items_count | plus: 1
-  endif
-  if block.settings.text_3 != blank
-    assign items_count = items_count | plus: 1
-  endif
+
   if block.settings.show_custom_bg or block.settings.color_scheme != 'background-1' or block.settings.border_width > 0 or force_padding
    assign padding_class = ' review-item--padding'
   endif
-  if items_count > 1 
+  if items_count > 1
     assign show_slider = true
   endif
-  if block.settings.display_arrows 
+  if block.settings.display_arrows
     assign arrows_class = 'under'
   else
     assign arrows_class = 'hidden'
   endif
-  if block.settings.display_dots 
+  if block.settings.display_dots
     assign dots_class = 'under'
   else
     assign dots_class = 'hidden'
@@ -86,20 +101,37 @@
         <div class='splide__track'>
           <ul class="splide__list">
   {% endif %}
-  {% for i in (1..items_count) %}
+  {% liquid
+    if block.settings.data_source == 'metaobjects' and review_handles != ''
+      assign handles_array = review_handles | split: ','
+      assign items_to_render = handles_array
+    else
+      assign items_to_render = (1..items_count)
+    endif
+  %}
+  {% for item in items_to_render %}
     {% liquid
-      if i == 1
-        assign author = block.settings.author_1
-        assign image = block.settings.image_1
-        assign text = block.settings.text_1
-      elsif i == 2
-        assign author = block.settings.author_2
-        assign image = block.settings.image_2
-        assign text = block.settings.text_2
+      if block.settings.data_source == 'metaobjects'
+        assign review_handle = item
+        assign review_metaobject = shop.metaobjects.review[review_handle]
+        assign author = review_metaobject.reviewer_name
+        assign image = review_metaobject.avatar_image
+        assign text = review_metaobject.review_text
       else
-        assign author = block.settings.author_3
-        assign image = block.settings.image_3
-        assign text = block.settings.text_3
+        assign i = item
+        if i == 1
+          assign author = block.settings.author_1
+          assign image = block.settings.image_1
+          assign text = block.settings.text_1
+        elsif i == 2
+          assign author = block.settings.author_2
+          assign image = block.settings.image_2
+          assign text = block.settings.text_2
+        else
+          assign author = block.settings.author_3
+          assign image = block.settings.image_3
+          assign text = block.settings.text_3
+        endif
       endif
     %}
       {% if show_slider %}

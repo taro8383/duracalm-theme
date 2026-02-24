@@ -1,0 +1,194 @@
+/**
+ * Scroll-Triggered Animation Styles
+ * Micro-interactions for enhanced user experience
+ */
+
+/* Base animation classes */
+.scroll-animate {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.scroll-animate--fade-up {
+  transform: translateY(30px);
+}
+
+.scroll-animate--fade-in {
+  transform: none;
+}
+
+.scroll-animate--scale-up {
+  transform: scale(0.85);
+}
+
+.scroll-animate--slide-left {
+  transform: translateX(-30px);
+}
+
+.scroll-animate--slide-right {
+  transform: translateX(30px);
+}
+
+/* Animated state */
+.scroll-animated {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
+}
+
+/* Transition defaults */
+[data-scroll-animate],
+[data-text-reveal] {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Icon animations */
+[data-animate-icons] .material-symbols-rounded,
+[data-animate-icons] .icon-anchor__icon,
+[data-animate-icons] .icon-bar-card__icon {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.4s ease;
+}
+
+/* Icon scale on viewport entry */
+.icon-scale-enter {
+  animation: iconScaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes iconScaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Stagger animation delays for children */
+[data-stagger-children] > *:nth-child(1) { transition-delay: 0ms; }
+[data-stagger-children] > *:nth-child(2) { transition-delay: 100ms; }
+[data-stagger-children] > *:nth-child(3) { transition-delay: 200ms; }
+[data-stagger-children] > *:nth-child(4) { transition-delay: 300ms; }
+[data-stagger-children] > *:nth-child(5) { transition-delay: 400ms; }
+[data-stagger-children] > *:nth-child(6) { transition-delay: 500ms; }
+[data-stagger-children] > *:nth-child(7) { transition-delay: 600ms; }
+[data-stagger-children] > *:nth-child(8) { transition-delay: 700ms; }
+[data-stagger-children] > *:nth-child(9) { transition-delay: 800ms; }
+[data-stagger-children] > *:nth-child(10) { transition-delay: 900ms; }
+
+/* Text section animations */
+.text-fade-section {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card animations */
+.card-animate-enter {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 0.6s ease,
+              transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-animate-enter.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Parallax container */
+.parallax-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-element {
+  will-change: transform;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-animate],
+  [data-text-reveal],
+  .scroll-animate,
+  .text-fade-section,
+  .card-animate-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  [data-animate-icons] .material-symbols-rounded,
+  [data-animate-icons] .icon-anchor__icon,
+  [data-animate-icons] .icon-bar-card__icon {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Hover lift animation enhancement (for icon cards) */
+.icon-hover-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+.icon-hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Section entrance animations */
+.section-entrance {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.section-entrance.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Image reveal animation */
+.image-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-reveal.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* FAQ item animations */
+.faq-item-animate {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Table row animations */
+.table-row-animate {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.table-row-animate.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Comparison table - no scroll animations (causes visibility issues) */

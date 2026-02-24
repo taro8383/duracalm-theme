@@ -4641,6 +4641,29 @@
       "settings": [
         {
           "type": "header",
+          "content": "Data Source"
+        },
+        {
+          "type": "select",
+          "id": "data_source",
+          "label": "Reviews source",
+          "options": [
+            {"value": "blocks", "label": "Manual configuration"},
+            {"value": "metaobjects", "label": "From product metaobjects"}
+          ],
+          "default": "metaobjects"
+        },
+        {
+          "type": "range",
+          "id": "max_reviews",
+          "label": "Maximum reviews to show",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "header",
           "content": "Container"
         },
         {
@@ -8727,6 +8750,20 @@
       "type": "review_avatars",
       "name": "Review avatars",
       "settings": [
+        {
+          "type": "header",
+          "content": "Data Source"
+        },
+        {
+          "type": "select",
+          "id": "avatar_source",
+          "label": "Avatar source",
+          "options": [
+            {"value": "manual", "label": "Manual upload"},
+            {"value": "metaobjects", "label": "From product reviews"}
+          ],
+          "default": "metaobjects"
+        },
         {
           "type": "header",
           "content": "Layout"
