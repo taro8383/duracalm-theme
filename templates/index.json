@@ -302,9 +302,10 @@
         "card_margin_top": 40,
         "image_width": "full",
         "image_ratio": "square",
+        "hide_top_media": true,
         "column_alignment": "center",
         "show_stars": true,
-        "inactive_stars_style": "outlined",
+        "inactive_stars_style": "solid",
         "star_color": "#ffcc00",
         "bg_star_color": "#ececec",
         "star_animation": "shimmer",
@@ -353,7 +354,11 @@
         "verified_badge_text_color": "#ddbea8",
         "custom_cards_colors_background": "#f3dfc1",
         "custom_cards_gradient_background": "",
-        "custom_cards_colors_text": "#2e2a39"
+        "custom_cards_colors_text": "#2e2a39",
+        "data_source": "metaobjects",
+        "target_product": "",
+        "featured_only": true,
+        "max_reviews": 5
       }
     },
     "0f1fc9e4-bc4c-4052-9747-62d1f8472caa": {
