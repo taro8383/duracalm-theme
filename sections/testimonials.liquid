@@ -396,21 +396,10 @@
                 assign filtered_reviews = ''
                 for review in reviews_source
                   if review.featured
-                    assign filtered_reviews = filtered_reviews | append: review.id | append: ','
+                    assign filtered_reviews = filtered_reviews | append: review.handle | append: ','
                   endif
                 endfor
-                assign review_ids = filtered_reviews | split: ','
-                assign filtered_reviews_list = ''
-                for review_id in review_ids
-                  if review_id != ''
-                    for review in reviews_source
-                      if review.id == review_id
-                        assign filtered_reviews_list = filtered_reviews_list | append: review.handle | append: ','
-                      endif
-                    endfor
-                  endif
-                endfor
-                assign reviews_source_handles = filtered_reviews_list | split: ','
+                assign reviews_source_handles = filtered_reviews | split: ','
               else
                 assign reviews_source_handles = ''
                 for review in reviews_source
@@ -442,7 +431,7 @@
                   section: section,
                   block_image: review.avatar_image,
                   block_video: blank,
-                  block_title: review.review_title,
+                  block_title: review.title,
                   block_text: review.review_text,
                   block_author_avatar: review.avatar_image,
                   block_author: review.reviewer_name,
