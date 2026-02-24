@@ -17,10 +17,10 @@
 
 ## Git Repositories
 
-| Repository | URL | Path |
-|------------|-----|------|
-| **GitHub** | `https://github.com/taro8383/duracalm-theme.git` | `duracalm-theme/` |
-| **Root Project** | Local only | `/Duracalm-Developement/` |
+| Repository | URL | Path | Contents |
+|------------|-----|------|----------|
+| **GitHub Theme** | `https://github.com/taro8383/duracalm-theme.git` | `duracalm-theme/` | Shopify theme files |
+| **GitHub Root** | `https://github.com/taro8383/duracalm-theme.git` | `/` | Review admin app, documentation, tools |
 
 ## Shopify Configuration
 
