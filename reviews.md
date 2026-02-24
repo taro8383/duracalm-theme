@@ -511,12 +511,17 @@ The review automatically appears in:
 - [x] **Phase 1**: Review admin app with OAuth and file upload
 - [x] **Phase 2**: `sections/testimonials.liquid` - Data source toggle with metaobject support
 
-### In Progress 🔄
-- [ ] `sections/main-product.liquid` - Update block schemas
-- [ ] `sections/trustpilot-reviews.liquid` - Add data source toggle
-- [ ] `sections/facebook-testimonials.liquid` - Add data source toggle (optional)
-- [ ] `sections/ss-featured-review-slider.liquid` - Add data source toggle
-- [ ] `snippets/review-avatars.liquid` - Add avatar source toggle
+### Completed ✅
+- [x] **Phase 1**: Review admin app with OAuth and file upload
+- [x] **Phase 2**: Metaobject support for all review sections:
+  - [x] `sections/testimonials.liquid` - Data source toggle with metaobject support
+  - [x] `sections/main-product.liquid` - Reviews block with metaobjects (via `snippets/reviews.liquid`)
+  - [x] `sections/trustpilot-reviews.liquid` - Data source toggle (blocks / all featured / product-specific)
+  - [x] `sections/ss-featured-review-slider.liquid` - Data source toggle with featured reviews
+  - [x] `snippets/review-avatars.liquid` - Avatar source toggle (manual / metaobjects)
+
+### Optional / Future
+- [ ] `sections/facebook-testimonials.liquid` - Facebook-style layout (marked as optional due to unique post+comments structure)
 
 ---
 
