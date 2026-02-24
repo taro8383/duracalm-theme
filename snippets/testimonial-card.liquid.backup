@@ -1,6 +1,6 @@
 {%- comment -%}
   Testimonial Card Snippet
-  Used by testimonials.liquid for both metaobjects and blocks
+  Used by testimonialsnip.liquid for both metaobjects and blocks
   Parameters:
   - snip: The section object (passed as 'snip' to avoid Liquid reserved keyword issues)
   - block_image
@@ -21,7 +21,7 @@
 
 {%- liquid
   assign spaced_image = false
-  if snip.settings.image_ratio == 'adapt' or snip.settings.image_ratio == 'circle'
+  if snip.settingsnip.image_ratio == 'adapt' or snip.settingsnip.image_ratio == 'circle'
     assign spaced_image = true
   endif
   assign card_index = forloop.index
@@ -30,41 +30,35 @@
 
 <li class="splide__slide">
   <div class="splide__slide__container" style="--index:{{ card_index0 | plus: content_index }};" {% if review_handle != blank %}data-review-handle="{{ review_handle }}"{% else %}{{ block.shopify_attributes }}{% endif %}>
-    <div class="multicolumn-card content-container testimonial-card color-{{ snip.settings.cards_color_scheme }} cards-color-scheme-{{ snip.id }} gradient{{ bg_diff_class }} {{ snip.settings.column_alignment }}{% unless block_author_avatar == blank and block_author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ card_index | times: 100 }}">
+    <div class="multicolumn-card content-container testimonial-card color-{{ snip.settingsnip.cards_color_scheme }} cards-color-scheme-{{ snip.id }} gradient{{ bg_diff_class }} {{ snip.settingsnip.column_alignment }}{% unless block_author_avatar == blank and block_author == blank %} testimonial-card--has-author{% endunless %} animate-item animate-item--child" data-scroll-animate="scale-up" data-scroll-delay="{{ card_index | times: 100 }}">
       {%- if block_image != blank or block_video != blank -%}
-        <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--{{ snip.settings.image_width }}-width{% if snip.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
+        <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--{{ snip.settingsnip.image_width }}-width{% if snip.settingsnip.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
           <div
-            class="media media--transparent media--{{ snip.settings.image_ratio }}"
-            {% if snip.settings.image_ratio == 'adapt' %}
+            class="media media--transparent media--{{ snip.settingsnip.image_ratio }}"
+            {% if snip.settingsnip.image_ratio == 'adapt' %}
               style="padding-bottom: {{ 1 | divided_by: highest_ratio | times: 100 }}%;"
             {%- endif -%}
           >
             {% if block_video == blank %}
               {%- capture sizes -%}
-                (min-width: 990px) {% if snip.blocks.size <= 2 %}710px{% else %}550px{% endif %}, (min-width:
-                750px) {% if snip.blocks.size == 1 %}710px{% else %}550px{% endif %}, calc(100vw - 30px)
+                (min-width: 990px) {% if snip.blocksnip.size <= 2 %}710px{% else %}550px{% endif %}, (min-width:
+                750px) {% if snip.blocksnip.size == 1 %}710px{% else %}550px{% endif %}, calc(100vw - 30px)
               {%- endcapture -%}
-              {%- if block_image != blank and block_image != 'blank' -%}
-                {%- if block_image contains 'http' or block_image contains '/cdn.shopify.com/' -%}
-                  <img src="{{ block_image }}" loading="lazy" sizes="{{ sizes }}" widths="275, 550, 710, 1420" class="multicolumn-card__image" />
-                {%- else -%}
-                  {{
-                    block_image
-                    | image_url: width: 1420
-                    | image_tag:
-                      loading: 'lazy',
-                      sizes: sizes,
-                      widths: '275, 550, 710, 1420',
+              {{
+                block_image
+                | image_url: width: 1420
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: sizes,
+                  widths: '275, 550, 710, 1420',
                   class: 'multicolumn-card__image'
-                  }}
-                {%- endif -%}
-              {%- endif -%}
+              }}
             {% else %}
               <internal-video class="internal-video" data-action-on-inactive='pause'>
                 {% liquid
                   assign thumbnail = block_video.preview_image
-                  if block.settings != blank and block.settings.video_thumbnail != blank
-                    assign thumbnail = block.settings.video_thumbnail
+                  if block.settings != blank and block.settingsnip.video_thumbnail != blank
+                    assign thumbnail = block.settingsnip.video_thumbnail
                   endif
                 %}
                 <video
@@ -76,7 +70,7 @@
                 >
                   {% for source in block_video.sources %}
                     <source
-                      {% if block.settings != blank and block.settings.muted_autoplay %}data-{% endif %}src="{{ source.url }}"
+                      {% if block.settings != blank and block.settingsnip.muted_autoplay %}data-{% endif %}src="{{ source.url }}"
                       type="{{ source.mime_type }}"
                     >
                   {% endfor %}
@@ -92,23 +86,23 @@
           </div>
         </div>
       {%- endif -%}
-      <div class="multicolumn-card__info{% if block_image == blank and snip.settings.show_stars == false %} testimonial-card__info--no-image-no-stars{% endif %}{% if block_image != blank and snip.settings.show_stars == false %} testimonial-card__info--image-no-stars{% endif %}">
-        {%- if snip.settings.show_stars -%}
+      <div class="multicolumn-card__info{% if block_image == blank and snip.settingsnip.show_stars == false %} testimonial-card__info--no-image-no-stars{% endif %}{% if block_image != blank and snip.settingsnip.show_stars == false %} testimonial-card__info--image-no-stars{% endif %}">
+        {%- if snip.settingsnip.show_stars -%}
           {% liquid
             assign alignment = 'center'
-            if snip.settings.column_alignment == 'left'
+            if snip.settingsnip.column_alignment == 'left'
               assign alignment = 'flex-start'
-            elsif snip.settings.column_alignment == 'right'
+            elsif snip.settingsnip.column_alignment == 'right'
               assign alignment = 'flex-end'
             endif
             assign rating = block_star_rating | default: 5
             assign visible_stars = rating | ceil
           %}
-          <div class="testimonial-card__stars rating-stars rating-stars--inactive-{{ snip.settings.inactive_stars_style }}" style='--rating:{{ rating }};--visible-stars:{{ visible_stars }};--star-color:{{ snip.settings.star_color }};--bg-star-color:{{ snip.settings.bg_star_color }};--alignment: {{ alignment }};--font-size: 1.8rem;'>
+          <div class="testimonial-card__stars rating-stars rating-stars--inactive-{{ snip.settingsnip.inactive_stars_style }}" style='--rating:{{ rating }};--visible-stars:{{ visible_stars }};--star-color:{{ snip.settingsnip.star_color }};--bg-star-color:{{ snip.settingsnip.bg_star_color }};--alignment: {{ alignment }};--font-size: 1.8rem;'>
             <div class='rating-stars-and-text font-size--desktop-auto flex-center'>
               <div class='rating-stars__container rating-stars__container--underlay'>
-                {%- unless snip.settings.inactive_stars_style == 'hidden' -%}
-                  {% if snip.settings.inactive_stars_style == 'outlined' %}
+                {%- unless snip.settingsnip.inactive_stars_style == 'hidden' -%}
+                  {% if snip.settingsnip.inactive_stars_style == 'outlined' %}
                     {% for i in (1..5) %}
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill='currentColor'>
                         <path d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3snip.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.6 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/>
@@ -133,8 +127,8 @@
             </div>
           </div>
         {%- endif -%}
-        {%- if snip.settings.show_quotes -%}
-          <div class="testimonial-card__quotes flex-center{% if block_image == blank %} testimonial-card__quotes--image-blank{% endif %} color-{{ snip.settings.quotes_color_scheme }}">
+        {%- if snip.settingsnip.show_quotes -%}
+          <div class="testimonial-card__quotes flex-center{% if block_image == blank %} testimonial-card__quotes--image-blank{% endif %} color-{{ snip.settingsnip.quotes_color_scheme }}">
             <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
               <path fill="currentColor" d="M119.472 66.59C53.489 66.59 0 120.094 0 186.1c0 65.983 53.489 119.487 119.472 119.487c0 0-0.578 44.392-36.642 108.284c-4.006 12.802 3.135 26.435 15.945 30.418c9.089 2.859 18.653 0.08 24.829-6.389c82.925-90.7 115.385-197.448 115.385-251.8C238.989 120.094 185.501 66.59 119.472 66.59z"/>
               <path fill="currentColor" d="M392.482 66.59c-65.983 0-119.472 53.505-119.472 119.51c0 65.983 53.489 119.487 119.472 119.487c0 0-0.578 44.392-36.642 108.284c-4.006 12.802 3.136 26.435 15.945 30.418c9.089 2.859 18.653 0.08 24.828-6.389C479.539 347.2 512 240.452 512 186.1C512 120.094 458.511 66.59 392.482 66.59z"/>
@@ -149,17 +143,13 @@
         {%- endif -%}
         {%- unless block_author_avatar == blank and block_author == blank -%}
           <div class="testimonial-card__author-container">
-            {%- if block_author_avatar != blank and block_author_avatar != 'blank' -%}
+            {%- if block_author_avatar != blank -%}
               <div class="testimonial-card__avatar">
-                {%- if block_author_avatar contains 'http' or block_author_avatar contains '/cdn.shopify.com/' -%}
-                  <img src="{{ block_author_avatar }}" loading="lazy" width="100" alt="{{ block_author }}" />
-                {%- else -%}
-                  {{
-                    block_author_avatar
-                    | image_url: width: 150
-                    | image_tag: loading: 'lazy', width: 100, alt: block_author
-                  }}
-                {%- endif -%}
+                {{
+                  block_author_avatar
+                  | image_url: width: 150
+                  | image_tag: loading: 'lazy', width: 100
+                }}
                 {%- if block_verified_purchase -%}
                   <div class="testimonial-card__verified-badge">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -176,7 +166,7 @@
                 </p>
               {%- endif -%}
               {%- if block_verified_purchase -%}
-                <span class="testimonial-card__verified-text">{{ snip.settings.verified_badge_text | default: 'Verified Purchase' }}</span>
+                <span class="testimonial-card__verified-text">{{ snip.settingsnip.verified_badge_text | default: 'Verified Purchase' }}</span>
               {%- endif -%}
               {%- if block_author_location != blank -%}
                 <span class="testimonial-card__location">{{ block_author_location }}</span>
