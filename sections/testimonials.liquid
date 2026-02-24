@@ -380,19 +380,28 @@
         {% endif %}
       >
         <div class="splide__track">
+          <!-- DEBUG: data_source={{ section.settings.data_source }} -->
+          <!-- DEBUG: reviews_source_size={{ reviews_source.size | default: 0 }} -->
           {%- liquid
             assign reviews_to_render = ''
 
             if section.settings.data_source == 'metaobjects'
+              # Get reviews from product metafield or general reviews
               if section.settings.target_product != blank
-                assign reviews_source = section.settings.target_product.metafields.custom.product_reviews.value
+                assign reviews_source = section.settings.target_product.metafields.custom.product_reviews.value | default: ''
               elsif product != blank
-                assign reviews_source = product.metafields.custom.product_reviews.value
+                assign reviews_source = product.metafields.custom.product_reviews.value | default: ''
               else
+                # No product selected - use JavaScript to load general reviews
                 assign reviews_source = ''
+                assign load_general_reviews = true
               endif
 
-              if section.settings.featured_only
+              # Filter by featured if enabled
+              if load_general_reviews
+                # Will be loaded via JavaScript
+                assign reviews_source_handles = ''
+              elsif section.settings.featured_only
                 assign filtered_reviews = ''
                 for review in reviews_source
                   if review.featured
@@ -414,6 +423,11 @@
               assign reviews_source = section.blocks
             endif
           -%}
+          {%- if section.settings.data_source == 'metaobjects' -%}
+            {%- for handle in reviews_source_handles limit: 3 -%}
+              <!-- DEBUG: handle{{ forloop.index }}={{ handle }} -->
+            {%- endfor -%}
+          {%- endif -%}
           <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
             {%- if section.settings.data_source == 'metaobjects' -%}
               {%- for review_handle in reviews_source_handles -%}
@@ -422,13 +436,16 @@
                     break
                   endif
                   assign review = shop.metaobjects.review[review_handle]
+                -%}
+                <!-- DEBUG HANDLE {{ forloop.index }}: review_handle='{{ review_handle }}', review_blank={% if review == blank %}YES{% else %}NO{% endif %} -->
+                {%- liquid
                   if review == blank
                     continue
                   endif
                   assign reviews_count = reviews_count | plus: 1
                 -%}
                 {% render 'testimonial-card',
-                  section: section,
+                  sec: section,
                   block_image: review.avatar_image,
                   block_video: blank,
                   block_title: review.title,
@@ -447,7 +464,7 @@
             {%- else -%}
               {%- for block in section.blocks -%}
                 {% render 'testimonial-card',
-                  section: section,
+                  sec: section,
                   block: block,
                   block_image: block.settings.image,
                   block_video: block.settings.video,
@@ -463,6 +480,17 @@
                   content_index: content_index
                 %}
               {%- endfor -%}
+            {%- endif -%}
+            {%- if load_general_reviews -%}
+              {%- render 'general-reviews-data',
+                sec: section,
+                featured_only: section.settings.featured_only,
+                max_reviews: max_reviews,
+                reviews_count: reviews_count,
+                highest_ratio: highest_ratio,
+                bg_diff_class: bg_diff_class,
+                content_index: content_index
+              -%}
             {%- endif -%}
           </ul>
         </div>
@@ -1316,17 +1344,21 @@
       "default": "blocks"
     },
     {
+      "type": "paragraph",
+      "content": "Leave 'Target product' empty to show all reviews (or featured only if checked below). On product pages, reviews will automatically filter to the current product."
+    },
+    {
       "type": "product",
       "id": "target_product",
-      "label": "Target product (for metaobjects)",
-      "info": "If left empty, will use the current product on product pages"
+      "label": "Target product (optional)",
+      "info": "If empty: on homepage shows all reviews, on product pages shows current product's reviews"
     },
     {
       "type": "checkbox",
       "id": "featured_only",
       "label": "Show only featured reviews",
       "default": false,
-      "info": "Only applies when using metaobjects"
+      "info": "When no product is selected, shows only reviews marked as 'Featured'"
     },
     {
       "type": "range",
