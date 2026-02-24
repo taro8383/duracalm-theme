@@ -445,7 +445,7 @@
                   assign reviews_count = reviews_count | plus: 1
                 -%}
                 {% render 'testimonial-card',
-                  s: section,
+                  snip: section,
                   block_image: review.avatar_image,
                   block_video: blank,
                   block_title: review.title,
@@ -464,7 +464,7 @@
             {%- else -%}
               {%- for block in section.blocks -%}
                 {% render 'testimonial-card',
-                  s: section,
+                  snip: section,
                   block: block,
                   block_image: block.settings.image,
                   block_video: block.settings.video,
@@ -483,7 +483,7 @@
             {%- endif -%}
             {%- if load_general_reviews -%}
               {%- render 'general-reviews-data',
-                s: section,
+                snip: section,
                 featured_only: section.settings.featured_only,
                 max_reviews: max_reviews,
                 reviews_count: reviews_count,
