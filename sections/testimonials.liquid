@@ -15,8 +15,12 @@
   .testimonial-card {
     position: relative;
     border-radius: {{ section.settings.card_border_radius | default: 16 }}px;
-    overflow: hidden;
     margin-top: {{ section.settings.card_margin_top | default: 0 }}px;
+    overflow: visible;
+  }
+
+  .testimonial-card .multicolumn-card__info {
+    padding-top: 24px;
   }
 
   /* Hover lift on card - use !important to override scroll animations */
@@ -180,13 +184,20 @@
 
   /* Quote Marks Enhancement */
   .testimonial-card__quotes {
-    margin-bottom: 16px;
+    position: absolute;
+    top: 20px;
+    right: 16px;
     opacity: 0.3;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
   }
 
   .testimonial-card__quotes svg {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
+    display: block;
   }
 
   /* Card Content Spacing */
