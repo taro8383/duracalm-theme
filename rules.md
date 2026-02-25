@@ -73,30 +73,38 @@ After every modification:
 ### 4. Theme Files Location
 All Liquid, CSS, JS, and schema files live in `duracalm-theme/` only.
 
-### 5. PULL FROM SHOPIFY - Synchronize Editor Changes
+### 5. PULL FROM SHOPIFY - Synchronize Editor Settings ONLY
 When user says **"PULL FROM SHOPIFY"**:
 
-1. **Pull ALL changes** from development theme:
+**ONLY pull JSON configuration files** - NEVER pull Liquid files or other code:
+
+1. **Pull ONLY settings and template JSON files**:
    ```bash
    cd duracalm-theme
-   shopify theme pull --theme 157203038446
+   shopify theme pull --theme 157203038446 --only config/settings_data.json
+   shopify theme pull --theme 157203038446 --only templates/*.json
    ```
 
-2. **Identify JSON/template changes** that were made in the online editor:
-   - `config/settings_data.json` (theme settings)
-   - `templates/*.json` (page templates)
-   - Section-specific settings in `sections/*.liquid`
+2. **NEVER pull these file types** (will overwrite code):
+   - ❌ `sections/*.liquid` (code files)
+   - ❌ `snippets/*.liquid` (code files)
+   - ❌ `assets/*` (CSS/JS files)
+   - ❌ `layout/*.liquid` (theme layout)
 
-3. **Commit these pulled changes** to GitHub immediately:
+3. **Commit only the JSON changes** to GitHub:
    ```bash
-   git add .
+   git add config/settings_data.json templates/*.json
    git commit -m "Pull latest settings and configuration from Shopify"
    git push origin master
    ```
 
-4. **Report what was synced** (list the changed files)
+4. **Report what was synced** (list only the JSON files changed)
 
-**WHY**: Prevents losing changes made in the Shopify online editor. Ensures GitHub always has the latest state.
+**WHY**:
+- Shopify editor only changes JSON settings (colors, text, section order)
+- Liquid files contain code that should only be edited in GitHub
+- Pulling Liquid files destroys local code changes
+- JSON files are the "configuration" - Liquid files are the "code"
 
 ### 6. GIT BRANCH - Use ONLY `master` Branch
 **CRITICAL**: All Git operations MUST use the `master` branch exclusively.
