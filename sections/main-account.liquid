@@ -1,0 +1,910 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  /* Section background - eliminate white spaces */
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.section_bg_color }} !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: {{ section.settings.section_padding_top }}px 0 {{ section.settings.section_padding_bottom }}px 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Parent container targeting to eliminate white spaces */
+  #shopify-section-{{ section.id }}:has(> .customer.account) ~ *,
+  main#MainContent:has(#shopify-section-{{ section.id }}),
+  .page-width:has(#shopify-section-{{ section.id }}),
+  #MainContent {
+    background-color: {{ section.settings.section_bg_color }} !important;
+  }
+
+  /* Account container styling */
+  .customer.account.section-{{ section.id }}-padding {
+    max-width: {{ section.settings.container_max_width }}px !important;
+    margin: {{ section.settings.container_margin_top }}px auto {{ section.settings.container_margin_bottom }}px auto !important;
+    background: {{ section.settings.container_bg_color }} !important;
+    padding: {{ section.settings.container_padding }}px !important;
+    border-radius: {{ section.settings.container_border_radius }}px !important;
+    box-shadow: {% if section.settings.show_shadow %}0 4px 20px rgba(0, 0, 0, 0.08){% else %}none{% endif %} !important;
+  }
+
+  /* Account header */
+  .customer.account > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Account title */
+  .customer.account h1.customer__title {
+    color: {{ section.settings.heading_color }} !important;
+    font-size: {{ section.settings.heading_font_size }}px !important;
+    font-weight: {{ section.settings.heading_font_weight }} !important;
+    margin: 0 !important;
+  }
+
+  /* Logout link */
+  .customer.account > div:first-child > a {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: {{ section.settings.link_color }} !important;
+    font-size: {{ section.settings.link_font_size }}px !important;
+    text-decoration: {{ section.settings.link_text_decoration }} !important;
+    transition: color 0.3s ease !important;
+  }
+
+  .customer.account > div:first-child > a:hover {
+    color: {{ section.settings.link_hover_color }} !important;
+  }
+
+  .customer.account > div:first-child > a svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Two column layout */
+  .customer.account > div:last-child {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .customer.account > div:last-child {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Section headings */
+  .customer.account h2 {
+    color: {{ section.settings.subheading_color }} !important;
+    font-size: {{ section.settings.subheading_font_size }}px !important;
+    font-weight: {{ section.settings.heading_font_weight }} !important;
+    margin-bottom: 20px !important;
+    margin-top: 0 !important;
+  }
+
+  /* Order history table */
+  .customer.account .order-history {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    background: transparent !important;
+  }
+
+  .customer.account .order-history th,
+  .customer.account .order-history td {
+    padding: 16px !important;
+    text-align: left !important;
+    border-bottom: 1px solid {{ section.settings.divider_color }} !important;
+    color: {{ section.settings.text_color }} !important;
+    font-size: {{ section.settings.text_font_size }}px !important;
+  }
+
+  .customer.account .order-history th {
+    font-weight: {{ section.settings.heading_font_weight }} !important;
+    color: {{ section.settings.heading_color }} !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: {{ section.settings.label_font_size }}px !important;
+  }
+
+  .customer.account .order-history tbody tr:hover {
+    background-color: {{ section.settings.table_row_hover_bg }} !important;
+  }
+
+  .customer.account .order-history a {
+    color: {{ section.settings.link_color }} !important;
+    text-decoration: {{ section.settings.link_text_decoration }} !important;
+    transition: color 0.3s ease !important;
+  }
+
+  .customer.account .order-history a:hover {
+    color: {{ section.settings.link_hover_color }} !important;
+  }
+
+  /* No orders message */
+  .customer.account > div:last-child > div:first-child > p {
+    color: {{ section.settings.text_color }} !important;
+    font-size: {{ section.settings.text_font_size }}px !important;
+    padding: 20px;
+    background: {{ section.settings.table_row_hover_bg }};
+    border-radius: {{ section.settings.input_border_radius }}px;
+  }
+
+  /* Account details section */
+  .customer.account > div:last-child > div:last-child {
+    background: {{ section.settings.sidebar_bg_color }} !important;
+    padding: 24px !important;
+    border-radius: {{ section.settings.container_border_radius }}px !important;
+    height: fit-content;
+  }
+
+  .customer.account > div:last-child > div:last-child h2 {
+    margin-bottom: 16px !important;
+  }
+
+  /* Address display */
+  .customer.account address {
+    font-style: normal !important;
+    line-height: 1.6 !important;
+    color: {{ section.settings.text_color }} !important;
+    font-size: {{ section.settings.text_font_size }}px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* View addresses link/button */
+  .customer.account > div:last-child > div:last-child > a {
+    display: {% if section.settings.button_full_width %}block{% else %}inline-block{% endif %} !important;
+    width: {% if section.settings.button_full_width %}100%{% else %}auto{% endif %} !important;
+    text-align: center !important;
+    padding: {{ section.settings.button_padding_y }}px {{ section.settings.button_padding_x }}px !important;
+    font-size: {{ section.settings.button_font_size }}px !important;
+    font-weight: {{ section.settings.button_font_weight }} !important;
+    letter-spacing: {{ section.settings.button_letter_spacing | divided_by: 100.0 }}em !important;
+    text-decoration: none !important;
+    text-transform: {{ section.settings.button_text_transform }} !important;
+    border-radius: {{ section.settings.button_border_radius }}px !important;
+    cursor: pointer !important;
+    transition: all {{ section.settings.button_transition_duration | divided_by: 10.0 }}s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    {% if section.settings.enable_magic_mind_button %}
+    border: 2px solid #7B92C8 !important;
+    color: #7B92C8 !important;
+    background: transparent !important;
+    {% else %}
+    border: {{ section.settings.button_border_width }}px solid {{ section.settings.button_border_color }} !important;
+    color: {{ section.settings.button_text_color }} !important;
+    background: {{ section.settings.button_bg_color }} !important;
+    {% endif %}
+  }
+
+  {% if section.settings.enable_magic_mind_button %}
+  /* Magic Mind Button Style */
+  .customer.account > div:last-child > div:last-child > a::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%) !important;
+    background-size: 200% 200% !important;
+    opacity: 0 !important;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: -1 !important;
+  }
+
+  .customer.account > div:last-child > div:last-child > a:hover::before {
+    opacity: 1 !important;
+    background-position: 100% 0 !important;
+  }
+
+  .customer.account > div:last-child > div:last-child > a:hover {
+    color: #ffffff !important;
+    border-color: transparent !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3) !important;
+  }
+
+  .customer.account > div:last-child > div:last-child > a span {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  {% elsif section.settings.button_gradient_hover %}
+  .customer.account > div:last-child > div:last-child > a::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, {{ section.settings.button_gradient_start }}, {{ section.settings.button_gradient_middle }}, {{ section.settings.button_gradient_end }}) !important;
+    opacity: 0 !important;
+    transition: opacity {{ section.settings.button_transition_duration | divided_by: 10.0 }}s ease !important;
+    z-index: 0 !important;
+  }
+
+  .customer.account > div:last-child > div:last-child > a:hover::before {
+    opacity: 1 !important;
+  }
+
+  .customer.account > div:last-child > div:last-child > a:hover {
+    color: {{ section.settings.button_hover_text_color }} !important;
+    border-color: {{ section.settings.button_hover_border_color }} !important;
+    transform: translateY({{ section.settings.button_hover_translate_y }}px) !important;
+    box-shadow: {% if section.settings.button_hover_shadow %}0 10px 20px {{ section.settings.button_hover_shadow_color | color_modify: 'alpha', 0.3 }}{% else %}none{% endif %} !important;
+  }
+
+  .customer.account > div:last-child > div:last-child > a span,
+  .customer.account > div:last-child > div:last-child > a {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+  {% else %}
+  .customer.account > div:last-child > div:last-child > a:hover {
+    background: {{ section.settings.button_hover_bg_color }} !important;
+    color: {{ section.settings.button_hover_text_color }} !important;
+    border-color: {{ section.settings.button_hover_border_color }} !important;
+    transform: translateY({{ section.settings.button_hover_translate_y }}px) !important;
+    box-shadow: {% if section.settings.button_hover_shadow %}0 10px 20px {{ section.settings.button_hover_shadow_color | color_modify: 'alpha', 0.3 }}{% else %}none{% endif %} !important;
+  }
+  {% endif %}
+
+  /* Pagination */
+  .customer.account .pagination {
+    margin-top: 30px !important;
+  }
+
+  .customer.account .pagination ul {
+    display: flex !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 8px !important;
+    justify-content: center !important;
+  }
+
+  .customer.account .pagination a,
+  .customer.account .pagination span {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: {{ section.settings.input_border_radius }}px !important;
+    background: {{ section.settings.input_bg_color }} !important;
+    color: {{ section.settings.text_color }} !important;
+    text-decoration: none !important;
+    font-size: {{ section.settings.text_font_size }}px !important;
+    transition: all 0.3s ease !important;
+    border: 1px solid {{ section.settings.input_border_color }} !important;
+  }
+
+  .customer.account .pagination a:hover {
+    background: {{ section.settings.button_hover_bg_color }} !important;
+    color: {{ section.settings.button_hover_text_color }} !important;
+    border-color: {{ section.settings.button_hover_border_color }} !important;
+  }
+
+  .customer.account .pagination span[aria-current="page"] {
+    background: {{ section.settings.button_bg_color }} !important;
+    color: {{ section.settings.button_text_color }} !important;
+    border-color: {{ section.settings.button_border_color }} !important;
+  }
+{%- endstyle -%}
+
+<div class="customer account section-{{ section.id }}-padding">
+  <div>
+    <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
+    <a href="{{ routes.account_logout_url }}">
+      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 18 19">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 4.5a3 3 0 116 0 3 3 0 01-6 0zm3-4a4 4 0 100 8 4 4 0 000-8zm5.58 12.15c1.12.82 1.83 2.24 1.91 4.85H1.51c.08-2.6.79-4.03 1.9-4.85C4.66 11.75 6.5 11.5 9 11.5s4.35.26 5.58 1.15zM9 10.5c-2.5 0-4.65.24-6.17 1.35C1.27 12.98.5 14.93.5 18v.5h17V18c0-3.07-.77-5.02-2.33-6.15-1.52-1.1-3.67-1.35-6.17-1.35z" fill="currentColor">
+      </svg>
+      {{ 'customer.log_out' | t }}
+    </a>
+  </div>
+
+  <div>
+    <div>
+      <h2>{{ 'customer.orders.title' | t }}</h2>
+
+      {% paginate customer.orders by 20 %}
+        {%- if customer.orders.size > 0 -%}
+          <table role="table" class="order-history">
+            <caption class="visually-hidden">
+              {{ 'customer.orders.title' | t }}
+            </caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
+                <th id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
+                <th id="ColumnPayment" scope="col" role="columnheader">{{ 'customer.orders.payment_status' | t }}</th>
+                <th id="ColumnFulfillment" scope="col" role="columnheader">
+                  {{ 'customer.orders.fulfillment_status' | t }}
+                </th>
+                <th id="ColumnTotal" scope="col" role="columnheader">{{ 'customer.orders.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              {%- for order in customer.orders -%}
+                <tr role="row">
+                  <td
+                    id="RowOrder"
+                    role="cell"
+                    headers="ColumnOrder"
+                    data-label="{{ 'customer.orders.order_number' | t }}"
+                  >
+                    <a
+                      href="{{ order.customer_url }}"
+                      aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"
+                    >
+                      {{ order.name }}
+                    </a>
+                  </td>
+                  <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
+                    {{ order.created_at | time_tag: format: 'date' }}
+                  </td>
+                  <td
+                    headers="RowOrder ColumnPayment"
+                    role="cell"
+                    data-label="{{ 'customer.orders.payment_status' | t }}"
+                  >
+                    {{ order.financial_status_label }}
+                  </td>
+                  <td
+                    headers="RowOrder ColumnFulfillment"
+                    role="cell"
+                    data-label="{{ 'customer.orders.fulfillment_status' | t }}"
+                  >
+                    {{ order.fulfillment_status_label }}
+                  </td>
+                  <td headers="RowOrder ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
+                    {{ order.total_net_amount | money_with_currency }}
+                  </td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        {%- else -%}
+          <p>{{ 'customer.orders.none' | t }}</p>
+        {%- endif -%}
+
+        {%- if paginate.pages > 1 -%}
+          {%- if paginate.parts.size > 0 -%}
+            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+              <ul role="list">
+                {%- if paginate.previous -%}
+                  <li>
+                    <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
+                      <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                      </svg>
+                    </a>
+                  </li>
+                {%- endif -%}
+
+                {%- for part in paginate.parts -%}
+                  <li>
+                    {%- if part.is_link -%}
+                      <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+                        {{- part.title -}}
+                      </a>
+                    {%- else -%}
+                      {%- if part.title == paginate.current_page -%}
+                        <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+                          {{- part.title -}}
+                        </span>
+                      {%- else -%}
+                        <span>{{ part.title }}</span>
+                      {%- endif -%}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+
+                {%- if paginate.next -%}
+                  <li>
+                    <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
+                      <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                      </svg>
+                    </a>
+                  </li>
+                {%- endif -%}
+              </ul>
+            </nav>
+          {%- endif -%}
+        {%- endif -%}
+      {% endpaginate %}
+    </div>
+
+    <div>
+      <h2>{{ 'customer.account.details' | t }}</h2>
+
+      {{ customer.default_address | format_address }}
+
+      <a href="{{ routes.account_addresses_url }}">
+        {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-account.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#ddbea8"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Padding Bottom",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Container Settings"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Max Width",
+      "default": 1200
+    },
+    {
+      "type": "color",
+      "id": "container_bg_color",
+      "label": "Container Background",
+      "default": "#f3dfc1"
+    },
+    {
+      "type": "range",
+      "id": "container_padding",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Container Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "container_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Container Border Radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "container_margin_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Container Margin Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "container_margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Container Margin Bottom",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shadow",
+      "label": "Show Container Shadow",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        {"value": "400", "label": "Normal"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi-Bold"},
+        {"value": "700", "label": "Bold"}
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Heading Margin Bottom",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "subheading_font_size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Subheading Font Size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text Font Size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Label Font Size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Table Styling"
+    },
+    {
+      "type": "color",
+      "id": "table_row_hover_bg",
+      "label": "Table Row Hover Background",
+      "default": "rgba(123, 146, 200, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider/Border Color",
+      "default": "#e8e4df"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "color",
+      "id": "sidebar_bg_color",
+      "label": "Sidebar Background",
+      "default": "rgba(255, 255, 255, 0.5)"
+    },
+    {
+      "type": "header",
+      "content": "Links"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#5a7ab8"
+    },
+    {
+      "type": "range",
+      "id": "link_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Link Font Size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "link_text_decoration",
+      "label": "Link Text Decoration",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "underline", "label": "Underline"}
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_magic_mind_button",
+      "label": "Enable Magic Mind Button Style",
+      "default": false,
+      "info": "Apply the signature Magic Mind gradient hover effect to the View addresses button"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_full_width",
+      "label": "Full Width Button",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button Hover Background",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Button Hover Border Color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size",
+      "default": 15
+    },
+    {
+      "type": "select",
+      "id": "button_font_weight",
+      "label": "Button Font Weight",
+      "options": [
+        {"value": "400", "label": "Normal"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi-Bold"},
+        {"value": "700", "label": "Bold"}
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "button_text_transform",
+      "label": "Button Text Transform",
+      "options": [
+        {"value": "none", "label": "None"},
+        {"value": "uppercase", "label": "Uppercase"},
+        {"value": "capitalize", "label": "Capitalize"}
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Button Padding X",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Padding Y",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Border Width",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "%",
+      "label": "Button Letter Spacing",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "button_transition_duration",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "ds",
+      "label": "Button Transition Duration",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "button_gradient_hover",
+      "label": "Enable Gradient Hover",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "button_gradient_start",
+      "label": "Gradient Start Color",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "color",
+      "id": "button_gradient_middle",
+      "label": "Gradient Middle Color",
+      "default": "#ddbea8"
+    },
+    {
+      "type": "color",
+      "id": "button_gradient_end",
+      "label": "Gradient End Color",
+      "default": "#f3dfc1"
+    },
+    {
+      "type": "range",
+      "id": "button_hover_translate_y",
+      "min": -4,
+      "max": 0,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Hover Lift",
+      "default": -2
+    },
+    {
+      "type": "checkbox",
+      "id": "button_hover_shadow",
+      "label": "Button Hover Shadow",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "button_hover_shadow_color",
+      "label": "Button Hover Shadow Color",
+      "default": "#7b92c8"
+    },
+    {
+      "type": "header",
+      "content": "Input Fields"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input Border Color",
+      "default": "#e8e4df"
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Input Border Radius",
+      "default": 8
+    }
+  ]
+}
+{% endschema %}

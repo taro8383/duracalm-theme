@@ -1,0 +1,772 @@
+{%- if section.settings.enable_quick_add -%}
+  <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Section custom background color */
+  {% if section.settings.section_background_color != blank %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.section_background_color }};
+  }
+  {% endif %}
+
+  /* Product card custom background color */
+  {% if section.settings.card_background_color != blank %}
+  #shopify-section-{{ section.id }} .card {
+    background: {{ section.settings.card_background_color }} !important;
+    --color-background: {{ section.settings.card_background_color }};
+    --gradient-background: {{ section.settings.card_background_color }};
+  }
+  #shopify-section-{{ section.id }} .card__content {
+    background: transparent !important;
+  }
+  {% endif %}
+
+  /* Magic Mind Button Style for Quick Add buttons */
+  #shopify-section-{{ section.id }} .quick-add__submit {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    text-transform: none;
+    border: 2px solid #7B92C8;
+    border-radius: 8px;
+    color: #ffffff;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #7B92C8 0%, #ddbea8 50%, #f3dfc1 100%);
+    background-size: 200% 200%;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit:hover::before {
+    opacity: 1;
+    background-position: 100% 0;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit:hover {
+    color: #ffffff;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(123, 146, 200, 0.3);
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit[disabled],
+  #shopify-section-{{ section.id }} .quick-add__submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  #shopify-section-{{ section.id }} .quick-add__submit[disabled]::before,
+  #shopify-section-{{ section.id }} .quick-add__submit:disabled::before {
+    opacity: 0;
+  }
+
+  /* Heading Customization */
+  #shopify-section-{{ section.id }} .related-products__heading {
+    {% if section.settings.heading_font_family != blank %}
+    font-family: {{ section.settings.heading_font_family }};
+    {% endif %}
+    {% if section.settings.heading_text_size > 0 %}
+    font-size: {{ section.settings.heading_text_size }}px;
+    {% endif %}
+    {% if section.settings.heading_color != blank %}
+    color: {{ section.settings.heading_color }};
+    {% endif %}
+    {% if section.settings.heading_alignment == 'left' %}
+    text-align: left;
+    {% elsif section.settings.heading_alignment == 'center' %}
+    text-align: center;
+    {% elsif section.settings.heading_alignment == 'right' %}
+    text-align: right;
+    {% endif %}
+    {% if section.settings.heading_padding_top != blank %}
+    padding-top: {{ section.settings.heading_padding_top }}px;
+    {% endif %}
+    {% if section.settings.heading_padding_bottom != blank %}
+    padding-bottom: {{ section.settings.heading_padding_bottom }}px;
+    {% endif %}
+    {% if section.settings.heading_padding_left != blank %}
+    padding-left: {{ section.settings.heading_padding_left }}px;
+    {% endif %}
+    {% if section.settings.heading_padding_right != blank %}
+    padding-right: {{ section.settings.heading_padding_right }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_top != blank %}
+    margin-top: {{ section.settings.heading_margin_top }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_bottom != blank %}
+    margin-bottom: {{ section.settings.heading_margin_bottom }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_left != blank %}
+    margin-left: {{ section.settings.heading_margin_left }}px;
+    {% endif %}
+    {% if section.settings.heading_margin_right != blank %}
+    margin-right: {{ section.settings.heading_margin_right }}px;
+    {% endif %}
+  }
+
+  /* Product Card Size & Positioning */
+  {% if section.settings.card_max_width > 0 %}
+  #shopify-section-{{ section.id }} .grid__item {
+    max-width: {{ section.settings.card_max_width }}px;
+  }
+  {% endif %}
+
+  {% if section.settings.card_width > 0 %}
+  #shopify-section-{{ section.id }} .card {
+    width: {{ section.settings.card_width }}px;
+  }
+  {% endif %}
+
+  #shopify-section-{{ section.id }} .card {
+    {% if section.settings.card_padding_top > 0 %}
+    padding-top: {{ section.settings.card_padding_top }}px;
+    {% endif %}
+    {% if section.settings.card_padding_bottom > 0 %}
+    padding-bottom: {{ section.settings.card_padding_bottom }}px;
+    {% endif %}
+    {% if section.settings.card_padding_left > 0 %}
+    padding-left: {{ section.settings.card_padding_left }}px;
+    {% endif %}
+    {% if section.settings.card_padding_right > 0 %}
+    padding-right: {{ section.settings.card_padding_right }}px;
+    {% endif %}
+    {% if section.settings.card_margin_top > 0 %}
+    margin-top: {{ section.settings.card_margin_top }}px;
+    {% endif %}
+    {% if section.settings.card_margin_bottom > 0 %}
+    margin-bottom: {{ section.settings.card_margin_bottom }}px;
+    {% endif %}
+    {% if section.settings.card_margin_left > 0 %}
+    margin-left: {{ section.settings.card_margin_left }}px;
+    {% endif %}
+    {% if section.settings.card_margin_right > 0 %}
+    margin-right: {{ section.settings.card_margin_right }}px;
+    {% endif %}
+  }
+
+  /* Grid Gap Customization */
+  {% if section.settings.grid_column_gap > 0 %}
+  #shopify-section-{{ section.id }} .product-grid {
+    column-gap: {{ section.settings.grid_column_gap }}px;
+  }
+  {% endif %}
+  {% if section.settings.grid_row_gap > 0 %}
+  #shopify-section-{{ section.id }} .product-grid {
+    row-gap: {{ section.settings.grid_row_gap }}px;
+  }
+  {% endif %}
+
+  /* Card Image Size Control */
+  {% if section.settings.card_image_max_width > 0 %}
+  #shopify-section-{{ section.id }} .card__media {
+    max-width: {{ section.settings.card_image_max_width }}px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  {% endif %}
+
+  /* Auto-center and space evenly */
+  {% if section.settings.auto_center_cards %}
+  #shopify-section-{{ section.id }} .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    {% if section.settings.card_max_width > 0 %}
+    {% assign cards_per_row = section.settings.columns_desktop | default: 4 %}
+    {% assign container_padding = 100 %}
+    {% assign available_space = 'calc(100% - ' | append: container_padding | append: 'px)' %}
+    gap: {{ section.settings.grid_column_gap | default: 20 }}px;
+    {% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .grid__item {
+    {% if section.settings.card_max_width > 0 %}
+    flex: 0 0 {{ section.settings.card_max_width }}px;
+    max-width: {{ section.settings.card_max_width }}px;
+    width: {{ section.settings.card_max_width }}px;
+    {% else %}
+    flex: 1 1 auto;
+    max-width: 100%;
+    {% endif %}
+  }
+  {% endif %}
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden content-for-grouping animate-section animate--hidden">
+  {% if section.settings.display_id %}
+    <copy-button class='section-id-btn button' data-content="#shopify-section-{{ section.id }}" data-success="false">
+      <span class="copy-text">Click to copy section ID</span>
+      <span class="copy-success">ID copied successfully!</span>
+    </copy-button>
+  {% endif %}
+  <product-recommendations
+    class="related-products page-width section-{{ section.id }}-padding isolate"
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}"
+  >
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <h2 class="related-products__heading {{ section.settings.heading_size }} title-with-highlight animate-item animate-item--child index-0" style='--hightlight-color:{{ section.settings.title_highlight_color }}'>
+        {{ section.settings.title }}
+      </h2>
+      <ul
+        class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+        role="list"
+      >
+        {% for recommendation in recommendations.products %}
+          {% unless recommendation.tags contains 'collection-hidden' %}
+            <li class="grid__item animate-item animate-item--child" style="--index:{{ forloop.index0 }};">
+              {% render 'card-product',
+                card_product: recommendation,
+                media_aspect_ratio: section.settings.image_ratio,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_quick_add: section.settings.enable_quick_add,
+                show_rating: section.settings.show_rating
+              %}
+            </li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </product-recommendations>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.related-products.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "display_id",
+      "label": "Display section ID",
+      "info": "ID is used in the Sections group section to merge 2 sections. ID can also be put inside any button link and the button will scroll to this section.",
+      "default": false
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.related-products.settings.paragraph__1.content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "You may also like",
+      "label": "Heading",
+      "info": "Bold certain words to highlight them with a different color."
+    },
+    {
+      "type": "color",
+      "id": "title_highlight_color",
+      "label": "Heading highlight color",
+      "default": "#6D388B"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "header",
+      "content": "Heading Customization"
+    },
+    {
+      "type": "range",
+      "id": "heading_text_size",
+      "min": 0,
+      "max": 72,
+      "step": 1,
+      "default": 0,
+      "unit": "px",
+      "label": "Heading text size",
+      "info": "Set to 0 to use default theme size"
+    },
+    {
+      "type": "text",
+      "id": "heading_font_family",
+      "label": "Heading font family",
+      "info": "Enter a font family (e.g., 'Playfair Display', sans-serif). Leave empty to use theme default."
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading text color",
+      "info": "Select a color to override the default theme color"
+    },
+    {
+      "type": "header",
+      "content": "Heading Padding"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding top"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding bottom"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding left"
+    },
+    {
+      "type": "range",
+      "id": "heading_padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding right"
+    },
+    {
+      "type": "header",
+      "content": "Heading Margin"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin top"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin bottom"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin left"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin right"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.related-products.settings.products_to_show.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.related-products.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        }
+      ],
+      "default": "background-1",
+      "label": "Color scheme",
+      "info": "To change the card color scheme, update your theme settings."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.related-products.settings.header__2.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.related-products.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.related-products.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.related-products.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.related-products.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "t:sections.related-products.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.related-products.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.related-products.settings.show_rating.label",
+      "info": "t:sections.related-products.settings.show_rating.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "default": false,
+      "label": "t:sections.featured-collection.settings.enable_quick_buy.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.related-products.settings.header_mobile.content"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "t:sections.related-products.settings.columns_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.related-products.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.related-products.settings.columns_mobile.options__2.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Section Background"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color",
+      "info": "Select a color to override the default theme background"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Background"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background color",
+      "info": "Select a custom color for the product cards. Leave empty to use theme default."
+    },
+    {
+      "type": "header",
+      "content": "Product Card Size"
+    },
+    {
+      "type": "range",
+      "id": "card_max_width",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "default": 0,
+      "unit": "px",
+      "label": "Card max width",
+      "info": "Set to 0 for auto width. Use this to make cards smaller (e.g., 250px) when showing fewer columns."
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "default": 0,
+      "unit": "px",
+      "label": "Card fixed width",
+      "info": "Set a fixed width for cards. Leave at 0 for responsive behavior."
+    },
+    {
+      "type": "range",
+      "id": "card_image_max_width",
+      "min": 0,
+      "max": 500,
+      "step": 10,
+      "default": 0,
+      "unit": "px",
+      "label": "Card image max width",
+      "info": "Limit the image width to prevent pixelation. Set to 0 for full width."
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_center_cards",
+      "default": false,
+      "label": "Auto-center and space evenly",
+      "info": "When enabled, cards will be centered in the section and spaced evenly based on the Card max width setting. Best used with 2-3 columns."
+    },
+    {
+      "type": "header",
+      "content": "Grid Spacing"
+    },
+    {
+      "type": "range",
+      "id": "grid_column_gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Column gap (horizontal)"
+    },
+    {
+      "type": "range",
+      "id": "grid_row_gap",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Row gap (vertical)"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Padding"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding top"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding bottom"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_left",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding left"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_right",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Padding right"
+    },
+    {
+      "type": "header",
+      "content": "Product Card Margin"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin top"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin bottom"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_left",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin left"
+    },
+    {
+      "type": "range",
+      "id": "card_margin_right",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0,
+      "unit": "px",
+      "label": "Margin right"
+    }
+  ]
+}
+{% endschema %}

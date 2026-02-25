@@ -1,0 +1,327 @@
+<div class="rb-faq-shopify-section" style="background-color: {{ section.settings.section_background_color }};">
+    <h1 style="text-align: center; padding: 20px {{ section.settings.padding_horizontal }}px 0px;"> {{ section.settings.heading }} </h1>
+    <div class="rb-faq-container" data-stagger-children data-stagger-animate="fade-up">
+        {%for block in section.blocks %}
+        <div class="rb-faq-container-item" data-scroll-animate="fade-up" data-scroll-delay="{{ forloop.index | times: 100 }}">
+            <input style="display:none!important;" type="checkbox" id="tab{{forloop.index}}" class="tab-toggle">
+            <label for="tab{{forloop.index}}" class="rb-faq-question">{{block.settings.question}}</label>
+            <div class="rb-faq-answer-wrapper">
+                <div class="rb-faq-answer-inner">
+                    <div class="rb-faq-answer">{{block.settings.answer}}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </div>
+  {% schema %}
+  {
+    "name": "SS - FAQ #1",
+    "presets" : [
+        {
+            "category":"Custom sections",
+            "name":"SS - FAQ #1",
+            "blocks": [
+                        {
+                          "type": "text",
+                          "settings": {
+                            "question": "Do you offer free shipping?",
+                            "answer": "<p>Yes, we provide free standard shipping on all orders over $100. For orders under $100, a small shipping fee applies, which will be shown at checkout.</p>"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "settings": {
+                            "question": "What is your refund policy?",
+                            "answer": "<p>If you're not completely satisfied with your purchase, you can return it within 14 for a full refund. Please ensure the item is unused and in its original packaging.</p>"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "settings": {
+                            "question": "How can I create headshots with AI?",
+                            "answer": "<p>Need professional headshots quickly? <a href=\"https://headshots.so\">headshots.so</a>, <a href=\"https://headshots.dk\">headshots.dk</a>, <a href=\"https://headshots.se\">headshots.se</a>, and <a href=\"https://headshots.no\">headshots.no</a> make it easy to produce high-quality images in just a few minutes. Whether you’re updating your LinkedIn profile or website, these platforms help you get a polished look without any hassle.</p>"
+                          }
+                        }
+                      ]
+
+        }
+    ],
+    "settings": [
+        {
+            "type":"text",
+            "label":"Heading",
+            "id":"heading",
+            "default":"Frequently Asked Questions"
+        },
+        {
+            "type": "color",
+            "label": "Section background color",
+            "id": "section_background_color",
+            "default": "#ffffff"
+        },
+        {
+            "type":"color",
+            "label":"Icon color",
+            "id":"icon_color",
+            "default":"#fff"
+        },
+        {
+            "type":"color",
+            "label":"Question hover color",
+            "id":"hover_color",
+            "default":"#EFEFEF"
+        },
+        {
+            "type":"color",
+            "label":"Question color",
+            "id":"question_color",
+            "default":"#fff"
+        },
+        {
+            "type":"color",
+            "label":"Question Background color",
+            "id":"background_color",
+            "default":"#D5CAA6"
+        },
+        {
+            "type":"color",
+            "label":"Answer color",
+            "id":"answer_color",
+            "default":"#000"
+        },
+        {
+            "type":"color",
+            "label":"Answer Background color",
+            "id":"answer_bg_color",
+            "default":"#fff"
+        },
+        {
+            "type":"range",
+            "id":"questions-font-size",
+            "label":"Questions font size",
+            "default":1.5,
+            "min":0.8,
+            "max":3.0,
+            "step":0.1
+        },
+        {
+            "type": "select",
+            "id": "accordion_animation",
+            "label": "Accordion animation style",
+            "options": [
+                {
+                    "value": "smooth",
+                    "label": "Smooth fade"
+                },
+                {
+                    "value": "bounce",
+                    "label": "Bouncy spring"
+                },
+                {
+                    "value": "slide",
+                    "label": "Slide down"
+                }
+            ],
+            "default": "bounce"
+        },
+        {
+            "type": "header",
+            "content": "Section padding"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding top",
+            "default": 52
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding bottom",
+            "default": 52
+        },
+        {
+            "type": "range",
+            "id": "padding_horizontal",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding left/right",
+            "default": 28
+        }
+    ],
+    "blocks":	[
+        {
+        "type":"text",
+        "name":"Questions/Answer",
+        "settings": [
+            {
+                "type":"text",
+                "label":"Question",
+                "id":"question",
+                "default":"Question text"
+            },
+            {
+                "type":"richtext",
+                "label":"Answer",
+                "id":"answer",
+                "default":"<p>Answer richtext</p>"
+                }
+            ]
+        },
+        {
+        "type":"button_magic_mind",
+        "name":"Magic Mind Button",
+        "settings": [
+            {"type":"text","id":"button_label","label":"Button label","default":"Shop now"},
+            {"type":"url","id":"button_link","label":"Button link"},
+            {"type":"checkbox","id":"open_in_new_tab","label":"Open link in new tab"},
+            {"type":"select","id":"text_alignment","label":"Text alignment","options":[
+              {"value":"left","label":"Left"},
+              {"value":"center","label":"Center"},
+              {"value":"right","label":"Right"}
+            ],"default":"center"},
+            {"type":"range","id":"padding_horizontal","min":10,"max":60,"step":2,"unit":"px","label":"Padding horizontal","default":32},
+            {"type":"range","id":"padding_vertical","min":8,"max":30,"step":2,"unit":"px","label":"Padding vertical","default":14},
+            {"type":"range","id":"margin_top","min":0,"max":60,"step":2,"unit":"px","label":"Margin top","default":0},
+            {"type":"range","id":"margin_bottom","min":0,"max":60,"step":2,"unit":"px","label":"Margin bottom","default":0},
+            {"type":"checkbox","id":"full_width_mobile","label":"Full width on mobile","default":false}
+          ]
+        }
+    ]
+}
+{% endschema %}
+
+  {% style %}
+
+    .rb-faq-answer a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    .rb-faq-shopify-section {
+      padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px {{ section.settings.padding_horizontal }}px;
+      margin-bottom: 0;
+    }
+
+    .rb-faq-container {
+        margin:auto;
+        max-width:1000px;
+        margin-top:20px;
+    }
+
+    .rb-faq-container-item {
+          border-radius: 8px;
+          margin-bottom:10px;
+          overflow: hidden;
+    }
+
+    .rb-faq-question::after{
+          color: {{section.settings.icon_color}};
+          content: '\276F';
+          transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          display: inline-block;
+      }
+
+    .rb-faq-question {
+        border-radius: 8px;
+        display:flex !important;
+        justify-content: space-between;
+        background-color:{{section.settings.background_color}};
+        padding:15px 20px;
+        font-weight: bold;
+        color: {{section.settings.question_color}};
+        font-size: {{section.settings.questions-font-size}}rem;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .rb-faq-question:hover {
+          color: {{section.settings.hover_color}};
+      }
+
+    /* Modern Accordion Animation using Grid */
+    .rb-faq-answer-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .rb-faq-answer-inner {
+      overflow: hidden;
+    }
+
+    .rb-faq-answer {
+      padding: 0 20px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease, padding 0.4s ease;
+      color: {{section.settings.answer_color}};
+      background-color: {{section.settings.answer_bg_color}};
+    }
+
+    /* Animation Styles */
+    {% case section.settings.accordion_animation %}
+      {% when 'bounce' %}
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper {
+          grid-template-rows: 1fr;
+        }
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper .rb-faq-answer {
+          opacity: 1;
+          transform: translateY(0);
+          padding: 20px;
+          animation: faqBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        @keyframes faqBounce {
+          0% { transform: translateY(-10px) scale(0.98); }
+          50% { transform: translateY(2px) scale(1.01); }
+          100% { transform: translateY(0) scale(1); }
+        }
+
+      {% when 'slide' %}
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper {
+          grid-template-rows: 1fr;
+        }
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper .rb-faq-answer {
+          opacity: 1;
+          transform: translateY(0);
+          padding: 20px;
+          animation: faqSlide 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes faqSlide {
+          0% { transform: translateY(-20px); opacity: 0; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+
+      {% when 'smooth' %}
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper {
+          grid-template-rows: 1fr;
+        }
+        .tab-toggle:checked ~ .rb-faq-answer-wrapper .rb-faq-answer {
+          opacity: 1;
+          transform: translateY(0);
+          padding: 20px;
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    {% endcase %}
+
+    /* Icon rotation */
+    .tab-toggle:checked ~ .rb-faq-question::after {
+          transform: rotate(90deg);
+    }
+
+    .tab-toggle{
+          display:none;
+    }
+  {% endstyle %}

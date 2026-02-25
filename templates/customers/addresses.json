@@ -1,0 +1,132 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ss_wave_2_UwjYRi": {
+      "type": "ss-wave-2",
+      "name": "SS - Wave #2",
+      "settings": {
+        "wave_height": 60,
+        "wave_height_mobile": 40,
+        "wave_animation": true,
+        "wave_rotate": false,
+        "wave_color": "#7b92c8",
+        "background_color": "#ddbea8",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0
+      }
+    },
+    "main": {
+      "type": "main-addresses",
+      "settings": {
+        "section_bg_color": "#f3dfc1",
+        "section_padding_top": 56,
+        "section_padding_bottom": 56,
+        "container_max_width": 1200,
+        "container_bg_color": "#ddbea8",
+        "container_padding": 40,
+        "container_border_radius": 16,
+        "container_margin_top": 40,
+        "container_margin_bottom": 40,
+        "show_shadow": true,
+        "heading_color": "#000000",
+        "heading_font_size": 32,
+        "heading_font_weight": "600",
+        "heading_margin_bottom": 20,
+        "subheading_color": "#000000",
+        "subheading_font_size": 20,
+        "text_color": "#333333",
+        "text_font_size": 14,
+        "label_color": "#333333",
+        "label_font_size": 12,
+        "address_card_bg": "#f3dfc1",
+        "divider_color": "#7b92c8",
+        "form_bg_color": "#ffffff4d",
+        "link_color": "#121212",
+        "link_hover_color": "#5a7ab8",
+        "link_font_size": 14,
+        "link_text_decoration": "none",
+        "enable_magic_mind_add_button": true,
+        "enable_magic_mind_cancel_button": true,
+        "enable_magic_mind_edit_button": true,
+        "enable_magic_mind_delete_button": true,
+        "button_full_width": false,
+        "button_bg_color": "rgba(0,0,0,0)",
+        "button_text_color": "#121212",
+        "button_border_color": "#7b92c8",
+        "button_hover_bg_color": "#7b92c8",
+        "button_hover_text_color": "#ffffff",
+        "button_hover_border_color": "rgba(0,0,0,0)",
+        "button_font_size": 15,
+        "button_font_weight": "600",
+        "button_text_transform": "none",
+        "button_padding_x": 32,
+        "button_padding_y": 14,
+        "button_border_radius": 8,
+        "button_border_width": 2,
+        "button_letter_spacing": 2,
+        "button_transition_duration": 4,
+        "button_gradient_hover": false,
+        "button_gradient_start": "#7b92c8",
+        "button_gradient_middle": "#ddbea8",
+        "button_gradient_end": "#f3dfc1",
+        "button_hover_translate_y": -2,
+        "button_hover_shadow": false,
+        "button_hover_shadow_color": "#7b92c8",
+        "input_bg_color": "#ddbea8",
+        "input_text_color": "#000000",
+        "input_border_color": "#7b92c8",
+        "input_border_width": 2,
+        "input_border_radius": 8,
+        "input_padding": 16,
+        "input_font_size": 16,
+        "input_focus_border_color": "#7b92c8",
+        "error_color": "#eb001b"
+      }
+    },
+    "ss_wave_2_jWHdLb": {
+      "type": "ss-wave-2",
+      "name": "SS - Wave #2",
+      "settings": {
+        "wave_height": 60,
+        "wave_height_mobile": 40,
+        "wave_animation": true,
+        "wave_rotate": true,
+        "wave_color": "#7b92c8",
+        "background_color": "#ddbea8",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0
+      }
+    }
+  },
+  "order": [
+    "ss_wave_2_UwjYRi",
+    "main",
+    "ss_wave_2_jWHdLb"
+  ]
+}
