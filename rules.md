@@ -28,8 +28,8 @@
 |---------|-------|
 | **Store URL** | `https://porongas-2.myshopify.com/` |
 | **Admin URL** | `https://admin.shopify.com/store/porongas-2` |
-| **Development Theme ID** | `157203038446` |
-| **Development Theme Name** | `Development (d9a6e1-PC-20211120RCVG)` |
+| **Development Theme ID** | `157532684526` |
+| **Development Theme Name** | `Development (54408b-PC-20211120RCVG)` |
 
 ## Development Workflow
 
@@ -42,13 +42,13 @@ shopify theme dev --store porongas-2.myshopify.com
 ### Push Changes to Shopify
 ```bash
 cd duracalm-theme
-shopify theme push --theme 157203038446
+shopify theme push --theme 157532684526
 ```
 
 ### Pull Latest Settings from Shopify
 ```bash
 cd duracalm-theme
-shopify theme pull --theme 157203038446
+shopify theme pull --theme 157532684526
 ```
 
 ## CRITICAL RULES
@@ -79,7 +79,7 @@ When user says **"PULL FROM SHOPIFY"**:
 1. **Pull ALL changes** from development theme:
    ```bash
    cd duracalm-theme
-   shopify theme pull --theme 157203038446
+   shopify theme pull --theme 157532684526
    ```
 
 2. **Identify JSON/template changes** that were made in the online editor:
@@ -121,14 +121,14 @@ When user says **"PULL FROM SHOPIFY"**:
 1. **After pushing**, check a specific setting exists remotely:
    ```bash
    cd duracalm-theme
-   shopify theme pull --theme 157203038446 --live 2>&1 | head -5
+   shopify theme pull --theme 157532684526 --live 2>&1 | head -5
    git status
    ```
 
 2. **If user reports settings missing**, immediately pull to check remote state:
    ```bash
    cd duracalm-theme
-   shopify theme pull --theme 157203038446
+   shopify theme pull --theme 157532684526
    git diff --stat
    ```
 
