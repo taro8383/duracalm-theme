@@ -632,11 +632,22 @@
 
 <script>
 (function(){
+  const DEBUG_KEY = 'oto_debug_logs';
+  function debugLog(msg){
+    const logs = JSON.parse(localStorage.getItem(DEBUG_KEY) || '[]');
+    logs.push({time: Date.now(), msg: msg});
+    localStorage.setItem(DEBUG_KEY, JSON.stringify(logs.slice(-20)));
+    console.log(msg);
+  }
+  debugLog('[OTO] Script starting...');
   const KEY='oto_{{ section.id }}';
   const TEST_MODE={{ test_mode }};
+  debugLog('[OTO] TEST_MODE: ' + TEST_MODE);
   function init(){
+    debugLog('[OTO] init() called');
     const modal=document.getElementById('OneTimeOffer-{{ section.id }}');
-    if(!modal)return;
+    debugLog('[OTO] Modal found: ' + !!modal);
+    if(!modal){debugLog('[OTO] No modal found, exiting');return;}
     const accept=modal.querySelector('[data-oto-accept]');
     const decline=modal.querySelector('[data-oto-decline]');
     const close=modal.querySelector('[data-oto-close]');
@@ -703,13 +714,19 @@
 
     // Intercept form submissions (more reliable than click)
     const cartForm = document.getElementById('CartDrawer-Form');
+    debugLog('[OTO] Cart form found: ' + !!cartForm);
     if(cartForm){
+      debugLog('[OTO] Attaching form submit listener');
       cartForm.addEventListener('submit',e=>{
         const btn = cartForm.querySelector('[name="checkout"],#CartDrawer-Checkout,.cart__checkout-button');
+        debugLog('[OTO] Form submit - btn found: ' + !!btn);
         if(!btn) return;
-        console.log('[OTO] Form submit intercepted');
-        if(btn.dataset.otoIntercepted){console.log('[OTO] Already intercepted');return;}
-        if(seen()){console.log('[OTO] Already seen, skipping');return;}
+        debugLog('[OTO] Form submit intercepted');
+        alert('OTO DEBUG: Form submit intercepted!');
+        if(btn.dataset.otoIntercepted){debugLog('[OTO] Already intercepted');return;}
+        const hasSeen = seen();
+        debugLog('[OTO] seen() returned: ' + hasSeen);
+        if(hasSeen){debugLog('[OTO] Already seen, skipping');return;}
         e.preventDefault();e.stopPropagation();
         btn.dataset.otoIntercepted='true';
         console.log('[OTO] Showing modal');
@@ -718,21 +735,28 @@
     }
 
     // Also intercept clicks as backup
+    debugLog('[OTO] Attaching click listener');
     document.addEventListener('click',e=>{
       const btn=e.target.closest('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button');
       if(!btn)return;
-      console.log('[OTO] Checkout button clicked');
-      if(btn.dataset.otoIntercepted){console.log('[OTO] Already intercepted');return;}
-      if(seen()){console.log('[OTO] Already seen, skipping');return;}
+      debugLog('[OTO] Checkout button CLICKED!');
+      alert('OTO DEBUG: Checkout button clicked! Check console for details.');
+      debugLog('[OTO] btn.id=' + btn.id + ', name=' + btn.name);
+      if(btn.dataset.otoIntercepted){debugLog('[OTO] Already intercepted');return;}
+      const clickHasSeen = seen();
+      debugLog('[OTO] seen() returned: ' + clickHasSeen);
+      if(clickHasSeen){debugLog('[OTO] Already seen, skipping');return;}
       e.preventDefault();e.stopPropagation();
       btn.dataset.otoIntercepted='true';
-      console.log('[OTO] Showing modal');
+      debugLog('[OTO] Showing modal');
       show();
     },true);
     const drawer=document.querySelector('cart-drawer');
     if(drawer)new MutationObserver(m=>m.forEach(n=>{if(n.type==='attributes'&&n.attributeName==='open'&&!drawer.hasAttribute('open'))document.querySelectorAll('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button').forEach(b=>delete b.dataset.otoIntercepted);})).observe(drawer,{attributes:true});
   }
-  console.log('[OTO] Script loaded');
+  debugLog('[OTO] Script loaded, readyState=' + document.readyState);
+  // Expose function to retrieve logs
+  window.getOtoDebugLogs = function(){return JSON.parse(localStorage.getItem(DEBUG_KEY) || '[]');};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
