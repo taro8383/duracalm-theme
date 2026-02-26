@@ -29,7 +29,7 @@
 | **Store URL** | `https://porongas-2.myshopify.com/` |
 | **Admin URL** | `https://admin.shopify.com/store/porongas-2` |
 | **Development Theme ID** | `157533733102` |
-| **Development Theme Name** | `Development (current)` |
+| **Development Theme Name** | `Development (9f8f2a-PC-20211120RCVG)` |
 
 ## Development Workflow
 
