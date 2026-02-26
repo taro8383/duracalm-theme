@@ -128,6 +128,9 @@
   {%- if block.settings.data_source == 'metaobjects' and product_snippet_exists -%}
     {%- comment -%}Use product-specific reviews from app-generated snippet{%- endcomment -%}
     {%- assign snip = block -%}
+    {%- assign highest_ratio = 0 -%}
+    {%- assign bg_diff_class = '' -%}
+    {%- assign content_index = 0 -%}
     {{ product_snippet_content }}
   {%- else -%}
     {%- comment -%}Use manual blocks{%- endcomment -%}
