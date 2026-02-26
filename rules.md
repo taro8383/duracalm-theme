@@ -4,23 +4,20 @@
 
 ```
 /Duracalm-Developement/          ← Root project folder
-├── duracalm-theme/              ← NESTED GIT REPO (Shopify theme files ONLY)
+├── duracalm-theme/              ← GIT REPO (Shopify theme files ONLY)
 │   ├── assets/
 │   ├── sections/
 │   ├── templates/
 │   ├── config/
-│   └── .git/                    ← Separate git repo
-├── sections/                    ← IGNORE (old/outdated files)
-├── templates/                   ← IGNORE (old/outdated files)
+│   └── .git/
 └── CLAUDE.md
 ```
 
-## Git Repositories
+## Git Repository
 
 | Repository | URL | Path | Contents |
 |------------|-----|------|----------|
-| **GitHub Theme** | `https://github.com/taro8383/duracalm-theme.git` | `duracalm-theme/` | Shopify theme files |
-| **GitHub Root** | `https://github.com/taro8383/duracalm-theme.git` | `/` | Review admin app, documentation, tools |
+| **GitHub** | `https://github.com/taro8383/duracalm-theme.git` | `duracalm-theme/` | Shopify theme files |
 
 ## Shopify Configuration
 
