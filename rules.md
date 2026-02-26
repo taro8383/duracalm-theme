@@ -171,6 +171,37 @@ When user says **"PULL FROM SHOPIFY"**:
 
 **WHY**: Pulling from Shopify to "check" something destroys the carefully maintained GitHub state. When in doubt, communicate with the user rather than making destructive assumptions.
 
+### 11. NEVER Create New Folders Without Explicit Confirmation
+**CRITICAL**: Do NOT create new folders or directories without explicit user approval.
+
+- **ALWAYS ask first** before creating any new folder
+- **EXPLAIN the need** for the folder and why it's necessary
+- **Get confirmation** with clear yes/no from user
+- **No exceptions** - even for "temporary" or "utility" folders
+
+**WHY**: Unauthorized folder creation led to multiple nested git repositories and confusion about where files should be edited. This caused file corruption and lost work.
+
+### 12. NEVER Create New Git Repositories
+**CRITICAL**: Do NOT initialize or create new git repositories under any circumstances.
+
+- **Only ONE git repo** exists: `duracalm-theme/`
+- **NEVER run** `git init` anywhere
+- **NEVER create** submodules or nested repositories
+- If git operations fail, ask user - don't create new repos
+
+**WHY**: Multiple git repositories caused confusion about which files were tracked, led to edits in wrong locations, and resulted in lost work and corrupted themes.
+
+### 13. NEVER Delete or Overwrite Shopify Themes Without Explicit Confirmation
+**CRITICAL**: Do NOT delete, overwrite, or modify themes on Shopify's servers without explicit user approval.
+
+- **ALWAYS ask first** before deleting any theme
+- **ALWAYS ask first** before overwriting theme files via `shopify theme push`
+- **EXPLAIN the risk** and what will happen
+- **Get confirmation** with clear yes/no from user
+- When in doubt, preserve - don't destroy
+
+**WHY**: Unauthorized theme deletion and overwriting caused "Not Found" errors, lost configurations, and broken development environments. Recovery required rebuilding themes from scratch.
+
 ## Magic Mind Button Style
 
 The **Magic Mind** button is a signature UI element with these characteristics:
