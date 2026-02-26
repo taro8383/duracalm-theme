@@ -131,7 +131,20 @@
     {%- assign highest_ratio = 0 -%}
     {%- assign bg_diff_class = '' -%}
     {%- assign content_index = 0 -%}
-    {{ product_snippet_content }}
+    {%- if show_slider -%}
+      {%- assign review_lines = product_snippet_content | split: '\n' -%}
+      {%- for line in review_lines -%}
+        {%- if line contains 'testimonial-card' -%}
+          <li class="splide__slide">
+            <div class="splide__slide__container">
+              {{ line }}
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {{ product_snippet_content }}
+    {%- endif -%}
   {%- else -%}
     {%- comment -%}Use manual blocks{%- endcomment -%}
     {%- for i in (1..items_count) -%}
