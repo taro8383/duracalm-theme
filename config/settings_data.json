@@ -656,7 +656,9 @@
       "one-time-offer": {
         "type": "one-time-offer",
         "settings": {
-          "test_mode": true,
+          "test_mode": false,
+          "reset_oto": false,
+          "force_show": false,
           "oto_product": "one-year-guarantee",
           "bg_color": "#ddbea8",
           "text_color": "#2e2a39",
