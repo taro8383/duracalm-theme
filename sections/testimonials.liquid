@@ -353,7 +353,6 @@
       {%- assign raw_autoplay = section.settings.autoplay -%}
       {%- assign autoplay_enabled = raw_autoplay | default: true -%}
       {%- assign autoplay_speed_val = section.settings.autoplay_speed | default: 5 -%}
-      <!-- DEBUG: raw_autoplay={{ raw_autoplay }}, autoplay_enabled={{ autoplay_enabled }}, speed={{ autoplay_speed_val }} -->
       <splide-component
         data-type='{{ section.settings.type }}'
         data-autoplay="{% if autoplay_enabled %}true{% else %}false{% endif %}"
@@ -391,76 +390,51 @@
         {% endif %}
       >
         <div class="splide__track">
-          <!-- DEBUG: data_source={{ section.settings.data_source }} -->
-          <!-- DEBUG: reviews_source_size={{ reviews_source.size | default: 0 }} -->
           {%- liquid
-            assign reviews_to_render = ''
+            assign max_reviews = section.settings.max_reviews
+            assign reviews_count = 0
 
             if section.settings.data_source == 'metaobjects'
-              # Get reviews from product metafield or general reviews
-              if section.settings.target_product != blank
-                assign reviews_source = section.settings.target_product.metafields.custom.product_reviews.value | default: ''
-              elsif product != blank
-                assign reviews_source = product.metafields.custom.product_reviews.value | default: ''
+              # Check if we should load general reviews (homepage) or product-specific
+              if product != blank
+                assign load_general_reviews = false
               else
-                # No product selected - use JavaScript to load general reviews
-                assign reviews_source = ''
                 assign load_general_reviews = true
               endif
-
-              # Filter by featured if enabled
-              if load_general_reviews
-                # Will be loaded via JavaScript
-                assign filtered_reviews_list = ''
-              elsif section.settings.featured_only
-                assign filtered_reviews_list = ''
-                for review in reviews_source
-                  if review.featured
-                    if filtered_reviews_list == ''
-                      assign filtered_reviews_list = review
-                    else
-                      assign filtered_reviews_list = filtered_reviews_list | append: ',' | append: review
-                    endif
-                  endif
-                endfor
-              else
-                assign filtered_reviews_list = reviews_source
-              endif
-
-              assign max_reviews = section.settings.max_reviews
-              assign reviews_count = 0
             else
               assign reviews_source = section.blocks
             endif
           -%}
           {%- if section.settings.data_source == 'metaobjects' -%}
-            <!-- DEBUG: reviews_source_size={{ reviews_source.size | default: 0 }} -->
-            <!-- DEBUG: filtered_reviews_list_size={{ filtered_reviews_list.size | default: 0 }} -->
+            <!-- Check for product-specific review snippet -->
+            {%- if product != blank -%}
+              {%- assign product_snippet_name = 'product-reviews-' | append: product.handle -%}
+              {%- capture product_snippet_check -%}{%- include product_snippet_name -%}{%- endcapture -%}
+              {%- unless product_snippet_check contains 'Liquid error' -%}
+                {%- assign product_snippet_exists = true -%}
+              {%- else -%}
+                {%- assign product_snippet_exists = false -%}
+              {%- endunless -%}
+            {%- endif -%}
           {%- endif -%}
           <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
             {%- if section.settings.data_source == 'metaobjects' -%}
-              {%- for review in filtered_reviews_list limit: max_reviews -%}
-                {%- liquid
-                  assign reviews_count = reviews_count | plus: 1
-                -%}
-                <!-- DEBUG REVIEW {{ forloop.index }}: title='{{ review.title }}', reviewer='{{ review.reviewer_name }}' -->
-                {% render 'testimonial-card',
+              {%- if product_snippet_exists -%}
+                {%- comment -%}Use product-specific reviews{%- endcomment -%}
+                {%- assign snip = section -%}
+                {%- include product_snippet_name -%}
+              {%- elsif load_general_reviews -%}
+                {%- comment -%}Use general reviews for homepage{%- endcomment -%}
+                {%- render 'general-reviews-data',
                   snip: section,
-                  block_image: review.avatar_image,
-                  block_video: blank,
-                  block_title: review.title,
-                  block_text: review.review_text,
-                  block_author_avatar: review.avatar_image,
-                  block_author: review.reviewer_name,
-                  block_star_rating: review.star_rating,
-                  block_verified_purchase: review.verified_purchase,
-                  block_author_location: review.location,
+                  featured_only: section.settings.featured_only,
+                  max_reviews: max_reviews,
+                  reviews_count: reviews_count,
                   highest_ratio: highest_ratio,
                   bg_diff_class: bg_diff_class,
-                  content_index: content_index,
-                  review_handle: review.handle
-                %}
-              {%- endfor -%}
+                  content_index: content_index
+                -%}
+              {%- endif -%}
             {%- else -%}
               {%- for block in section.blocks -%}
                 {% render 'testimonial-card',
