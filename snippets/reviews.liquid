@@ -1,5 +1,6 @@
 {% liquid
   # Check data source
+  assign product_snippet_content = ''
   if block.settings.data_source == 'metaobjects' and product != blank
     assign max_reviews = block.settings.max_reviews | default: 3
 
@@ -12,6 +13,7 @@
       assign product_snippet_exists = false
     else
       assign product_snippet_exists = true
+      assign product_snippet_content = product_snippet_check
     endif
 
     # If no product snippet, fall back to manual blocks
@@ -28,7 +30,7 @@
       endif
     else
       # Count reviews in the product snippet (lines with testimonial-card render)
-      assign items_count = product_snippet_check | split: "testimonial-card" | size | minus: 1
+      assign items_count = product_snippet_content | split: "testimonial-card" | size | minus: 1
       if items_count < 1
         assign items_count = 1
       endif
@@ -126,7 +128,7 @@
   {%- if block.settings.data_source == 'metaobjects' and product_snippet_exists -%}
     {%- comment -%}Use product-specific reviews from app-generated snippet{%- endcomment -%}
     {%- assign snip = block -%}
-    {%- include product_snippet_name -%}
+    {{ product_snippet_content }}
   {%- else -%}
     {%- comment -%}Use manual blocks{%- endcomment -%}
     {%- for i in (1..items_count) -%}
