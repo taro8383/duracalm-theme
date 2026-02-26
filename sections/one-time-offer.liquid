@@ -632,132 +632,52 @@
 
 <script>
 (function(){
-  const DEBUG_KEY = 'oto_debug_logs';
-  function debugLog(msg){
-    const logs = JSON.parse(localStorage.getItem(DEBUG_KEY) || '[]');
-    logs.push({time: Date.now(), msg: msg});
-    localStorage.setItem(DEBUG_KEY, JSON.stringify(logs.slice(-20)));
-    console.log(msg);
+  var KEY='oto_{{ section.id }}';
+  var TEST_MODE={{ test_mode }};
+  var ERROR_MSG={{ section.settings.error_msg | default: "Error adding item" | json }};
+  var modal=document.getElementById('OneTimeOffer-{{ section.id }}');
+  if(!modal)return;
+  var accept=modal.querySelector('[data-oto-accept]');
+  var decline=modal.querySelector('[data-oto-decline]');
+  var closeBtn=modal.querySelector('[data-oto-close]');
+  var vid=accept?accept.dataset.variantId:null;
+  var animationTriggered=false;
+  function seen(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
+  function mark(){try{localStorage.setItem(KEY,'1')}catch(e){}}
+  function show(){modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';animationTriggered=true;}
+  function hide(){modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  function add(){return fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:1})});}
+  function go(){window.location.href='/checkout';}
+  function interceptCheckout(e,btn){if(btn.dataset.otoIntercepted||seen())return false;e.preventDefault();e.stopPropagation();btn.dataset.otoIntercepted='true';show();return true;}
+  {% if section.settings.reset_oto %}try{localStorage.removeItem(KEY);}catch(e){}{% endif %}
+  if(TEST_MODE){
+    if(accept)accept.addEventListener('click',function(e){e.preventDefault();alert('[TEST MODE] Would add to cart');});
+    if(decline)decline.addEventListener('click',function(e){e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(function(){modal.setAttribute('aria-hidden','false');},300);});
+    if(closeBtn)closeBtn.addEventListener('click',function(e){e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(function(){modal.setAttribute('aria-hidden','false');},300);});
+    return;
   }
-  debugLog('[OTO] Script starting...');
-  const KEY='oto_{{ section.id }}';
-  const TEST_MODE={{ test_mode }};
-  debugLog('[OTO] TEST_MODE: ' + TEST_MODE);
-  function init(){
-    debugLog('[OTO] init() called');
-    const modal=document.getElementById('OneTimeOffer-{{ section.id }}');
-    debugLog('[OTO] Modal found: ' + !!modal);
-    if(!modal){debugLog('[OTO] No modal found, exiting');return;}
-    const accept=modal.querySelector('[data-oto-accept]');
-    const decline=modal.querySelector('[data-oto-decline]');
-    const close=modal.querySelector('[data-oto-close]');
-    const vid=accept?.dataset.variantId;
-    let animationTriggered = false;
-    function seen(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
-    function mark(){try{localStorage.setItem(KEY,'1')}catch(e){}}
-    function triggerAnimations(){
-      // Force a reflow to ensure animations trigger properly
-      const animElements = modal.querySelectorAll('.oto-anim');
-      animElements.forEach(el => {
-        el.style.animation = 'none';
-        el.offsetHeight; // Force reflow
-        el.style.animation = '';
-      });
-    }
-    function show(){
-      modal.setAttribute('aria-hidden','false');
-      document.body.style.overflow='hidden';
-      if(!animationTriggered){
-        animationTriggered = true;
-        // Small delay to ensure display:block is applied before animations start
-        requestAnimationFrame(() => {
-          triggerAnimations();
-        });
-      }
-    }
-    function hide(){
-      const closeAnim=modal.dataset.animClose;
-      const duration=parseInt(modal.dataset.animDuration)||400;
-      if(closeAnim&&closeAnim!=='none'){
-        modal.classList.add('is-closing--'+closeAnim);
-        setTimeout(()=>{
-          modal.setAttribute('aria-hidden','true');
-          document.body.style.overflow='';
-          modal.classList.remove('is-closing--'+closeAnim);
-        },duration);
-      }else{
-        modal.setAttribute('aria-hidden','true');
-        document.body.style.overflow='';
-      }
-    }
-    function add(){return fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:vid,quantity:1})});}
-    function go(){window.location.href='/checkout';}
-
-    // Reset OTO if setting is enabled (for testing)
-    {% if section.settings.reset_oto %}
-      try{localStorage.removeItem(KEY);console.log('[OTO] Reset - cleared seen state');}catch(e){}
-    {% endif %}
-
-    // In test mode, buttons just show alerts instead of navigating
-    if(TEST_MODE){
-      if(accept)accept.addEventListener('click',(e)=>{e.preventDefault();alert('[TEST MODE] Would add "'+accept.querySelector('.oto-btn-text')?.textContent+'" to cart and go to checkout');});
-      if(decline)decline.addEventListener('click',(e)=>{e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(()=>modal.setAttribute('aria-hidden','false'),300);});
-      if(close)close.addEventListener('click',(e)=>{e.preventDefault();modal.setAttribute('aria-hidden','true');setTimeout(()=>modal.setAttribute('aria-hidden','false'),300);});
-      return;
-    }
-
-    if(accept)accept.addEventListener('click',()=>{accept.classList.add('is-loading');mark();add().then(go).catch(()=>{accept.classList.remove('is-loading');alert('{{ section.settings.error_msg | default: "Error adding item" }}');});});
-    if(decline)decline.addEventListener('click',()=>{mark();hide();go();});
-    if(close)close.addEventListener('click',()=>{mark();hide();go();});
-    modal.querySelector('.oto-overlay').addEventListener('click',()=>{mark();hide();go();});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.getAttribute('aria-hidden')==='false'){mark();hide();go();}});
-
-    // Intercept form submissions (more reliable than click)
-    const cartForm = document.getElementById('CartDrawer-Form');
-    debugLog('[OTO] Cart form found: ' + !!cartForm);
-    if(cartForm){
-      debugLog('[OTO] Attaching form submit listener');
-      cartForm.addEventListener('submit',e=>{
-        const btn = cartForm.querySelector('[name="checkout"],#CartDrawer-Checkout,.cart__checkout-button');
-        debugLog('[OTO] Form submit - btn found: ' + !!btn);
-        if(!btn) return;
-        debugLog('[OTO] Form submit intercepted');
-        alert('OTO DEBUG: Form submit intercepted!');
-        if(btn.dataset.otoIntercepted){debugLog('[OTO] Already intercepted');return;}
-        const hasSeen = seen();
-        debugLog('[OTO] seen() returned: ' + hasSeen);
-        if(hasSeen){debugLog('[OTO] Already seen, skipping');return;}
-        e.preventDefault();e.stopPropagation();
-        btn.dataset.otoIntercepted='true';
-        console.log('[OTO] Showing modal');
-        show();
-      },true);
-    }
-
-    // Also intercept clicks as backup
-    debugLog('[OTO] Attaching click listener');
-    document.addEventListener('click',e=>{
-      const btn=e.target.closest('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button');
+  if(accept)accept.addEventListener('click',function(){this.classList.add('is-loading');mark();add().then(go).catch(function(){accept.classList.remove('is-loading');alert(ERROR_MSG);});});
+  if(decline)decline.addEventListener('click',function(){mark();hide();go();});
+  if(closeBtn)closeBtn.addEventListener('click',function(){mark();hide();go();});
+  modal.querySelector('.oto-overlay').addEventListener('click',function(){mark();hide();go();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.getAttribute('aria-hidden')==='false'){mark();hide();go();}});
+  var cartForm=document.getElementById('CartDrawer-Form');
+  if(cartForm){
+    cartForm.addEventListener('submit',function(e){
+      var btn=this.querySelector('[name="checkout"],#CartDrawer-Checkout,.cart__checkout-button');
       if(!btn)return;
-      debugLog('[OTO] Checkout button CLICKED!');
-      alert('OTO DEBUG: Checkout button clicked! Check console for details.');
-      debugLog('[OTO] btn.id=' + btn.id + ', name=' + btn.name);
-      if(btn.dataset.otoIntercepted){debugLog('[OTO] Already intercepted');return;}
-      const clickHasSeen = seen();
-      debugLog('[OTO] seen() returned: ' + clickHasSeen);
-      if(clickHasSeen){debugLog('[OTO] Already seen, skipping');return;}
-      e.preventDefault();e.stopPropagation();
-      btn.dataset.otoIntercepted='true';
-      debugLog('[OTO] Showing modal');
-      show();
+      interceptCheckout(e,btn);
     },true);
-    const drawer=document.querySelector('cart-drawer');
-    if(drawer)new MutationObserver(m=>m.forEach(n=>{if(n.type==='attributes'&&n.attributeName==='open'&&!drawer.hasAttribute('open'))document.querySelectorAll('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button').forEach(b=>delete b.dataset.otoIntercepted);})).observe(drawer,{attributes:true});
   }
-  debugLog('[OTO] Script loaded, readyState=' + document.readyState);
-  // Expose function to retrieve logs
-  window.getOtoDebugLogs = function(){return JSON.parse(localStorage.getItem(DEBUG_KEY) || '[]');};
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button');
+    if(!btn)return;
+    interceptCheckout(e,btn);
+  },true);
+  var drawer=document.querySelector('cart-drawer');
+  if(drawer){
+    new MutationObserver(function(m){m.forEach(function(n){if(n.type==='attributes'&&n.attributeName==='open'&&!drawer.hasAttribute('open')){document.querySelectorAll('#CartDrawer-Checkout,[name="checkout"],.cart__checkout-button').forEach(function(b){delete b.dataset.otoIntercepted;});}});}).observe(drawer,{attributes:true});
+  }
 })();
 </script>
 {% endif %}
