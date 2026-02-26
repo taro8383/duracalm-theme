@@ -411,21 +411,20 @@
               # Filter by featured if enabled
               if load_general_reviews
                 # Will be loaded via JavaScript
-                assign reviews_source_handles = ''
+                assign filtered_reviews_list = ''
               elsif section.settings.featured_only
-                assign filtered_reviews = ''
+                assign filtered_reviews_list = ''
                 for review in reviews_source
                   if review.featured
-                    assign filtered_reviews = filtered_reviews | append: review.handle | append: ','
+                    if filtered_reviews_list == ''
+                      assign filtered_reviews_list = review
+                    else
+                      assign filtered_reviews_list = filtered_reviews_list | append: ',' | append: review
+                    endif
                   endif
                 endfor
-                assign reviews_source_handles = filtered_reviews | split: ','
               else
-                assign reviews_source_handles = ''
-                for review in reviews_source
-                  assign reviews_source_handles = reviews_source_handles | append: review.handle | append: ','
-                endfor
-                assign reviews_source_handles = reviews_source_handles | split: ','
+                assign filtered_reviews_list = reviews_source
               endif
 
               assign max_reviews = section.settings.max_reviews
@@ -435,26 +434,16 @@
             endif
           -%}
           {%- if section.settings.data_source == 'metaobjects' -%}
-            {%- for handle in reviews_source_handles limit: 3 -%}
-              <!-- DEBUG: handle{{ forloop.index }}={{ handle }} -->
-            {%- endfor -%}
+            <!-- DEBUG: reviews_source_size={{ reviews_source.size | default: 0 }} -->
+            <!-- DEBUG: filtered_reviews_list_size={{ filtered_reviews_list.size | default: 0 }} -->
           {%- endif -%}
           <ul class="splide__list" data-stagger-children data-stagger-animate="scale-up">
             {%- if section.settings.data_source == 'metaobjects' -%}
-              {%- for review_handle in reviews_source_handles -%}
+              {%- for review in filtered_reviews_list limit: max_reviews -%}
                 {%- liquid
-                  if reviews_count >= max_reviews
-                    break
-                  endif
-                  assign review = shop.metaobjects.review[review_handle]
-                -%}
-                <!-- DEBUG HANDLE {{ forloop.index }}: review_handle='{{ review_handle }}', review_blank={% if review == blank %}YES{% else %}NO{% endif %} -->
-                {%- liquid
-                  if review == blank
-                    continue
-                  endif
                   assign reviews_count = reviews_count | plus: 1
                 -%}
+                <!-- DEBUG REVIEW {{ forloop.index }}: title='{{ review.title }}', reviewer='{{ review.reviewer_name }}' -->
                 {% render 'testimonial-card',
                   snip: section,
                   block_image: review.avatar_image,
@@ -469,7 +458,7 @@
                   highest_ratio: highest_ratio,
                   bg_diff_class: bg_diff_class,
                   content_index: content_index,
-                  review_handle: review_handle
+                  review_handle: review.handle
                 %}
               {%- endfor -%}
             {%- else -%}
