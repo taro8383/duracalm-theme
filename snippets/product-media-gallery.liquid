@@ -200,14 +200,16 @@
               data-alt="Custom gallery image {{ custom_index }}"
             >
               <div class="media media--transparent ratio" style="--ratio-percent: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%; padding-bottom: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%;">
+                {%- capture sizes_attribute -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem){%- endcapture -%}
+                {%- capture alt_attribute -%}Custom gallery image {{ custom_index }}{%- endcapture -%}
                 {{
                   custom_image
                   | image_url: width: 1946
                   | image_tag:
                     loading: 'lazy',
                     widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
-                    sizes: '(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)',
-                    alt: 'Custom gallery image ' | append: custom_index
+                    sizes: sizes_attribute,
+                    alt: alt_attribute
                 }}
               </div>
             </li>
@@ -459,6 +461,7 @@
                 {%- capture thumbnail_id -%}
                   Thumbnail-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}
                 {%- endcapture -%}
+                {%- capture thumbnail_alt -%}Custom gallery image {{ custom_index }}{%- endcapture -%}
                 <button
                   class="thumbnail global-media-settings global-media-settings--no-shadow"
                   aria-label="{{ 'products.product.media.load_image' | t: index: media_index }}"
@@ -473,7 +476,7 @@
                       sizes: sizes,
                       widths: '54, 74, 104, 162, 208, 324, 416',
                       id: thumbnail_id,
-                      alt: 'Custom gallery image ' | append: custom_index
+                      alt: thumbnail_alt
                   }}
                 </button>
               </li>
