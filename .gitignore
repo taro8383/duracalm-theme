@@ -1,0 +1,21 @@
+# Shopify Theme - Files to exclude from push
+
+# Local development folders
+.claude/
+review-admin-app/
+node_modules/
+
+# Documentation and project files (keep locally, don't push)
+CLAUDE.md
+REVIEW_MANAGEMENT_GUIDE.md
+reviews.md
+rules.md
+banner_schema.json
+shopify-metaobjects.toml
+shopify-metaobjects-graphql.md
+package-lock.json
+package.json
+
+# Ignore any other non-theme files
+*.md
+!README.md
