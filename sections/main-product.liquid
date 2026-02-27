@@ -497,7 +497,6 @@
               assign grid_classes = 'product-info__grid-item product-info__grid-item--' | append: block.settings.grid_width | default: 'full'
             endif
           -%}
-          {%- capture block_content -%}
           {%- case block.type -%}
             {%- when '@app' -%}
               <div class="{{ grid_classes }}" {{ block.shopify_attributes }}>{% render block %}</div>
