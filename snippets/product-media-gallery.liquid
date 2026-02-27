@@ -200,17 +200,15 @@
               data-alt="Custom gallery image {{ custom_index }}"
             >
               <div class="media media--transparent ratio" style="--ratio-percent: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%; padding-bottom: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%;">
-                {%- capture sizes_attribute -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem){%- endcapture -%}
-                {%- capture alt_attribute -%}Custom gallery image {{ custom_index }}{%- endcapture -%}
-                {{
-                  custom_image
-                  | image_url: width: 1946
-                  | image_tag:
-                    loading: 'lazy',
-                    widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
-                    sizes: sizes_attribute,
-                    alt: alt_attribute
-                }}
+                <img
+                  src="{{ custom_image | image_url: width: 1946 }}"
+                  srcset="{{ custom_image | image_url: width: 246 }} 246w, {{ custom_image | image_url: width: 493 }} 493w, {{ custom_image | image_url: width: 600 }} 600w, {{ custom_image | image_url: width: 713 }} 713w, {{ custom_image | image_url: width: 823 }} 823w, {{ custom_image | image_url: width: 990 }} 990w, {{ custom_image | image_url: width: 1100 }} 1100w, {{ custom_image | image_url: width: 1206 }} 1206w, {{ custom_image | image_url: width: 1346 }} 1346w, {{ custom_image | image_url: width: 1426 }} 1426w, {{ custom_image | image_url: width: 1646 }} 1646w, {{ custom_image | image_url: width: 1946 }} 1946w"
+                  sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)"
+                  alt="Custom gallery image {{ custom_index }}"
+                  loading="lazy"
+                  width="{{ custom_image.width }}"
+                  height="{{ custom_image.height }}"
+                >
               </div>
             </li>
           {%- endif -%}
@@ -468,15 +466,16 @@
                   aria-controls="GalleryViewer-{{ section.id }}{{ id_append }}"
                   aria-describedby="{{ thumbnail_id }}"
                 >
-                  {{
-                    custom_image
-                    | image_url: width: 416
-                    | image_tag:
-                      loading: 'lazy',
-                      widths: '54, 74, 104, 162, 208, 324, 416',
-                      id: thumbnail_id,
-                      alt: thumbnail_alt
-                  }}
+                  <img
+                    src="{{ custom_image | image_url: width: 416 }}"
+                    srcset="{{ custom_image | image_url: width: 54 }} 54w, {{ custom_image | image_url: width: 74 }} 74w, {{ custom_image | image_url: width: 104 }} 104w, {{ custom_image | image_url: width: 162 }} 162w, {{ custom_image | image_url: width: 208 }} 208w, {{ custom_image | image_url: width: 324 }} 324w, {{ custom_image | image_url: width: 416 }} 416w"
+                    sizes="54px"
+                    alt="{{ thumbnail_alt }}"
+                    loading="lazy"
+                    width="{{ custom_image.width }}"
+                    height="{{ custom_image.height }}"
+                    id="{{ thumbnail_id }}"
+                  >
                 </button>
               </li>
             {%- endif -%}
