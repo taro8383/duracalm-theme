@@ -255,6 +255,7 @@
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
       >
+        {% assign shown_products = 0 %}
         {% for recommendation in recommendations.products %}
           {% unless recommendation.tags contains 'collection-hidden' %}
             <li class="grid__item animate-item animate-item--child" style="--index:{{ forloop.index0 }};">
@@ -267,8 +268,38 @@
                 show_rating: section.settings.show_rating
               %}
             </li>
+            {% assign shown_products = shown_products | plus: 1 %}
           {% endunless %}
         {% endfor %}
+        {% comment %} Fallback: Show more products from all collection if recommendations are insufficient {% endcomment %}
+        {% if shown_products < section.settings.columns_desktop %}
+          {% assign needed_products = section.settings.columns_desktop | minus: shown_products %}
+          {% assign current_product_id = product.id %}
+          {% assign added_count = 0 %}
+          {% for fallback_product in collections.all.products limit: 20 %}
+            {% if added_count < needed_products and fallback_product.id != current_product_id %}
+              {% assign already_shown = false %}
+              {% for recommendation in recommendations.products %}
+                {% if recommendation.id == fallback_product.id %}
+                  {% assign already_shown = true %}
+                {% endif %}
+              {% endfor %}
+              {% unless already_shown or fallback_product.tags contains 'collection-hidden' %}
+                <li class="grid__item animate-item animate-item--child" style="--index:{{ shown_products | plus: added_count }};">
+                  {% render 'card-product',
+                    card_product: fallback_product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_quick_add: section.settings.enable_quick_add,
+                    show_rating: section.settings.show_rating
+                  %}
+                </li>
+                {% assign added_count = added_count | plus: 1 %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
       </ul>
     {% endif %}
   </product-recommendations>
