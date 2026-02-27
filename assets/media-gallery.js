@@ -19,6 +19,154 @@ if (!customElements.get('media-gallery')) {
         mediaToSwitch.querySelector('button').addEventListener('click', this.setActiveMedia.bind(this, mediaToSwitch.dataset.target, false));
       });
       if (this.dataset.desktopLayout.includes('thumbnail') && this.mql.matches) this.removeListSemantic();
+
+      // Initialize autoplay
+      this.initAutoplay();
+    }
+
+    initAutoplay() {
+      // Check if autoplay is enabled via data attribute
+      this.autoplayEnabled = this.dataset.autoplay === 'true';
+      this.autoplayDelay = parseInt(this.dataset.autoplayDelay) || 4000;
+      this.pauseOnHover = this.dataset.autoplayPauseHover !== 'false';
+      this.autoplayTimer = null;
+      this.isPaused = false;
+      this.touchStartX = 0;
+      this.touchEndX = 0;
+
+      if (this.autoplayEnabled) {
+        this.startAutoplay();
+
+        // Pause on hover (desktop)
+        if (this.pauseOnHover) {
+          this.addEventListener('mouseenter', () => this.pauseAutoplay());
+          this.addEventListener('mouseleave', () => this.resumeAutoplay());
+        }
+
+        // Touch events (mobile) - pause when user touches the gallery
+        this.addEventListener('touchstart', (e) => {
+          this.touchStartX = e.changedTouches[0].screenX;
+          this.pauseAutoplay();
+        }, { passive: true });
+
+        this.addEventListener('touchend', (e) => {
+          this.touchEndX = e.changedTouches[0].screenX;
+          this.handleSwipe();
+          // Resume after a delay
+          setTimeout(() => this.resumeAutoplay(), 1000);
+        }, { passive: true });
+
+        // Pause when tab is hidden
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.pauseAutoplay();
+          } else {
+            this.resumeAutoplay();
+          }
+        });
+
+        // Pause when modal is open
+        document.addEventListener('productModalOpened', () => this.pauseAutoplay());
+        document.addEventListener('productModalClosed', () => this.resumeAutoplay());
+
+        // Pause on focus for accessibility
+        this.addEventListener('focusin', () => this.pauseAutoplay());
+        this.addEventListener('focusout', () => this.resumeAutoplay());
+      }
+    }
+
+    handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = this.touchStartX - this.touchEndX;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swiped left - next slide
+          this.nextSlide();
+        } else {
+          // Swiped right - previous slide
+          this.previousSlide();
+        }
+      }
+    }
+
+    startAutoplay() {
+      if (!this.autoplayEnabled || this.isPaused) return;
+
+      this.stopAutoplay();
+      this.autoplayTimer = setInterval(() => {
+        this.nextSlide();
+      }, this.autoplayDelay);
+    }
+
+    stopAutoplay() {
+      if (this.autoplayTimer) {
+        clearInterval(this.autoplayTimer);
+        this.autoplayTimer = null;
+      }
+    }
+
+    pauseAutoplay() {
+      this.stopAutoplay();
+      this.isPaused = true;
+    }
+
+    resumeAutoplay() {
+      this.isPaused = false;
+      this.startAutoplay();
+    }
+
+    nextSlide() {
+      const slides = this.elements.viewer.querySelectorAll('.product__media-item[data-media-id]');
+      if (slides.length <= 1) return;
+
+      const activeSlide = this.elements.viewer.querySelector('.product__media-item.is-active');
+      if (!activeSlide) return;
+
+      const currentIndex = Array.from(slides).indexOf(activeSlide);
+      const nextIndex = (currentIndex + 1) % slides.length;
+      const nextSlide = slides[nextIndex];
+
+      if (nextSlide) {
+        const mediaId = nextSlide.dataset.mediaId;
+        this.setActiveMedia(mediaId, false);
+
+        // Update the slider if it exists
+        if (this.elements.viewer.slider) {
+          this.elements.viewer.slider.scrollTo({
+            left: nextSlide.offsetLeft,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+
+    previousSlide() {
+      const slides = this.elements.viewer.querySelectorAll('.product__media-item[data-media-id]');
+      if (slides.length <= 1) return;
+
+      const activeSlide = this.elements.viewer.querySelector('.product__media-item.is-active');
+      if (!activeSlide) return;
+
+      const currentIndex = Array.from(slides).indexOf(activeSlide);
+      const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+      const prevSlide = slides[prevIndex];
+
+      if (prevSlide) {
+        const mediaId = prevSlide.dataset.mediaId;
+        this.setActiveMedia(mediaId, false);
+
+        if (this.elements.viewer.slider) {
+          this.elements.viewer.slider.scrollTo({
+            left: prevSlide.offsetLeft,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+
+    disconnectedCallback() {
+      this.stopAutoplay();
     }
 
     onSlideChanged(event) {

@@ -38,10 +38,25 @@
   endif
 
   assign custom_gallery_count = 0
-  if custom_gallery_images != blank and custom_gallery_images != empty
-    assign custom_gallery_count = custom_gallery_images.size
-    assign media_count = media_count | plus: custom_gallery_count
+  if section.settings.custom_gallery_image_1 != blank
+    assign custom_gallery_count = custom_gallery_count | plus: 1
   endif
+  if section.settings.custom_gallery_image_2 != blank
+    assign custom_gallery_count = custom_gallery_count | plus: 1
+  endif
+  if section.settings.custom_gallery_image_3 != blank
+    assign custom_gallery_count = custom_gallery_count | plus: 1
+  endif
+  if section.settings.custom_gallery_image_4 != blank
+    assign custom_gallery_count = custom_gallery_count | plus: 1
+  endif
+  if section.settings.custom_gallery_image_5 != blank
+    assign custom_gallery_count = custom_gallery_count | plus: 1
+  endif
+  if section.settings.custom_gallery_image_6 != blank
+    assign custom_gallery_count = custom_gallery_count | plus: 1
+  endif
+  assign media_count = media_count | plus: custom_gallery_count
 
   if media_count == 1 or single_media_visible
     assign single_media_visible_mobile = true
@@ -99,6 +114,9 @@
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
   data-desktop-layout="{{ section.settings.gallery_layout }}"
   data-disable-prepend="{{ disable_prepend }}"
+  data-autoplay="{{ section.settings.gallery_autoplay | default: false }}"
+  data-autoplay-delay="{{ section.settings.autoplay_delay | default: 4000 }}"
+  data-autoplay-pause-hover="{{ section.settings.autoplay_pause_hover | default: true }}"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <slider-component id="GalleryViewer-{{ section.id }}{{ id_append }}" class="product-media-slider slider-mobile-gutter" data-pause-videos='true' data-update-active="true">
@@ -186,32 +204,42 @@
           </li>
         {%- endif -%}
       {%- endfor -%}
-      {%- if custom_gallery_images != blank and custom_gallery_images != empty -%}
-        {%- for custom_image in custom_gallery_images -%}
-          {%- if custom_image != blank -%}
-            {%- liquid
-              assign media_position = media_position | default: 0 | plus: 1
-              assign custom_index = forloop.index
-            -%}
-            <li
-              id="Slide-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}"
-              class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if media_position == 1 %} is-active{% endif %}"
-              data-media-id="{{ section.id }}-custom-{{ custom_index }}"
-              data-alt="Custom gallery image {{ custom_index }}"
-            >
-              <div class="media media--transparent ratio" style="--ratio-percent: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%; padding-bottom: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%;">
-                <img
-                  src="{{ custom_image | image_url: width: 1946 }}"
-                  srcset="{{ custom_image | image_url: width: 246 }} 246w, {{ custom_image | image_url: width: 493 }} 493w, {{ custom_image | image_url: width: 600 }} 600w, {{ custom_image | image_url: width: 713 }} 713w, {{ custom_image | image_url: width: 823 }} 823w, {{ custom_image | image_url: width: 990 }} 990w, {{ custom_image | image_url: width: 1100 }} 1100w, {{ custom_image | image_url: width: 1206 }} 1206w, {{ custom_image | image_url: width: 1346 }} 1346w, {{ custom_image | image_url: width: 1426 }} 1426w, {{ custom_image | image_url: width: 1646 }} 1646w, {{ custom_image | image_url: width: 1946 }} 1946w"
-                  sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)"
-                  alt="Custom gallery image {{ custom_index }}"
-                  loading="lazy"
-                  width="{{ custom_image.width }}"
-                  height="{{ custom_image.height }}"
-                >
-              </div>
-            </li>
-          {%- endif -%}
+      {%- comment -%} Custom Gallery Images {%- endcomment -%}
+      {%- assign custom_images_array = '' -%}
+      {%- if section.settings.custom_gallery_image_1 != blank -%}{%- assign custom_images_array = custom_images_array | append: '1,' -%}{%- endif -%}
+      {%- if section.settings.custom_gallery_image_2 != blank -%}{%- assign custom_images_array = custom_images_array | append: '2,' -%}{%- endif -%}
+      {%- if section.settings.custom_gallery_image_3 != blank -%}{%- assign custom_images_array = custom_images_array | append: '3,' -%}{%- endif -%}
+      {%- if section.settings.custom_gallery_image_4 != blank -%}{%- assign custom_images_array = custom_images_array | append: '4,' -%}{%- endif -%}
+      {%- if section.settings.custom_gallery_image_5 != blank -%}{%- assign custom_images_array = custom_images_array | append: '5,' -%}{%- endif -%}
+      {%- if section.settings.custom_gallery_image_6 != blank -%}{%- assign custom_images_array = custom_images_array | append: '6,' -%}{%- endif -%}
+
+      {%- if custom_images_array != '' -%}
+        {%- assign custom_image_indexes = custom_images_array | split: ',' -%}
+        {%- for idx in custom_image_indexes -%}
+          {%- liquid
+            assign image_setting_id = 'custom_gallery_image_' | append: idx
+            assign custom_image = section.settings[image_setting_id]
+            assign media_position = media_position | default: 0 | plus: 1
+            assign custom_index = forloop.index
+          -%}
+          <li
+            id="Slide-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}"
+            class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if media_position == 1 %} is-active{% endif %}"
+            data-media-id="{{ section.id }}-custom-{{ custom_index }}"
+            data-alt="Custom gallery image {{ custom_index }}"
+          >
+            <div class="media media--transparent ratio" style="--ratio-percent: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%; padding-bottom: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%;">
+              <img
+                src="{{ custom_image | image_url: width: 1946 }}"
+                srcset="{{ custom_image | image_url: width: 246 }} 246w, {{ custom_image | image_url: width: 493 }} 493w, {{ custom_image | image_url: width: 600 }} 600w, {{ custom_image | image_url: width: 713 }} 713w, {{ custom_image | image_url: width: 823 }} 823w, {{ custom_image | image_url: width: 990 }} 990w, {{ custom_image | image_url: width: 1100 }} 1100w, {{ custom_image | image_url: width: 1206 }} 1206w, {{ custom_image | image_url: width: 1346 }} 1346w, {{ custom_image | image_url: width: 1426 }} 1426w, {{ custom_image | image_url: width: 1646 }} 1646w, {{ custom_image | image_url: width: 1946 }} 1946w"
+                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)"
+                alt="Custom gallery image {{ custom_index }}"
+                loading="lazy"
+                width="{{ custom_image.width }}"
+                height="{{ custom_image.height }}"
+              >
+            </div>
+          </li>
         {%- endfor -%}
       {%- endif -%}
     </ul>
@@ -441,46 +469,45 @@
             </li>
           {%- endif -%}
         {%- endfor -%}
-        {%- if custom_gallery_images != blank and custom_gallery_images != empty -%}
-          {%- for custom_image in custom_gallery_images -%}
-            {%- if custom_image != blank -%}
-              {%- liquid
-                assign media_index = media_index | plus: 1
-                assign custom_index = forloop.index
-              -%}
-              <li
-                id="Slide-Thumbnails-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}"
-                class="thumbnail-list__item slider__slide"
-                data-target="{{ section.id }}-custom-{{ custom_index }}"
-                data-media-position="{{ media_index }}"
-                data-alt="Custom gallery image {{ custom_index }}"
-                style="--ratio: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%"
+        {%- comment -%} Custom Gallery Thumbnails {%- endcomment -%}
+        {%- for idx in custom_image_indexes -%}
+          {%- liquid
+            assign image_setting_id = 'custom_gallery_image_' | append: idx
+            assign custom_image = section.settings[image_setting_id]
+            assign media_index = media_index | plus: 1
+            assign custom_index = forloop.index
+          -%}
+          <li
+            id="Slide-Thumbnails-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}"
+            class="thumbnail-list__item slider__slide"
+            data-target="{{ section.id }}-custom-{{ custom_index }}"
+            data-media-position="{{ media_index }}"
+            data-alt="Custom gallery image {{ custom_index }}"
+            style="--ratio: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%"
+          >
+            {%- capture thumbnail_id -%}
+              Thumbnail-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}
+            {%- endcapture -%}
+            {%- capture thumbnail_alt -%}Custom gallery image {{ custom_index }}{%- endcapture -%}
+            <button
+              class="thumbnail global-media-settings global-media-settings--no-shadow"
+              aria-label="{{ 'products.product.media.load_image' | t: index: media_index }}"
+              aria-controls="GalleryViewer-{{ section.id }}{{ id_append }}"
+              aria-describedby="{{ thumbnail_id }}"
+            >
+              <img
+                src="{{ custom_image | image_url: width: 416 }}"
+                srcset="{{ custom_image | image_url: width: 54 }} 54w, {{ custom_image | image_url: width: 74 }} 74w, {{ custom_image | image_url: width: 104 }} 104w, {{ custom_image | image_url: width: 162 }} 162w, {{ custom_image | image_url: width: 208 }} 208w, {{ custom_image | image_url: width: 324 }} 324w, {{ custom_image | image_url: width: 416 }} 416w"
+                sizes="54px"
+                alt="{{ thumbnail_alt }}"
+                loading="lazy"
+                width="{{ custom_image.width }}"
+                height="{{ custom_image.height }}"
+                id="{{ thumbnail_id }}"
               >
-                {%- capture thumbnail_id -%}
-                  Thumbnail-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}
-                {%- endcapture -%}
-                {%- capture thumbnail_alt -%}Custom gallery image {{ custom_index }}{%- endcapture -%}
-                <button
-                  class="thumbnail global-media-settings global-media-settings--no-shadow"
-                  aria-label="{{ 'products.product.media.load_image' | t: index: media_index }}"
-                  aria-controls="GalleryViewer-{{ section.id }}{{ id_append }}"
-                  aria-describedby="{{ thumbnail_id }}"
-                >
-                  <img
-                    src="{{ custom_image | image_url: width: 416 }}"
-                    srcset="{{ custom_image | image_url: width: 54 }} 54w, {{ custom_image | image_url: width: 74 }} 74w, {{ custom_image | image_url: width: 104 }} 104w, {{ custom_image | image_url: width: 162 }} 162w, {{ custom_image | image_url: width: 208 }} 208w, {{ custom_image | image_url: width: 324 }} 324w, {{ custom_image | image_url: width: 416 }} 416w"
-                    sizes="54px"
-                    alt="{{ thumbnail_alt }}"
-                    loading="lazy"
-                    width="{{ custom_image.width }}"
-                    height="{{ custom_image.height }}"
-                    id="{{ thumbnail_id }}"
-                  >
-                </button>
-              </li>
-            {%- endif -%}
-          {%- endfor -%}
-        {%- endif -%}
+            </button>
+          </li>
+        {%- endfor -%}
       </ul>
       <button
         type="button"
