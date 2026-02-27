@@ -339,3 +339,53 @@ Complementary products use the `.complementary-products__container` wrapper. Tar
   "info": "Select a custom color for the product cards. Leave empty to use theme default."
 }
 ```
+
+## JSON Template File Handling
+
+### Shopify Adds Comments to JSON Files on Pull
+
+**WARNING**: When pulling from Shopify, the CLI may add comment blocks to JSON template files:
+
+```json
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ * ...
+ * ------------------------------------------------------------
+ */
+```
+
+**CRITICAL**: JSON does NOT support comments. These comment blocks will cause **404 errors** on all pages when pushed back to Shopify.
+
+### Fix Procedure
+
+After EVERY pull from Shopify, run this to remove comments from JSON files:
+
+```bash
+cd duracalm-theme/templates
+for file in *.json; do
+  if head -1 "$file" | grep -q '^/\*'; then
+    tail -n +10 "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
+  fi
+done
+
+# Also check customers folder
+cd customers
+for file in *.json; do
+  if head -1 "$file" | grep -q '^/\*'; then
+    tail -n +10 "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
+  fi
+done
+```
+
+### Prevention
+
+Always validate JSON files before pushing:
+
+```bash
+# Quick validation check
+cd duracalm-theme/templates
+node -e "JSON.parse(require('fs').readFileSync('product.json', 'utf8')); console.log('Valid')" 2>&1 || echo "INVALID JSON - Check for comments"
+```
+
+**Never push JSON files with comments to Shopify - it will break the entire theme.**
