@@ -226,6 +226,14 @@
     {% endif %}
   }
   {% endif %}
+
+  /* Force grid display for related products */
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .grid.product-grid {
+      display: grid !important;
+      grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    }
+  }
 {%- endstyle -%}
 
 <div class="color-{{ section.settings.color_scheme }} gradient no-js-hidden content-for-grouping animate-section animate--hidden">
