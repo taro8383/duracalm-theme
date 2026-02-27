@@ -396,11 +396,11 @@
         "disable_prepend": true,
         "hide_variants": false,
         "variant_image_filtering": "none",
-        "image_zoom": "lightbox",
+        "image_zoom": "none",
         "thumbnails_ratio": "square",
         "arrows_color_scheme": "accent-1",
-        "transparent_arrows": false,
-        "dots_color_scheme": "background-2",
+        "transparent_arrows": true,
+        "dots_color_scheme": "accent-1",
         "gallery_arrows_color": "#7b92c8",
         "gallery_arrows_bg_color": "#ddbea8",
         "gallery_dots_color": "#7b92c8",
@@ -438,7 +438,7 @@
         "mobile_slides_inner_width": 100,
         "trust_badge_position": "top-right",
         "trust_badge_size": "medium",
-        "mobile_padding_top": 0,
+        "mobile_padding_top": 16,
         "mobile_padding_bottom": 16,
         "desktop_padding_top": 36,
         "desktop_padding_bottom": 36
@@ -490,23 +490,6 @@
         "card_margin_bottom": 60,
         "card_margin_left": 0,
         "card_margin_right": 0
-      }
-    },
-    "section_divider_PYPTAi": {
-      "type": "section-divider",
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": false,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#f3dfc1",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "8beb6911-28c6-482c-976a-e5421ad3e8df": {
@@ -673,23 +656,6 @@
         "custom_colors_outline_button": "#dd1d1d"
       }
     },
-    "section_divider_AYN8E7": {
-      "type": "section-divider",
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": true,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#ddbea8",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59": {
       "type": "image-slider",
       "blocks": {
@@ -778,23 +744,6 @@
         "custom_colors_text": "#121212"
       }
     },
-    "section_divider_pqyQHB": {
-      "type": "section-divider",
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": false,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#f3dfc1",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a": {
       "type": "icons-with-content",
       "blocks": {
@@ -880,23 +829,6 @@
         "custom_colors_solid_button_background": "#dd1d1d",
         "custom_colors_solid_button_text": "#ffffff",
         "custom_colors_outline_button": "#dd1d1d"
-      }
-    },
-    "section_divider_fC8jnw": {
-      "type": "section-divider",
-      "name": "Section divider",
-      "settings": {
-        "visibility": "always-display",
-        "shape": "diagonal_1",
-        "flip_horizontal": true,
-        "flip_vertical": false,
-        "shape_color": "accent-1",
-        "custom_shape_color": "#dd1d1d",
-        "background_color": "custom",
-        "custom_background_color": "#ddbea8",
-        "divider_height": 50,
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "55bd100e-3bbd-426c-a5cf-eed7b2a3706f": {
@@ -1013,12 +945,12 @@
         "max_reviews": 5
       }
     },
-    "section_divider_VjNwm7": {
+    "section_divider_mNrLER": {
       "type": "section-divider",
       "settings": {
         "visibility": "always-display",
         "shape": "waves_3",
-        "flip_horizontal": false,
+        "flip_horizontal": true,
         "flip_vertical": true,
         "shape_color": "accent-1",
         "custom_shape_color": "#dd1d1d",
@@ -1034,14 +966,10 @@
     "b321ab88-2b59-4dba-bade-54885c874ca5",
     "main",
     "related-products",
-    "section_divider_PYPTAi",
     "8beb6911-28c6-482c-976a-e5421ad3e8df",
-    "section_divider_AYN8E7",
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
-    "section_divider_pqyQHB",
     "4fc05ee5-1c30-4863-b88f-81cb6fa7c41a",
-    "section_divider_fC8jnw",
     "55bd100e-3bbd-426c-a5cf-eed7b2a3706f",
-    "section_divider_VjNwm7"
+    "section_divider_mNrLER"
   ]
 }

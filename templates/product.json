@@ -901,8 +901,6 @@
     },
     "55bd100e-3bbd-426c-a5cf-eed7b2a3706f": {
       "type": "testimonials",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "display_id": false,
         "visibility": "always-display",
