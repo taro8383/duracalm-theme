@@ -27,7 +27,7 @@
   if section.settings.hide_variants and has_filtering != true
     assign hide_variants_enabled = true
   endif
-  
+
   if hide_variants_enabled and variant_images.size == product.media.size
     assign single_media_visible = true
   endif
@@ -35,6 +35,12 @@
   assign media_count = product.media.size
   if hide_variants_enabled and media_count > 1 and variant_images.size > 0
     assign media_count = media_count | minus: variant_images.size | plus: 1
+  endif
+
+  assign custom_gallery_count = 0
+  if custom_gallery_images != blank and custom_gallery_images != empty
+    assign custom_gallery_count = custom_gallery_images.size
+    assign media_count = media_count | plus: custom_gallery_count
   endif
 
   if media_count == 1 or single_media_visible
@@ -180,6 +186,34 @@
           </li>
         {%- endif -%}
       {%- endfor -%}
+      {%- if custom_gallery_images != blank and custom_gallery_images != empty -%}
+        {%- for custom_image in custom_gallery_images -%}
+          {%- if custom_image != blank -%}
+            {%- liquid
+              assign media_position = media_position | default: 0 | plus: 1
+              assign custom_index = forloop.index
+            -%}
+            <li
+              id="Slide-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}"
+              class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if media_position == 1 %} is-active{% endif %}"
+              data-media-id="{{ section.id }}-custom-{{ custom_index }}"
+              data-alt="Custom gallery image {{ custom_index }}"
+            >
+              <div class="media media--transparent ratio" style="--ratio-percent: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%; padding-bottom: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%;">
+                {{
+                  custom_image
+                  | image_url: width: 1946
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+                    sizes: '(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | times: media_width | round }}px, (min-width: 990px) calc({{ media_width | times: 100 }}vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)',
+                    alt: 'Custom gallery image ' | append: custom_index
+                }}
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
     </ul>
     {%- unless is_duplicate -%}
       <div class="slider-buttons{% if section.settings.mobile_pagination == 'dots_overlay' and section.settings.mobile_arrows_position == 'pagination' %} slider-mobile-buttons-overlay{% elsif section.settings.mobile_pagination == 'dots_overlay' %} slider-mobile-buttons-overlay-container{% endif %}{% if section.settings.mobile_pagination != 'numeric' %} slider-buttons--dots{% endif %} slider--mobile-arrows-{{ section.settings.mobile_arrows_position }}{% if section.settings.transparent_arrows %} splide--transparent-arrows{% endif %}{% if section.settings.mobile_pagination == 'hidden' %} slider-buttons--no-pagination{% endif %} no-js-hidden quick-add-hidden{% if hide_mobile_slider %} small-hide{% endif %}">
@@ -407,6 +441,45 @@
             </li>
           {%- endif -%}
         {%- endfor -%}
+        {%- if custom_gallery_images != blank and custom_gallery_images != empty -%}
+          {%- for custom_image in custom_gallery_images -%}
+            {%- if custom_image != blank -%}
+              {%- liquid
+                assign media_index = media_index | plus: 1
+                assign custom_index = forloop.index
+              -%}
+              <li
+                id="Slide-Thumbnails-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}"
+                class="thumbnail-list__item slider__slide"
+                data-target="{{ section.id }}-custom-{{ custom_index }}"
+                data-media-position="{{ media_index }}"
+                data-alt="Custom gallery image {{ custom_index }}"
+                style="--ratio: {{ 1 | divided_by: custom_image.aspect_ratio | times: 100 }}%"
+              >
+                {%- capture thumbnail_id -%}
+                  Thumbnail-{{ section.id }}-custom-{{ custom_index }}{{ id_append }}
+                {%- endcapture -%}
+                <button
+                  class="thumbnail global-media-settings global-media-settings--no-shadow"
+                  aria-label="{{ 'products.product.media.load_image' | t: index: media_index }}"
+                  aria-controls="GalleryViewer-{{ section.id }}{{ id_append }}"
+                  aria-describedby="{{ thumbnail_id }}"
+                >
+                  {{
+                    custom_image
+                    | image_url: width: 416
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: sizes,
+                      widths: '54, 74, 104, 162, 208, 324, 416',
+                      id: thumbnail_id,
+                      alt: 'Custom gallery image ' | append: custom_index
+                  }}
+                </button>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
       </ul>
       <button
         type="button"

@@ -320,10 +320,33 @@
     if media_count == 0 or single_media_visible_mobile or section.settings.mobile_thumbnails_position != 'hidden' and media_count < 3
       assign hide_mobile_slider = true
     endif
+
+    assign custom_gallery_images = ''
+    if section.settings.custom_gallery_image_1 != blank
+      assign custom_gallery_images = custom_gallery_images | append: section.settings.custom_gallery_image_1 | append: ','
+    endif
+    if section.settings.custom_gallery_image_2 != blank
+      assign custom_gallery_images = custom_gallery_images | append: section.settings.custom_gallery_image_2 | append: ','
+    endif
+    if section.settings.custom_gallery_image_3 != blank
+      assign custom_gallery_images = custom_gallery_images | append: section.settings.custom_gallery_image_3 | append: ','
+    endif
+    if section.settings.custom_gallery_image_4 != blank
+      assign custom_gallery_images = custom_gallery_images | append: section.settings.custom_gallery_image_4 | append: ','
+    endif
+    if section.settings.custom_gallery_image_5 != blank
+      assign custom_gallery_images = custom_gallery_images | append: section.settings.custom_gallery_image_5 | append: ','
+    endif
+    if section.settings.custom_gallery_image_6 != blank
+      assign custom_gallery_images = custom_gallery_images | append: section.settings.custom_gallery_image_6 | append: ','
+    endif
+    if custom_gallery_images != ''
+      assign custom_gallery_images = custom_gallery_images | split: ','
+    endif
   -%}
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}">
-      {% render 'product-media-gallery', variant_images: variant_images, has_filtering: has_filtering, section %}
+      {% render 'product-media-gallery', variant_images: variant_images, has_filtering: has_filtering, custom_gallery_images: custom_gallery_images, section %}
     </div>
     <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}{% if section.settings.mobile_pagination == 'dots_overlay' or hide_mobile_slider %} product__info-wrapper--top-padding{% endif %}">
       <product-info
@@ -10555,6 +10578,41 @@
       "unit": "px",
       "label": "Bottom padding",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Custom Gallery Images",
+      "info": "Add up to 6 additional images to the product gallery. These will appear after the main product images."
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_gallery_image_1",
+      "label": "Custom gallery image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_gallery_image_2",
+      "label": "Custom gallery image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_gallery_image_3",
+      "label": "Custom gallery image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_gallery_image_4",
+      "label": "Custom gallery image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_gallery_image_5",
+      "label": "Custom gallery image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_gallery_image_6",
+      "label": "Custom gallery image 6"
     }
   ]
 }
