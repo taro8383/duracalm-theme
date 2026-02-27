@@ -247,7 +247,27 @@
     class="related-products page-width section-{{ section.id }}-padding isolate"
     data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}"
   >
+    {% assign shown_products = 0 %}
+    {% assign display_heading = false %}
+
+    {% comment %} Get recommended products {% endcomment %}
     {% if recommendations.performed and recommendations.products_count > 0 %}
+      {% assign display_heading = true %}
+      {% for recommendation in recommendations.products %}
+        {% unless recommendation.tags contains 'collection-hidden' %}
+          {% assign shown_products = shown_products | plus: 1 %}
+        {% endunless %}
+      {% endfor %}
+    {% endif %}
+
+    {% comment %} Fallback: If no recommendations, use collection products {% endcomment %}
+    {% if shown_products == 0 %}
+      {% assign display_heading = true %}
+      {% assign fallback_products = collections.all.products | where: "id", product.id | reverse %}
+      {% assign shown_products = section.settings.columns_desktop %}
+    {% endif %}
+
+    {% if display_heading %}
       <h2 class="related-products__heading {{ section.settings.heading_size }} title-with-highlight animate-item animate-item--child index-0" style='--hightlight-color:{{ section.settings.title_highlight_color }}'>
         {{ section.settings.title }}
       </h2>
@@ -255,39 +275,44 @@
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
       >
-        {% assign shown_products = 0 %}
-        {% for recommendation in recommendations.products %}
-          {% unless recommendation.tags contains 'collection-hidden' %}
-            <li class="grid__item animate-item animate-item--child" style="--index:{{ forloop.index0 }};">
-              {% render 'card-product',
-                card_product: recommendation,
-                media_aspect_ratio: section.settings.image_ratio,
-                show_secondary_image: section.settings.show_secondary_image,
-                show_vendor: section.settings.show_vendor,
-                show_quick_add: section.settings.enable_quick_add,
-                show_rating: section.settings.show_rating
-              %}
-            </li>
-            {% assign shown_products = shown_products | plus: 1 %}
-          {% endunless %}
-        {% endfor %}
-        {% comment %} Fallback: Show more products from all collection if recommendations are insufficient {% endcomment %}
-        {% if shown_products < section.settings.columns_desktop %}
-          {% assign needed_products = section.settings.columns_desktop | minus: shown_products %}
-          {% assign current_product_id = product.id %}
-          {% assign added_count = 0 %}
-          {% for fallback_product in collections.all.products limit: 20 %}
-            {% if added_count < needed_products and fallback_product.id != current_product_id %}
-              {% assign already_shown = false %}
-              {% for recommendation in recommendations.products %}
-                {% if recommendation.id == fallback_product.id %}
-                  {% assign already_shown = true %}
+        {% assign product_index = 0 %}
+
+        {% comment %} Show recommended products first {% endcomment %}
+        {% if recommendations.performed and recommendations.products_count > 0 %}
+          {% for recommendation in recommendations.products %}
+            {% unless recommendation.tags contains 'collection-hidden' %}
+              <li class="grid__item animate-item animate-item--child" style="--index:{{ product_index }};">
+                {% render 'card-product',
+                  card_product: recommendation,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  show_secondary_image: section.settings.show_secondary_image,
+                  show_vendor: section.settings.show_vendor,
+                  show_quick_add: section.settings.enable_quick_add,
+                  show_rating: section.settings.show_rating
+                %}
+              </li>
+              {% assign product_index = product_index | plus: 1 %}
+            {% endunless %}
+          {% endfor %}
+        {% endif %}
+
+        {% comment %} Fill remaining slots with collection products {% endcomment %}
+        {% if product_index < section.settings.columns_desktop %}
+          {% assign needed = section.settings.columns_desktop | minus: product_index %}
+          {% assign current_id = product.id %}
+          {% assign added = 0 %}
+          {% for coll_product in collections.all.products limit: 30 %}
+            {% if added < needed and coll_product.id != current_id %}
+              {% assign already_in_list = false %}
+              {% for rec in recommendations.products %}
+                {% if rec.id == coll_product.id %}
+                  {% assign already_in_list = true %}
                 {% endif %}
               {% endfor %}
-              {% unless already_shown or fallback_product.tags contains 'collection-hidden' %}
-                <li class="grid__item animate-item animate-item--child" style="--index:{{ shown_products | plus: added_count }};">
+              {% unless already_in_list or coll_product.tags contains 'collection-hidden' %}
+                <li class="grid__item animate-item animate-item--child" style="--index:{{ product_index }};">
                   {% render 'card-product',
-                    card_product: fallback_product,
+                    card_product: coll_product,
                     media_aspect_ratio: section.settings.image_ratio,
                     show_secondary_image: section.settings.show_secondary_image,
                     show_vendor: section.settings.show_vendor,
@@ -295,7 +320,8 @@
                     show_rating: section.settings.show_rating
                   %}
                 </li>
-                {% assign added_count = added_count | plus: 1 %}
+                {% assign product_index = product_index | plus: 1 %}
+                {% assign added = added | plus: 1 %}
               {% endunless %}
             {% endif %}
           {% endfor %}
