@@ -536,6 +536,42 @@ When theme appears "corrupted" or pushes fail:
 
 ---
 
+## Pre-Push Validation (CRITICAL)
+
+**ALWAYS run validation before pushing to Shopify.** This catches errors locally before they corrupt the live theme.
+
+### Quick Validation
+
+```bash
+cd duracalm-theme
+bash validate-theme.sh
+```
+
+### What It Checks
+
+| Check | Error Prevented |
+|-------|----------------|
+| Liquid tag balance | 404 errors from unclosed `{% if %}` or `{% for %}` |
+| Schema JSON validity | Validation errors that break the section |
+| @app block settings | "Invalid block '@app'" errors |
+| Line endings (CRLF) | "Could not delete file" sync errors |
+| JSON template comments | 404 errors on all pages |
+
+### Validation Output
+
+**✓ All validations passed!** → Safe to push
+**❌ Found X error(s)!** → Fix before pushing
+
+### After Validation Passes
+
+```bash
+shopify theme push --theme 157586587886 --nodelete --verbose
+```
+
+**WHY**: Catching errors locally prevents hours of debugging and theme recovery. The validation script is 10 seconds of prevention vs. hours of cure.
+
+---
+
 ## Common Error Messages and Solutions
 
 | Error | Cause | Solution |
