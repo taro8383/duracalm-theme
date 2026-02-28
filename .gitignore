@@ -19,3 +19,7 @@ package.json
 # Ignore any other non-theme files
 *.md
 !README.md
+
+# Development scripts (keep in repo, don't push to Shopify)
+*.sh
+push-debug.log
