@@ -20,6 +20,7 @@ package.json
 *.md
 !README.md
 
-# Development scripts (keep in repo, don't push to Shopify)
-*.sh
+# Development logs (don't push to Shopify)
+# NOTE: Use --ignore "scripts/*" when pushing to Shopify
+# .gitignore only affects Git, NOT Shopify CLI
 push-debug.log

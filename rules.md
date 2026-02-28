@@ -544,7 +544,7 @@ When theme appears "corrupted" or pushes fail:
 
 ```bash
 cd duracalm-theme
-bash validate-theme.sh
+bash scripts/validate-theme.sh
 ```
 
 ### What It Checks
@@ -564,8 +564,16 @@ bash validate-theme.sh
 
 ### After Validation Passes
 
+**IMPORTANT**: `.gitignore` does NOT affect Shopify pushes. Use `--ignore` to exclude non-theme files:
+
 ```bash
-shopify theme push --theme 157586587886 --nodelete --verbose
+shopify theme push --theme 157586587886 --nodelete --verbose --ignore "scripts/*" --ignore "*.md" --ignore "push-debug.log"
+```
+
+Or use this alias for convenience:
+```bash
+# Add to your .bashrc or .zshrc
+alias shopify-push='shopify theme push --theme 157586587886 --nodelete --verbose --ignore "scripts/*" --ignore "*.md" --ignore "push-debug.log"'
 ```
 
 **WHY**: Catching errors locally prevents hours of debugging and theme recovery. The validation script is 10 seconds of prevention vs. hours of cure.

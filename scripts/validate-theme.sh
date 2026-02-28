@@ -4,8 +4,8 @@
 
 set -e
 
-# Change to script directory so it works from anywhere
-cd "$(dirname "$0")"
+# Change to theme root directory (parent of scripts/)
+cd "$(dirname "$0")/.."
 
 echo "🔍 Validating theme before push..."
 
