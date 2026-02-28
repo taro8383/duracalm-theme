@@ -4,6 +4,9 @@
 
 set -e
 
+# Change to script directory so it works from anywhere
+cd "$(dirname "$0")"
+
 echo "🔍 Validating theme before push..."
 
 # Colors for output
@@ -65,8 +68,9 @@ else
 fi
 
 # 3. Check @app blocks don't have settings
-echo -e "\n3. Checking -app blocks..."
-APP_WITH_SETTINGS=$(grep -A3 '"type": "@app"' sections/main-product.liquid | grep -c '"settings"' || echo "0")
+echo -e "\n3. Checking @app blocks..."
+APP_WITH_SETTINGS=$(grep -A3 '"type": "@app"' sections/main-product.liquid | grep -c '"settings"' 2>/dev/null || true)
+APP_WITH_SETTINGS=${APP_WITH_SETTINGS:-0}
 if [ "$APP_WITH_SETTINGS" -gt 0 ]; then
     echo -e "${RED}   ❌ ERROR: @app block has settings (not allowed)!${NC}"
     ERRORS=$((ERRORS + 1))
@@ -76,7 +80,8 @@ fi
 
 # 4. Check for CRLF line endings
 echo -e "\n4. Checking line endings..."
-CRLF_COUNT=$(file sections/main-product.liquid | grep -c "CRLF" || echo "0")
+CRLF_COUNT=$(file sections/main-product.liquid | grep -c "CRLF" 2>/dev/null || true)
+CRLF_COUNT=${CRLF_COUNT:-0}
 if [ "$CRLF_COUNT" -gt 0 ]; then
     echo -e "${YELLOW}   ⚠️  WARNING: File has CRLF line endings${NC}"
     echo "   Run: sed -i 's/\r$//' sections/main-product.liquid"
