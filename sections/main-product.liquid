@@ -163,6 +163,30 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
+    #MainProduct-{{ section.id }} .product__inventory {
+      height: var(--inventory-block-height, 40px);
+      font-size: var(--inventory-text-size, 16px);
+      display: flex;
+      align-items: center;
+    }
+
+    #MainProduct-{{ section.id }} .product__inventory .inventory-icon {
+      width: var(--inventory-icon-size, 16px);
+      height: var(--inventory-icon-size, 16px);
+      margin-right: 8px;
+    }
+
+    /* Rating Stars Block Dynamic Sizing */
+    #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] {
+      height: var(--rating-block-height, 40px);
+    }
+
+    #ProductInfo-{{ section.id }} .rating-stars-block svg,
+    #ProductInfo-{{ section.id }} .rating-stars-block .star-icon {
+      width: var(--rating-star-size, 20px);
+      height: var(--rating-star-size, 20px);
+    }
+
     #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon {
       animation: inventoryPulse 1.5s ease-in-out infinite;
       display: inline-block;
@@ -543,7 +567,7 @@
                 </a>
               </div>
             {% when 'rating_stars' %}
-              <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'rating-stars-block', block: block, margins: true, block_attributes: false %}</div>
+              <div class="{{ grid_classes }}"{{ alignment_attr }} data-block-type="rating_stars" {{ block.shopify_attributes }} style="--rating-block-height: {{ block.settings.block_height | default: 40 }}px; --rating-star-size: {{ block.settings.star_icon_size | default: 20 }}px;">{% render 'rating-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {% when 'trustpilot_stars' %}
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'trustpilot-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'price' -%}
@@ -629,13 +653,14 @@
               <p class="{{ grid_classes }}"
                 class="product__inventory no-js-hidden{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if block.settings.enable_pulse_animation %} inventory-pulse{% endif %}"
                 {{ block.shopify_attributes }}
+                data-block-type="inventory"
                 id="Inventory-{{ section.id }}"
                 role="status"
-                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --in-stock-color: {{ block.settings.in_stock_color | default: '#3ED660' }}; --low-stock-color: {{ block.settings.low_stock_color | default: '#EE9441' }}; --out-of-stock-color: {{ block.settings.out_of_stock_color | default: '#C8C8C8' }};"
+                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --in-stock-color: {{ block.settings.in_stock_color | default: '#3ED660' }}; --low-stock-color: {{ block.settings.low_stock_color | default: '#EE9441' }}; --out-of-stock-color: {{ block.settings.out_of_stock_color | default: '#C8C8C8' }}; --inventory-block-height: {{ block.settings.block_height | default: 40 }}px; --inventory-icon-size: {{ block.settings.icon_size | default: 16 }}px; --inventory-text-size: {{ block.settings.text_size | default: 16 }}px;"
               >
                 {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
                   {%- if product.selected_or_first_available_variant.inventory_quantity <= block.settings.inventory_threshold -%}
-                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--low">
+                    <svg width="{{ block.settings.icon_size | default: 16 }}" height="{{ block.settings.icon_size | default: 16 }}" aria-hidden="true" class="inventory-icon style="width: {{ block.settings.icon_size | default: 16 }}px; height: {{ block.settings.icon_size | default: 16 }}px;" inventory-icon--low">
                       <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.low_stock_color | default: '#EE9441' }}" fill-opacity="0.3"/>
                       <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.low_stock_color | default: '#EE9441' }}"/>
                     </svg>
@@ -645,7 +670,7 @@
                       {{- 'products.product.inventory_low_stock' | t -}}
                     {%- endif -%}
                   {%- else -%}
-                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--in-stock">
+                    <svg width="{{ block.settings.icon_size | default: 16 }}" height="{{ block.settings.icon_size | default: 16 }}" aria-hidden="true" class="inventory-icon style="width: {{ block.settings.icon_size | default: 16 }}px; height: {{ block.settings.icon_size | default: 16 }}px;" inventory-icon--in-stock">
                       <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}" fill-opacity="0.3"/>
                       <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}"/>
                     </svg>
@@ -657,13 +682,13 @@
                   {%- endif -%}
                 {%- else -%}
                   {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
-                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--in-stock">
+                    <svg width="{{ block.settings.icon_size | default: 16 }}" height="{{ block.settings.icon_size | default: 16 }}" aria-hidden="true" class="inventory-icon style="width: {{ block.settings.icon_size | default: 16 }}px; height: {{ block.settings.icon_size | default: 16 }}px;" inventory-icon--in-stock">
                       <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}" fill-opacity="0.3"/>
                       <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.in_stock_color | default: '#3ED660' }}"/>
                     </svg>
                     {{- 'products.product.inventory_out_of_stock_continue_selling' | t -}}
                   {%- else -%}
-                    <svg width="15" height="15" aria-hidden="true" class="inventory-icon inventory-icon--out-of-stock">
+                    <svg width="{{ block.settings.icon_size | default: 16 }}" height="{{ block.settings.icon_size | default: 16 }}" aria-hidden="true" class="inventory-icon style="width: {{ block.settings.icon_size | default: 16 }}px; height: {{ block.settings.icon_size | default: 16 }}px;" inventory-icon--out-of-stock">
                       <circle cx="7.5" cy="7.5" r="7.5" fill="{{ block.settings.out_of_stock_color | default: '#C8C8C8' }}" fill-opacity="0.3"/>
                       <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="{{ block.settings.out_of_stock_color | default: '#C8C8C8' }}"/>
                     </svg>
