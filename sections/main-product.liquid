@@ -2146,6 +2146,26 @@
           "label": "Text size"
         },
         {
+          "type": "range",
+          "id": "star_icon_size",
+          "min": 12,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 20,
+          "label": "Star icon size"
+        },
+        {
+          "type": "range",
+          "id": "block_height",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "Block height",
+          "default": 40
+        },
+        {
           "type": "select",
           "id": "alignment",
           "label": "Alignment",
@@ -2945,6 +2965,55 @@
           "unit": "px",
           "label": "Bottom margin",
           "default": 15
+        },
+        {
+          "type": "header",
+          "content": "Block Dimensions"
+        },
+        {
+          "type": "range",
+          "id": "block_height",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "Block height",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "min": 8,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "label": "Icon size",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size",
+          "default": 16
+        },
+        {
+          "type": "header",
+          "content": "Alignment"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Content alignment",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
         }
       ]
     },
