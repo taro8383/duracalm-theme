@@ -378,17 +378,10 @@
       grid-column: span {{ section.settings.grid_columns | times: 3 | divided_by: 4 | ceil }};
     }
 
-    /* Ensure shipping checkpoints uses full width */
-    #ProductInfo-{{ section.id }} .product-info__grid-item shipping-checkpoints,
-    #ProductInfo-{{ section.id }} .product-info__grid-item .shipping-checkpoints {
+    /* Ensure blocks use full width of their grid cell */
+    #ProductInfo-{{ section.id }} .product-info__grid-item > * {
       width: 100%;
-      max-width: 100%;
-    }
-
-    #ProductInfo-{{ section.id }} .product-info__grid-item .shipping-checkpoints__bar {
-      width: 100%;
-      left: 0;
-      right: 0;
+      box-sizing: border-box;
     }
 
     /* Block self-alignment based on settings */
