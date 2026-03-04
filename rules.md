@@ -25,8 +25,8 @@
 |---------|-------|
 | **Store URL** | `https://porongas-2.myshopify.com/` |
 | **Admin URL** | `https://admin.shopify.com/store/porongas-2` |
-| **Development Theme ID** | `157533733102` |
-| **Development Theme Name** | `Development (9f8f2a-PC-20211120RCVG)` |
+| **Live Theme ID** | `157586587886` |
+| **Live Theme Name** | `dura-calm` |
 
 ## Development Workflow
 
@@ -36,16 +36,16 @@ cd duracalm-theme
 shopify theme dev --store porongas-2.myshopify.com
 ```
 
-### Push Changes to Shopify
+### Push Changes to Shopify (LIVE THEME)
 ```bash
 cd duracalm-theme
-shopify theme push --theme 157533733102
+shopify theme push --live
 ```
 
-### Pull Latest Settings from Shopify
+### Pull Latest Settings from Shopify (LIVE THEME)
 ```bash
 cd duracalm-theme
-shopify theme pull --theme 157533733102
+shopify theme pull --live
 ```
 
 ## CRITICAL RULES
@@ -56,7 +56,7 @@ shopify theme pull --theme 157533733102
 
 ### 2. Commit Pattern
 After every modification:
-1. Push to Shopify dev theme
+1. Push to Shopify LIVE theme
 2. Commit to GitHub with signature:
    ```
    Co-Authored-By: Claude (kimi-k2.5) <noreply@anthropic.com>
@@ -73,10 +73,10 @@ All Liquid, CSS, JS, and schema files live in `duracalm-theme/` only.
 ### 5. PULL FROM SHOPIFY - Synchronize Editor Changes
 When user says **"PULL FROM SHOPIFY"**:
 
-1. **Pull ALL changes** from development theme:
+1. **Pull ALL changes** from LIVE theme:
    ```bash
    cd duracalm-theme
-   shopify theme pull --theme 157533733102
+   shopify theme pull --live
    ```
 
 2. **Identify JSON/template changes** that were made in the online editor:
