@@ -193,6 +193,25 @@
       margin-bottom: 0 !important;
     }
 
+    /* Price Block Text Size */
+    #ProductInfo-{{ section.id }} [data-block-type="price"] {
+      font-size: var(--price-text-size, 16px) !important;
+    }
+
+    #ProductInfo-{{ section.id }} [data-block-type="price"] .price {
+      font-size: var(--price-text-size, 16px) !important;
+    }
+
+    /* Description Block Text Size */
+    #ProductInfo-{{ section.id }} [data-block-type="description"] {
+      font-size: var(--description-text-size, 16px) !important;
+    }
+
+    /* SKU Block Text Size */
+    #ProductInfo-{{ section.id }} [data-block-type="sku"] {
+      font-size: var(--sku-text-size, 16px) !important;
+    }
+
     #ProductInfo-{{ section.id }} .rating-stars-block svg,
     #ProductInfo-{{ section.id }} .rating-stars-block .star-icon {
       width: var(--rating-star-size, 20px);
@@ -583,7 +602,7 @@
             {% when 'trustpilot_stars' %}
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'trustpilot-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'price' -%}
-              <div class="{{ grid_classes }} no-js-hidden product-page-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;">
+              <div class="{{ grid_classes }} no-js-hidden product-page-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --price-text-size: {{ block.settings.text_size | default: 16 }}px;" data-block-type="price">
                 {% liquid 
                   assign price_second = false
                   if block.settings.layout == 'price_second'
@@ -709,7 +728,7 @@
               </p>
             {%- when 'description' -%}
               {%- if product.description != blank -%}
-                <div class="{{ grid_classes }} product__description rte quick-add-hidden" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;">
+                <div class="{{ grid_classes }} product__description rte quick-add-hidden" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --description-text-size: {{ block.settings.text_size | default: 16 }}px;" data-block-type="description">
                   {{ product.description }}
                 </div>
               {%- endif -%}
@@ -719,8 +738,8 @@
                 id="Sku-{{ section.id }}"
                 role="status"
                 {{ block.shopify_attributes }}
-                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;"
-              >
+                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --sku-text-size: {{ block.settings.text_size | default: 16 }}px; font-size: {{ block.settings.text_size | default: 16 }}px !important;"
+                data-block-type="sku"
                 <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span> {{- product.selected_or_first_available_variant.sku -}}
               </p>
             {%- when 'custom_liquid' -%}
@@ -2547,6 +2566,20 @@
         },
         {
           "type": "header",
+          "content": "Text size"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 12,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size",
+          "default": 16
+        },
+        {
+          "type": "header",
           "content": "Block margin"
         },
         {
@@ -2886,6 +2919,20 @@
           ],
           "default": "body",
           "label": "t:sections.main-product.blocks.sku.settings.text_style.label"
+        },
+        {
+          "type": "header",
+          "content": "Text size"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size",
+          "default": 16
         },
         {
           "type": "header",
@@ -5566,6 +5613,20 @@
           ],
           "default": "full",
           "info": "Only applies when grid layout is enabled"
+        },
+        {
+          "type": "header",
+          "content": "Text size"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size",
+          "default": 16
         },
         {
           "type": "header",
