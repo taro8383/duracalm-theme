@@ -182,7 +182,9 @@
 
     /* Rating Stars Block Dynamic Sizing */
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] {
-      height: var(--rating-block-height, 40px);
+      height: var(--rating-block-height, 40px) !important;
+      display: flex !important;
+      align-items: center !important;
     }
 
     #ProductInfo-{{ section.id }} .rating-stars-block svg,
