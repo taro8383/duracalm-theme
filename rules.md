@@ -39,8 +39,13 @@ shopify theme dev --store porongas-2.myshopify.com
 ### Push Changes to Shopify (LIVE THEME)
 ```bash
 cd duracalm-theme
-shopify theme push --live
+shopify theme push --live --allow-live --nodelete
 ```
+
+**Required flags:**
+- `--live` - Target the live theme
+- `--allow-live` - Bypass confirmation prompt (required for non-interactive use)
+- `--nodelete` - Don't delete remote files not present locally
 
 ### Pull Latest Settings from Shopify (LIVE THEME)
 ```bash
