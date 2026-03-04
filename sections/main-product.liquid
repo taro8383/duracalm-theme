@@ -167,8 +167,10 @@
     #ProductInfo-{{ section.id }} [data-block-type="inventory"] {
       height: var(--inventory-block-height, 40px) !important;
       font-size: var(--inventory-text-size, 16px) !important;
-      display: flex;
-      align-items: center;
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 0.5rem;
     }
 
     #ProductInfo-{{ section.id }} .product__inventory .inventory-icon,
