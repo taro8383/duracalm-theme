@@ -602,7 +602,7 @@
             {% when 'trustpilot_stars' %}
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'trustpilot-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'price' -%}
-              <div class="{{ grid_classes }} no-js-hidden product-page-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --price-text-size: {{ block.settings.text_size | default: 16 }}px;" data-block-type="price">
+              <div class="{{ grid_classes }} no-js-hidden product-page-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --price-text-size: {{ block.settings.text_size | default: 16 }}px; font-size: {{ block.settings.text_size | default: 16 }}px !important;" data-block-type="price">
                 {% liquid 
                   assign price_second = false
                   if block.settings.layout == 'price_second'
@@ -728,7 +728,7 @@
               </p>
             {%- when 'description' -%}
               {%- if product.description != blank -%}
-                <div class="{{ grid_classes }} product__description rte quick-add-hidden" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --description-text-size: {{ block.settings.text_size | default: 16 }}px;" data-block-type="description">
+                <div class="{{ grid_classes }} product__description rte quick-add-hidden" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --description-text-size: {{ block.settings.text_size | default: 16 }}px; font-size: {{ block.settings.text_size | default: 16 }}px !important;" data-block-type="description">
                   {{ product.description }}
                 </div>
               {%- endif -%}
