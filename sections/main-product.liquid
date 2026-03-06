@@ -194,7 +194,12 @@
     }
 
     /* Price Block Text Size */
-    #ProductInfo-{{ section.id }} [data-block-type="price"] {
+    #ProductInfo-{{ section.id }} [data-block-type="price"],
+    #ProductInfo-{{ section.id }} [data-block-type="price"] .price,
+    #ProductInfo-{{ section.id }} [data-block-type="price"] .price__regular,
+    #ProductInfo-{{ section.id }} [data-block-type="price"] .price-item--regular,
+    #ProductInfo-{{ section.id }} [data-block-type="price"] .price__sale,
+    #ProductInfo-{{ section.id }} [data-block-type="price"] .price-item--sale {
       font-size: var(--price-text-size, 16px) !important;
     }
 
