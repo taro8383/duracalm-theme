@@ -515,12 +515,12 @@
 
     .custom-badges {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
+      flex-wrap: nowrap;
       list-style: none;
       padding: 0;
       margin: 0;
       align-items: flex-start;
+      width: 100%;
     }
 
     .custom-badge__item {
@@ -529,6 +529,13 @@
       align-items: center;
       text-align: center;
       gap: 0.25rem;
+      flex: 0 0 20%;
+      max-width: 20%;
+      min-height: 1px;
+    }
+
+    .custom-badge__item--empty {
+      visibility: hidden;
     }
 
     .custom-badge__image {
@@ -1365,14 +1372,14 @@
                     {%- assign badge_image = block.settings[badge_image_key] -%}
                     {%- assign badge_alt = block.settings[badge_alt_key] -%}
                     {%- assign badge_subtitle = block.settings[badge_subtitle_key] -%}
-                    {%- if badge_image != blank -%}
-                      <li class="custom-badge__item">
+                    <li class="custom-badge__item{% if badge_image == blank %} custom-badge__item--empty{% endif %}">
+                      {%- if badge_image != blank -%}
                         {{ badge_image | image_url: width: 200 | image_tag: alt: badge_alt, loading: 'lazy', class: 'custom-badge__image' }}
                         {%- if badge_subtitle != blank -%}
                           <span class="custom-badge__subtitle">{{ badge_subtitle }}</span>
                         {%- endif -%}
-                      </li>
-                    {%- endif -%}
+                      {%- endif -%}
+                    </li>
                   {%- endfor -%}
                 </ul>
               </div>
