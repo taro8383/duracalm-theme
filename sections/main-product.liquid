@@ -787,9 +787,9 @@
                       </h2>
                     </div>
                     {% if block.settings.collapse_icon == 'carret' %}
-                      {% render 'icon-caret' %}
+                      <span style="color: {{ block.settings.icon_color }}">{% render 'icon-caret' %}</span>
                     {% else %}
-                      {% render 'icon-plus' %}
+                      <span style="color: {{ block.settings.icon_color }}">{% render 'icon-plus' %}</span>
                     {% endif %}
                   </summary>
                 </details>
