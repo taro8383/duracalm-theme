@@ -594,3 +594,138 @@ alias shopify-push='shopify theme push --theme 157586587886 --nodelete --verbose
 | "could not delete file" | State mismatch or line ending issues | Clear CLI cache, normalize line endings, re-authenticate |
 | "The page you were looking for does not exist" (404) | Unclosed Liquid tags in section | Balance all {% if %}/{% endif %} pairs |
 | "Upload stuck at 0%" | CLI cache corruption or authentication issue | Logout, clear cache, re-authenticate with `shopify auth logout && rm -rf ~/.cache/shopify` |
+
+---
+
+## CSS Specificity Pattern for Block Customizations
+
+### Problem: Settings Not Applied Due to base.css Overrides
+
+When adding custom settings (like text size) to blocks in `main-product.liquid`, the settings may not work because `assets/base.css` contains hardcoded styles with higher specificity.
+
+**Example Issue:**
+- Added `text_size` range setting to price block (12-32px)
+- Set font-size in inline style with `!important`
+- Still renders at 2.5rem (40px) from base.css
+
+**Root Cause:**
+```css
+/* base.css has this with high specificity */
+.product-page-price .price__regular .price-item--regular {
+  font-size: 2.5rem;
+}
+```
+
+### Solution: Target All Child Selectors
+
+Instead of just targeting the parent element, target ALL possible child elements that might have hardcoded styles:
+
+**Wrong (doesn't work):**
+```css
+#ProductInfo-{{ section.id }} [data-block-type="price"] {
+  font-size: var(--price-text-size, 16px) !important;
+}
+```
+
+**Correct (works):**
+```css
+#ProductInfo-{{ section.id }} [data-block-type="price"],
+#ProductInfo-{{ section.id }} [data-block-type="price"] .price,
+#ProductInfo-{{ section.id }} [data-block-type="price"] .price__regular,
+#ProductInfo-{{ section.id }} [data-block-type="price"] .price-item--regular,
+#ProductInfo-{{ section.id }} [data-block-type="price"] .price__sale,
+#ProductInfo-{{ section.id }} [data-block-type="price"] .price-item--sale {
+  font-size: var(--price-text-size, 16px) !important;
+}
+```
+
+### Implementation Checklist
+
+1. **Add setting to schema:**
+```json
+{
+  "type": "range",
+  "id": "text_size",
+  "min": 12,
+  "max": 32,
+  "step": 1,
+  "unit": "px",
+  "label": "Text size",
+  "default": 16
+}
+```
+
+2. **Add CSS variable to inline style:**
+```liquid
+<div style="--price-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;" data-block-type="price">
+```
+
+3. **Add CSS to override base.css:**
+   - Use browser dev tools to find which elements have hardcoded styles
+   - Target ALL child elements that might override the font-size
+   - Use `!important` to ensure override works
+
+4. **Test immediately:**
+   - Change the setting in editor
+   - Check computed styles in browser dev tools
+   - Verify the inline style is NOT crossed out
+   - If crossed out, add more specific selectors
+
+### Debugging Steps
+
+When settings don't apply:
+
+1. **Inspect element in browser dev tools**
+   - Look at "Computed" tab - what font-size is shown?
+   - Look at "Styles" tab - which CSS rule is winning?
+
+2. **Check inline style attribute**
+   - Is it showing the correct value?
+   - Is it crossed out? (means another rule is overriding it)
+
+3. **Trace the override**
+   - Find the file/rule that's overriding (often base.css)
+   - Add more specific selectors to your CSS
+   - Include `!important` if necessary
+
+4. **Use data-block-type for targeting**
+   - Add `data-block-type="block_name"` to block wrapper
+   - Target via: `#ProductInfo-{{ section.id }} [data-block-type="block_name"]`
+
+### Template for New Blocks
+
+When adding text size to any block, use this pattern:
+
+**Schema:**
+```json
+{
+  "type": "header",
+  "content": "Text size"
+},
+{
+  "type": "range",
+  "id": "text_size",
+  "min": 12,
+  "max": 24,
+  "step": 1,
+  "unit": "px",
+  "label": "Text size",
+  "default": 16
+}
+```
+
+**HTML:**
+```liquid
+<div data-block-type="block_name" style="--block-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;">
+```
+
+**CSS:**
+```css
+#ProductInfo-{{ section.id }} [data-block-type="block_name"],
+#ProductInfo-{{ section.id }} [data-block-type="block_name"] .child-element,
+#ProductInfo-{{ section.id }} [data-block-type="block_name"] .another-child {
+  font-size: var(--block-text-size, 16px) !important;
+}
+```
+
+**WHY**: base.css uses specific selectors with hardcoded values. Your CSS must be equally or more specific to override them.
