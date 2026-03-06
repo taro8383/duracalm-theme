@@ -218,14 +218,16 @@
           "settings": {
             "grid_width": "full",
             "heading": "Collapsible row",
-            "heading_size": "medium",
+            "heading_text_size": 16,
             "icon": "check_box",
             "filled_icon": false,
+            "icon_color": "#000000",
             "collapse_icon": "carret",
             "display_top_border": true,
             "open": false,
             "content": "",
             "page": "",
+            "content_text_size": 14,
             "margin_top": 24,
             "margin_bottom": 0
           }
@@ -235,14 +237,16 @@
           "settings": {
             "grid_width": "full",
             "heading": "Collapsible row",
-            "heading_size": "medium",
+            "heading_text_size": 16,
             "icon": "check_box",
             "filled_icon": false,
+            "icon_color": "#000000",
             "collapse_icon": "carret",
             "display_top_border": true,
             "open": false,
             "content": "",
             "page": "",
+            "content_text_size": 14,
             "margin_top": 24,
             "margin_bottom": 0
           }
@@ -252,14 +256,16 @@
           "settings": {
             "grid_width": "full",
             "heading": "Collapsible row",
-            "heading_size": "medium",
+            "heading_text_size": 16,
             "icon": "check_box",
             "filled_icon": false,
+            "icon_color": "#000000",
             "collapse_icon": "carret",
             "display_top_border": true,
             "open": false,
             "content": "",
             "page": "",
+            "content_text_size": 14,
             "margin_top": 24,
             "margin_bottom": 0
           }
