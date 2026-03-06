@@ -780,7 +780,7 @@
                           loading="lazy"
                         >
                       {% else %}
-                        {% render 'material-icon', icon: block.settings.icon, filled: block.settings.filled_icon, custom_color: block.settings.icon_color %}
+                        <span class="material-icon material-symbols-outlined{% if block.settings.filled_icon %} filled{% endif %}" style="color: {{ block.settings.icon_color }};">{{ block.settings.icon | strip | downcase | replace: ' ', '_' }}</span>
                       {% endif %}
                       <h2 class="accordion__title" style="font-size: {{ block.settings.heading_text_size }}px;">
                         {{ block.settings.heading | default: block.settings.page.title }}
