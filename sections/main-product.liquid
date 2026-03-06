@@ -616,7 +616,7 @@
                 </a>
               </div>
             {% when 'rating_stars' %}
-              <div class="{{ grid_classes }}"{{ alignment_attr }} data-block-type="rating_stars" {{ block.shopify_attributes }} style="font-size: {{ block.settings.size }}px !important; --rating-text-size: {{ block.settings.size | default: 16 }}px; --rating-block-height: {{ block.settings.block_height | default: 40 }}px; --rating-star-size: {{ block.settings.star_icon_size | default: 20 }}px;">{% render 'rating-stars-block', block: block, margins: true, block_attributes: false %}</div>
+              <div class="{{ grid_classes }}"{{ alignment_attr }} data-block-type="rating_stars" {{ block.shopify_attributes }} style="font-size: {{ block.settings.size }}px !important; --rating-text-size: {{ block.settings.size | default: 16 }}px; --rating-block-height: {{ block.settings.block_height | default: 40 }}px; --rating-star-size: {{ block.settings.star_icon_size | default: 20 }}px;" data-mobile-font-size="{{ block.settings.mobile_size }}" data-mobile-star-size="{{ block.settings.mobile_star_icon_size }}" data-mobile-block-height="{{ block.settings.mobile_block_height }}">{% render 'rating-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {% when 'trustpilot_stars' %}
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'trustpilot-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'price' -%}
@@ -704,7 +704,7 @@
                 data-block-type="inventory"
                 id="Inventory-{{ section.id }}"
                 role="status"
-                style="height: {{ block.settings.block_height | default: 40 }}px !important; font-size: {{ block.settings.text_size }}px !important; --inventory-block-height: {{ block.settings.block_height | default: 40 }}px; --inventory-text-size: {{ block.settings.text_size | default: 16 }}px; --inventory-icon-size: {{ block.settings.icon_size | default: 16 }}px; --margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --in-stock-color: {{ block.settings.in_stock_color | default: '#3ED660' }}; --low-stock-color: {{ block.settings.low_stock_color | default: '#EE9441' }}; --out-of-stock-color: {{ block.settings.out_of_stock_color | default: '#C8C8C8' }};"
+                style="height: {{ block.settings.block_height | default: 40 }}px !important; font-size: {{ block.settings.text_size }}px !important; --inventory-block-height: {{ block.settings.block_height | default: 40 }}px; --inventory-text-size: {{ block.settings.text_size | default: 16 }}px; --inventory-icon-size: {{ block.settings.icon_size | default: 16 }}px; --margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --in-stock-color: {{ block.settings.in_stock_color | default: '#3ED660' }}; --low-stock-color: {{ block.settings.low_stock_color | default: '#EE9441' }}; --out-of-stock-color: {{ block.settings.out_of_stock_color | default: '#C8C8C8' }};" data-mobile-font-size="{{ block.settings.mobile_text_size }}" data-mobile-icon-size="{{ block.settings.mobile_icon_size }}" data-mobile-block-height="{{ block.settings.mobile_block_height }}"
               >
                 {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
                   {%- if product.selected_or_first_available_variant.inventory_quantity <= block.settings.inventory_threshold -%}
@@ -2228,6 +2228,16 @@
         },
         {
           "type": "range",
+          "id": "mobile_size",
+          "min": 8,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 14,
+          "label": "Mobile text size"
+        },
+        {
+          "type": "range",
           "id": "star_icon_size",
           "min": 12,
           "max": 32,
@@ -2238,6 +2248,16 @@
         },
         {
           "type": "range",
+          "id": "mobile_star_icon_size",
+          "min": 10,
+          "max": 28,
+          "step": 2,
+          "unit": "px",
+          "default": 16,
+          "label": "Mobile star icon size"
+        },
+        {
+          "type": "range",
           "id": "block_height",
           "min": 20,
           "max": 100,
@@ -2245,6 +2265,16 @@
           "unit": "px",
           "label": "Block height",
           "default": 40
+        },
+        {
+          "type": "range",
+          "id": "mobile_block_height",
+          "min": 20,
+          "max": 80,
+          "step": 5,
+          "unit": "px",
+          "label": "Mobile block height",
+          "default": 35
         },
         {
           "type": "select",
@@ -3126,6 +3156,16 @@
         },
         {
           "type": "range",
+          "id": "mobile_block_height",
+          "min": 20,
+          "max": 80,
+          "step": 5,
+          "unit": "px",
+          "label": "Mobile block height",
+          "default": 35
+        },
+        {
+          "type": "range",
           "id": "icon_size",
           "min": 8,
           "max": 32,
@@ -3136,6 +3176,16 @@
         },
         {
           "type": "range",
+          "id": "mobile_icon_size",
+          "min": 6,
+          "max": 28,
+          "step": 2,
+          "unit": "px",
+          "label": "Mobile icon size",
+          "default": 14
+        },
+        {
+          "type": "range",
           "id": "text_size",
           "min": 12,
           "max": 24,
@@ -3143,6 +3193,16 @@
           "unit": "px",
           "label": "Text size",
           "default": 16
+        },
+        {
+          "type": "range",
+          "id": "mobile_text_size",
+          "min": 10,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile text size",
+          "default": 14
         },
         {
           "type": "header",
@@ -9635,6 +9695,16 @@
           "label": "Heading size"
         },
         {
+          "type": "range",
+          "id": "mobile_heading_size",
+          "min": 8,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 12,
+          "label": "Mobile heading size"
+        },
+        {
           "type": "header",
           "content": "Buttons"
         },
@@ -9669,6 +9739,16 @@
           "label": "Text size"
         },
         {
+          "type": "range",
+          "id": "mobile_text_size",
+          "min": 8,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 10,
+          "label": "Mobile text size"
+        },
+        {
           "type": "color",
           "id": "text_color",
           "default": "#121212",
@@ -9683,6 +9763,17 @@
           "default": 110,
           "unit": "%",
           "label": "Icon scale",
+          "info": "Relative to text size"
+        },
+        {
+          "type": "range",
+          "id": "mobile_icon_scale",
+          "min": 100,
+          "max": 200,
+          "step": 5,
+          "default": 110,
+          "unit": "%",
+          "label": "Mobile icon scale",
           "info": "Relative to text size"
         },
         {

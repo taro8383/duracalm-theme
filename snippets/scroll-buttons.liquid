@@ -6,14 +6,17 @@
   {% if block.settings.container_heading != blank %}
     <p
       class="scroll-buttons__heading font-size margin-0 {{ block.settings.heading_alignment }}"
-      style='--font-size: {{ block.settings.heading_size | divided_by: 10.0 }}rem;'
+      style='--font-size: {{ block.settings.heading_size | divided_by: 10.0 }}rem; --mobile-font-size: {{ block.settings.mobile_heading_size | divided_by: 10.0 }}rem;'
+      data-mobile-font-size="{{ block.settings.mobile_heading_size }}"
     >
       {{ block.settings.container_heading }}
     </p>
   {% endif %}
   <div
     class="scroll-buttons-container flex flex-align-center flex-justify-{{ alignment }} font-size"
-    style="--font-size: {{ block.settings.text_size | divided_by: 10.0 }}rem;--icon-scale:{{ block.settings.icon_scale | divided_by: 100.0 }};--padding:{{ block.settings.padding | divided_by: 7.0 }}em;--bg-color:{{ block.settings.bg_color }};--border-radius:{{ block.settings.corner_radius | divided_by: 10.0 }}em;--border-thickness:{{ block.settings.border_size }}px;--border-color:{{ block.settings.border_color }};--text-color:{{ block.settings.text_color }};--icon-color:{{ block.settings.icon_color }};"
+    style="--font-size: {{ block.settings.text_size | divided_by: 10.0 }}rem; --mobile-font-size: {{ block.settings.mobile_text_size | divided_by: 10.0 }}rem; --icon-scale:{{ block.settings.icon_scale | divided_by: 100.0 }}; --mobile-icon-scale:{{ block.settings.mobile_icon_scale | divided_by: 100.0 }}; --padding:{{ block.settings.padding | divided_by: 7.0 }}em; --bg-color:{{ block.settings.bg_color }}; --border-radius:{{ block.settings.corner_radius | divided_by: 10.0 }}em; --border-thickness:{{ block.settings.border_size }}px; --border-color:{{ block.settings.border_color }}; --text-color:{{ block.settings.text_color }}; --icon-color:{{ block.settings.icon_color }};"
+    data-mobile-font-size="{{ block.settings.mobile_text_size }}"
+    data-mobile-icon-scale="{{ block.settings.mobile_icon_scale }}"
   >
     {% for i in (1..6) %}
       {% liquid
