@@ -212,6 +212,11 @@
       font-size: var(--sku-text-size, 16px) !important;
     }
 
+    /* Title Block Text Size */
+    #ProductInfo-{{ section.id }} [data-block-type="title"] h1 {
+      font-size: var(--title-size, 24px) !important;
+    }
+
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars,
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container svg,
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container .star-icon {
@@ -240,7 +245,7 @@
     @media screen and (max-width: 749px) {
       /* Title Block */
       #ProductInfo-{{ section.id }} [data-block-type="title"] {
-        font-size: calc(var(--mobile-title-size, var(--title-size)) * 1px) !important;
+        font-size: var(--mobile-title-size, var(--title-size)) !important;
       }
 
       /* Price Block */
@@ -250,58 +255,72 @@
       #ProductInfo-{{ section.id }} [data-block-type="price"] .price-item--regular,
       #ProductInfo-{{ section.id }} [data-block-type="price"] .price__sale,
       #ProductInfo-{{ section.id }} [data-block-type="price"] .price-item--sale {
-        font-size: calc(var(--mobile-price-text-size, var(--price-text-size, 16px))) !important;
+        font-size: var(--mobile-price-text-size, var(--price-text-size)) !important;
       }
 
       /* Description Block */
       #ProductInfo-{{ section.id }} [data-block-type="description"] {
-        font-size: calc(var(--mobile-description-text-size, var(--description-text-size, 16px))) !important;
+        font-size: var(--mobile-description-text-size, var(--description-text-size)) !important;
       }
 
       /* SKU Block */
       #ProductInfo-{{ section.id }} [data-block-type="sku"] {
-        font-size: calc(var(--mobile-sku-text-size, var(--sku-text-size, 16px))) !important;
+        font-size: var(--mobile-sku-text-size, var(--sku-text-size)) !important;
       }
 
       /* Inventory Block */
       #ProductInfo-{{ section.id }} [data-block-type="inventory"] {
-        font-size: calc(var(--mobile-inventory-text-size, var(--inventory-text-size, 16px))) !important;
-        height: var(--mobile-inventory-block-height, var(--inventory-block-height, 40px)) !important;
+        font-size: var(--mobile-inventory-text-size, var(--inventory-text-size)) !important;
+        height: var(--mobile-inventory-block-height, var(--inventory-block-height)) !important;
       }
 
       #ProductInfo-{{ section.id }} [data-block-type="inventory"] .inventory-icon {
-        width: var(--mobile-inventory-icon-size, var(--inventory-icon-size, 16px)) !important;
-        height: var(--mobile-inventory-icon-size, var(--inventory-icon-size, 16px)) !important;
+        width: var(--mobile-inventory-icon-size, var(--inventory-icon-size)) !important;
+        height: var(--mobile-inventory-icon-size, var(--inventory-icon-size)) !important;
       }
 
       /* Rating Stars Block */
       #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] {
-        font-size: calc(var(--mobile-rating-text-size, var(--rating-text-size, 16px))) !important;
-        height: var(--mobile-rating-block-height, var(--rating-block-height, 40px)) !important;
+        font-size: var(--mobile-rating-text-size, var(--rating-text-size)) !important;
+        height: var(--mobile-rating-block-height, var(--rating-block-height)) !important;
       }
 
       #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars,
       #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container svg,
       #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container .star-icon {
-        width: var(--mobile-rating-star-size, var(--rating-star-size, 20px)) !important;
-        height: var(--mobile-rating-star-size, var(--rating-star-size, 20px)) !important;
+        width: var(--mobile-rating-star-size, var(--rating-star-size)) !important;
+        height: var(--mobile-rating-star-size, var(--rating-star-size)) !important;
       }
 
       /* Collapsible Row Block - Heading */
       #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .accordion__title {
-        font-size: calc(var(--mobile-heading-text-size, var(--heading-text-size, 16px))) !important;
+        font-size: var(--mobile-heading-text-size, var(--heading-text-size)) !important;
       }
 
       /* Collapsible Row Block - Content */
       #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .accordion__content {
-        font-size: calc(var(--mobile-content-text-size, var(--content-text-size, 14px))) !important;
+        font-size: var(--mobile-content-text-size, var(--content-text-size)) !important;
       }
 
       /* Collapsible Row Block - Icons */
       #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .custom-badge__icon,
-      #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .material-icon {
-        font-size: calc(var(--mobile-icon-size, var(--icon-size, 24px))) !important;
+      #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .material-icon,
+      #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .summary__title .material-icon {
+        font-size: var(--mobile-icon-size, var(--icon-size)) !important;
       }
+    }
+
+    /* Collapsible Row Block - Desktop Sizes */
+    #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .accordion__title {
+      font-size: var(--heading-text-size, 16px) !important;
+    }
+
+    #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .accordion__content {
+      font-size: var(--content-text-size, 14px) !important;
+    }
+
+    #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .summary__title .material-icon {
+      font-size: var(--icon-size, 24px) !important;
     }
 
     #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon {
