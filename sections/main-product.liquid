@@ -226,6 +226,7 @@
 
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__label {
       white-space: nowrap !important;
+      font-size: var(--rating-text-size, 16px) !important;
     }
 
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars-and-text {
@@ -290,6 +291,10 @@
       #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container .star-icon {
         width: var(--mobile-rating-star-size, var(--rating-star-size)) !important;
         height: var(--mobile-rating-star-size, var(--rating-star-size)) !important;
+      }
+
+      #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__label {
+        font-size: var(--mobile-rating-text-size, var(--rating-text-size)) !important;
       }
 
       /* Collapsible Row Block - Heading */
