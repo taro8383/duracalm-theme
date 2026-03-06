@@ -232,9 +232,8 @@
       font-size: var(--rating-star-size, 20px) !important;
     }
 
-    #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container--overlay {
-      font-size: var(--rating-star-size, 20px) !important;
-      width: calc(var(--rating) * var(--rating-star-size, 20px) + (var(--visible-stars) - 1) * 0.125em) !important;
+    #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container--overlay:not(.trustpilot-stars__container--overlay) {
+      width: calc(var(--rating) * 20%) !important;
     }
 
     #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon {
