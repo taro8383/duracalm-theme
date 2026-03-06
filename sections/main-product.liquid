@@ -244,7 +244,7 @@
     /* Mobile Overrides for Text/Icon Sizes */
     @media screen and (max-width: 749px) {
       /* Title Block */
-      #ProductInfo-{{ section.id }} [data-block-type="title"] {
+      #ProductInfo-{{ section.id }} [data-block-type="title"] h1 {
         font-size: var(--mobile-title-size, var(--title-size)) !important;
       }
 
@@ -303,24 +303,9 @@
       }
 
       /* Collapsible Row Block - Icons */
-      #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .custom-badge__icon,
-      #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .material-icon,
       #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .summary__title .material-icon {
         font-size: var(--mobile-icon-size, var(--icon-size)) !important;
       }
-    }
-
-    /* Collapsible Row Block - Desktop Sizes */
-    #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .accordion__title {
-      font-size: var(--heading-text-size, 16px) !important;
-    }
-
-    #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .accordion__content {
-      font-size: var(--content-text-size, 14px) !important;
-    }
-
-    #ProductInfo-{{ section.id }} [data-block-type="collapsible_tab"] .summary__title .material-icon {
-      font-size: var(--icon-size, 24px) !important;
     }
 
     #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon {
