@@ -35,7 +35,6 @@
           {% endfor %}
         {% endif %}
         {% assign rating_percent = rating_value | times: 20 %}
-        <script>setTimeout(function(){ var el = document.querySelector('.rating-stars__container--overlay'); if(el) alert('Rating overlay width: ' + el.style.width + ' | offsetWidth: ' + el.offsetWidth); }, 2000);</script>
         <div class='rating-stars__container rating-stars__container--overlay' style='width: {{ rating_percent }}% !important;'>
           {% for i in (1..5) %}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill='currentColor'>
