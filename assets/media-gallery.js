@@ -203,9 +203,15 @@ if (!customElements.get('media-gallery')) {
 
       this.preventStickyHeader();
       window.setTimeout(() => {
-        if (this.elements.thumbnails) {
-          activeMedia.parentElement.scrollTo({ left: activeMedia.offsetLeft });
+        // Scroll the slider to show the active media
+        const slider = activeMedia.parentElement;
+        if (slider) {
+          slider.scrollTo({
+            left: activeMedia.offsetLeft - slider.offsetLeft,
+            behavior: 'smooth'
+          });
         }
+        // For stacked layout or no thumbnails, scroll into view
         if (!this.elements.thumbnails || this.dataset.desktopLayout === 'stacked') {
           activeMedia.scrollIntoView({behavior: 'smooth'});
         }
