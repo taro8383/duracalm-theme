@@ -364,7 +364,7 @@
         "mobile_spacing_pixels": 0,
         "mobile_arrows_position": "sides",
         "mobile_pagination": "dots_overlay",
-        "mobile_thumbnails_position": "hidden",
+        "mobile_thumbnails_position": "bottom",
         "mobile_thumbnails_count": 5,
         "mobile_vertical_thumbnails_width": 22,
         "mobile_vertical_thumbnails_hide_arrows": true,
