@@ -28,11 +28,11 @@
             "bg_stars_style": "full",
             "bg_star_color": "#ececec",
             "label": "(136 Reviews)",
-            "use_product_data": false,
+            "use_product_data": true,
             "size": 16,
-            "mobile_size": 14,
+            "mobile_size": 10,
             "star_icon_size": 20,
-            "mobile_star_icon_size": 16,
+            "mobile_star_icon_size": 12,
             "block_height": 40,
             "mobile_block_height": 35,
             "alignment": "flex-start",
@@ -225,6 +225,31 @@
             "alignment": "center"
           }
         },
+        "custom_badges_VRw7UC": {
+          "type": "custom_badges",
+          "settings": {
+            "grid_width": "full",
+            "badge_1_alt": "Badge 1",
+            "badge_1_subtitle": "",
+            "badge_2_image": "shopify://shop_images/30_days.svg",
+            "badge_2_alt": "Badge 2",
+            "badge_2_subtitle": "30 Days Guarantee",
+            "badge_3_alt": "Badge 3",
+            "badge_3_subtitle": "",
+            "badge_4_image": "shopify://shop_images/Free_Shipping_And_Returns.svg",
+            "badge_4_alt": "Badge 4",
+            "badge_4_subtitle": "Free Shipping & Returns",
+            "badge_5_alt": "Badge 5",
+            "badge_5_subtitle": "",
+            "subtitle_size": 12,
+            "mobile_subtitle_size": 10,
+            "greyed_out": false,
+            "badge_height": 30,
+            "mobile_badge_height": 25,
+            "margin_top": 15,
+            "margin_bottom": 15
+          }
+        },
         "payment_badges_3BJ8fD": {
           "type": "payment_badges",
           "settings": {
@@ -286,6 +311,7 @@
         "collapsible_tab_CUq87N",
         "e0a0b690-50df-4ca4-acfd-ce2980696cce",
         "buy_buttons",
+        "custom_badges_VRw7UC",
         "payment_badges_3BJ8fD",
         "e7a28cbe-03cb-4c9d-a2c4-0e3e76ffb3e5"
       ],
