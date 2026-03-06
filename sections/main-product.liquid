@@ -205,6 +205,7 @@
       margin-bottom: 0 !important;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
+      line-height: 1 !important;
     }
 
     #ProductInfo-{{ section.id }} .product__inventory .inventory-icon,
@@ -220,8 +221,6 @@
       font-size: var(--rating-text-size, 16px) !important;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
-      display: flex !important;
-      align-items: center !important;
     }
 
     /* Price Block Text Size */
@@ -259,6 +258,9 @@
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__label {
       white-space: nowrap !important;
       font-size: var(--rating-text-size, 16px) !important;
+      line-height: 1 !important;
+      vertical-align: middle !important;
+      display: inline-block !important;
     }
 
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars-and-text {
