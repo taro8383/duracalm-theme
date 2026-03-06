@@ -606,7 +606,7 @@
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'text-with-icon-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'title' -%}
               <div class="{{ grid_classes }} product__title" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;">
-                <h1 style="font-size: {{ block.settings.text_size }}px;{% if block.settings.uppercase_title %} text-transform: uppercase;{% endif %}" class="{% if block.settings.title_alignment == 'center' %} center{% endif %}">
+                <h1 style="font-size: {{ block.settings.text_size }}px;{% if block.settings.uppercase_title %} text-transform: uppercase;{% endif %}" class="{% if block.settings.title_alignment == 'center' %} center{% endif %}" data-mobile-font-size="{{ block.settings.mobile_text_size }}">
                   {{ product.title }}
                 </h1>
                 <a href="{{ product.url }}" class="product__title">
@@ -620,7 +620,7 @@
             {% when 'trustpilot_stars' %}
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'trustpilot-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'price' -%}
-              <div class="{{ grid_classes }} no-js-hidden product-page-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --price-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;" data-block-type="price">
+              <div class="{{ grid_classes }} no-js-hidden product-page-price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --price-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;" data-block-type="price" data-mobile-font-size="{{ block.settings.mobile_text_size }}">
                 {% liquid 
                   assign price_second = false
                   if block.settings.layout == 'price_second'
@@ -746,7 +746,7 @@
               </p>
             {%- when 'description' -%}
               {%- if product.description != blank -%}
-                <div class="{{ grid_classes }} product__description rte quick-add-hidden" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --description-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;" data-block-type="description">
+                <div class="{{ grid_classes }} product__description rte quick-add-hidden" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --description-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;" data-block-type="description" data-mobile-font-size="{{ block.settings.mobile_text_size }}">
                   {{ product.description }}
                 </div>
               {%- endif -%}
@@ -756,7 +756,7 @@
                 id="Sku-{{ section.id }}"
                 role="status"
                 {{ block.shopify_attributes }}
-                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --sku-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;"
+                style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --sku-text-size: {{ block.settings.text_size }}px; font-size: {{ block.settings.text_size }}px !important;" data-mobile-font-size="{{ block.settings.mobile_text_size }}"
                 data-block-type="sku"
                 <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span> {{- product.selected_or_first_available_variant.sku -}}
               </p>
@@ -780,21 +780,21 @@
                           loading="lazy"
                         >
                       {% else %}
-                        <span class="material-icon material-symbols-outlined{% if block.settings.filled_icon %} filled{% endif %}" style="color: {{ block.settings.icon_color }};">{{ block.settings.icon | strip | downcase | replace: ' ', '_' }}</span>
+                        <span class="material-icon material-symbols-outlined{% if block.settings.filled_icon %} filled{% endif %}" style="color: {{ block.settings.icon_color }}; font-size: {{ block.settings.icon_size }}px;" data-mobile-font-size="{{ block.settings.mobile_icon_size }}">{{ block.settings.icon | strip | downcase | replace: ' ', '_' }}</span>
                       {% endif %}
-                      <h2 class="accordion__title" style="font-size: {{ block.settings.heading_text_size }}px;">
+                      <h2 class="accordion__title" style="font-size: {{ block.settings.heading_text_size }}px;" data-mobile-font-size="{{ block.settings.mobile_heading_text_size }}">
                         {{ block.settings.heading | default: block.settings.page.title }}
                       </h2>
                     </div>
                     {% if block.settings.collapse_icon == 'carret' %}
-                      <span style="color: {{ block.settings.icon_color }}">{% render 'icon-caret' %}</span>
+                      <span style="color: {{ block.settings.icon_color }}; font-size: {{ block.settings.icon_size }}px;" data-mobile-font-size="{{ block.settings.mobile_icon_size }}">{% render 'icon-caret' %}</span>
                     {% else %}
-                      <span style="color: {{ block.settings.icon_color }}">{% render 'icon-plus' %}</span>
+                      <span style="color: {{ block.settings.icon_color }}; font-size: {{ block.settings.icon_size }}px;" data-mobile-font-size="{{ block.settings.mobile_icon_size }}">{% render 'icon-plus' %}</span>
                     {% endif %}
                   </summary>
                 </details>
                 <div class='accordion__content-wrapper'>
-                  <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}" style="font-size: {{ block.settings.content_text_size }}px;">
+                  <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}" style="font-size: {{ block.settings.content_text_size }}px;" data-mobile-font-size="{{ block.settings.mobile_content_text_size }}">
                     {{ block.settings.content | replace: '[description]', product.description }}
                     {{ block.settings.page.content }}
                   </div>
@@ -2069,6 +2069,16 @@
           "default": 24
         },
         {
+          "type": "range",
+          "id": "mobile_text_size",
+          "min": 10,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile text size",
+          "default": 18
+        },
+        {
           "type": "select",
           "id": "title_alignment",
           "options": [
@@ -2587,6 +2597,16 @@
           "default": 16
         },
         {
+          "type": "range",
+          "id": "mobile_text_size",
+          "min": 10,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile text size",
+          "default": 14
+        },
+        {
           "type": "header",
           "content": "Block margin"
         },
@@ -2941,6 +2961,16 @@
           "unit": "px",
           "label": "Text size",
           "default": 16
+        },
+        {
+          "type": "range",
+          "id": "mobile_text_size",
+          "min": 10,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile text size",
+          "default": 14
         },
         {
           "type": "header",
@@ -5637,6 +5667,16 @@
           "default": 16
         },
         {
+          "type": "range",
+          "id": "mobile_text_size",
+          "min": 10,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile text size",
+          "default": 14
+        },
+        {
           "type": "header",
           "content": "Block margin"
         },
@@ -5813,6 +5853,36 @@
           "default": 16
         },
         {
+          "type": "range",
+          "id": "mobile_heading_text_size",
+          "min": 10,
+          "max": 36,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile heading text size",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "min": 16,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "label": "Icon size",
+          "default": 24
+        },
+        {
+          "type": "range",
+          "id": "mobile_icon_size",
+          "min": 14,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile icon size",
+          "default": 20
+        },
+        {
           "type": "text",
           "id": "icon",
           "default": "check_box",
@@ -5889,6 +5959,16 @@
           "unit": "px",
           "label": "Content text size",
           "default": 14
+        },
+        {
+          "type": "range",
+          "id": "mobile_content_text_size",
+          "min": 8,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile content text size",
+          "default": 12
         },
         {
           "type": "header",
@@ -6498,6 +6578,16 @@
           "unit": "px",
           "default": 17,
           "label": "Button text size"
+        },
+        {
+          "type": "range",
+          "id": "mobile_text_size",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile button text size",
+          "default": 15
         },
         {
           "type": "select",

@@ -5,7 +5,7 @@
   style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;"
   {{ block.shopify_attributes }}
 >
-  <button class="sizing-chart__button{% if block.settings.button_underline %} sizing-chart__button--underline{% endif %} flex-center modal-v2__open-btn font-size--desktop-auto" style='--font-size:{{ block.settings.text_size | divided_by: 10.0 }}rem;'>
+  <button class="sizing-chart__button{% if block.settings.button_underline %} sizing-chart__button--underline{% endif %} flex-center modal-v2__open-btn font-size--desktop-auto" style='--font-size:{{ block.settings.text_size | divided_by: 10.0 }}rem; --mobile-font-size:{{ block.settings.mobile_text_size | divided_by: 10.0 }}rem;' data-mobile-font-size="{{ block.settings.mobile_text_size }}">
     {% if block.settings.button_custom_icon != blank %}
       <img
         src="{{ block.settings.button_custom_icon | image_url: width: 150 }}"

@@ -56,6 +56,7 @@
           "settings": {
             "grid_width": "two-thirds",
             "text_size": 24,
+            "mobile_text_size": 18,
             "title_alignment": "left",
             "uppercase_title": false,
             "margin_top": 0,
@@ -76,6 +77,8 @@
             "filled_icon_1": false,
             "icon_2": "check_circle",
             "filled_icon_2": false,
+            "text_size": 16,
+            "mobile_text_size": 14,
             "margin_top": 9,
             "margin_bottom": 15
           }
@@ -219,6 +222,9 @@
             "grid_width": "full",
             "heading": "Collapsible row",
             "heading_text_size": 16,
+            "mobile_heading_text_size": 14,
+            "icon_size": 24,
+            "mobile_icon_size": 20,
             "icon": "check_box",
             "filled_icon": false,
             "icon_color": "#000000",
@@ -228,6 +234,7 @@
             "content": "",
             "page": "",
             "content_text_size": 14,
+            "mobile_content_text_size": 12,
             "margin_top": 24,
             "margin_bottom": 0
           }
@@ -238,6 +245,9 @@
             "grid_width": "full",
             "heading": "Collapsible row",
             "heading_text_size": 16,
+            "mobile_heading_text_size": 14,
+            "icon_size": 24,
+            "mobile_icon_size": 20,
             "icon": "check_box",
             "filled_icon": false,
             "icon_color": "#000000",
@@ -247,6 +257,7 @@
             "content": "",
             "page": "",
             "content_text_size": 14,
+            "mobile_content_text_size": 12,
             "margin_top": 24,
             "margin_bottom": 0
           }
@@ -257,6 +268,9 @@
             "grid_width": "full",
             "heading": "Collapsible row",
             "heading_text_size": 16,
+            "mobile_heading_text_size": 14,
+            "icon_size": 24,
+            "mobile_icon_size": 20,
             "icon": "check_box",
             "filled_icon": false,
             "icon_color": "#000000",
@@ -266,6 +280,7 @@
             "content": "",
             "page": "",
             "content_text_size": 14,
+            "mobile_content_text_size": 12,
             "margin_top": 24,
             "margin_bottom": 0
           }
