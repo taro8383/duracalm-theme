@@ -187,8 +187,7 @@
     /* Rating Stars Block Dynamic Sizing */
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] {
       height: var(--rating-block-height, 40px) !important;
-      display: flex !important;
-      align-items: center !important;
+      font-size: var(--rating-text-size, 16px) !important;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
     }
@@ -213,10 +212,11 @@
       font-size: var(--sku-text-size, 16px) !important;
     }
 
-    #ProductInfo-{{ section.id }} .rating-stars-block svg,
-    #ProductInfo-{{ section.id }} .rating-stars-block .star-icon {
-      width: var(--rating-star-size, 20px);
-      height: var(--rating-star-size, 20px);
+    #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars,
+    #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container svg,
+    #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars__container .star-icon {
+      width: var(--rating-star-size, 20px) !important;
+      height: var(--rating-star-size, 20px) !important;
     }
 
     #MainProduct-{{ section.id }} .product__inventory.inventory-pulse .inventory-icon {
@@ -599,7 +599,7 @@
                 </a>
               </div>
             {% when 'rating_stars' %}
-              <div class="{{ grid_classes }}"{{ alignment_attr }} data-block-type="rating_stars" {{ block.shopify_attributes }} style="--rating-block-height: {{ block.settings.block_height | default: 40 }}px; --rating-star-size: {{ block.settings.star_icon_size | default: 20 }}px;">{% render 'rating-stars-block', block: block, margins: true, block_attributes: false %}</div>
+              <div class="{{ grid_classes }}"{{ alignment_attr }} data-block-type="rating_stars" {{ block.shopify_attributes }} style="font-size: {{ block.settings.size }}px !important; --rating-text-size: {{ block.settings.size | default: 16 }}px; --rating-block-height: {{ block.settings.block_height | default: 40 }}px; --rating-star-size: {{ block.settings.star_icon_size | default: 20 }}px;">{% render 'rating-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {% when 'trustpilot_stars' %}
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'trustpilot-stars-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'price' -%}
