@@ -606,7 +606,7 @@
               <div class="{{ grid_classes }}"{{ alignment_attr }} {{ block.shopify_attributes }}>{% render 'text-with-icon-block', block: block, margins: true, block_attributes: false %}</div>
             {%- when 'title' -%}
               <div class="{{ grid_classes }} product__title" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;">
-                <h1 class="{{ block.settings.text_size }}{% if block.settings.uppercase_title %} product-title--uppercase{% endif %}{% if block.settings.title_alignment == 'center' %} center{% endif %}">
+                <h1 class="{{ block.settings.heading_size }}{% if block.settings.uppercase_title %} product-title--uppercase{% endif %}{% if block.settings.title_alignment == 'center' %} center{% endif %}">
                   {{ product.title }}
                 </h1>
                 <a href="{{ product.url }}" class="product__title">
@@ -2060,22 +2060,22 @@
         },
         {
           "type": "select",
-          "id": "text_size",
+          "id": "heading_size",
           "options": [
             {
               "value": "h2",
-              "label": "Small"
+              "label": "t:sections.all.heading_size.options__1.label"
             },
             {
               "value": "h1",
-              "label": "Medium"
+              "label": "t:sections.all.heading_size.options__2.label"
             },
             {
               "value": "h0",
-              "label": "Large"
+              "label": "t:sections.all.heading_size.options__3.label"
             }
           ],
-          "label": "Title size",
+          "label": "t:sections.all.heading_size.label",
           "default": "h1"
         },
         {

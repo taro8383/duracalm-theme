@@ -55,7 +55,7 @@
           "type": "title",
           "settings": {
             "grid_width": "two-thirds",
-            "text_size": "h2",
+            "heading_size": "h2",
             "title_alignment": "left",
             "uppercase_title": false,
             "margin_top": 0,
