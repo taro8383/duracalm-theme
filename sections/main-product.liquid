@@ -516,16 +516,19 @@
     .custom-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 1rem;
       list-style: none;
       padding: 0;
       margin: 0;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .custom-badge__item {
       display: flex;
+      flex-direction: column;
       align-items: center;
+      text-align: center;
+      gap: 0.25rem;
     }
 
     .custom-badge__image {
@@ -534,9 +537,24 @@
       object-fit: contain;
     }
 
+    .custom-badge__subtitle {
+      font-size: var(--mobile-subtitle-size, 10px);
+      line-height: 1.2;
+      color: rgba(var(--color-foreground), 0.55);
+    }
+
+    /* Greyed out effect like payment badges */
+    .custom-badges--greyed .custom-badge__image {
+      opacity: 0.55;
+    }
+
     @media screen and (min-width: 750px) {
       .custom-badge__image {
         height: var(--badge-height, 30px);
+      }
+
+      .custom-badge__subtitle {
+        font-size: var(--subtitle-size, 12px);
       }
     }
   {%- endstyle -%}
@@ -1338,16 +1356,21 @@
                 </ul>
               </div>
             {%- when 'custom_badges' -%}
-              <div class="{{ grid_classes }} custom-badges-block" style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;" {{ block.shopify_attributes }}>
+              <div class="{{ grid_classes }} custom-badges-block{% if block.settings.greyed_out %} custom-badges--greyed{% endif %}" style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem; --subtitle-size: {{ block.settings.subtitle_size }}px; --mobile-subtitle-size: {{ block.settings.mobile_subtitle_size }}px;" {{ block.shopify_attributes }}>
                 <ul class="custom-badges" role="list" style="--badge-height: {{ block.settings.badge_height }}px; --mobile-badge-height: {{ block.settings.mobile_badge_height }}px;">
                   {%- for i in (1..5) -%}
                     {%- assign badge_image_key = 'badge_' | append: i | append: '_image' -%}
                     {%- assign badge_alt_key = 'badge_' | append: i | append: '_alt' -%}
+                    {%- assign badge_subtitle_key = 'badge_' | append: i | append: '_subtitle' -%}
                     {%- assign badge_image = block.settings[badge_image_key] -%}
                     {%- assign badge_alt = block.settings[badge_alt_key] -%}
+                    {%- assign badge_subtitle = block.settings[badge_subtitle_key] -%}
                     {%- if badge_image != blank -%}
                       <li class="custom-badge__item">
                         {{ badge_image | image_url: width: 200 | image_tag: alt: badge_alt, loading: 'lazy', class: 'custom-badge__image' }}
+                        {%- if badge_subtitle != blank -%}
+                          <span class="custom-badge__subtitle">{{ badge_subtitle }}</span>
+                        {%- endif -%}
                       </li>
                     {%- endif -%}
                   {%- endfor -%}
@@ -8102,6 +8125,11 @@
           "default": "Badge 1"
         },
         {
+          "type": "text",
+          "id": "badge_1_subtitle",
+          "label": "Badge 1 subtitle"
+        },
+        {
           "type": "header",
           "content": "Badge 2"
         },
@@ -8115,6 +8143,11 @@
           "id": "badge_2_alt",
           "label": "Badge 2 alt text",
           "default": "Badge 2"
+        },
+        {
+          "type": "text",
+          "id": "badge_2_subtitle",
+          "label": "Badge 2 subtitle"
         },
         {
           "type": "header",
@@ -8132,6 +8165,11 @@
           "default": "Badge 3"
         },
         {
+          "type": "text",
+          "id": "badge_3_subtitle",
+          "label": "Badge 3 subtitle"
+        },
+        {
           "type": "header",
           "content": "Badge 4"
         },
@@ -8147,6 +8185,11 @@
           "default": "Badge 4"
         },
         {
+          "type": "text",
+          "id": "badge_4_subtitle",
+          "label": "Badge 4 subtitle"
+        },
+        {
           "type": "header",
           "content": "Badge 5"
         },
@@ -8160,6 +8203,42 @@
           "id": "badge_5_alt",
           "label": "Badge 5 alt text",
           "default": "Badge 5"
+        },
+        {
+          "type": "text",
+          "id": "badge_5_subtitle",
+          "label": "Badge 5 subtitle"
+        },
+        {
+          "type": "header",
+          "content": "Subtitle styling"
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size",
+          "min": 8,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Subtitle font size",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "mobile_subtitle_size",
+          "min": 8,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "label": "Mobile subtitle font size",
+          "default": 10
+        },
+        {
+          "type": "checkbox",
+          "id": "greyed_out",
+          "label": "Greyed out effect",
+          "default": true,
+          "info": "Applies opacity effect like payment badges"
         },
         {
           "type": "header",
