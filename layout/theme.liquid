@@ -665,6 +665,356 @@
   </head>
 
   <body class="gradient link-btns--{{ settings.link_btn_hover }} action-btns--{{ settings.action_btn_hover }}"{% if is_rtl %} data-rtl="true"{% endif %}>
+    {%- if settings.enable_preloader -%}
+      {%- liquid
+        assign preloader_logo = settings.preloader_logo | default: settings.logo
+        assign preloader_bg = settings.preloader_background | default: '#f5e6d3'
+        assign preloader_accent = settings.preloader_accent | default: '#7B92C8'
+        assign preloader_message = settings.preloader_message | default: 'Preparing your relief...'
+        assign preloader_duration = settings.preloader_duration | default: 2 | times: 1000
+        assign preloader_style = settings.preloader_style | default: 'breath'
+      -%}
+
+      <div id="page-preloader" class="page-preloader page-preloader--{{ preloader_style }}" style="--preloader-bg: {{ preloader_bg }}; --preloader-accent: {{ preloader_accent }};" data-show-once="{{ settings.preloader_show_once }}" data-duration="{{ preloader_duration }}">
+        <div class="page-preloader__content">
+          {%- if preloader_logo != blank -%}
+            <div class="page-preloader__logo-wrapper">
+              <img src="{{ preloader_logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="page-preloader__logo" width="200" height="auto" loading="eager" fetchpriority="high">
+
+              {%- if preloader_style == 'breath' -%}
+                <div class="page-preloader__halo"></div>
+                <div class="page-preloader__halo page-preloader__halo--secondary"></div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if preloader_style == 'ripple' -%}
+            <div class="page-preloader__ripples">
+              <div class="page-preloader__ripple"></div>
+              <div class="page-preloader__ripple"></div>
+              <div class="page-preloader__ripple"></div>
+            </div>
+          {%- endif -%}
+
+          {%- if preloader_style == 'reveal' -%}
+            <svg class="page-preloader__draw-svg" viewBox="0 0 200 60" width="200" height="60">
+              <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" class="page-preloader__draw-text" style="fill: {{ preloader_accent }};">
+                {{ shop.name }}
+              </text>
+            </svg>
+          {%- endif -%}
+
+          {%- if preloader_message != blank and preloader_style != 'reveal' -%}
+            <p class="page-preloader__message">{{ preloader_message }}</p>
+          {%- endif -%}
+
+          {%- if preloader_style == 'breath' or preloader_style == 'ripple' -%}
+            <div class="page-preloader__progress">
+              <div class="page-preloader__progress-bar"></div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <button type="button" class="page-preloader__skip" aria-label="Skip loading animation">
+          <span>Click to enter</span>
+        </button>
+      </div>
+
+      <style>
+        /* Page Preloader Base Styles */
+        .page-preloader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: var(--preloader-bg);
+          z-index: 99999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page-preloader--hidden {
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+        }
+
+        .page-preloader__content {
+          position: relative;
+          text-align: center;
+        }
+
+        .page-preloader__logo-wrapper {
+          position: relative;
+          display: inline-block;
+        }
+
+        .page-preloader__logo {
+          max-width: 200px;
+          height: auto;
+          position: relative;
+          z-index: 2;
+        }
+
+        /* The Calming Breath Style */
+        .page-preloader--breath .page-preloader__halo {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          background: radial-gradient(circle, var(--preloader-accent) 0%, transparent 70%);
+          opacity: 0.4;
+          filter: blur(20px);
+          animation: preloaderBreath 4s ease-in-out infinite;
+          z-index: 1;
+        }
+
+        .page-preloader--breath .page-preloader__halo--secondary {
+          animation-delay: -2s;
+          opacity: 0.2;
+          filter: blur(40px);
+        }
+
+        @keyframes preloaderBreath {
+          0%, 100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.4;
+          }
+          50% {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 0.2;
+          }
+        }
+
+        /* The Ripple Effect Style */
+        .page-preloader--ripple .page-preloader__ripples {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 300px;
+          height: 300px;
+          z-index: 1;
+        }
+
+        .page-preloader--ripple .page-preloader__ripple {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          height: 100%;
+          border: 2px solid var(--preloader-accent);
+          border-radius: 50%;
+          opacity: 0;
+          animation: preloaderRipple 3s ease-out infinite;
+        }
+
+        .page-preloader--ripple .page-preloader__ripple:nth-child(1) {
+          animation-delay: 0s;
+        }
+
+        .page-preloader--ripple .page-preloader__ripple:nth-child(2) {
+          animation-delay: 1s;
+        }
+
+        .page-preloader--ripple .page-preloader__ripple:nth-child(3) {
+          animation-delay: 2s;
+        }
+
+        @keyframes preloaderRipple {
+          0% {
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0.8;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(2);
+            opacity: 0;
+          }
+        }
+
+        /* The Gentle Reveal Style */
+        .page-preloader--reveal {
+          backdrop-filter: blur(20px);
+          background: rgba(245, 230, 211, 0.95);
+        }
+
+        .page-preloader--reveal .page-preloader__draw-svg {
+          overflow: visible;
+        }
+
+        .page-preloader--reveal .page-preloader__draw-text {
+          font-family: var(--font-heading-family);
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          stroke: var(--preloader-accent);
+          stroke-width: 1;
+          fill: transparent;
+          stroke-dasharray: 500;
+          stroke-dashoffset: 500;
+          animation: preloaderDraw 2s ease-in-out forwards;
+        }
+
+        @keyframes preloaderDraw {
+          to {
+            stroke-dashoffset: 0;
+            fill: var(--preloader-accent);
+          }
+        }
+
+        /* Message and Progress */
+        .page-preloader__message {
+          margin-top: 2rem;
+          font-family: var(--font-body-family);
+          font-size: 14px;
+          color: var(--color-base-text);
+          opacity: 0.7;
+          letter-spacing: 0.05em;
+          animation: preloaderFadePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes preloaderFadePulse {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 0.9; }
+        }
+
+        .page-preloader__progress {
+          width: 120px;
+          height: 2px;
+          background: rgba(0, 0, 0, 0.1);
+          border-radius: 2px;
+          margin: 1.5rem auto 0;
+          overflow: hidden;
+        }
+
+        .page-preloader__progress-bar {
+          height: 100%;
+          background: var(--preloader-accent);
+          width: 0%;
+          transition: width 0.3s ease;
+          animation: preloaderProgress 3s ease-in-out infinite;
+        }
+
+        @keyframes preloaderProgress {
+          0% { width: 0%; }
+          50% { width: 70%; }
+          100% { width: 100%; }
+        }
+
+        /* Skip Button */
+        .page-preloader__skip {
+          position: absolute;
+          bottom: 2rem;
+          left: 50%;
+          transform: translateX(-50%);
+          background: transparent;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          padding: 0.75rem 1.5rem;
+          font-size: 12px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--color-base-text);
+          cursor: pointer;
+          opacity: 0;
+          transition: opacity 0.3s ease, border-color 0.3s ease;
+          animation: preloaderShowSkip 0.5s ease 3s forwards;
+          pointer-events: auto;
+        }
+
+        @keyframes preloaderShowSkip {
+          to { opacity: 0.6; }
+        }
+
+        .page-preloader__skip:hover {
+          opacity: 1 !important;
+          border-color: var(--preloader-accent);
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+          .page-preloader__halo,
+          .page-preloader__ripple,
+          .page-preloader__draw-text,
+          .page-preloader__progress-bar,
+          .page-preloader__message {
+            animation: none;
+          }
+
+          .page-preloader__draw-text {
+            stroke-dashoffset: 0;
+            fill: var(--preloader-accent);
+          }
+
+          .page-preloader {
+            transition-duration: 0.2s;
+          }
+        }
+      </style>
+
+      <script>
+        (function() {
+          var preloader = document.getElementById('page-preloader');
+          if (!preloader) return;
+
+          var showOnce = preloader.dataset.showOnce === 'true';
+          var minDuration = parseInt(preloader.dataset.duration) || 2000;
+          var startTime = Date.now();
+          var hasShown = sessionStorage.getItem('preloaderShown');
+
+          // Skip if already shown this session
+          if (showOnce && hasShown) {
+            preloader.classList.add('page-preloader--hidden');
+            return;
+          }
+
+          // Skip button functionality
+          var skipBtn = preloader.querySelector('.page-preloader__skip');
+          if (skipBtn) {
+            skipBtn.addEventListener('click', function() {
+              hidePreloader();
+            });
+          }
+
+          function hidePreloader() {
+            var elapsed = Date.now() - startTime;
+            var remaining = Math.max(0, minDuration - elapsed);
+
+            setTimeout(function() {
+              preloader.classList.add('page-preloader--hidden');
+              if (showOnce) {
+                sessionStorage.setItem('preloaderShown', 'true');
+              }
+
+              // Remove from DOM after animation
+              setTimeout(function() {
+                if (preloader.parentNode) {
+                  preloader.parentNode.removeChild(preloader);
+                }
+              }, 600);
+            }, remaining);
+          }
+
+          // Hide when page is fully loaded
+          if (document.readyState === 'complete') {
+            hidePreloader();
+          } else {
+            window.addEventListener('load', hidePreloader);
+          }
+
+          // Fallback: hide after max 5 seconds regardless
+          setTimeout(hidePreloader, 5000);
+        })();
+      </script>
+    {%- endif -%}
+
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

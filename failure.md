@@ -72,10 +72,67 @@ Possible approaches to try:
 2. Add consistent padding-top or margin-top to align text baselines
 3. Check if the Inventory block's flex alignment needs adjustment
 4. Look at the actual computed styles in DevTools to see the exact pixel difference
+5. Try using CSS Grid `align-items: baseline` on the parent container
+6. Add specific margin-top to the lower text element to push it up
 
 ## Lessons Learned
 
 1. Don't add `display: flex` to grid items without considering the layout impact
 2. CSS `line-height` and `vertical-align` don't always solve alignment issues
 3. Need to understand the DOM structure of both elements before applying fixes
+4. Sometimes a simple pixel adjustment (margin-top: -2px) is better than complex flex solutions
+
+---
+
+# Page Preloader Feature
+
+## Overview
+Created three premium preloader options for the DuraCalm theme with full customization capabilities.
+
+## Implementation Details
+
+### Files Modified
+1. `config/settings_schema.json` - Added "Page Preloader" settings section
+2. `layout/theme.liquid` - Added preloader HTML, CSS, and JavaScript
+
+### Settings Available
+- **Enable preloader** - Toggle on/off
+- **Preloader style** - Choose between 3 styles
+- **Custom logo** - Upload different logo for preloader
+- **Background color** - Customizable background
+- **Accent color** - Color for animations (halo, ripples, etc.)
+- **Loading message** - Custom text
+- **Minimum duration** - How long to show at minimum
+- **Show once per session** - Only show on first visit
+
+### Three Preloader Styles
+
+#### 1. The Calming Breath (Default)
+- Pulsing halo glow around logo
+- Mimics breathing rhythm (4s cycle)
+- Blue halo on cream background
+- Subtle progress bar
+- Best for: Wellness/health brands
+
+#### 2. The Ripple Effect
+- Expanding concentric circles
+- Water ripple metaphor
+- Staggered ring animations
+- "Preparing your relief..." message
+- Best for: Spa/luxury brands
+
+#### 3. The Gentle Reveal
+- SVG stroke drawing animation
+- Frosted glass overlay
+- Minimalist luxury feel
+- Self-drawing logo/text
+- Best for: High-end premium brands
+
+### Technical Features
+- Respects `prefers-reduced-motion` accessibility setting
+- Session storage for "show once" functionality
+- Click-to-skip button (appears after 3s)
+- 5-second max timeout (never blocks indefinitely)
+- Smooth 0.6s fade-out transition
+- Works with RTL languages
 4. Should check computed styles in DevTools first to identify the exact pixel difference

@@ -8,6 +8,84 @@
     "theme_support_url": "https://duracalm.com/support"
   },
   {
+    "name": "Page Preloader",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_preloader",
+        "label": "Enable page preloader",
+        "default": false,
+        "info": "Show a loading animation while the page loads. Recommended for stores with many high-resolution images."
+      },
+      {
+        "type": "select",
+        "id": "preloader_style",
+        "label": "Preloader style",
+        "options": [
+          {
+            "value": "breath",
+            "label": "The Calming Breath (pulsing halo)"
+          },
+          {
+            "value": "ripple",
+            "label": "The Ripple Effect (expanding rings)"
+          },
+          {
+            "value": "reveal",
+            "label": "The Gentle Reveal (frosted glass)"
+          }
+        ],
+        "default": "breath",
+        "info": "Choose a preloader animation that matches your brand aesthetic."
+      },
+      {
+        "type": "image_picker",
+        "id": "preloader_logo",
+        "label": "Preloader logo",
+        "info": "Custom logo for the preloader. If empty, uses the main logo from the Logo settings."
+      },
+      {
+        "type": "color",
+        "id": "preloader_background",
+        "label": "Background color",
+        "default": "#f5e6d3",
+        "info": "The background color of the preloader screen."
+      },
+      {
+        "type": "color",
+        "id": "preloader_accent",
+        "label": "Accent color",
+        "default": "#7B92C8",
+        "info": "The accent color for animations (halo, ripples, etc.)."
+      },
+      {
+        "type": "text",
+        "id": "preloader_message",
+        "label": "Loading message",
+        "default": "Preparing your relief...",
+        "info": "Message shown below the logo. Leave empty for no message."
+      },
+      {
+        "type": "range",
+        "id": "preloader_duration",
+        "label": "Minimum display duration",
+        "min": 1,
+        "max": 5,
+        "step": 0.5,
+        "unit": "s",
+        "default": 2,
+        "info": "Minimum time the preloader is shown, even if page loads faster."
+      },
+      {
+        "type": "checkbox",
+        "id": "preloader_show_once",
+        "label": "Show only once per session",
+        "default": true,
+        "info": "Only show preloader on first page load. Subsequent pages load normally."
+      }
+    ]
+  },
+  {
     "name": "Security",
     "settings": [
       {
