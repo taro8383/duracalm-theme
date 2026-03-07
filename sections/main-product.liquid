@@ -199,7 +199,7 @@
       font-size: var(--inventory-text-size, 16px) !important;
       display: flex !important;
       flex-direction: row !important;
-      align-items: center !important;
+      align-items: flex-start !important;
       gap: 0.5rem;
       margin-top: 0 !important;
       margin-bottom: 0 !important;
@@ -267,6 +267,7 @@
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars-and-text {
       flex-wrap: nowrap !important;
       justify-content: var(--alignment) !important;
+      align-items: flex-start !important;
     }
 
     #ProductInfo-{{ section.id }} [data-block-type="rating_stars"] .rating-stars {
