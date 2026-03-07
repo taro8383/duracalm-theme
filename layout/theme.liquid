@@ -965,12 +965,13 @@
           if (!preloader) return;
 
           var showOnce = preloader.dataset.showOnce === 'true';
+          var alwaysShow = {{ settings.preloader_always_show | default: false }};
           var minDuration = parseInt(preloader.dataset.duration) || 2000;
           var startTime = Date.now();
           var hasShown = sessionStorage.getItem('preloaderShown');
 
-          // Skip if already shown this session
-          if (showOnce && hasShown) {
+          // Skip if already shown this session (unless alwaysShow is enabled for testing)
+          if (showOnce && hasShown && !alwaysShow) {
             preloader.classList.add('page-preloader--hidden');
             return;
           }

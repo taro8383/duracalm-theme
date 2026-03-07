@@ -82,6 +82,13 @@
         "label": "Show only once per session",
         "default": true,
         "info": "Only show preloader on first page load. Subsequent pages load normally."
+      },
+      {
+        "type": "checkbox",
+        "id": "preloader_always_show",
+        "label": "Always show (testing mode)",
+        "default": false,
+        "info": "FOR TESTING: Always show the preloader on every page load. Overrides 'Show only once per session' while enabled. Disable before going live."
       }
     ]
   },
