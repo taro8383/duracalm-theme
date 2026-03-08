@@ -836,6 +836,10 @@
           transform: translate(-50%, -50%);
           z-index: 0;
           pointer-events: none;
+          width: 200px;
+          height: 200px;
+          display: block !important;
+          visibility: visible !important;
         }
 
         .page-preloader__logo--ripple {
@@ -845,6 +849,8 @@
 
         .page-preloader--ripple .page-preloader__ripple {
           display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -855,6 +861,7 @@
           border: 3px solid rgba(123, 146, 200, 0.9);
           border-radius: 50%;
           animation: ripplePulse 1.5s ease-out infinite;
+          box-sizing: border-box;
         }
 
         .page-preloader--ripple .page-preloader__ripple:nth-child(1) { animation-delay: 0s; }
