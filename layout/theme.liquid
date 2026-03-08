@@ -1060,19 +1060,6 @@
             setTimeout(hidePreloader, 500);
           });
 
-          // Minimum progress animation
-          var minProgress = 0;
-          var progressInterval = setInterval(function() {
-            if (minProgress < 30) {
-              minProgress += 2;
-              if (progressBar && loadedResources === 0) {
-                progressBar.style.width = minProgress + '%';
-              }
-            } else {
-              clearInterval(progressInterval);
-            }
-          }, 100);
-
           // Skip button functionality
           var skipBtn = preloader.querySelector('.page-preloader__skip');
           if (skipBtn) {
