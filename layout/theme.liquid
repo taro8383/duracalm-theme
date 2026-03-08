@@ -873,6 +873,19 @@
           100% { transform: scale(2); opacity: 0; }
         }
 
+        /* Ultra-specific override for ripple sizing */
+        #page-preloader.page-preloader--ripple .page-preloader__ripples {
+          width: 80px !important;
+          height: 80px !important;
+        }
+        #page-preloader.page-preloader--ripple .page-preloader__ripple {
+          width: 60px !important;
+          height: 60px !important;
+          margin-left: -30px !important;
+          margin-top: -30px !important;
+          border-color: red !important;
+        }
+
         /* The Gentle Reveal Style */
         .page-preloader--reveal {
           backdrop-filter: blur(20px);
