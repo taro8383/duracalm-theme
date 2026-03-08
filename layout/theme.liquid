@@ -675,31 +675,39 @@
         assign preloader_style = settings.preloader_style | default: 'breath'
       -%}
 
+      {%- liquid
+        assign reveal_message = 'Welcome'
+        if preloader_style == 'reveal'
+          assign display_message = reveal_message
+        else
+          assign display_message = preloader_message
+        endif
+      -%}
+
       <div id="page-preloader" class="page-preloader page-preloader--{{ preloader_style }}" style="--preloader-bg: {{ preloader_bg }}; --preloader-accent: {{ preloader_accent }};" data-show-once="{{ settings.preloader_show_once }}" data-duration="{{ preloader_duration }}">
         <div class="page-preloader__content">
-          {%- if preloader_logo != blank -%}
-            <div class="page-preloader__logo-wrapper">
-              <img src="{{ preloader_logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="page-preloader__logo" width="200" height="auto" loading="eager" fetchpriority="high">
-
-              {%- if preloader_style == 'breath' -%}
+          {%- if preloader_style == 'breath' -%}
+            {%- if preloader_logo != blank -%}
+              <div class="page-preloader__logo-wrapper page-preloader__logo-wrapper--breath">
                 <div class="page-preloader__halo-container">
                   <div class="page-preloader__halo"></div>
                   <div class="page-preloader__halo page-preloader__halo--secondary"></div>
                 </div>
-              {%- endif -%}
-            </div>
+                <img src="{{ preloader_logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="page-preloader__logo" width="200" height="auto" loading="eager" fetchpriority="high">
+              </div>
+            {%- endif -%}
           {%- endif -%}
 
           {%- if preloader_style == 'ripple' -%}
             <div class="page-preloader__logo-with-ripples">
-              {%- if preloader_logo != blank -%}
-                <img src="{{ preloader_logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="page-preloader__logo page-preloader__logo--ripple" width="200" height="auto" loading="eager" fetchpriority="high">
-              {%- endif -%}
               <div class="page-preloader__ripples">
                 <div class="page-preloader__ripple"></div>
                 <div class="page-preloader__ripple"></div>
                 <div class="page-preloader__ripple"></div>
               </div>
+              {%- if preloader_logo != blank -%}
+                <img src="{{ preloader_logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="page-preloader__logo page-preloader__logo--ripple" width="200" height="auto" loading="eager" fetchpriority="high">
+              {%- endif -%}
             </div>
           {%- endif -%}
 
@@ -711,8 +719,8 @@
             {%- endif -%}
           {%- endif -%}
 
-          {%- if preloader_message != blank -%}
-            <p class="page-preloader__message">{{ preloader_message }}</p>
+          {%- if display_message != blank -%}
+            <p class="page-preloader__message{% if preloader_style == 'reveal' %} page-preloader__message--reveal{% endif %}">{{ display_message }}</p>
           {%- endif -%}
 
           {%- if preloader_style == 'breath' or preloader_style == 'ripple' or preloader_style == 'reveal' -%}
@@ -780,11 +788,36 @@
         }
 
         /* The Calming Breath Style */
+        .page-preloader__logo-wrapper--breath {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 220px;
+          height: 220px;
+        }
+
+        .page-preloader--breath .page-preloader__halo-container {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 280px;
+          height: 280px;
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .page-preloader--breath .page-preloader__logo {
+          position: relative;
+          z-index: 2;
+          max-width: 180px;
+        }
+
         .page-preloader--breath .page-preloader__halo {
           position: absolute;
           top: 50%;
           left: 50%;
-          transform: translate(-50%, -50%) scale(1);
           width: 250px;
           height: 250px;
           border-radius: 50%;
@@ -792,7 +825,9 @@
           opacity: 0.5;
           filter: blur(30px);
           animation: preloaderBreath 3s ease-in-out infinite;
-          z-index: 1;
+          transform-origin: center center;
+          margin-left: -125px;
+          margin-top: -125px;
         }
 
         .page-preloader--breath .page-preloader__halo--secondary {
@@ -801,32 +836,29 @@
           filter: blur(50px);
           width: 300px;
           height: 300px;
+          margin-left: -150px;
+          margin-top: -150px;
         }
 
         @keyframes preloaderBreath {
           0%, 100% {
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: scale(0.8);
             opacity: 0.6;
           }
           50% {
-            transform: translate(-50%, -50%) scale(1.2);
-            opacity: 0.3;
+            transform: scale(1.2);
+            opacity: 0.2;
           }
         }
 
         /* The Ripple Effect Style */
         .page-preloader__logo-with-ripples {
           position: relative;
-          display: inline-block;
-          width: 200px;
-          height: 200px;
-        }
-
-        .page-preloader__logo--ripple {
-          position: relative;
-          z-index: 2;
-          max-width: 180px;
-          margin-top: 10px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 220px;
+          height: 220px;
         }
 
         .page-preloader--ripple .page-preloader__ripples {
@@ -834,9 +866,15 @@
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 180px;
-          height: 180px;
-          z-index: 1;
+          width: 200px;
+          height: 200px;
+          z-index: 0;
+        }
+
+        .page-preloader__logo--ripple {
+          position: relative;
+          z-index: 2;
+          max-width: 180px;
         }
 
         .page-preloader--ripple .page-preloader__ripple {
@@ -845,11 +883,12 @@
           left: 0;
           width: 100%;
           height: 100%;
-          border: 2px solid var(--preloader-accent, #7B92C8);
+          border: 3px solid var(--preloader-accent, #7B92C8);
           border-radius: 50%;
           opacity: 0;
-          animation: preloaderRipple 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+          animation: preloaderRipple 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
           pointer-events: none;
+          transform-origin: center center;
         }
 
         .page-preloader--ripple .page-preloader__ripple:nth-child(1) {
@@ -857,20 +896,20 @@
         }
 
         .page-preloader--ripple .page-preloader__ripple:nth-child(2) {
-          animation-delay: 1s;
+          animation-delay: 0.8s;
         }
 
         .page-preloader--ripple .page-preloader__ripple:nth-child(3) {
-          animation-delay: 2s;
+          animation-delay: 1.6s;
         }
 
         @keyframes preloaderRipple {
           0% {
-            transform: scale(0.5);
-            opacity: 0.8;
+            transform: scale(0.3);
+            opacity: 1;
           }
           100% {
-            transform: scale(1.8);
+            transform: scale(1.5);
             opacity: 0;
           }
         }
@@ -936,34 +975,33 @@
 
         /* Progress Bar */
         .page-preloader__progress {
-          width: 150px;
+          width: 180px;
           height: 4px;
-          background: rgba(123, 146, 200, 0.2);
+          background: rgba(123, 146, 200, 0.15);
           border-radius: 4px;
           margin: 2rem auto 0;
           overflow: hidden;
+          position: relative;
         }
 
         .page-preloader__progress-bar {
           height: 100%;
-          background: linear-gradient(90deg, var(--preloader-accent, #7B92C8), #a8b8e0);
-          width: 30%;
+          background: linear-gradient(90deg, var(--preloader-accent, #7B92C8), #a8b8e0, var(--preloader-accent, #7B92C8));
+          background-size: 200% 100%;
+          width: 50%;
           border-radius: 4px;
-          animation: preloaderProgress 2s ease-in-out infinite;
-          box-shadow: 0 0 10px rgba(123, 146, 200, 0.5);
+          animation: preloaderProgress 1.8s ease-in-out infinite;
+          box-shadow: 0 0 12px rgba(123, 146, 200, 0.6);
+          position: absolute;
+          left: 0;
         }
 
         @keyframes preloaderProgress {
           0% {
             transform: translateX(-100%);
-            width: 40%;
-          }
-          50% {
-            width: 60%;
           }
           100% {
-            transform: translateX(250%);
-            width: 40%;
+            transform: translateX(360%);
           }
         }
 
