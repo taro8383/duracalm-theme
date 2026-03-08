@@ -821,7 +821,7 @@
           50% { transform: scale(1.2); opacity: 0.4; }
         }
 
-        /* The Ripple Effect Style */
+        /* The Ripple Effect Style v2 - Smaller */
         .page-preloader__logo-with-ripples {
           position: relative;
           width: 200px;
@@ -836,8 +836,8 @@
           transform: translate(-50%, -50%) !important;
           z-index: 0 !important;
           pointer-events: none !important;
-          width: 120px !important;
-          height: 120px !important;
+          width: 80px !important;
+          height: 80px !important;
           display: block !important;
           visibility: visible !important;
         }
@@ -854,10 +854,10 @@
           position: absolute !important;
           top: 50% !important;
           left: 50% !important;
-          width: 100px !important;
-          height: 100px !important;
-          margin-left: -50px !important;
-          margin-top: -50px !important;
+          width: 60px !important;
+          height: 60px !important;
+          margin-left: -30px !important;
+          margin-top: -30px !important;
           border: 2px solid rgba(123, 146, 200, 0.8) !important;
           border-radius: 50% !important;
           animation: ripplePulse 1.5s ease-out infinite !important;
@@ -869,8 +869,8 @@
         .page-preloader--ripple .page-preloader__ripple:nth-child(3) { animation-delay: 1s; }
 
         @keyframes ripplePulse {
-          0% { transform: scale(0.6); opacity: 1; }
-          100% { transform: scale(1.4); opacity: 0; }
+          0% { transform: scale(0.5); opacity: 1; }
+          100% { transform: scale(2); opacity: 0; }
         }
 
         /* The Gentle Reveal Style */
