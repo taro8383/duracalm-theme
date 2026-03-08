@@ -844,6 +844,7 @@
         }
 
         .page-preloader--ripple .page-preloader__ripple {
+          display: block !important;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -939,15 +940,9 @@
           display: block !important;
           height: 100%;
           background: linear-gradient(90deg, var(--preloader-accent, #7B92C8), #a8b8e0);
-          width: 30%;
+          width: 0%;
           border-radius: 4px;
-          animation: slideProgress 1.5s ease-in-out infinite;
-        }
-
-        @keyframes slideProgress {
-          0% { transform: translateX(-100%); }
-          50% { transform: translateX(200%); }
-          100% { transform: translateX(400%); }
+          transition: width 0.3s ease-out;
         }
 
         /* Skip Button */
@@ -1022,6 +1017,62 @@
             return;
           }
 
+          // Progress bar tracking
+          var progressBar = preloader.querySelector('.page-preloader__progress-bar');
+          var totalResources = 0;
+          var loadedResources = 0;
+
+          function updateProgress() {
+            if (progressBar && totalResources > 0) {
+              var percent = Math.min((loadedResources / totalResources) * 100, 100);
+              progressBar.style.width = percent + '%';
+            }
+          }
+
+          // Track image loading
+          var images = document.querySelectorAll('img');
+          totalResources += images.length;
+          images.forEach(function(img) {
+            if (img.complete) {
+              loadedResources++;
+              updateProgress();
+            } else {
+              img.addEventListener('load', function() {
+                loadedResources++;
+                updateProgress();
+              });
+              img.addEventListener('error', function() {
+                loadedResources++;
+                updateProgress();
+              });
+            }
+          });
+
+          // Track other resources (scripts, stylesheets)
+          var scripts = document.querySelectorAll('script[src]');
+          var links = document.querySelectorAll('link[rel="stylesheet"]');
+          totalResources += scripts.length + links.length;
+
+          // Update progress as page loads
+          window.addEventListener('load', function() {
+            loadedResources = totalResources;
+            updateProgress();
+            setTimeout(hidePreloader, 500);
+          });
+
+          // Minimum progress animation
+          var minProgress = 0;
+          var progressInterval = setInterval(function() {
+            if (minProgress < 30) {
+              minProgress += 2;
+              if (progressBar && loadedResources === 0) {
+                progressBar.style.width = minProgress + '%';
+              }
+            } else {
+              clearInterval(progressInterval);
+            }
+          }, 100);
+
           // Skip button functionality
           var skipBtn = preloader.querySelector('.page-preloader__skip');
           if (skipBtn) {
@@ -1047,13 +1098,6 @@
                 }
               }, 600);
             }, remaining);
-          }
-
-          // Hide when page is fully loaded
-          if (document.readyState === 'complete') {
-            hidePreloader();
-          } else {
-            window.addEventListener('load', hidePreloader);
           }
 
           // Fallback: hide after max 5 seconds regardless
