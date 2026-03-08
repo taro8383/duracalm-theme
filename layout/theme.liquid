@@ -684,7 +684,7 @@
         endif
       -%}
 
-      <div id="page-preloader" class="page-preloader page-preloader--{{ preloader_style }}" style="--preloader-bg: {{ preloader_bg }}; --preloader-accent: {{ preloader_accent }};" data-show-once="{{ settings.preloader_show_once }}" data-duration="{{ preloader_duration }}">
+      <div id="page-preloader" class="page-preloader page-preloader--{{ preloader_style }}" style="--preloader-bg: {{ preloader_bg }}; --preloader-accent: {{ preloader_accent }};" data-show-once="{{ settings.preloader_show_once }}" data-duration="{{ preloader_duration }}" data-style="{{ preloader_style }}">
         <div class="page-preloader__content">
           {%- if preloader_style == 'breath' -%}
             {%- if preloader_logo != blank -%}
@@ -1058,7 +1058,10 @@
       <script>
         (function() {
           var preloader = document.getElementById('page-preloader');
-          if (!preloader) return;
+          if (!preloader) {
+            console.log('[Preloader] Element not found');
+            return;
+          }
 
           var showOnce = preloader.dataset.showOnce === 'true';
           var alwaysShow = {{ settings.preloader_always_show | default: false }};
@@ -1066,11 +1069,16 @@
           var startTime = Date.now();
           var hasShown = sessionStorage.getItem('preloaderShown');
 
+          console.log('[Preloader] Init - showOnce:', showOnce, 'alwaysShow:', alwaysShow, 'hasShown:', hasShown);
+
           // Skip if already shown this session (unless alwaysShow is enabled for testing)
           if (showOnce && hasShown && !alwaysShow) {
+            console.log('[Preloader] Skipping (already shown this session)');
             preloader.classList.add('page-preloader--hidden');
             return;
           }
+
+          console.log('[Preloader] Showing - style: {{ preloader_style }}');
 
           // Skip button functionality
           var skipBtn = preloader.querySelector('.page-preloader__skip');
