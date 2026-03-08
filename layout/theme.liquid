@@ -790,122 +790,99 @@
         /* The Calming Breath Style */
         .page-preloader__logo-wrapper--breath {
           position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 250px;
-          height: 250px;
+          width: 200px;
+          height: 200px;
+          margin: 0 auto;
         }
 
         .page-preloader--breath .page-preloader__halo-container {
           position: absolute;
-          top: 0;
-          left: 0;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           width: 100%;
           height: 100%;
-          z-index: 0;
-          pointer-events: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          z-index: 1;
         }
 
         .page-preloader--breath .page-preloader__logo {
           position: relative;
           z-index: 2;
-          max-width: 180px;
+          max-width: 160px;
+          margin-top: 20px;
         }
 
         .page-preloader--breath .page-preloader__halo {
           position: absolute;
-          width: 220px;
-          height: 220px;
+          top: 50%;
+          left: 50%;
+          width: 200px;
+          height: 200px;
+          margin-left: -100px;
+          margin-top: -100px;
           border-radius: 50%;
           background: radial-gradient(circle, var(--preloader-accent, #7B92C8) 0%, transparent 70%);
-          filter: blur(25px);
-          animation: preloaderBreath 3s ease-in-out infinite;
-          opacity: 0.6;
+          filter: blur(20px);
+          animation: breath 2s ease-in-out infinite;
         }
 
         .page-preloader--breath .page-preloader__halo--secondary {
-          animation-delay: -1.5s;
-          width: 260px;
-          height: 260px;
-          filter: blur(40px);
-          opacity: 0.4;
+          animation-delay: 1s;
+          width: 240px;
+          height: 240px;
+          margin-left: -120px;
+          margin-top: -120px;
+          filter: blur(30px);
         }
 
-        @keyframes preloaderBreath {
-          0%, 100% {
-            transform: scale(0.7);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.1);
-            opacity: 0.25;
-          }
+        @keyframes breath {
+          0%, 100% { transform: scale(0.8); opacity: 0.6; }
+          50% { transform: scale(1.2); opacity: 0.3; }
         }
 
         /* The Ripple Effect Style */
         .page-preloader__logo-with-ripples {
           position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 250px;
-          height: 250px;
+          width: 200px;
+          height: 200px;
+          margin: 0 auto;
         }
 
         .page-preloader--ripple .page-preloader__ripples {
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 180px;
+          height: 180px;
+          z-index: 1;
         }
 
         .page-preloader__logo--ripple {
           position: relative;
           z-index: 2;
-          max-width: 160px;
+          max-width: 140px;
+          margin-top: 30px;
         }
 
         .page-preloader--ripple .page-preloader__ripple {
           position: absolute;
-          width: 180px;
-          height: 180px;
-          border: 3px solid var(--preloader-accent, #7B92C8);
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 2px solid var(--preloader-accent, #7B92C8);
           border-radius: 50%;
-          animation: preloaderRipple 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-          pointer-events: none;
-          opacity: 0.8;
+          animation: ripple 1.5s ease-out infinite;
         }
 
-        .page-preloader--ripple .page-preloader__ripple:nth-child(1) {
-          animation-delay: 0s;
-        }
+        .page-preloader--ripple .page-preloader__ripple:nth-child(1) { animation-delay: 0s; }
+        .page-preloader--ripple .page-preloader__ripple:nth-child(2) { animation-delay: 0.5s; }
+        .page-preloader--ripple .page-preloader__ripple:nth-child(3) { animation-delay: 1s; }
 
-        .page-preloader--ripple .page-preloader__ripple:nth-child(2) {
-          animation-delay: 0.66s;
-        }
-
-        .page-preloader--ripple .page-preloader__ripple:nth-child(3) {
-          animation-delay: 1.33s;
-        }
-
-        @keyframes preloaderRipple {
-          0% {
-            transform: scale(0.5);
-            opacity: 0.8;
-          }
-          100% {
-            transform: scale(1.6);
-            opacity: 0;
-          }
+        @keyframes ripple {
+          0% { transform: scale(0.8); opacity: 1; }
+          100% { transform: scale(1.5); opacity: 0; }
         }
 
         /* The Gentle Reveal Style */
@@ -970,9 +947,9 @@
         /* Progress Bar */
         .page-preloader__progress {
           width: 180px;
-          height: 4px;
+          height: 6px;
           background: rgba(123, 146, 200, 0.2);
-          border-radius: 4px;
+          border-radius: 3px;
           margin: 2rem auto 0;
           overflow: hidden;
           position: relative;
@@ -982,24 +959,13 @@
           height: 100%;
           background: linear-gradient(90deg, var(--preloader-accent, #7B92C8), #a8b8e0);
           width: 0%;
-          border-radius: 4px;
-          animation: preloaderProgress 2s ease-in-out infinite;
-          box-shadow: 0 0 10px rgba(123, 146, 200, 0.5);
+          border-radius: 3px;
+          animation: fillProgress 1.5s ease-out forwards;
         }
 
-        @keyframes preloaderProgress {
-          0% {
-            width: 0%;
-            opacity: 1;
-          }
-          50% {
-            width: 70%;
-            opacity: 1;
-          }
-          100% {
-            width: 100%;
-            opacity: 0.5;
-          }
+        @keyframes fillProgress {
+          0% { width: 0%; }
+          100% { width: 100%; }
         }
 
         /* Skip Button */
