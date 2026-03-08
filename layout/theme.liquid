@@ -700,10 +700,10 @@
 
           {%- if preloader_style == 'ripple' -%}
             <div class="page-preloader__logo-with-ripples">
-              <div class="page-preloader__ripples">
-                <div class="page-preloader__ripple"></div>
-                <div class="page-preloader__ripple"></div>
-                <div class="page-preloader__ripple"></div>
+              <div class="page-preloader__ripples" style="position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 80px !important; height: 80px !important; z-index: 0 !important; pointer-events: none !important;">
+                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 60px !important; height: 60px !important; margin-left: -30px !important; margin-top: -30px !important; border: 3px solid red !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
+                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 60px !important; height: 60px !important; margin-left: -30px !important; margin-top: -30px !important; border: 3px solid red !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; animation-delay: 0.5s !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
+                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 60px !important; height: 60px !important; margin-left: -30px !important; margin-top: -30px !important; border: 3px solid red !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; animation-delay: 1s !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
               </div>
               {%- if preloader_logo != blank -%}
                 <img src="{{ preloader_logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="page-preloader__logo page-preloader__logo--ripple" width="200" height="auto" loading="eager" fetchpriority="high">
