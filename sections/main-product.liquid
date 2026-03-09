@@ -256,6 +256,10 @@
       position: relative;
       display: block;
       min-height: calc(var(--title-size, 24px) * 1.4);
+    }
+
+    /* Font family only applies to benefit text, not product title */
+    #ProductInfo-{{ section.id }} .title-cycler__benefit {
       font-family: var(--cycler-font-family, inherit);
     }
 
@@ -2559,8 +2563,8 @@
         {
           "type": "text",
           "id": "cycler_font_family",
-          "label": "Font family",
-          "info": "Optional custom font (e.g., 'Playfair Display', serif). Leave empty for theme default."
+          "label": "Benefit text font family",
+          "info": "Custom font for the benefit text only (e.g., 'Playfair Display', serif). Product title keeps theme default. Leave empty for theme default."
         },
         {
           "type": "range",
