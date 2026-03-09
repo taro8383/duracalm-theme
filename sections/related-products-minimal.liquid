@@ -99,8 +99,13 @@
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .grid__item {
+      {% if section.settings.columns_mobile == '2' %}
+      width: calc(50% - {{ section.settings.grid_column_gap | default: 24 | divided_by: 2 }}px);
+      max-width: calc(50% - {{ section.settings.grid_column_gap | default: 24 | divided_by: 2 }}px);
+      {% else %}
       width: {{ section.settings.compact_card_width_mobile | default: 160 }}px;
       max-width: {{ section.settings.compact_card_width_mobile | default: 160 }}px;
+      {% endif %}
     }
   }
 
