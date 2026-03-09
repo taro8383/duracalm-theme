@@ -397,8 +397,25 @@
         "grid_alignment": "stretch"
       }
     },
+    "related_products_minimal_iCXd7Y": {
+      "type": "related-products-minimal",
+      "name": "Related products minimal",
+      "settings": {
+        "title": "You may also need",
+        "heading_size_class": "h3",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "heading_color": "#121212",
+        "products_to_show": 2,
+        "color_scheme": "accent-2",
+        "section_background_color": "#f5e6d3",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "display_id": false,
         "title": "You may also need",
@@ -918,6 +935,7 @@
   "order": [
     "b321ab88-2b59-4dba-bade-54885c874ca5",
     "main",
+    "related_products_minimal_iCXd7Y",
     "related-products",
     "8beb6911-28c6-482c-976a-e5421ad3e8df",
     "eba88da5-80ac-47fc-aa75-997cfe7b2e59",
