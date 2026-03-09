@@ -1,6 +1,18 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0">
 
 {%- style -%}
+  /* Font imports must be at top of stylesheet */
+  {% case section.settings.body_font_family %}
+    {% when 'merriweather' %}
+      @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+    {% when 'source_serif' %}
+      @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;400;600;700&display=swap');
+    {% when 'libre_baskerville' %}
+      @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+    {% when 'lora' %}
+      @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+  {% endcase %}
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.mobile_padding_top }}px;
     padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
@@ -203,22 +215,18 @@
       #image-with-text-{{ section.id }} .image-with-text__text.rte {
         font-family: "Merriweather", Georgia, serif;
       }
-      @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
     {% when 'source_serif' %}
       #image-with-text-{{ section.id }} .image-with-text__text.rte {
         font-family: "Source Serif Pro", Georgia, serif;
       }
-      @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;400;600;700&display=swap');
     {% when 'libre_baskerville' %}
       #image-with-text-{{ section.id }} .image-with-text__text.rte {
         font-family: "Libre Baskerville", Georgia, serif;
       }
-      @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
     {% when 'lora' %}
       #image-with-text-{{ section.id }} .image-with-text__text.rte {
         font-family: "Lora", Georgia, serif;
       }
-      @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
   {% endcase %}
 
   /* Text Color Hierarchy */

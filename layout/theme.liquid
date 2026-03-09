@@ -675,13 +675,8 @@
         assign preloader_style = settings.preloader_style | default: 'breath'
       -%}
 
-      {%- liquid
-        assign reveal_message = 'Welcome'
-        if preloader_style == 'reveal'
-          assign display_message = reveal_message
-        else
-          assign display_message = preloader_message
-        endif
+{%- liquid
+        assign display_message = preloader_message
       -%}
 
       <div id="page-preloader" class="page-preloader page-preloader--{{ preloader_style }}" style="--preloader-bg: {{ preloader_bg }}; --preloader-accent: {{ preloader_accent }};" data-show-once="{{ settings.preloader_show_once }}" data-duration="{{ preloader_duration }}" data-style="{{ preloader_style }}">
@@ -700,10 +695,10 @@
 
           {%- if preloader_style == 'ripple' -%}
             <div class="page-preloader__logo-with-ripples">
-              <div class="page-preloader__ripples" style="position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 80px !important; height: 80px !important; z-index: 0 !important; pointer-events: none !important;">
-                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 60px !important; height: 60px !important; margin-left: -30px !important; margin-top: -30px !important; border: 3px solid red !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
-                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 60px !important; height: 60px !important; margin-left: -30px !important; margin-top: -30px !important; border: 3px solid red !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; animation-delay: 0.5s !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
-                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 60px !important; height: 60px !important; margin-left: -30px !important; margin-top: -30px !important; border: 3px solid red !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; animation-delay: 1s !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
+              <div class="page-preloader__ripples" style="position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 400px !important; height: 400px !important; z-index: 0 !important; pointer-events: none !important;">
+                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 280px !important; height: 280px !important; margin-left: -140px !important; margin-top: -140px !important; border: 3px solid #7B92C8 !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
+                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 280px !important; height: 280px !important; margin-left: -140px !important; margin-top: -140px !important; border: 3px solid #7B92C8 !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; animation-delay: 0.5s !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
+                <div class="page-preloader__ripple" style="display: block !important; position: absolute !important; top: 50% !important; left: 50% !important; width: 280px !important; height: 280px !important; margin-left: -140px !important; margin-top: -140px !important; border: 3px solid #7B92C8 !important; border-radius: 50% !important; animation: ripplePulse 1.5s ease-out infinite !important; animation-delay: 1s !important; box-sizing: border-box !important; opacity: 1 !important;"></div>
               </div>
               {%- if preloader_logo != blank -%}
                 <img src="{{ preloader_logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="page-preloader__logo page-preloader__logo--ripple" width="200" height="auto" loading="eager" fetchpriority="high">
@@ -854,11 +849,11 @@
           position: absolute !important;
           top: 50% !important;
           left: 50% !important;
-          width: 60px !important;
-          height: 60px !important;
-          margin-left: -30px !important;
-          margin-top: -30px !important;
-          border: 2px solid red !important;
+          width: 280px !important;
+          height: 280px !important;
+          margin-left: -140px !important;
+          margin-top: -140px !important;
+          border: 2px solid #7B92C8 !important;
           border-radius: 50% !important;
           animation: ripplePulse 1.5s ease-out infinite !important;
           box-sizing: border-box !important;
@@ -869,27 +864,39 @@
         .page-preloader--ripple .page-preloader__ripple:nth-child(3) { animation-delay: 1s; }
 
         @keyframes ripplePulse {
-          0% { transform: scale(0.5); opacity: 1; }
-          100% { transform: scale(2); opacity: 0; }
+          0% { transform: scale(0.85); opacity: 1; }
+          100% { transform: scale(1.25); opacity: 0; }
         }
 
         /* Ultra-specific override for ripple sizing */
         #page-preloader.page-preloader--ripple .page-preloader__ripples {
-          width: 80px !important;
-          height: 80px !important;
+          width: 400px !important;
+          height: 400px !important;
         }
         #page-preloader.page-preloader--ripple .page-preloader__ripple {
-          width: 60px !important;
-          height: 60px !important;
-          margin-left: -30px !important;
-          margin-top: -30px !important;
-          border-color: red !important;
+          width: 280px !important;
+          height: 280px !important;
+          margin-left: -140px !important;
+          margin-top: -140px !important;
+          border-color: #7B92C8 !important;
+        }
+        #page-preloader.page-preloader--ripple .page-preloader__message {
+          margin-top: 8rem;
+        }
+        #page-preloader.page-preloader--ripple .page-preloader__progress {
+          margin-top: 4rem;
         }
 
         /* The Gentle Reveal Style */
         .page-preloader--reveal {
           backdrop-filter: blur(20px);
           background: rgba(245, 230, 211, 0.95);
+        }
+        #page-preloader.page-preloader--reveal .page-preloader__message {
+          margin-top: 2rem;
+        }
+        #page-preloader.page-preloader--reveal .page-preloader__progress {
+          margin-top: 1.5rem;
         }
 
         .page-preloader__logo-wrapper--reveal {
@@ -1025,60 +1032,203 @@
 
 
 
-          var showOnce = preloader.dataset.showOnce === 'true';
           var alwaysShow = {{ settings.preloader_always_show | default: false }};
           var minDuration = parseInt(preloader.dataset.duration) || 2000;
           var startTime = Date.now();
-          var hasShown = sessionStorage.getItem('preloaderShown');
 
-          // Skip if already shown this session (unless alwaysShow is enabled for testing)
-          if (showOnce && hasShown && !alwaysShow) {
+          // Per-page tracking: check if we've already shown on this specific page
+          var currentPath = window.location.pathname + window.location.search;
+          var lastShownPath = sessionStorage.getItem('preloaderLastPath');
+          var hasShownThisPage = (lastShownPath === currentPath);
+
+          // Skip if already shown on this specific page (unless alwaysShow is enabled)
+          if (hasShownThisPage && !alwaysShow) {
             preloader.classList.add('page-preloader--hidden');
             return;
           }
 
-          // Progress bar tracking
+          // Store current path as the last shown path
+          sessionStorage.setItem('preloaderLastPath', currentPath);
+
+          // Progress bar tracking - Comprehensive Asset Loading
           var progressBar = preloader.querySelector('.page-preloader__progress-bar');
           var totalResources = 0;
           var loadedResources = 0;
+          var trackedResources = new Set();
+          var progressAnimation = null;
+          var simulatedProgress = 0;
 
           function updateProgress() {
             if (progressBar && totalResources > 0) {
-              var percent = Math.min((loadedResources / totalResources) * 100, 100);
-              progressBar.style.width = percent + '%';
+              var actualPercent = Math.min((loadedResources / totalResources) * 100, 100);
+              // Blend actual progress with smooth animation
+              var displayPercent = Math.max(actualPercent, simulatedProgress);
+              progressBar.style.width = displayPercent + '%';
             }
           }
 
-          // Track image loading
-          var images = document.querySelectorAll('img');
-          totalResources += images.length;
-          images.forEach(function(img) {
-            if (img.complete) {
-              loadedResources++;
+          function trackResource(url) {
+            if (url && trackedResources.has(url)) return;
+            if (url) trackedResources.add(url);
+            loadedResources++;
+            simulatedProgress = Math.min((loadedResources / totalResources) * 100, 95);
+            updateProgress();
+          }
+
+          function smoothProgress() {
+            // Smooth animation towards target
+            if (simulatedProgress < 95) {
+              simulatedProgress += 0.5;
               updateProgress();
+              progressAnimation = requestAnimationFrame(smoothProgress);
+            }
+          }
+
+          // Collect all trackable resources
+          var allResources = [];
+
+          // Images (including background images from stylesheets)
+          var images = document.querySelectorAll('img[src], source[srcset]');
+          images.forEach(function(img) {
+            var src = img.src || img.srcset;
+            if (src) allResources.push({type: 'image', element: img, url: src});
+          });
+
+          // Scripts
+          var scripts = document.querySelectorAll('script[src]');
+          scripts.forEach(function(script) {
+            allResources.push({type: 'script', element: script, url: script.src});
+          });
+
+          // Stylesheets
+          var stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+          stylesheets.forEach(function(link) {
+            allResources.push({type: 'stylesheet', element: link, url: link.href});
+          });
+
+          // Fonts (from @font-face in stylesheets)
+          try {
+            var allFonts = document.fonts;
+            if (allFonts) {
+              allFonts.forEach(function(font) {
+                allResources.push({type: 'font', url: font.family});
+              });
+            }
+          } catch(e) {}
+
+          // Videos
+          var videos = document.querySelectorAll('video[src], video source[src]');
+          videos.forEach(function(video) {
+            var src = video.src || video.currentSrc;
+            if (src) allResources.push({type: 'video', element: video, url: src});
+          });
+
+          // Audio
+          var audios = document.querySelectorAll('audio[src], audio source[src]');
+          audios.forEach(function(audio) {
+            var src = audio.src || audio.currentSrc;
+            if (src) allResources.push({type: 'audio', element: audio, url: src});
+          });
+
+          // Iframes
+          var iframes = document.querySelectorAll('iframe[src]');
+          iframes.forEach(function(iframe) {
+            allResources.push({type: 'iframe', element: iframe, url: iframe.src});
+          });
+
+          // Object/embed tags
+          var objects = document.querySelectorAll('object[data], embed[src]');
+          objects.forEach(function(obj) {
+            var url = obj.data || obj.src;
+            if (url) allResources.push({type: 'object', element: obj, url: url});
+          });
+
+          // Track each resource
+          totalResources = Math.max(allResources.length, 10); // Minimum 10 for visual effect
+
+          allResources.forEach(function(resource) {
+            var element = resource.element;
+            if (!element) {
+              // Font tracking via document.fonts.ready
+              return;
+            }
+
+            // Check if already loaded
+            if (resource.type === 'image') {
+              if (element.complete) {
+                trackResource(resource.url);
+              } else {
+                element.addEventListener('load', function() { trackResource(resource.url); });
+                element.addEventListener('error', function() { trackResource(resource.url); });
+              }
+            } else if (resource.type === 'script') {
+              if (element.readyState === 'complete' || element.readyState === 'loaded') {
+                trackResource(resource.url);
+              } else {
+                element.addEventListener('load', function() { trackResource(resource.url); });
+                element.addEventListener('error', function() { trackResource(resource.url); });
+              }
+            } else if (resource.type === 'stylesheet') {
+              if (element.sheet) {
+                trackResource(resource.url);
+              } else {
+                element.addEventListener('load', function() { trackResource(resource.url); });
+                element.addEventListener('error', function() { trackResource(resource.url); });
+              }
+            } else if (resource.type === 'video' || resource.type === 'audio') {
+              if (element.readyState >= 3) {
+                trackResource(resource.url);
+              } else {
+                element.addEventListener('loadeddata', function() { trackResource(resource.url); });
+                element.addEventListener('error', function() { trackResource(resource.url); });
+              }
+            } else if (resource.type === 'iframe') {
+              if (element.contentDocument && element.contentDocument.readyState === 'complete') {
+                trackResource(resource.url);
+              } else {
+                element.addEventListener('load', function() { trackResource(resource.url); });
+                element.addEventListener('error', function() { trackResource(resource.url); });
+              }
             } else {
-              img.addEventListener('load', function() {
-                loadedResources++;
-                updateProgress();
-              });
-              img.addEventListener('error', function() {
-                loadedResources++;
-                updateProgress();
-              });
+              element.addEventListener('load', function() { trackResource(resource.url); });
+              element.addEventListener('error', function() { trackResource(resource.url); });
             }
           });
 
-          // Track other resources (scripts, stylesheets)
-          var scripts = document.querySelectorAll('script[src]');
-          var links = document.querySelectorAll('link[rel="stylesheet"]');
-          totalResources += scripts.length + links.length;
+          // Track fonts loading
+          if (document.fonts) {
+            document.fonts.ready.then(function() {
+              var fontCount = 0;
+              document.fonts.forEach(function() { fontCount++; });
+              for (var i = 0; i < fontCount; i++) {
+                trackResource('font-' + i);
+              }
+            });
+          }
 
-          // Update progress as page loads
+          // Start smooth animation
+          smoothProgress();
+
+          // Update progress as page fully loads
           window.addEventListener('load', function() {
+            cancelAnimationFrame(progressAnimation);
             loadedResources = totalResources;
+            simulatedProgress = 100;
             updateProgress();
-            setTimeout(hidePreloader, 500);
+            setTimeout(hidePreloader, 300);
           });
+
+          // Performance timing for more accurate tracking
+          if (window.performance && window.performance.timing) {
+            var timing = window.performance.timing;
+            var checkTiming = setInterval(function() {
+              if (timing.loadEventEnd > 0) {
+                clearInterval(checkTiming);
+                var totalTime = timing.loadEventEnd - timing.navigationStart;
+                // Adjust progress based on actual load time
+              }
+            }, 50);
+          }
 
           // Skip button functionality
           var skipBtn = preloader.querySelector('.page-preloader__skip');
@@ -1094,9 +1244,6 @@
 
             setTimeout(function() {
               preloader.classList.add('page-preloader--hidden');
-              if (showOnce) {
-                sessionStorage.setItem('preloaderShown', 'true');
-              }
 
               // Remove from DOM after animation
               setTimeout(function() {
