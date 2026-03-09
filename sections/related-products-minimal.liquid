@@ -326,21 +326,36 @@
     {% assign shown_products = 0 %}
     {% assign display_heading = false %}
 
-    {% comment %} Get recommended products {% endcomment %}
-    {% if recommendations.performed and recommendations.products_count > 0 %}
-      {% assign display_heading = true %}
-      {% for recommendation in recommendations.products %}
-        {% unless recommendation.tags contains 'collection-hidden' %}
-          {% assign shown_products = shown_products | plus: 1 %}
-        {% endunless %}
-      {% endfor %}
-    {% endif %}
+    {% comment %} Check for manually selected products first {% endcomment %}
+    {% assign manual_products = '' %}
+    {% assign manual_count = 0 %}
+    {% for block in section.blocks %}
+      {% if block.type == 'product' and block.settings.product != blank %}
+        {% assign manual_products = manual_products | append: block.settings.product | append: ',' %}
+        {% assign manual_count = manual_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
 
-    {% comment %} Fallback: If no recommendations, use collection products {% endcomment %}
-    {% if shown_products == 0 %}
+    {% if manual_count > 0 %}
       {% assign display_heading = true %}
-      {% assign fallback_products = collections.all.products | where: "id", product.id | reverse %}
-      {% assign shown_products = section.settings.products_to_show %}
+      {% assign shown_products = manual_count %}
+    {% else %}
+      {% comment %} Get recommended products {% endcomment %}
+      {% if recommendations.performed and recommendations.products_count > 0 %}
+        {% assign display_heading = true %}
+        {% for recommendation in recommendations.products %}
+          {% unless recommendation.tags contains 'collection-hidden' %}
+            {% assign shown_products = shown_products | plus: 1 %}
+          {% endunless %}
+        {% endfor %}
+      {% endif %}
+
+      {% comment %} Fallback: If no recommendations, use collection products {% endcomment %}
+      {% if shown_products == 0 %}
+        {% assign display_heading = true %}
+        {% assign fallback_products = collections.all.products | where: "id", product.id | reverse %}
+        {% assign shown_products = section.settings.products_to_show %}
+      {% endif %}
     {% endif %}
 
     {% if display_heading %}
@@ -354,44 +369,15 @@
       {% endif %}
         {% assign product_index = 0 %}
 
-        {% comment %} Show recommended products first {% endcomment %}
-        {% if recommendations.performed and recommendations.products_count > 0 %}
-          {% for recommendation in recommendations.products %}
-            {% unless recommendation.tags contains 'collection-hidden' %}
-              <li class="grid__item {% unless section.settings.enable_minimal_layout %}animate-item animate-item--child{% endunless %}" {% unless section.settings.enable_minimal_layout %}style="--index:{{ product_index }};"{% endunless %}>
-                {% render 'card-product',
-                  card_product: recommendation,
-                  media_aspect_ratio: section.settings.image_ratio,
-                  show_secondary_image: section.settings.show_secondary_image,
-                  show_vendor: section.settings.show_vendor,
-                  show_quick_add: section.settings.enable_quick_add,
-                  show_rating: section.settings.show_rating,
-                  lazy_load: true
-                %}
-              </li>
-              {% assign product_index = product_index | plus: 1 %}
-            {% endunless %}
-          {% endfor %}
-        {% endif %}
-
-        {% comment %} Fill remaining slots with collection products {% endcomment %}
-        {% assign target_count = section.settings.products_to_show %}
-        {% if product_index < target_count %}
-          {% assign needed = target_count | minus: product_index %}
-          {% assign current_id = product.id %}
-          {% assign added = 0 %}
-          {% for coll_product in collections.all.products limit: 30 %}
-            {% if added < needed and coll_product.id != current_id %}
-              {% assign already_in_list = false %}
-              {% for rec in recommendations.products %}
-                {% if rec.id == coll_product.id %}
-                  {% assign already_in_list = true %}
-                {% endif %}
-              {% endfor %}
-              {% unless already_in_list or coll_product.tags contains 'collection-hidden' %}
-                <li class="grid__item {% unless section.settings.enable_minimal_layout %}animate-item animate-item--child{% endunless %}" {% unless section.settings.enable_minimal_layout %}style="--index:{{ product_index }};"{% endunless %}>
+        {% comment %} Show manual products first if available {% endcomment %}
+        {% if manual_count > 0 %}
+          {% for block in section.blocks %}
+            {% if block.type == 'product' and block.settings.product != blank %}
+              {% assign manual_product = all_products[block.settings.product] %}
+              {% if manual_product != blank %}
+                <li class="grid__item {% unless section.settings.enable_minimal_layout %}animate-item animate-item--child{% endunless %}" {% unless section.settings.enable_minimal_layout %}style="--index:{{ product_index }};"{% endunless %} {{ block.shopify_attributes }}>
                   {% render 'card-product',
-                    card_product: coll_product,
+                    card_product: manual_product,
                     media_aspect_ratio: section.settings.image_ratio,
                     show_secondary_image: section.settings.show_secondary_image,
                     show_vendor: section.settings.show_vendor,
@@ -401,10 +387,62 @@
                   %}
                 </li>
                 {% assign product_index = product_index | plus: 1 %}
-                {% assign added = added | plus: 1 %}
-              {% endunless %}
+              {% endif %}
             {% endif %}
           {% endfor %}
+        {% else %}
+          {% comment %} Show recommended products {% endcomment %}
+          {% if recommendations.performed and recommendations.products_count > 0 %}
+            {% for recommendation in recommendations.products %}
+              {% unless recommendation.tags contains 'collection-hidden' %}
+                <li class="grid__item {% unless section.settings.enable_minimal_layout %}animate-item animate-item--child{% endunless %}" {% unless section.settings.enable_minimal_layout %}style="--index:{{ product_index }};"{% endunless %}>
+                  {% render 'card-product',
+                    card_product: recommendation,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_quick_add: section.settings.enable_quick_add,
+                    show_rating: section.settings.show_rating,
+                    lazy_load: true
+                  %}
+                </li>
+                {% assign product_index = product_index | plus: 1 %}
+              {% endunless %}
+            {% endfor %}
+          {% endif %}
+
+          {% comment %} Fill remaining slots with collection products {% endcomment %}
+          {% assign target_count = section.settings.products_to_show %}
+          {% if product_index < target_count %}
+            {% assign needed = target_count | minus: product_index %}
+            {% assign current_id = product.id %}
+            {% assign added = 0 %}
+            {% for coll_product in collections.all.products limit: 30 %}
+              {% if added < needed and coll_product.id != current_id %}
+                {% assign already_in_list = false %}
+                {% for rec in recommendations.products %}
+                  {% if rec.id == coll_product.id %}
+                    {% assign already_in_list = true %}
+                  {% endif %}
+                {% endfor %}
+                {% unless already_in_list or coll_product.tags contains 'collection-hidden' %}
+                  <li class="grid__item {% unless section.settings.enable_minimal_layout %}animate-item animate-item--child{% endunless %}" {% unless section.settings.enable_minimal_layout %}style="--index:{{ product_index }};"{% endunless %}>
+                    {% render 'card-product',
+                      card_product: coll_product,
+                      media_aspect_ratio: section.settings.image_ratio,
+                      show_secondary_image: section.settings.show_secondary_image,
+                      show_vendor: section.settings.show_vendor,
+                      show_quick_add: section.settings.enable_quick_add,
+                      show_rating: section.settings.show_rating,
+                      lazy_load: true
+                    %}
+                  </li>
+                  {% assign product_index = product_index | plus: 1 %}
+                  {% assign added = added | plus: 1 %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
         {% endif %}
       </ul>
     {% endif %}
@@ -1009,6 +1047,19 @@
       "default": 0,
       "unit": "px",
       "label": "Margin right"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
     }
   ],
   "presets": [
