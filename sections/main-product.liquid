@@ -3,6 +3,23 @@
   class="page-width section-{{ section.id }}-padding"
   data-section="{{ section.id }}"
 >
+  {%- comment -%}Load Google Fonts for title cycler if needed{%- endcomment -%}
+  {%- assign fonts_to_load = '' -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'title' and block.settings.cycler_font_family != blank -%}
+      {%- assign font_family = block.settings.cycler_font_family | split: "'" | slice: 1 | first -%}
+      {%- if font_family != blank and fonts_to_load == '' -%}
+        {%- assign fonts_to_load = font_family -%}
+      {%- elsif font_family != blank -%}
+        {%- assign fonts_to_load = fonts_to_load | append: '|' | append: font_family -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if fonts_to_load != '' -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family={{ fonts_to_load | url_encode }}:wght@400;500;600;700&display=swap" rel="stylesheet">
+  {%- endif -%}
   {%- style -%}
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.mobile_padding_top }}px;
@@ -2561,10 +2578,28 @@
           "info": "Size of benefit text relative to product name"
         },
         {
-          "type": "text",
+          "type": "select",
           "id": "cycler_font_family",
           "label": "Benefit text font family",
-          "info": "Custom font for the benefit text only (e.g., 'Playfair Display', serif). Product title keeps theme default. Leave empty for theme default."
+          "info": "Select a Google Font for the benefit text. Product title keeps theme default.",
+          "options": [
+            { "value": "", "label": "Theme default (inherit)" },
+            { "value": "'Playfair Display', serif", "label": "Playfair Display (Elegant Serif)" },
+            { "value": "'Cormorant Garamond', serif", "label": "Cormorant Garamond (Refined Serif)" },
+            { "value": "'Montserrat', sans-serif", "label": "Montserrat (Modern Sans)" },
+            { "value": "'Cinzel', serif", "label": "Cinzel (Luxury Display)" },
+            { "value": "'Lato', sans-serif", "label": "Lato (Clean Sans)" },
+            { "value": "'Raleway', sans-serif", "label": "Raleway (Sophisticated Sans)" },
+            { "value": "'Libre Baskerville', serif", "label": "Libre Baskerville (Classic Serif)" },
+            { "value": "'Italiana', serif", "label": "Italiana (High-End Display)" },
+            { "value": "'Barlow Condensed', sans-serif", "label": "Barlow Condensed (Bold Condensed)" },
+            { "value": "'Tenor Sans', sans-serif", "label": "Tenor Sans (Premium Sans)" },
+            { "value": "'Great Vibes', cursive", "label": "Great Vibes (Signature Script)" },
+            { "value": "'Prata', serif", "label": "Prata (Editorial Serif)" },
+            { "value": "'Josefin Sans', sans-serif", "label": "Josefin Sans (Geometric Sans)" },
+            { "value": "'Cormorant', serif", "label": "Cormorant (Elegant Light Serif)" }
+          ],
+          "default": ""
         },
         {
           "type": "range",
