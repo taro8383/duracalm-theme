@@ -399,18 +399,77 @@
     },
     "related_products_minimal_iCXd7Y": {
       "type": "related-products-minimal",
+      "blocks": {
+        "product_tYiqm3": {
+          "type": "product",
+          "settings": {
+            "product": "neuro-cool-system"
+          }
+        },
+        "product_jYFMW6": {
+          "type": "product",
+          "settings": {
+            "product": "rebound-breaker-system"
+          }
+        }
+      },
+      "block_order": [
+        "product_tYiqm3",
+        "product_jYFMW6"
+      ],
       "name": "Related products minimal",
       "settings": {
+        "display_id": false,
         "title": "You may also need",
-        "heading_size_class": "h3",
+        "title_highlight_color": "#6d388b",
         "heading_size": "h2",
+        "heading_text_size": 18,
+        "heading_font_family": "",
         "heading_alignment": "center",
         "heading_color": "#121212",
+        "heading_padding_top": 0,
+        "heading_padding_bottom": 16,
+        "heading_padding_left": 0,
+        "heading_padding_right": 0,
+        "heading_margin_top": 0,
+        "heading_margin_bottom": 0,
+        "heading_margin_left": 0,
+        "heading_margin_right": 0,
+        "enable_minimal_layout": true,
+        "compact_card_width": 200,
+        "compact_card_width_mobile": 160,
+        "card_title_size": 14,
+        "card_price_size": 13,
+        "card_border_radius": 8,
+        "card_text_alignment": "center",
         "products_to_show": 2,
+        "columns_desktop": 4,
         "color_scheme": "accent-2",
-        "section_background_color": "#f5e6d3",
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "quick_add_style": "default",
+        "columns_mobile": "2",
         "padding_top": 16,
-        "padding_bottom": 16
+        "padding_bottom": 56,
+        "section_background_color": "#f5e6d3",
+        "card_background_color": "#ddbea8",
+        "card_max_width": 0,
+        "card_width": 0,
+        "card_image_max_width": 0,
+        "auto_center_cards": false,
+        "grid_column_gap": 24,
+        "grid_row_gap": 0,
+        "card_padding_top": 0,
+        "card_padding_bottom": 0,
+        "card_padding_left": 0,
+        "card_padding_right": 0,
+        "card_margin_top": 0,
+        "card_margin_bottom": 0,
+        "card_margin_left": 0,
+        "card_margin_right": 0
       }
     },
     "related-products": {
