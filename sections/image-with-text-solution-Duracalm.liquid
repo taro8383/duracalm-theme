@@ -1360,6 +1360,74 @@
           "id": "open_in_new_tab",
           "label": "Open link in new tab",
           "default": false
+        },
+        {
+          "type": "select",
+          "id": "button_alignment",
+          "label": "Button alignment",
+          "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+          ],
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment (inside button)",
+          "options": [
+            {"value": "left", "label": "Left"},
+            {"value": "center", "label": "Center"},
+            {"value": "right", "label": "Right"}
+          ],
+          "default": "left"
+        },
+        {
+          "type": "range",
+          "id": "padding_horizontal",
+          "min": 10,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "label": "Padding horizontal",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "padding_vertical",
+          "min": 8,
+          "max": 30,
+          "step": 2,
+          "unit": "px",
+          "label": "Padding vertical",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin top",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin bottom",
+          "default": 0
+        },
+        {
+          "type": "checkbox",
+          "id": "full_width_mobile",
+          "label": "Full width on mobile",
+          "default": false
         }
       ]
     }
@@ -1368,21 +1436,79 @@
     {
       "name": "Image Text Solution",
       "settings": {
-        "layout": "text_first",
+        "height": "adapt",
+        "enable_rotating_images": true,
+        "image": "shopify://shop_images/after-g.webp",
+        "image_2": "shopify://shop_images/after-m.webp",
+        "rotation_interval": 5,
         "color_scheme": "custom",
-        "custom_colors_background": "#ddbea8"
+        "section_color_scheme": "custom",
+        "scrollable_text": true,
+        "full_desktop_width": true,
+        "content_layout": "no-overlap",
+        "desktop_media_width": 50,
+        "layout": "text_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_full_media_width": false,
+        "mobile_direction": "normal",
+        "mobile_image_quanlity": "2",
+        "mobile_content_alignment": "left",
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32,
+        "desktop_padding_top": 56,
+        "desktop_padding_bottom": 56,
+        "body_font_family": "merriweather",
+        "text_max_width": 65,
+        "line_height": 1.7,
+        "paragraph_spacing": 1.5,
+        "font_size_scale": 100,
+        "heading_text_color": "#121212",
+        "body_text_color": "#2e2a39",
+        "accent_text_color": "#7b92c8",
+        "enable_pull_quotes": true,
+        "pull_quote_font_scale": 125,
+        "pull_quote_line_height": 1.4,
+        "pull_quote_border_color": "#7b92c8",
+        "pull_quote_border_width": 4,
+        "pull_quote_padding": 24,
+        "pull_quote_bg_color": "rgba(0,0,0,0)",
+        "pull_quote_text_color": "#121212",
+        "pull_quote_margin_y": 24,
+        "pull_quote_quotation_marks": false,
+        "pull_quote_quotation_opacity": 20,
+        "icon_anchor_icon_size": 28,
+        "icon_anchor_icon_color": "#7b92c8",
+        "icon_anchor_icon_spacing": 12,
+        "icon_anchor_subhead_size": "medium",
+        "icon_anchor_subhead_weight": "700",
+        "icon_anchor_subhead_color": "#121212",
+        "icon_anchor_margin_top": 24,
+        "icon_anchor_margin_bottom": 8,
+        "icon_anchor_vertical_align": "center",
+        "custom_colors_background": "#ddbea8",
+        "custom_gradient_background": "",
+        "custom_colors_text": "#121212",
+        "custom_colors_solid_button_background": "#dd1d1d",
+        "custom_colors_solid_button_text": "#ffffff",
+        "custom_colors_outline_button": "#dd1d1d",
+        "custom_section_colors_background": "#ddbea8",
+        "custom_section_gradient_background": ""
       },
       "blocks": [
         {
           "type": "heading",
           "settings": {
-            "title": "Introducing the Duracalm protocol..."
+            "title": "<strong>Introducing the Duracalm protocol: The only </strong>pharmaceutically free <strong>\"hardware + software\" solution</strong>",
+            "title_highlight_color": "#121212",
+            "heading_size": "h2"
           }
         },
         {
           "type": "text",
           "settings": {
-            "text": "<p>After years of research and working with thousands of headache sufferers, we've developed a systematic approach that treats the root cause—not just the symptoms.</p><p>Our protocol combines three evidence-based systems that work together to break the cycle and restore your body's natural balance.</p>"
+            "text": "<p><strong>No magic gadgets. </strong></p><p>What's waiting for you are complete physiological systems, three specific protocols that combine clinical-grade physical devices (The Hardware) <strong>with neuro-behavioral digital therapies</strong> (The Software), each engineered to target the exact biological mechanism driving your agony.</p>",
+            "text_style": "body"
           }
         },
         {
@@ -1395,7 +1521,8 @@
         {
           "type": "text",
           "settings": {
-            "text": "<p>Targeted cold therapy that interrupts pain signals at the neurological level. Our specialized cap delivers precise cooling to the trigeminal nerve pathways, providing immediate relief while reducing inflammation.</p>"
+            "text": "<p><strong>The Neuro-Cool System™ (For the \"Sensory Storm\")</strong></p><p><strong>The Target:</strong> Neurovascular Inflammation &amp; Sensory Overload.</p><p><strong>The Hardware (Mechanism): </strong>Precision Thermal Modulation. </p><p>This physical system applies <strong>targeted cryotherapy</strong> to the cranial vascular network, mechanically constricting dilated blood vessels and numbing the inflamed nerve endings causing that throbbing sensation.</p><p><strong>The Software (Digital): </strong>The Sensory Reset Protocol. </p><p>A digital course built on <strong>Cognitive Behavioral Therapy (CBT)</strong> techniques proven to reduce headache frequency.</p><p>You'll learn how to <strong>turn down</strong> the volume on your brain's light sensitivity and spot triggers <strong>before</strong> they launch an attack.</p>",
+            "text_style": "body"
           }
         },
         {
@@ -1408,7 +1535,8 @@
         {
           "type": "text",
           "settings": {
-            "text": "<p>Most tension headaches originate in the suboccipital muscles at the base of your skull. Our precision tool releases these knots, restoring proper blood flow and relieving the pressure that causes referred head pain.</p>"
+            "text": "<p><strong>The Target:</strong> Myofascial Trigger Points &amp; \"Tech-Neck.\"</p><p><strong>The Hardware (Mechanism): </strong>Suboccipital Decompression. </p><p><strong>A pill cannot untie a knot</strong>. </p><p>This device uses gravity and leverage to <strong>deliver deep-tissue inhibition</strong> to the suboccipital muscles at the base of your skull, mechanically releasing the tension that is strangling your nerves.</p><p><strong>The Software (Digital): </strong>The \"Neck Armor\" Video Series. </p><p>Releasing the knot is <strong>temporary</strong>. Strengthening the muscle is <strong>permanent</strong>.</p><p>This video library walks you through the specific deep neck flexor exercises that research shows can reduce tension headache frequency <strong>by treating the root cause</strong>: muscle weakness.</p>",
+            "text_style": "body"
           }
         },
         {
@@ -1421,7 +1549,8 @@
         {
           "type": "text",
           "settings": {
-            "text": "<p>A guided detox protocol that safely transitions you away from medication overuse. Combined with our behavioral tools and sleep optimization system, it breaks the dependency cycle for good.</p>"
+            "text": "<p><strong>The Target: </strong>Central Sensitization &amp; Medication Overuse.</p><p><strong>The Hardware (Mechanism): </strong>Neural Gating Stimulation. </p><p>This physical system utilizes thousands of micro-contact points to flood your nervous system with safe sensory signals,<strong> activating the Gate Control Theory </strong>of pain to help override the loop without drugs.<br><strong>The Software (Digital): </strong>The Deep Sleep &amp; Detox Audio Protocol. </p><p>Studies prove that Behavioral Sleep Modification <strong>can revert chronic migraine </strong>back to episodic migraine in nearly 50% of patients. </p><p>The exact audio tracks and sleep hygiene protocols are here, ready to reset your pain threshold <strong>while your body detoxes from the pills</strong>.</p>",
+            "text_style": "body"
           }
         },
         {
@@ -1434,13 +1563,23 @@
         {
           "type": "text",
           "settings": {
-            "text": "<p>Ready to finally break free? Take our 2-minute assessment to discover which system matches your specific headache type.</p>"
+            "text": "<p><strong>Stop Guessing. Start Treating.</strong><br><br>Don't buy a single product yet.<br><br>First, find out exactly what is happening inside your nervous system. </p><p>Using the Myo-Release tools on a Migraine <strong>won't work </strong>— and using the Neuro-Cool system on a Rebound Headache means <strong>missing the root cause entirely</strong>.<br><br>A comprehensive Assessment Tool, built on the <strong>International Classification of Headache Disorders (ICHD-3), i</strong>s ready for you right now. </p><p><strong>It analyzes your symptoms</strong>, whether it's the nausea, the band-like pressure, or the pill usage, <strong>and tells you exactly which System fits your physiology</strong>. </p><p>It's free. It takes 2 minutes and it could save you from years of misery.<br><br><strong>Click the button below. </strong><br>Your brain will thank you.</p>",
+            "text_style": "body"
           }
         },
         {
           "type": "button_magic_mind",
           "settings": {
-            "button_label": "Take the quiz"
+            "button_label": "Take the quiz",
+            "button_link": "",
+            "open_in_new_tab": false,
+            "button_alignment": "center",
+            "text_alignment": "left",
+            "padding_horizontal": 32,
+            "padding_vertical": 14,
+            "margin_top": 50,
+            "margin_bottom": 0,
+            "full_width_mobile": false
           }
         }
       ]
