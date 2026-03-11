@@ -435,9 +435,9 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'heading' -%}
-                <h2 class="image-with-text__heading {{ block.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ block.settings.title_highlight_color }}' {{ block.shopify_attributes }} data-text-reveal>
+                <div class="image-with-text__heading {{ block.settings.heading_size }} title-with-highlight" style='--hightlight-color:{{ block.settings.title_highlight_color }}' {{ block.shopify_attributes }} data-text-reveal>
                   {{ block.settings.title }}
-                </h2>
+                </div>
               {%- when 'rating_stars' -%}
                 {% render 'rating-stars-block', block: block, margins: false, block_attributes: true %}
               {%- when 'trustpilot_stars' -%}
