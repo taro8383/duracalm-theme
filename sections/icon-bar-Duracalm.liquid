@@ -245,7 +245,7 @@
     {
       "type": "inline_richtext",
       "id": "title",
-      "default": "Clinically Proven Benefits",
+      "default": "Clinically Aligned",
       "label": "Heading",
       "info": "Bold certain words to highlight them with a different color."
     },
@@ -253,7 +253,7 @@
       "type": "color",
       "id": "title_highlight_color",
       "label": "Heading highlight color",
-      "default": "#6D388B"
+      "default": "#6d388b"
     },
     {
       "type": "select",
@@ -309,7 +309,7 @@
           "label": "Custom"
         }
       ],
-      "default": "background-1",
+      "default": "custom",
       "label": "Color scheme",
       "info": "Custom color scheme is edited at the bottom of section settings."
     },
@@ -414,9 +414,111 @@
           "label": "Custom"
         }
       ],
-      "default": "background-1",
+      "default": "bg-overlay",
       "label": "Cards color scheme",
       "info": "Custom color scheme is edited at the bottom of section settings."
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "paragraph",
+      "content": "ATTENTION: ONLY in the theme editor, pagination dots might duplicate after changing section settings. To overcome this, simply click Save. This has NO EFFECT on the published website."
+    },
+    {
+      "type": "select",
+      "id": "type",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Classic"
+        },
+        {
+          "value": "loop",
+          "label": "Infinite"
+        }
+      ],
+      "default": "loop",
+      "label": "Type"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 1,
+      "max": 15,
+      "step": 0.5,
+      "default": 5,
+      "unit": "sec",
+      "label": "Autoplay speed"
+    },
+    {
+      "type": "select",
+      "id": "arrows_color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Inverse"
+        }
+      ],
+      "default": "accent-1",
+      "label": "Arrows color scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_arrows",
+      "label": "Transparent arrows",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "dots_color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent-2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        },
+        {
+          "value": "inverse",
+          "label": "Text"
+        }
+      ],
+      "default": "accent-1",
+      "label": "Dots color"
     },
     {
       "type": "header",
@@ -434,8 +536,24 @@
       "min": 1,
       "max": 10,
       "step": 1,
-      "default": 4,
+      "default": 2,
       "label": "Columns desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_desktop",
+      "label": "Enable desktop slider",
+      "default": false,
+      "info": "The settings bellow are applied if this option is checked"
+    },
+    {
+      "type": "range",
+      "id": "per_move_desktop",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1,
+      "label": "Slides to scroll on one move"
     },
     {
       "type": "range",
@@ -446,6 +564,66 @@
       "unit": "px",
       "label": "Spacing",
       "default": 40
+    },
+    {
+      "type": "range",
+      "id": "desktop_side_padding",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Preview of prev & next slide",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_padding_calc",
+      "label": "Disable empty preview on first & last slide",
+      "default": true,
+      "info": "Moves the first slide to the left edge adn last one to the right if Preview value is enabled. Visible if type is set to Slider."
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_adaptive_height",
+      "label": "Adaptive height",
+      "default": false,
+      "info": "Only available if Slides per page is set to 1."
+    },
+    {
+      "type": "select",
+      "id": "desktop_dots_position",
+      "options": [
+        {
+          "value": "hidden",
+          "label": "Hidden"
+        },
+        {
+          "value": "under",
+          "label": "Under the slider"
+        }
+      ],
+      "default": "under",
+      "label": "Dots position"
+    },
+    {
+      "type": "select",
+      "id": "desktop_arrows_position",
+      "options": [
+        {
+          "value": "hidden",
+          "label": "Hidden"
+        },
+        {
+          "value": "under",
+          "label": "Under the slider"
+        },
+        {
+          "value": "sides",
+          "label": "On sides of the slider"
+        }
+      ],
+      "default": "sides",
+      "label": "Arrows position"
     },
     {
       "type": "header",
@@ -468,14 +646,59 @@
       "label": "Columns mobile"
     },
     {
-      "type": "range",
-      "id": "mobile_spacing",
-      "min": 0,
-      "max": 50,
-      "step": 2,
-      "unit": "px",
-      "label": "Spacing",
-      "default": 16
+      "type": "checkbox",
+      "id": "slider_mobile",
+      "label": "Enable mobile slider",
+      "default": true,
+      "info": "The settings bellow are applied if this option is checked"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_preview",
+      "label": "Preview of prev & next slides",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_adaptive_height",
+      "label": "Adaptive height",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "mobile_dots_position",
+      "options": [
+        {
+          "value": "hidden",
+          "label": "Hidden"
+        },
+        {
+          "value": "under",
+          "label": "Under the slider"
+        }
+      ],
+      "default": "under",
+      "label": "Dots position"
+    },
+    {
+      "type": "select",
+      "id": "mobile_arrows_position",
+      "options": [
+        {
+          "value": "hidden",
+          "label": "Hidden"
+        },
+        {
+          "value": "under",
+          "label": "Under the slider"
+        },
+        {
+          "value": "sides",
+          "label": "On sides of the slider"
+        }
+      ],
+      "default": "under",
+      "label": "Arrows position"
     },
     {
       "type": "header",
@@ -489,7 +712,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 36
+      "default": 56
     },
     {
       "type": "range",
@@ -499,7 +722,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 36
+      "default": 56
     },
     {
       "type": "header",
@@ -509,7 +732,7 @@
     {
       "type": "color",
       "id": "custom_colors_background",
-      "default": "#FFFFFF",
+      "default": "#f3dfc1",
       "label": "Background color"
     },
     {
@@ -532,7 +755,7 @@
     {
       "type": "color",
       "id": "custom_colors_text",
-      "default": "#2E2A39",
+      "default": "#2e2a39",
       "label": "Text"
     },
     {
@@ -543,7 +766,7 @@
     {
       "type": "color",
       "id": "custom_cards_colors_background",
-      "default": "#F3F3F3",
+      "default": "#ddbea8",
       "label": "Background color"
     },
     {
@@ -555,7 +778,7 @@
     {
       "type": "color",
       "id": "custom_cards_colors_text",
-      "default": "#2E2A39",
+      "default": "#2e2a39",
       "label": "Text"
     }
   ],
@@ -585,7 +808,7 @@
         {
           "type": "text",
           "id": "title",
-          "default": "Icon",
+          "default": "",
           "label": "Heading"
         },
         {
@@ -604,37 +827,37 @@
         {
           "type": "column",
           "settings": {
-            "icon": "science",
-            "filled_icon": true,
-            "title": "Clinically Tested",
-            "text": "<p>Proven effective in clinical studies for reducing stress and promoting calm</p>"
+            "icon": "check_circle",
+            "filled_icon": false,
+            "title": "",
+            "text": "<p>Our protocols are aligned with the <strong>International Classification of Headache Disorders (ICHD-3)</strong> criteria<br/><br/></p>"
           }
         },
         {
           "type": "column",
           "settings": {
-            "icon": "verified",
-            "filled_icon": true,
-            "title": "Doctor Formulated",
-            "text": "<p>Developed by leading neuroscientists and sleep specialists</p>"
+            "icon": "check_circle",
+            "filled_icon": false,
+            "title": "",
+            "text": "<p>We adhere to the <strong>Multimodal Treatment Strategy</strong> recommended for chronic and tension-type headaches.<br/><br/></p>"
           }
         },
         {
           "type": "column",
           "settings": {
-            "icon": "eco",
-            "filled_icon": true,
-            "title": "Natural Ingredients",
-            "text": "<p>Made with 100% natural, non-habit forming ingredients</p>"
+            "icon": "check_circle",
+            "filled_icon": false,
+            "title": "",
+            "text": "<p>Our assessment screens for <strong>\"Red Flag\"</strong> secondary headaches using the SNNOOP10 clinical criteria.<br/></p>"
           }
         },
         {
           "type": "column",
           "settings": {
-            "icon": "local_shipping",
-            "filled_icon": true,
-            "title": "Free Shipping",
-            "text": "<p>Free shipping on all orders over $50</p>"
+            "icon": "check_circle",
+            "filled_icon": false,
+            "title": "",
+            "text": "<p><strong>Grade A Biobehavioral Protocols</strong></p>"
           }
         }
       ]
